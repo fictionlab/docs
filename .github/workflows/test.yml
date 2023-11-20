@@ -1,4 +1,4 @@
-name: 
+name: Test
 
 on:
   push:
@@ -10,8 +10,8 @@ on:
       - development
 
 jobs:
-  test-deploy:
-    name: Test deployment
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
