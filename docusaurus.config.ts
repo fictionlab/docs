@@ -48,6 +48,11 @@ const config: Config = {
 
   themeConfig: {
     navbar: {
+      logo: {
+        alt: "fictionlab logo",
+        src: "img/fictionlab_logo_gray.svg",
+        srcDark: "img/fictionlab_logo_white.svg"
+      },
       items: [
         {
           type: 'docSidebar',
