@@ -11,7 +11,7 @@ const config: Config = {
   url: 'https://fictionlab.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/docs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -37,7 +37,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/fictionlab/fictionlab.github.io',
+            'https://github.com/fictionlab/docs/edit/development/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -61,7 +61,7 @@ const config: Config = {
           label: 'Tutorial',
         },
         {
-          href: 'https://github.com/fictionlab/fictionlab.github.io',
+          href: 'https://github.com/fictionlab/docs',
           label: 'GitHub',
           position: 'right',
         },
