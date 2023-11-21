@@ -55,10 +55,16 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
+          type: "dropdown",
+          label: "Robots",
+          position: "left",
+          items: [
+            {
+              type: 'docSidebar',
+              sidebarId: 'leoSidebar',
+              label: 'Leo Rover',
+            }
+          ]
         },
         {
           href: 'https://github.com/fictionlab/docs',
