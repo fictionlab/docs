@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
@@ -17,7 +17,7 @@ const config: Config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'fictionlab', // Usually your GitHub org/user name.
   projectName: 'fictionlab.github.io', // Usually your repo name.
-  deploymentBranch: "gh-pages",
+  deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -36,8 +36,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl:
-            'https://github.com/fictionlab/docs/edit/development/',
+          editUrl: 'https://github.com/fictionlab/docs/edit/development/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -49,22 +48,22 @@ const config: Config = {
   themeConfig: {
     navbar: {
       logo: {
-        alt: "fictionlab logo",
-        src: "img/fictionlab_logo_gray.svg",
-        srcDark: "img/fictionlab_logo_white.svg"
+        alt: 'fictionlab logo',
+        src: 'img/fictionlab_logo_gray.svg',
+        srcDark: 'img/fictionlab_logo_white.svg',
       },
       items: [
         {
-          type: "dropdown",
-          label: "Robots",
-          position: "left",
+          type: 'dropdown',
+          label: 'Robots',
+          position: 'left',
           items: [
             {
               type: 'docSidebar',
               sidebarId: 'leoSidebar',
               label: 'Leo Rover',
-            }
-          ]
+            },
+          ],
         },
         {
           href: 'https://github.com/fictionlab/docs',
