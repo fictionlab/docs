@@ -68,6 +68,21 @@ yarn start
 A new browser tab will open at http://localhost:3000, reflecting any changes
 made to the files.
 
+### Updating docusaurus
+
+To update Docusaurus correctly, execute the following command:
+
+```
+yarn upgrade @docusaurus -L
+```
+
+Next, remove the `yarn.lock` file along with the `node_modules` and `build` directories. After deletion, regenerate the necessary files with updated dependency versions by running:
+
+```
+yarn install
+```
+
+
 ## Editing the documentation
 
 ### Creating documents
