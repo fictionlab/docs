@@ -8,6 +8,7 @@ import Link from '@docusaurus/Link';
 import ThemedImage from '@theme/ThemedImage';
 
 import styles from './index.module.css';
+import { JSX } from 'react';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -35,13 +36,13 @@ function HomepageHeader() {
           <ThemedImage
             alt="Fictionlab logo"
             sources={{
-              light: useBaseUrl('/img/branding/fictionlab_logo_white.svg'),
-              dark: useBaseUrl('/img/branding/fictionlab_logo_gray.svg'),
+              light: useBaseUrl('/img/branding/logo/logotype_white.svg'),
+              dark: useBaseUrl('/img/branding/logo/logotype_grey.svg'),
             }}
-            width="300px"
+            width="350px"
             height="auto"
             loading="eager"
-            style={{ float: 'right', aspectRatio: '300/98' }}
+            style={{ float: 'right', aspectRatio: '350/114' }}
           />
         </div>
       </div>

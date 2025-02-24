@@ -1,4 +1,4 @@
-import { useRef, ComponentProps, RefCallback } from 'react';
+import { useRef, ComponentProps, RefCallback, JSX } from 'react';
 import mediumZoom, { Zoom } from 'medium-zoom';
 import styles from './styles.module.css';
 
