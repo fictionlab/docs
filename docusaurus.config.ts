@@ -8,8 +8,47 @@ import type { Options as ClientRedirectsOptions } from '@docusaurus/plugin-clien
 const config: Config = {
   title: 'Fictionlab Documentation',
   tagline: 'Documentation, tutorials & manuals for robots',
-  favicon: '/img/branding/favicon.png',
-
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'icon',
+        type: 'image/png',
+        href: '/img/branding/favicon/favicon-96x96.png',
+        sizes: '96x96',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: '/img/branding/favicon/favicon.svg',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'shortcut icon',
+        href: '/img/branding/favicon/favicon.ico',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'apple-touch-icon',
+        href: '/img/branding/favicon/apple-touch-icon.png',
+        sizes: '180x180',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'manifest',
+        href: '/site.webmanifest',
+      },
+    },
+  ],
   // Set the production url of your site here
   url: 'https://docs.fictionlab.pl',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -92,10 +131,9 @@ const config: Config = {
     navbar: {
       logo: {
         alt: 'fictionlab logo',
-        src: 'img/branding/fictionlab_logo_gray.svg',
-        srcDark: 'img/branding/fictionlab_logo_white.svg',
-        width: '98px',
-        height: '32px',
+        src: 'img/branding/logo/Logotype_basic field_grey.svg',
+        srcDark: 'img/branding/logo/Logotype_basic field_white.svg',
+        width: 130,
       },
       items: [
         {
@@ -186,8 +224,8 @@ const config: Config = {
           items: [
             {
               html: `
-              <a href="https://fictionlab.pl" target="_blank" rel="noreferrer noopener">
-                <img src= /img/branding/fictionlab_logo_white.svg alt="Fictionlab" width="200" height='65' />
+              <a href="https://fictionlab.pl" target="_blank" rel="noreferrer noopener" style="padding-bottom: 1rem; display: block;">
+                <img src= /img/branding/logo/logotype_white.svg alt="Fictionlab" width="200" height="38" />
               </a>
             `,
             },

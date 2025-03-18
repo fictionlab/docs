@@ -220,7 +220,7 @@ occupies. You can ensure it does that by creating a URDF model of the sensor.
   <link name="laser_frame"/>
 
   <joint name="laser_joint" type="fixed">
-    <origin xyz="0 0 0.0368" rpy="0 0 ${pi}"/>
+    <origin xyz="0 0 0.0368" rpy="0 0 ${-pi/2}"/>
     <parent link="rplidar_link"/>
     <child link="laser_frame"/>
   </joint>
