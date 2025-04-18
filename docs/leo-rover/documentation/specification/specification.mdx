@@ -15,7 +15,9 @@ import Admonition from '@theme/Admonition';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
-import Powerbox from "@site/docs/leo-rover/addons/powerbox/_powerbox-product.mdx";
+import Powerbox from '@site/docs/leo-rover/addons/powerbox/_powerbox-product.mdx';
+import HardwareDiagram from '@site/static/img/robots/leo/specification/leo-1.9-hardware-diagram.svg';
+import WeipuDiagram from '@site/static/img/robots/leo/specification/weipu-SP13-3-pinout.svg';
 
 <ImageZoom
   loading="eager"
@@ -138,22 +140,10 @@ For specifications of the previous version of Leo Rover, check out the page:
 
 ### Block diagram
 
-{/* TODO */}
-
-<ThemedImageZoom
-  alt="Leo Rover 1.9 hardware diagram"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/leo/specification/leo-rover-v1.8_hardware-diagram_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/leo/specification/leo-rover-v1.8_hardware-diagram_white.webp',
-    ),
-  }}
-  width="1900"
-  height="1150"
-  figStyle={{
-    width: 800,
+<HardwareDiagram
+  className="themedSvg"
+  style={{
+    width: '700px',
   }}
 />
 
@@ -210,12 +200,12 @@ position and speed, allowing for accurate control of the Rover's movement.
 As standard, Leo Rover comes with rubber tires with a diameter of about 130 mm.
 Whole drive assembly has following characteristics:
 
-|                        Parameter |         Value         |
-| -------------------------------: | :-------------------: |
-| Tire size (diameter x thickness) |  ~ 125 mm x ~ 70 mm   |
-|                   Tire lock type |     non beadlock      |
+|                        Parameter |           Value           |
+| -------------------------------: | :-----------------------: |
+| Tire size (diameter x thickness) |    ~ 125 mm x ~ 70 mm     |
+|                   Tire lock type |       non beadlock        |
 |                      Tire insert | soft foam (non pneumatic) |
-|               Wheel rim diameter |         98 mm         |
+|               Wheel rim diameter |           98 mm           |
 
 ### Battery & charging
 
@@ -229,7 +219,7 @@ Each battery pack has following characteristics:
 
 |            Parameter |                  Value                   |
 | -------------------: | :--------------------------------------: |
-|              Voltage |             12.1 V (nominal)             |
+|              Voltage |             11.1 V (nominal)             |
 |         Battery type |                  Li-Ion                  |
 |         Battery cell |       18650 (Samsung INR18650-35E)       |
 |             Capacity |       7 Ah (84,7 Wh - flight safe)       |
@@ -243,22 +233,8 @@ By default Leo Rover uses standard [WEIPU](https://www.weipuconnector.com/)
 SP13-3 connectors for connecting battery, Main Electronics Box and other
 possible addons.
 
-<ThemedImageZoom
-  alt="Weipu SP13-3 pinout"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/leo/specification/weipu_SP13-3_pinout_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/leo/specification/weipu_SP13-3_pinout_white.webp',
-    ),
-  }}
-  width="900"
-  height="550"
-  figStyle={{
-    width: 400,
-  }}
-/>
+<FlexTable>
+  <FlexTableItem>
 
 | Pin name | Cable color                   |
 | -------- | ----------------------------- |
@@ -266,35 +242,44 @@ possible addons.
 | DC+      | red / black with white stripe |
 | LED      | green                         |
 
-#### Battery charging
+  </FlexTableItem>
+  <FlexTableItem style={{padding: '0 0.5rem 0 0.5rem'}}>
+    <WeipuDiagram
+      className='themedSvg'
+      style={{
+        width:'400px',
+      }} />
+  </FlexTableItem>
+</FlexTable>
 
-The Rover is equipped with a 2A 12,6V battery charger that can charge the
-battery in approximately 4 hours. The charger is designed to be compact and
-portable, making it easy to transport and use in various environments. The
-charger is equipped with a standard 5.5/2.1 mm DC plug. Together with the DC
-5.5/2.1 mm - Weipu SP13-3 adapter (included with each rover), it can be used to
-charge the Rover's battery from a standard power outlet.
+#### Battery charger
+
+The Rover is equipped with a 2A 12.6V Li-Ion battery charger that can charge the
+standard battery in approximately 4 hours. The charger is designed to be compact
+and portable, making it easy to transport and use in various environments. The
+charger is equipped with a standard 5.5/2.1 mm DC plug.
 
 The charger is outfitted with an LED status indicator designed to provide
 information about the charging status of the battery. A green LED signifies that
 the battery has reached full charge, while a red LED indicates that the battery
 is currently in the charging process.
 
-To charge the battery, follow these steps:
+|       Parameter |              Value              |
+| --------------: | :-----------------------------: |
+|         Voltage |             12.6 V              |
+|         Current |            2 A (max)            |
+|    Charger type |             Li-Ion              |
+|    Charger plug | DC 5.5/2.1 mm (center positive) |
+| Charger adapter |  Weipu SP13-3 - DC 5.5/2.1 mm   |
 
-1. Ensure the Rover is powered off.
-2. Remove the battery from the Rover.
-3. Unplug the Weipu SP13-3 connector from the battery.
-4. Connect the battery to the charger using the provided Weipu SP13-3 - DC
-   5.5/2.1 mm adapter.
-5. Plug the charger into a standard power outlet.
-6. Press the power button on the battery to initiate the charging process.
+To connect the charger to the battery, a Weipu SP13-3 - DC 5.5/2.1 mm adapter is
+included with each Rover. This adapter allows for easy and secure connection
+between the charger and the battery, ensuring that the charging process is
+efficient and safe.
 
-:::note
+For more information on how to charge the battery, please refer to the Leo Rover Getting started guide:
 
-To charge the battery, power button on the must be pressed.
-
-:::
+<LinkButton docId="leo-rover/documentation/getting-started" />
 
 ### Payload specification
 
@@ -311,9 +296,11 @@ a wide range of applications, including research, education, and development.
 |                   Mounting hole dimensions | 7 mm, equipped with T-KFS-M4-1 press-in nuts |
 | Main mounting plate dimensions (L x W x D) |            299 mm x 183 mm x 2 mm            |
 
-Apart from the mounting plate, it is possible to mount payloads directly to v-slot extrusions of the Leo Rover.
+Apart from the mounting plate, it is possible to mount payloads directly to
+v-slot extrusions of the Leo Rover.
 
-In order to power the payload, we recommend purchasing a Powerbox module which replaces the additional quarter of the rover.
+In order to power the payload, we recommend purchasing a Powerbox module which
+replaces the additional quarter of the rover.
 
 <Powerbox />
 
