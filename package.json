@@ -15,7 +15,7 @@
     "typecheck": "tsc",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx,css}\"",
     "formatcheck": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx,css}\"",
-    "spellcheck": "cspell \"**/*.mdx\""
+    "spellcheck": "cspell"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",
