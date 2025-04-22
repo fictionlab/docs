@@ -2,21 +2,16 @@
     "version": "0.2",
     "language": "en",
     "files": [
-        "**/*.{md,mdx}",
-        "src/**/*.{js,jsx,ts,tsx}"
+        "**/*.{md,mdx,js,jsx,ts,tsx}"
     ],
     "ignorePaths": [
         "node_modules/**",
         ".docusaurus/**",
         "build/**",
         "static/**",
-        "coverage/**",
         "*.lock",
-        "package.json",
         "cspell.json",
-        "docusaurus.config.js",
-        "sidebars.js",
-        "babel.config.js"
+        "docusaurus.config.ts"
     ],
     "dictionaries": [
         "en_US",
