@@ -247,9 +247,9 @@ const config: Config = {
     },
     announcementBar: {
       id: 'announcementBar_work-in-progress',
-      content: `Welcome to the new Fictionlab docs! If you encounter any problems, broken links etc.,
-        <br>please open an issue at <a href="https://github.com/fictionlab/docs">fictionlab/docs</a> 
-        or write an e-mail to <a href="mailto:contact@fictionlab.pl">contact@fictionlab.pl</a>`,
+      content: `Leo Rover 1.9 is out! 🎉 Check out the <a href="/leo-rover/documentation/changelog">release notes</a>!
+      <br />Get yours: <a href="https://www.leorover.tech/shop/leo-rover-developer-kit">Developer kit</a> | 
+      <a href="https://www.leorover.tech/shop/leo-rover-assembled">Assembled</a>`,
       backgroundColor: '#c57b2c',
       textColor: '#ffffff',
       isCloseable: true,
