@@ -56,6 +56,22 @@ function findSidebarItemLink(
   return undefined;
 }
 
+/**
+ * Renders a styled link button component.
+ *
+ * This component generates a link (`<a>` tag) styled as a button.
+ * It determines the link target and associated metadata (title, description, icon)
+ * based on either a `docId` prop (to look up a document within the documentation context)
+ * or direct `to`/`url` props.
+ *
+ * Throws an error if neither `docId`, `to`, nor `url` is provided.
+ * It uses context (`useDocsSidebar`, `useDocById`) when `docId` is specified.
+ *
+ * @param {LinkButtonProps} props - The properties for the LinkButton component. Requires either `docId`, `to`, or `url`.
+ * @returns {JSX.Element} A styled anchor element (`<a>`).
+ * @throws {Error} If no `to`, `docId`, or `url` prop is specified.
+ * @throws {Error} If `docId` is provided but the sidebar context is missing or the item cannot be found.
+ */
 export default function LinkButton(props: LinkButtonProps) {
   if (!props.to && !props.docId && !props.url)
     throw new Error('No ID or link specified!');
