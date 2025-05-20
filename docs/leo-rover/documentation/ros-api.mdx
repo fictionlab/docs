@@ -1,0 +1,212 @@
+---
+title: Leo Rover ROS API
+sidebar_label: ROS API
+keywords:
+  - ros
+  - api
+description: >-
+  Description of the ROS API for Leo Rover. Includes subscribed topics,
+  published topics and advertised services.
+---
+
+# ROS API
+
+## Subscribed topics
+
+- `cmd_vel` ([geometry_msgs/msg/Twist])
+
+  Target velocity of the Rover. Only linear.x $[\frac{m}{s}]$ and angular.z
+  $[\frac{rad}{s}]$ are used.
+
+- `firmware/wheel_{FL,RL,FR,RR}/cmd_pwm_duty` ([std_msgs/msg/Float32])
+
+  Target PWM duty cycle for each wheel motor. $[\%]$
+
+  :::warning
+
+  Cannot be used at the same time as other `cmd` topics.
+
+  :::
+
+- `firmware/wheel_{FL,RL,FR,RR}/cmd_velocity` ([std_msgs/msg/Float32])
+
+  Target velocity of the individual wheels. $[\frac{rad}{s}]$
+
+  :::warning
+
+  Cannot be used at the same time as other `cmd` topics.
+
+  :::
+
+- `system/reboot` ([std_msgs/msg/Empty])
+
+  Publishing to this topic will trigger the onboard computer's system reboot.
+
+- `system/shutdown` ([std_msgs/msg/Empty])
+
+  Publishing to this topic will trigger the onboard computer's system shutdown.
+
+## Published Topics
+
+- `merged_odom` ([nav_msgs/msg/Odometry])
+
+  Merged odometry calculated from wheel encoders and the onboard IMU.
+
+  :::info
+
+  This is the preferred topic to use for odometry data. Use this topic instead
+  of `wheel_odom_with_covariance` or `firmware/odom`.
+
+  :::
+
+- `wheel_odom_with_covariance` ([nav_msgs/msg/Odometry])
+
+  Odometry calculated from wheel encoders.
+
+- `imu/data` ([sensor_msgs/msg/Imu])
+
+  Filtered readings from the onboard IMU. The filter does 2 things:
+
+  - Adds a dynamic bias to the gyroscope readings.
+  - Adds estimated orientation by fusing the accelerometer and gyroscope data.
+
+  :::info
+
+  This is the preferred topic to use for IMU data. Use this topic instead of
+  `imu/data_raw` or `firmware/imu`
+
+  :::
+
+- `imu/data_raw` ([sensor_msgs/msg/Imu])
+
+  Raw gyroscope and accelerometer readings from the onboard IMU.
+
+- `imu/rpy` ([geometry_msgs/msg/Vector3Stamped])
+
+  Roll, pitch and yaw angles calculated from the IMU data. $[rad]$
+
+- `camera/image_raw` ([sensor_msgs/msg/Image])
+
+  Raw, unprocessed image data from the camera.
+
+- `camera/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Intrinsic and extrinsic parameters of the camera, such as calibration data.
+
+- `camera/image_color` ([sensor_msgs/msg/Image])
+
+  Color image data from the camera. No different from `camera/image_raw`.
+
+- `camera/image_color/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed color image data from the camera.
+
+- `camera/image_mono` ([sensor_msgs/msg/Image])
+
+  Monochrome (grayscale) image data from the camera.
+
+- `camera/image_mono/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed monochrome (grayscale) image data from the camera.
+
+- `camera/image_rect` ([sensor_msgs/msg/Image])
+
+  Rectified (undistorted) monochrome image data from the camera.
+
+- `camera/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed rectified monochrome image data from the camera.
+
+- `camera/image_rect_color` ([sensor_msgs/msg/Image])
+
+  Rectified (undistorted) color image data from the camera.
+
+- `camera/image_rect_color/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed rectified color image data from the camera.
+
+- `firmware/battery` ([std_msgs/msg/Float32])
+
+  Current battery voltage reading. $[V]$
+
+- `firmware/battery_averaged` ([std_msgs/msg/Float32])
+
+  Battery voltage estimated from averaging readings from last 30 seconds. $[V]$
+
+- `joint_states` ([sensor_msgs/msg/JointState])
+
+  Current state of the robot joints.
+
+- `robot_description` ([std_msgs/msg/String])
+
+  The URDF description of the robot.
+
+- `/parameter_events` ([rcl_interfaces/msg/ParameterEvent])
+
+  Parameter events (additions, changes or deletions) from all the running ROS
+  nodes.
+
+- `/rosout` ([rcl_interfaces/msg/Log])
+
+  Logs from all the running ROS nodes.
+
+- `/tf`, `/tf_static` ([tf2_msgs/msg/TFMessage])
+
+  Relationships between TF frames in the ROS network. \
+  These topics are used by the
+  [tf2 library](https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Tf2.html).
+
+## Services
+
+
+- `reset_odometry` ([std_srvs/srv/Trigger])
+
+  Reset odometry position.
+
+- `camera/set_camera_info` ([sensor_msgs/srv/SetCameraInfo])
+
+  Set onboard camera calibration parameters.
+
+- `firmware/get_board_type` ([std_srvs/srv/Trigger])
+
+  Get the type of the controller board.
+
+- `firmware/get_firmware_version` ([std_srvs/srv/Trigger])
+
+  Get the version of the firmware running on the controller board.
+
+- `firmware/reset_board` ([std_srvs/srv/Trigger])
+
+  Performs software reset of the controller board.
+
+[geometry_msgs/msg/Twist]:
+  https://docs.ros2.org/latest/api/geometry_msgs/msg/Twist.html
+[geometry_msgs/msg/Vector3Stamped]:
+  https://docs.ros2.org/latest/api/geometry_msgs/msg/Vector3Stamped.html
+[nav_msgs/msg/Odometry]:
+  https://docs.ros2.org/latest/api/nav_msgs/msg/Odometry.html
+[rcl_interfaces/msg/Log]:
+  https://docs.ros2.org/latest/api/rcl_interfaces/msg/Log.html
+[rcl_interfaces/msg/ParameterEvent]:
+  https://docs.ros2.org/latest/api/rcl_interfaces/msg/ParameterEvent.html
+[sensor_msgs/msg/CameraInfo]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html
+[sensor_msgs/msg/CompressedImage]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/CompressedImage.html
+[std_msgs/msg/Empty]:
+  https://docs.ros2.org/latest/api/std_msgs/msg/Empty.html
+[sensor_msgs/msg/Image]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html
+[sensor_msgs/msg/Imu]: https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html
+[sensor_msgs/msg/JointState]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/JointState.html
+[sensor_msgs/srv/SetCameraInfo]:
+  https://docs.ros2.org/latest/api/sensor_msgs/srv/SetCameraInfo.html
+[std_msgs/msg/Float32]:
+  https://docs.ros2.org/latest/api/std_msgs/msg/Float32.html
+[std_msgs/msg/String]:
+  https://docs.ros2.org/latest/api/std_msgs/msg/String.html
+[std_srvs/srv/Trigger]:
+  https://docs.ros2.org/latest/api/std_srvs/srv/Trigger.html
+[tf2_msgs/msg/TFMessage]:
+  https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
