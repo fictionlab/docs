@@ -38,14 +38,6 @@ description: >-
 
   :::
 
-- `system/reboot` ([std_msgs/msg/Empty])
-
-  Publishing to this topic will trigger the onboard computer's system reboot.
-
-- `system/shutdown` ([std_msgs/msg/Empty])
-
-  Publishing to this topic will trigger the onboard computer's system shutdown.
-
 ## Published Topics
 
 - `merged_odom` ([nav_msgs/msg/Odometry])
@@ -177,7 +169,17 @@ description: >-
 
 - `firmware/reset_board` ([std_srvs/srv/Trigger])
 
-  Performs software reset of the controller board.
+  Perform software reset of the controller board.
+
+- `system/reboot` ([std_srvs/srv/Trigger])
+
+  Perform reboot of the onboard computer's system.
+
+- `system/shutdown` ([std_srvs/srv/Trigger])
+
+  Perform shutdown of the onboard computer's system.
+
+## Parameters 
 
 [geometry_msgs/msg/Twist]:
   https://docs.ros2.org/latest/api/geometry_msgs/msg/Twist.html
