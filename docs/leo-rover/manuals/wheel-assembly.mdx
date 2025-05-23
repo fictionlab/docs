@@ -13,7 +13,7 @@ import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 
 <span style={{ color: '#bf7b2c', fontSize: '200%' }}>
-  **Assembly time ≈ 20 min per wheel**
+  **Assembly time ≈ 15 minutes per wheel**
 </span>
 
 <ThemedImageZoom
@@ -75,9 +75,7 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 <ThemedImageZoom
   alt="Layer 2"
   sources={{
-    light: useBaseUrl(
-      '/img/robots/leo/manuals/tools/layer-2-1.9-black.webp',
-    ),
+    light: useBaseUrl('/img/robots/leo/manuals/tools/layer-2-1.9-black.webp'),
     dark: useBaseUrl('/img/robots/leo/manuals/tools/layer-2-1.9-white.webp'),
   }}
   width="2000"
@@ -108,71 +106,52 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
           />
   </FlexTableItem>
 
-  <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="Motor"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel/motor_black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel/motor_white.webp'),
-            }}
-            width="1500"
-            height="1500"
-          />
-  </FlexTableItem>
-
-</FlexTable>
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
-  <FlexTableItem
-    style={{
-      width: '50%'
-    }}
-    mobileColumns={1}>
-      <ThemedImageZoom
-            alt="Step 3 - 1"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel/A_grease_black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel/A_grease_white.webp'),
-            }}
-            width="3000"
-            height="2121"
-          />
-  </FlexTableItem>
-
 <FlexTableItem
   style={{
-    width: '50%',
+    width: '40%',
   }}
-  mobileColumns={1}
->
+  mobileColumns={2}>
   <ThemedImageZoom
-    alt="Motor with grease"
+    alt="Motor"
     sources={{
-      light: useBaseUrl(
-        '/img/robots/leo/manuals/wheel-V2/wheel-assembly-19.webp',
-      ),
-      dark: useBaseUrl(
-        '/img/robots/leo/manuals/wheel-V2/wheel-assembly-19.webp',
-      ),
+      light: useBaseUrl('/img/robots/leo/manuals/wheel/motor_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/wheel/motor_white.webp'),
     }}
-    width="2300"
-    height="2400"
+    width="1500"
+    height="1500"
   />
 </FlexTableItem>
 
 </FlexTable>
 
-:::note
+<ThemedImageZoom
+  alt="Step 3 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/A_grease_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/A_grease_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+/>
+
+:::noteW
 
 Press a decent amount of lithium grease between the shaft <span
 style={{color : "#bf7b2c",}} > **seal** </span> and the motor housing.
 
 :::
+
+<ThemedImageZoom
+  alt="Motor with grease"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/wheel-V2/wheel-assembly-19.webp',
+    ),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/wheel-assembly-19.webp'),
+  }}
+  width="2300"
+  height="2400"
+/>
 
 ---
 
@@ -252,25 +231,19 @@ style={{color : "#bf7b2c",}} > **seal** </span> and the motor housing.
   }}
 />
 
-
 :::note
 
-Align the flat segment of <span style={{color : "#609ebe",}} > **motor shaft**
-</span> with <span style={{color : "#bf7b2c",}} > **headless screw** </span>.
+Align the flat segment of <span style={{color : "#609ebe",}} > **motor shaft** </span> 
+with <span style={{color : "#bf7b2c",}} > **headless screw** </span>.
 Use a drop of loctite to make sure it stays in place.
 
 :::
 
-
 <ThemedImageZoom
   alt="Assembled shaft adapter"
   sources={{
-    light: useBaseUrl(
-      '/img/robots/leo/manuals/wheel/F_shaft_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/leo/manuals/wheel/F_shaft_white.webp',
-    ),
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/F_shaft_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/F_shaft_white.webp'),
   }}
   width="3000"
   height="2121"
@@ -443,6 +416,7 @@ until it touches the base of the bearing before tightening.
 />
 ---
 
+
 <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-  That's it! Repeat the steps until you have 4 wheels.
+ That's it! Repeat the steps until you have a total of 4 wheels. 
 </span>
