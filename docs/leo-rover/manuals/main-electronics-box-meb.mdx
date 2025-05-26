@@ -110,6 +110,7 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 ---
 
 ## Step 0
+
 <ImageZoom
   src="/img/robots/leo/manuals/software/software-4.webp"
   width="1200"
@@ -232,8 +233,12 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 <ThemedImageZoom
   alt="Attaching camera ribbon"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/A_camera_ribbon_rpi_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/A_camera_ribbon_rpi_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_camera_ribbon_rpi_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_camera_ribbon_rpi_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -244,16 +249,21 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 
 :::note
 
-Make sure that <span style={{color : "#609ebe",}} > **camera ribbon** </span> is pushed all the way into the connector. Lock the ribbon by pushing down on the <span
-style={{color : "#bf7b2c",}} > **connector handle**</span>.
+Make sure that <span style={{color : "#609ebe",}} > **camera ribbon** </span> is
+pushed all the way into the connector. Lock the ribbon by pushing down on the
+<span style={{color : "#bf7b2c",}} > **connector handle**</span>.
 
 :::
 
 <ThemedImageZoom
   alt="Attached camera ribbon"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -444,8 +454,8 @@ Remove tape from heatpads before closing the case.
 
 :::note
 
-Do not overtighten the <span style={{color : "#609ebe",}} > **screws** </span> it will destroy the <span
-style={{color : "#bf7b2c",}} > **seal**</span>.
+Do not overtighten the <span style={{color : "#609ebe",}} > **screws** </span>
+it will destroy the <span style={{color : "#bf7b2c",}} > **seal**</span>.
 
 :::
 
@@ -463,8 +473,6 @@ style={{color : "#bf7b2c",}} > **seal**</span>.
 />
 
 ---
-
-
 
 ## Step 5
 
@@ -650,8 +658,12 @@ style={{color : "#bf7b2c",}} > **seal**</span>.
   <ThemedImageZoom
     alt="Antenna 90 deg adapter"
     sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/meb/90deg_antenna_adapter_black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/meb/90deg_antenna_adapter_white.webp'),
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/meb/90deg_antenna_adapter_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/meb/90deg_antenna_adapter_white.webp',
+      ),
     }}
     width="1500"
     height="1500"
@@ -708,22 +720,24 @@ style={{color : "#bf7b2c",}} > **seal**</span>.
           />
   </FlexTableItem>
 
-  <FlexTableItem
-    style={{
-      width: '30%'
+{' '}
+<FlexTableItem
+  style={{
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Antenna o-ring"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/manuals/meb/Antenna_oring_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/meb/Antenna_oring_white.webp'),
     }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="Antenna o-ring"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/meb/Antenna_oring_black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/meb/Antenna_oring_white.webp'),
-            }}
-            width="1500"
-            height="1500"
-            caption='Antenna o-ring'
-          />
-  </FlexTableItem>
+    width="1500"
+    height="1500"
+    caption="Antenna o-ring"
+  />
+</FlexTableItem>
 
     <FlexTableItem
     style={{
@@ -739,6 +753,7 @@ style={{color : "#bf7b2c",}} > **seal**</span>.
             width="1500"
             height="1500"
           />
+
   </FlexTableItem>
 </FlexTable>
 
@@ -757,10 +772,10 @@ style={{color : "#bf7b2c",}} > **seal**</span>.
 
 :::note
 
-
 Cover the <span style={{color : "#bf7b2c",}} > **seal** </span> with vaseline
 before assembly.\
-Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> can easily be crushed.
+Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span>
+can easily be crushed.
 
 :::
 
@@ -781,22 +796,22 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 
 ## Step 9
 
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly' }}>
   <FlexTableItem
     style={{
-      width: '30%'
+      width: '30%',
     }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="USB AM-CM cable"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/meb/USB_AM-CM_black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/meb/USB_AM-CM_white.webp'),
-            }}
-            width="1500"
-            height="1500"
-          />
+    mobileColumns={2}
+  >
+    <ThemedImageZoom
+      alt="USB AM-CM cable"
+      sources={{
+        light: useBaseUrl('/img/robots/leo/manuals/meb/USB_AM-CM_black.webp'),
+        dark: useBaseUrl('/img/robots/leo/manuals/meb/USB_AM-CM_white.webp'),
+      }}
+      width="1500"
+      height="1500"
+    />
   </FlexTableItem>
 </FlexTable>
 
@@ -812,7 +827,6 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
     width: 600,
   }}
 />
-
 
 <ThemedImageZoom
   alt="Attached AM-CM cable"
@@ -889,8 +903,12 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 <ThemedImageZoom
   alt="Attaching camera to holder"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/A_camera_to_holder_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/A_camera_to_holder_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_camera_to_holder_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_camera_to_holder_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -902,8 +920,12 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 <ThemedImageZoom
   alt="Camera attached to holder"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/D_camera_to_holder_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/D_camera_to_holder_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_camera_to_holder_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_camera_to_holder_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -915,7 +937,6 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 ---
 
 ## Step 11
-
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
   
@@ -1011,14 +1032,18 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
   <ThemedImageZoom
     alt="2x M2.2x6.5 PHTS"
     sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/meb/2xM2.2x6.5_PHTS_black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/meb/2xM2.2x6.5_PHTS_white.webp'),
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/meb/2xM2.2x6.5_PHTS_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/meb/2xM2.2x6.5_PHTS_white.webp',
+      ),
     }}
     width="1500"
     height="1500"
-    caption='2x M2.2x6.5 PHTS'
+    caption="2x M2.2x6.5 PHTS"
   />
-  </FlexTableItem>
+</FlexTableItem>
 
 </FlexTable>
 
@@ -1051,30 +1076,39 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 ---
 
 ## Step 13
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly' }}>
   <FlexTableItem
     style={{
-      width: '30%'
+      width: '30%',
     }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="MEB power cable"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/meb/MEB_power_cable_black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/meb/MEB_power_cable_white.webp'),
-            }}
-            width="1500"
-            height="1500"
-          />
+    mobileColumns={2}
+  >
+    <ThemedImageZoom
+      alt="MEB power cable"
+      sources={{
+        light: useBaseUrl(
+          '/img/robots/leo/manuals/meb/MEB_power_cable_black.webp',
+        ),
+        dark: useBaseUrl(
+          '/img/robots/leo/manuals/meb/MEB_power_cable_white.webp',
+        ),
+      }}
+      width="1500"
+      height="1500"
+    />
   </FlexTableItem>
 </FlexTable>
 
 <ThemedImageZoom
   alt="Attaching MEB power cable"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/A_MEB_power_cable_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/A_MEB_power_cable_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_MEB_power_cable_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_MEB_power_cable_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -1086,8 +1120,12 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 <ThemedImageZoom
   alt="MEB power cable attached"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/D_MEB_power_cable_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/D_MEB_power_cable_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_MEB_power_cable_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_MEB_power_cable_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -1128,7 +1166,9 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
   <ThemedImageZoom
     alt="Top cover seal"
     sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/meb/Top_cover_seal_black.webp'),
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/meb/Top_cover_seal_black.webp',
+      ),
       dark: useBaseUrl('/img/robots/leo/manuals/meb/Top_cover_seal_white.webp'),
     }}
     width="1500"
@@ -1151,6 +1191,7 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
             height="1500"
             caption="4x Standoff M4x6"
           />
+
   </FlexTableItem>
 
   <FlexTableItem
@@ -1174,8 +1215,12 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 <ThemedImageZoom
   alt="Attaching MEB box"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/A_meb_box_and_seal_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/A_meb_box_and_seal_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_meb_box_and_seal_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/A_meb_box_and_seal_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -1186,15 +1231,20 @@ Do not overtighten as the <span style={{color : "#bf7b2c",}} > **seal**</span> c
 
 :::note
 
-Use loctite on the <span style={{color : "#bf7b2c",}} > **standoffs** </span> to prevent them from loosening over time.
+Use loctite on the <span style={{color : "#bf7b2c",}} > **standoffs** </span> to
+prevent them from loosening over time.
 
 :::
 
 <ThemedImageZoom
   alt="Attached MEB box"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/D_meb_box_and_seal_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/D_meb_box_and_seal_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_meb_box_and_seal_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_meb_box_and_seal_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -1205,7 +1255,7 @@ Use loctite on the <span style={{color : "#bf7b2c",}} > **standoffs** </span> to
 
 ---
 
-## Step 15 
+## Step 15
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
   
@@ -1235,8 +1285,12 @@ Use loctite on the <span style={{color : "#bf7b2c",}} > **standoffs** </span> to
   <ThemedImageZoom
     alt="USB socket seal"
     sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/meb/USB_socket_seal_black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/meb/USB_socket_seal_white.webp'),
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/meb/USB_socket_seal_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/meb/USB_socket_seal_white.webp',
+      ),
     }}
     width="1500"
     height="1500"
@@ -1252,7 +1306,7 @@ Use loctite on the <span style={{color : "#bf7b2c",}} > **standoffs** </span> to
             alt="4x M3x12 FHCS"
             sources={{
               light: useBaseUrl('/img/robots/leo/manuals/meb/4xM3x10_FHCS_black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/meb/4xM3x10_FHCS_white.webp'),  
+              dark: useBaseUrl('/img/robots/leo/manuals/meb/4xM3x10_FHCS_white.webp'),
             }}
             width="1500"
             height="1500"
@@ -1295,8 +1349,12 @@ Use loctite on the <span style={{color : "#bf7b2c",}} > **standoffs** </span> to
 <ThemedImageZoom
   alt="Connecting cables"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/D_connecting_cables_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/D_connecting_cables_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_connecting_cables_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_connecting_cables_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -1306,12 +1364,13 @@ Use loctite on the <span style={{color : "#bf7b2c",}} > **standoffs** </span> to
 />
 
 :::note
+
 Connect <span style={{color : "#609ebe",}} > **power** </span>, <span
 style={{color : "#bf7b2c",}} > **LED**</span> and <span
 style={{color : "#efAb5c",}} > **USB**</span> cables.
 
-Make sure none of the cables are pinched between the box and its cover 
-when box is closed in future step.
+Make sure none of the cables are pinched between the box and its cover when box
+is closed in future step.
 
 :::
 
@@ -1347,16 +1406,21 @@ when box is closed in future step.
 
 :::note
 
-Make sure that <span style={{color : "#609ebe",}} > **camera ribbon** </span> is pushed all the way into the connector. Lock the ribbon by pushing down on the <span
-style={{color : "#bf7b2c",}} > **connector handle**</span>.
+Make sure that <span style={{color : "#609ebe",}} > **camera ribbon** </span> is
+pushed all the way into the connector. Lock the ribbon by pushing down on the
+<span style={{color : "#bf7b2c",}} > **connector handle**</span>.
 
 :::
 
 <ThemedImageZoom
   alt="Attached camera ribbon"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/meb/D_camera_ribbon_rpi_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
