@@ -1,6 +1,7 @@
+/docs/leo-rover /leo-rover 301
 /docs/leo-rover/* /leo-rover/:splat 301
 /category/assembly-manuals /leo-rover/manuals 301
-/leo-rover/manuals/wheels-to-meb /manuals/combining-subassemblies 301
+/leo-rover/manuals/wheels-to-meb /leo-rover/manuals/combining-subassemblies 301
 /leo-rover/getting-started /leo-rover/documentation/getting-started 301
 /leo-rover/manuals/tools /leo-rover/manuals/setup 301
 /leo-rover/manuals/battery /leo-rover/manuals/back-front-covers 301
