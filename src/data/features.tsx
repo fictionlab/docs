@@ -35,7 +35,7 @@ const FEATURES: FeatureItem[] = [
       src: '/img/robots/rapha/rapha-rover.webp',
       width: 2000,
       height: 1500,
-      hyperlink: 'rapha-rover/getting-started',
+      hyperlink: 'rapha-rover',
       style: { width: 'auto', height: 300, paddingBottom: 20 },
     },
     text: (

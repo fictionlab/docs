@@ -3,6 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import type {Options as DocsOptions} from '@docusaurus/plugin-content-docs';
 
 const config: Config = {
   title: 'Fictionlab Documentation',
@@ -72,6 +73,7 @@ const config: Config = {
       'classic',
       {
         docs: {
+          id: 'leo-rover',
           path: 'docs/leo-rover',
           routeBasePath: '/leo-rover',
           sidebarPath: './sidebars/LeoSidebars.ts',
@@ -137,13 +139,18 @@ const config: Config = {
           to: '/leo-rover',
         },
         {
-          type: 'docsVersionDropdown',
-          position: 'right',
-          docsPluginId: 'default',
-          versions: {
-            current: {label: 'Leo Rover 1.9'},
-          },
+          label: 'Rapha Rover',
+          position: 'left',
+          to: '/rapha-rover',
         },
+        // {
+        //   type: 'docsVersionDropdown',
+        //   position: 'right',
+        //   docsPluginId: 'default',
+        //   versions: {
+        //     current: {label: 'Leo Rover 1.9'},
+        //   },
+        // },
         {
           href: 'https://www.leorover.tech/shop',
           label: 'Online Store',
@@ -246,6 +253,21 @@ const config: Config = {
       isCloseable: true,
     },
   } satisfies Preset.ThemeConfig,
+  plugins: [
+    [
+    'content-docs',
+    {
+      id: 'rapha-rover',
+      path: 'docs/rapha-rover',
+      routeBasePath: 'rapha-rover',
+      sidebarPath: './sidebars/RaphaSidebars.ts',
+      editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+      showLastUpdateTime: true,
+    } satisfies DocsOptions,
+    ],
+  ],
 };
 
 export default config;
