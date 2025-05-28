@@ -72,8 +72,9 @@ const config: Config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/',
-          sidebarPath: './sidebars.ts',
+          path: 'docs/leo-rover',
+          routeBasePath: '/leo-rover',
+          sidebarPath: './sidebars/LeoSidebars.ts',
           editUrl: 'https://github.com/fictionlab/docs/edit/development/',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
@@ -131,21 +132,17 @@ const config: Config = {
       },
       items: [
         {
-          type: 'dropdown',
-          label: 'Robots',
+          label: 'Leo Rover',
           position: 'left',
-          items: [
-            {
-              type: 'docSidebar',
-              sidebarId: 'leoSidebar',
-              label: 'Leo Rover',
-            },
-            {
-              type: 'docSidebar',
-              sidebarId: 'raphaSidebar',
-              label: 'Rapha Rover',
-            },
-          ],
+          to: '/leo-rover',
+        },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          docsPluginId: 'default',
+          versions: {
+            current: {label: 'Leo Rover 1.9'},
+          },
         },
         {
           href: 'https://www.leorover.tech/shop',

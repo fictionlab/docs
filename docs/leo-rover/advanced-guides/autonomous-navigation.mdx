@@ -15,11 +15,11 @@ IMU and LiDAR sensors.
 
 ## Prerequisites
 
-<LinkButton docId="leo-rover/guides/ssh" />
-<LinkButton docId="leo-rover/guides/software-update" />
-<LinkButton docId="leo-rover/guides/firmware-update" />
-<LinkButton docId="leo-rover/advanced-guides/install-ros-on-your-computer" />
-<LinkButton docId="leo-rover/advanced-guides/ros-development" />
+<LinkButton docId="guides/ssh" />
+<LinkButton docId="guides/software-update" />
+<LinkButton docId="guides/firmware-update" />
+<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+<LinkButton docId="advanced-guides/ros-development" />
 
 For this purpose, we prepared the
 [leo_navigation](https://github.com/LeoRover/leo_navigation_tutorial) package
@@ -30,7 +30,7 @@ configuration may need to be tweaked to work best in your environment.
 To complete this guide, you will need to, first of all, have the IMU and LiDAR
 sensors integrated with the system:
 
-<LinkButton docId="leo-rover/integrations/legacy/grove-imu" />
+<LinkButton docId="integrations/legacy/grove-imu" />
 
 :::tip
 
@@ -41,9 +41,9 @@ integration tutorial.
 
 and one of these LiDARs
 
-<LinkButton docId="leo-rover/integrations/lidars/hokuyo-ug-04lx-ug01" />
-<LinkButton docId="leo-rover/integrations/lidars/slamtec-rplidar-a2" />
-<LinkButton docId="leo-rover/integrations/lidars/slamtec-rplidar-s3" />
+<LinkButton docId="integrations/lidars/hokuyo-ug-04lx-ug01" />
+<LinkButton docId="integrations/lidars/slamtec-rplidar-a2" />
+<LinkButton docId="integrations/lidars/slamtec-rplidar-s3" />
 
 Make sure you are operating on the newest image for the Raspberry Pi and you are
 up-to-date with the packages and have the newest firmware flashed.
@@ -61,7 +61,7 @@ computer, in order to use the software for autonomous navigation.
 You will need to build the `leo_navigation` package first. To do this, start by
 accessing a remote terminal session on Leo Rover by logging via ssh:
 
-<LinkButton docId="leo-rover/guides/ssh" />
+<LinkButton docId="guides/ssh" />
 
 Create a catkin workspace:
 
@@ -158,7 +158,7 @@ export ROS_MASTER_URI="http://10.0.0.1:11311"
 For more information, visit `Connecting another computer to ROS network` section
 in `ROS Development` tutorial:
 
-<LinkButton docId="leo-rover/advanced-guides/ros-development" />
+<LinkButton docId="advanced-guides/ros-development" />
 
 ## Launching the software
 
