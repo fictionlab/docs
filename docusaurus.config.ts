@@ -3,7 +3,6 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import type { Options as ClientRedirectsOptions } from '@docusaurus/plugin-client-redirects';
 
 const config: Config = {
   title: 'Fictionlab Documentation',
