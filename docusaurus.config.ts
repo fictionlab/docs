@@ -143,6 +143,11 @@ const config: Config = {
           position: 'left',
           to: '/rapha-rover',
         },
+        {
+          label: 'Integrations',
+          position: 'left',
+          to: '/integrations',
+        },
         // {
         //   type: 'docsVersionDropdown',
         //   position: 'right',
@@ -261,6 +266,19 @@ const config: Config = {
       path: 'docs/rapha-rover',
       routeBasePath: 'rapha-rover',
       sidebarPath: './sidebars/RaphaSidebars.ts',
+      editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+      showLastUpdateTime: true,
+    } satisfies DocsOptions,
+    ],
+        [
+    'content-docs',
+    {
+      id: 'integrations',
+      path: 'docs/integrations',
+      routeBasePath: 'integrations',
+      sidebarPath: './sidebars/integrationsSidebar.ts',
       editUrl: 'https://github.com/fictionlab/docs/edit/development/',
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex],
