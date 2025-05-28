@@ -134,14 +134,19 @@ const config: Config = {
       },
       items: [
         {
-          label: 'Leo Rover',
+          type: 'dropdown',
+          label: 'Robots',
           position: 'left',
-          to: '/leo-rover',
-        },
-        {
-          label: 'Rapha Rover',
-          position: 'left',
-          to: '/rapha-rover',
+          items: [
+            {
+              label: 'Leo Rover',
+              to: '/leo-rover',
+            },
+            {
+              label: 'Rapha Rover',
+              to: '/rapha-rover',
+            },
+          ],
         },
         {
           label: 'Integrations',
