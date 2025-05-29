@@ -3,6 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import type { Options as DocsOptions } from '@docusaurus/plugin-content-docs';
 
 const config: Config = {
   title: 'Fictionlab Documentation',
@@ -72,12 +73,23 @@ const config: Config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/',
-          sidebarPath: './sidebars.ts',
+          id: 'leo-rover',
+          path: 'docs/leo-rover',
+          routeBasePath: '/leo-rover',
+          sidebarPath: './sidebars/LeoSidebars.ts',
           editUrl: 'https://github.com/fictionlab/docs/edit/development/',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           showLastUpdateTime: true,
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: 'Leo Rover 1.9',
+            },
+            '1.8': {
+              label: 'Leo Rover 1.8',
+            },
+          },
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -136,16 +148,24 @@ const config: Config = {
           position: 'left',
           items: [
             {
-              type: 'docSidebar',
-              sidebarId: 'leoSidebar',
               label: 'Leo Rover',
+              to: '/leo-rover',
             },
             {
-              type: 'docSidebar',
-              sidebarId: 'raphaSidebar',
               label: 'Rapha Rover',
+              to: '/rapha-rover',
             },
           ],
+        },
+        {
+          label: 'Integrations',
+          position: 'left',
+          to: '/integrations',
+        },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          docsPluginId: 'leo-rover',
         },
         {
           href: 'https://www.leorover.tech/shop',
@@ -249,6 +269,47 @@ const config: Config = {
       isCloseable: true,
     },
   } satisfies Preset.ThemeConfig,
+  plugins: [
+    [
+      'content-docs',
+      {
+        id: 'rapha-rover',
+        path: 'docs/rapha-rover',
+        routeBasePath: 'rapha-rover',
+        sidebarPath: './sidebars/RaphaSidebars.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
+    ],
+    [
+      'content-docs',
+      {
+        id: 'integrations',
+        path: 'docs/integrations',
+        routeBasePath: 'integrations',
+        sidebarPath: './sidebars/integrationsSidebar.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
+    ],
+    [
+      'content-docs',
+      {
+        id: 'guidelines',
+        path: 'docs/guidelines',
+        routeBasePath: 'guidelines',
+        sidebarPath: './sidebars/guidelinesSidebar.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
+    ],
+  ],
 };
 
 export default config;

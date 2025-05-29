@@ -1,0 +1,164 @@
+---
+title: Connect via remote desktop
+sidebar_label: Connect via remote desktop
+sidebar_position: 3
+description: >-
+  Learn how to remotely access your Leo Rover's desktop environment using RDP
+  and popular remote desktop clients.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+If you are using the `full` version of LeoOS, you should have a desktop
+environment installed, as well as an RDP (Microsoft Remote Desktop Protocol)
+server. This allows you to remotely control a desktop session on your Rover from
+your computer.
+
+<Tabs groupId='OS'>
+    <TabItem value='windows' label='Windows'>
+    
+    Click **Start**, type remote and choose **Remote Desktop Connection** app.
+
+    <ImageZoom
+        src="/img/robots/leo/guides/remote-desktop/rdp.webp"
+        alt="Remote Desktop Connection app"
+        width="407"
+        height="253"
+        figStyle={{
+            width: 400,
+        }}
+    />
+
+    Type `10.0.0.1` in the **Computer** field and click **Connect**.
+
+    <ImageZoom
+        src="/img/robots/leo/guides/remote-desktop/rdp-cert.webp"
+        alt="Certificate alert on RDP"
+        width="392"
+        height="469"
+        figStyle={{
+            width: 400,
+        }}
+    />
+
+    You should see a similar warning. Click **Yes** to proceed.
+
+    <ImageZoom
+        src="/img/robots/leo/guides/remote-desktop/xrdp.webp"
+        alt="XRDP app on RPi"
+        width="669"
+        height="587"
+        figStyle={{
+            width: 400,
+        }}
+    />
+
+    You should see the login screen. Choose `Xorg` session, type `pi` for the username, `raspberry` for the
+    password and click **OK**.
+
+    </TabItem>
+    <TabItem value='linux' label='Linux'>
+
+        Install and open [Remmina Remote Desktop Client](https://remmina.org/how-to-install-remmina/).
+
+        <ImageZoom
+            src="/img/robots/leo/guides/remote-desktop/remmina-rdp.webp"
+            alt="Remmina RDP interface"
+            width="753"
+            height="473"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        Click on the **+** icon and fill the following fields:
+
+        - Server: `10.0.0.1`
+        - User name: `pi`
+        - User password: `raspberry`
+        - Color depth: `True color (32 bpp)`
+        - (Optional) Name - if you want to save the settings
+        - (Optional) Resolution - If you want to use a custom resolution
+
+        <ImageZoom
+            src="/img/robots/leo/guides/remote-desktop/remmina-preferences.webp"
+            alt="Preferences window of Remmina RDP"
+            width="848"
+            height="673"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        Click on **Save and Connect**.
+
+        <ImageZoom
+            src="/img/robots/leo/guides/remote-desktop/remmina-cert.webp"
+            alt="Accept certificate windows on Remmina RDP"
+            width="853"
+            height="279"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        If you get a prompt about the certificate, click **OK**.
+
+    </TabItem>
+    <TabItem value='macos' label='macOS'>
+
+        Install and open
+        [Microsoft Remote Desktop](https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12).
+
+        <ImageZoom
+            src="/img/robots/leo/guides/remote-desktop/microsoft-rdp.webp"
+            alt="Main screen of Microsoft RDP on macOS"
+            width="841"
+            height="605"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        Click on **Add PC**, type `10.0.0.1` in the **PC name** field, `leo` in the **Friendly name** field and click on **Add**.
+
+        <ImageZoom
+            src="/img/robots/leo/guides/remote-desktop/microsoft-rdp-add-pc.webp"
+            alt="Add PC window inside Microsoft RDP"
+            width="470"
+            height="542"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        Double click on the `leo` computer to connect.
+
+        <ImageZoom
+            src="/img/robots/leo/guides/remote-desktop/microsoft-rdp-credentials.webp"
+            alt="Window for entering credentials in Microsoft RDP"
+            width="442"
+            height="221"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        When asked, fill in the Username and Password.
+
+        <ImageZoom
+            src="/img/robots/leo/guides/remote-desktop/microsoft-rdp-cert.webp"
+            alt="Accept certificate window in Microsoft RDP"
+            width="588"
+            height="167"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        If you get a prompt about the certificate, click **Continue**.
+
+    </TabItem>
+
+</Tabs>

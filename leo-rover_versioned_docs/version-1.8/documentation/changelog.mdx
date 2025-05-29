@@ -1,0 +1,149 @@
+---
+title: Leo Rover changelog
+sidebar_label: Changelog
+keywords:
+  - changelog
+  - leo rover
+  - updates
+description: >-
+  Discover the evolution of Leo Rover with changelogs for each version. Explore
+  hardware, software, and mechanical upgrades that enhance performance,
+  durability, and ease of use.
+image: /img/robots/leo/leo-rover-1.9.webp
+---
+
+import LeoRover from '../_leo-rover-product.mdx';
+
+Discover the evolution of Leo Rover with changelogs for each version. Explore
+hardware, software, and mechanical upgrades that enhance performance,
+durability, and ease of use.
+
+<LeoRover />
+
+## Leo Rover 1.9
+
+- **General Changes:**
+
+  - Chargers no longer include Weipu plugs; a Weipu-to-barrel jack converter is
+    now shipped with each order.
+  - Each rover now features an individual ID number plate.
+
+- **Component Replacements:**
+
+  - Replaced the Raspberry Pi 4B 2GB with a Raspberry Pi 5 4GB.
+
+- **Main Electronics Box (MEB) Updates:**
+
+  - Introduced passive cooling.
+  - Added a metal plate to enhance heat dissipation.
+  - Replaced micro USB port with USB-C.
+  - Updated sponge rubber cord seal to a laser-cut rubber seal.
+  - Minor quality-of-life improvements, including hole repositioning and
+    resizing.
+
+- **Suspension System Modifications:**
+
+  - Suspension beams are now drilled and secured to the rover body with long
+    screws and torque-prevailing nuts instead of t-nuts.
+  - Removed slotted holes from motor mounts.
+  - Updated suspension beam fasteners.
+
+- **Wheel Enhancements:**
+
+  - Modified rim geometry to stiffen tires, reducing the likelihood of
+    detachment.
+
+- **Software Upgrade:**
+  - Transitioned from ROS to ROS 2.
+
+---
+
+## Leo Rover 1.8
+
+- **Component Replacements**:
+
+  - Introduced **LeoCore**, a new controller board, replacing the Core2-ROS
+    controller, designed in-house for long-term availability and reduced
+    reliance on external suppliers.
+  - Upgraded Raspberry Pi 4B 1GB to Raspberry Pi 4B 2GB.
+
+- **Hardware Improvements:**
+
+  - Implemented vibration-proof motor and LED connectors, replacing gold-pin
+    connectors.
+  - Increased power support up to 30V DC, enabling direct connection of 24V
+    batteries for improved motor performance.
+  - Integrated Inertial Measurement Unit (IMU) for default accelerometer and
+    gyroscope data.
+
+- **Improved Add-on Integration:**
+  - Add-ons now connect directly to the Raspberry Pi without requiring
+    controller firmware modifications.
+  - Removed I2C, SPI, and CAN interfaces to simplify connections.
+  - Tutorials now focus on USB-based add-on integration, with Arduino as an
+    optional intermediary for advanced use cases.
+
+---
+
+## Leo Rover 1.7
+
+:::warning
+
+Support has concluded for Leo Rover 1.7 and all preceding versions. But we're
+committed to ensuring your Leo Rover remains functional and up-to-date. To
+explore pathways for upgrading or transitioning to current hardware models,
+please contact us at:
+
+<LinkButton
+  to="mailto:contact@fictionlab.pl"
+  icon="📧"
+  title="contact@fictionlab.pl"
+/>
+
+:::
+
+:::info
+
+Versions 1.7 and below were developed at a rapid pace, leading to undocumented
+or incomplete changes.
+
+:::
+
+- Replaced suspension rectangular profiles with V-slot 2040 extrusions.
+- Reverted to Buehler 1.61.077.414 motors.
+- Added Pololu Romi 12 CPR encoders to the motors.
+- Redesigned Main Electronics Box (MEB).
+- Replaced antenna modem with Alfa AWUS036ACS USB Wi-Fi adapter.
+
+---
+
+## Leo Rover 1.5
+
+- **Rebranding:**
+
+  - Renamed from **Turtle Rover** to **Leo Rover**.
+
+- **Motor and Electronics Upgrades:**
+
+  - Switched from Buehler 1.61.077.414 motors to Pololu 25D motors with
+    integrated encoders.
+  - Replaced Turtle Rover controller with Husarion Core2-ROS.
+  - Replaced Fibox-based Main Electronics Box with a 3D-printed enclosure.
+
+- **Connector and Antenna Changes:**
+
+  - Removed the top Weipu connector from the Main Electronics Box.
+  - Added a Mini-USB connector in its place.
+  - Relocated the antenna to the previous Weipu connector location.
+  - Installed a new antenna modem inside the MEB, replacing the previous modem
+    housed in one of the rover's rear compartments.
+
+- **Component Replacements:**
+  - Upgraded Raspberry Pi 3B+ to Raspberry Pi 4B 1GB.
+  - Replaced 2 MP CMOS OV2710 camera with an RPiCam OV5647 5MP camera.
+
+---
+
+## Turtle Rover (Initial Version)
+
+_No structured changelog available for the initial release._
