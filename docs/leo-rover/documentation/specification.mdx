@@ -1,0 +1,382 @@
+---
+title: Leo Rover specification
+sidebar_label: Specification
+sidebar_position: 2
+description: >-
+  Discover the specifications of Leo Rover, a small, remote-controlled,
+  4-wheeled robot that eases the development of robotic projects both outdoors
+  and indoors. Perfect for learning and research.
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+import FlexTable from '@site/src/components/FlexTable';
+import FlexTableItem from '@site/src/components/FlexTableItem';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import Powerbox from '@site/docs/leo-rover/addons/powerbox/_powerbox-product.mdx';
+import HardwareDiagram from '@site/static/img/robots/leo/specification/leo-1.9-hardware-diagram.svg';
+import WeipuDiagram from '@site/static/img/robots/leo/specification/weipu-SP13-3-pinout.svg';
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/leo-rover-1.9.webp"
+  alt="Leo Rover 1.9"
+  width="2000"
+  height="1300"
+  figStyle={{
+    width: 500,
+  }}
+/>
+
+---
+
+## Introduction
+
+Leo Rover is a compact, 4-wheeled, remote-controlled robot designed for indoor
+and outdoor robotic project development, learning, and research applications. It
+is equipped with a built-in computer, a high-resolution camera, and a powerful
+battery, making it suitable for various tasks, including autonomous navigation,
+obstacle detection, and remote monitoring.
+
+### Main parameters
+
+| Parameter                    |                Value                |
+| :--------------------------- | :---------------------------------: |
+| Dimensions (LxWxH)           |      424 mm x 445 mm x 303 mm       |
+| Weight                       |           $\approx$ 7 kg            |
+| Maximum payload              |          $\approx$ 5 kg\*           |
+| Maximum linear speed         |          $\approx$ 0.4 m/s          |
+| Maximum angular speed        |          $\approx$ 1 Rad/s          |
+| Estimated max. obstacle size |           $\approx$ 70 mm           |
+| IP protection rating         |                IP 55                |
+| Operating temperature        |          -10 °C to +40 °C           |
+| Run time                     | up to 4 hours with standard battery |
+| Connection range             |             Up to 100 m             |
+
+\* - on standard tires
+
+#### Traction parameters
+
+| Parameter                    |    Value    |
+| :--------------------------- | :---------: |
+| Track Width                  |   354 mm    |
+| Wheelbase length             |   295 mm    |
+| Ground clearance             |   108 mm    |
+| Climb grade (no payload)     | 45° (100 %) |
+| Climb grade with 5kg payload | 45° (100 %) |
+| Hill grade traversal         | 45° (100 %) |
+| Nominal torque               |    4 Nm     |
+| Maximum torque               |   5.6 Nm    |
+
+### Rover overview
+
+<ThemedImageZoom
+  alt="Overview of main features of Rapha Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9-overview-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9-overview-dark.webp',
+    ),
+  }}
+  width="1855"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Leo Rover overview"
+/>
+
+## Hardware specification
+
+### Dimensions
+
+<ThemedImageZoom
+  alt="Leo Rover Dimensions"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9_dimensions-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9_dimensions-dark.webp',
+    ),
+  }}
+  width="1300"
+  height="1800"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Dimensions of Leo Rover"
+/>
+
+### Components
+
+|              Name | Quantity | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------------: | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Built-in computer |    1     | Raspberry Pi 5 - A single-board computer developed by Raspberry Pi Ltd.<br /> <br /> Key features: <ul><li>Processor: Broadcom BCM2712, 2.4GHz quad-core 64-bit Arm Cortex-A76 CPU with cryptography extensions. </li><li> Memory: 4GB LPDDR4X-4267 SDRAM.</li><li>Storage: Micro SD card slot with support for high-speed SDR104 mode; PCIe 2.0 x1 interface for fast peripherals (requires separate M.2 HAT or adapter).</li><li>Connectivity:<ul><li>Gigabit Ethernet (supports PoE+ with separate PoE+ HAT)</li><li>Dual-band 802.11ac Wi-Fi</li><li> Bluetooth 5.0 / Bluetooth Low Energy (BLE)</li><li>2 x USB 3.0 ports supporting simultaneous 5Gbps operation</li><li> 2 x USB 2.0 5 ports</li><li> 2 x micro-HDMI ports supporting resolutions up to 4kp60 with HDR support</li><li>2 x 4-lane MIPI camera/display transceivers</li><li>standard 40-pin GPIO header</li></ul></li></ul> |
+|     Wi-Fi adapter |    1     | Alfa AWUS036ACS: USB 2.0 Wi-Fi adapter (Realtek RTL8811AU). Dual-band 802.11ac (AC600: 150 Mbps 2.4GHz + 433 Mbps 5GHz).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|           Antenna |    1     | Dual-band (2.4 GHz / 5 GHz) placed on the top of the robot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|      Front camera |    1     | Arducam 12.3MP 477M HQ Camera Module for Raspberry Pi with 158°(D) M12 Wide Angle Lens.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|         DC motors |    4     | Bühler Motors 1.61.077.414 connected to LeoCore.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+
+### Block diagram
+
+<HardwareDiagram
+  className="themedSvg"
+  style={{
+    width: '700px',
+  }}
+/>
+
+### LeoCore controller
+
+Leo Rover since version 1.8 is based on the LeoCore electronics board which,
+together with the Raspberry Pi computer, controls all the Rover's
+functionalities.
+
+<ImageZoom
+  src="/img/robots/leo/specification/LeoCore.webp"
+  alt="LeoCore controller"
+  width="1600"
+  height="1120"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+To make it easier, we listed all the interfaces used by Leo Rover as default.
+Just to make sure you don't interfere with them when developing.
+
+| Port                                    | Functionality                                                     |
+| --------------------------------------- | ----------------------------------------------------------------- |
+| Power input                             | to power the board                                                |
+| RPi port                                | to power and RPi serial communication                             |
+| LED output                              | to control the battery LED (to show system readiness)             |
+| Motor output A, B, C & D (PWM H-bridge) | to power the rover motors and encodes                             |
+| 5-pin debug port                        | used to flash firmware to the board using ST-link/V2 (optionally) |
+
+### Drivetrain
+
+The standard configuration of the Leo Rover features a drivetrain comprising
+four fixed wheels. This design enhances the mobility of the Rover, enabling it
+to execute precise maneuvers such as:
+
+- turning in place ( around center of mass of the rover)
+- turning around a curve
+
+In addition, Leo Rover has a differential suspension system, which allows it to
+traverse uneven terrain and obstacles. The suspension system is designed to
+provide a smooth ride and maintain stability while driving over rough surfaces.
+
+#### Motors
+
+The Rover is equipped with four in-hub DC motors, each featuring a planetary
+gearbox with a gear ratio of 73.2:1. This configuration allows for precise
+control of the Rover's movement and enables it to navigate various terrains with
+ease. The motors are equipped with encoders that provide feedback on the wheel's
+position and speed, allowing for accurate control of the Rover's movement.
+
+#### Wheels
+
+As standard, Leo Rover comes with rubber tires with a diameter of about 130 mm.
+Whole drive assembly has following characteristics:
+
+|                        Parameter |               Value                |
+| -------------------------------: | :--------------------------------: |
+| Tire size (diameter x thickness) | $\approx$ 125 mm x $\approx$ 70 mm |
+|                   Tire lock type |            non beadlock            |
+|                      Tire insert |     soft foam (non pneumatic)      |
+|               Wheel rim diameter |               98 mm                |
+
+### Battery & charging
+
+Leo Rover is powered by a 3S Li-Ion battery with a capacity of 7000 mAh. The
+battery is equipped with an internal battery management system (BMS) that
+provides protection against overcharging, over-discharging, and short circuits.
+The battery is designed to be easily replaceable, allowing for quick swaps
+during extended use.
+
+Each battery pack has following characteristics:
+
+|            Parameter |                  Value                   |
+| -------------------: | :--------------------------------------: |
+|              Voltage |             11.1 V (nominal)             |
+|         Battery type |                  Li-Ion                  |
+|         Battery cell |       18650 (Samsung INR18650-35E)       |
+|             Capacity |       7 Ah (84,7 Wh - flight safe)       |
+|    Battery pack type |                   3S2P                   |
+| Maximum output power |             $\approx$ 120 W              |
+|       Safety systems | Overcurrent, Reverse polarity protection |
+
+#### Connectors
+
+By default Leo Rover uses standard [WEIPU](https://www.weipuconnector.com/)
+SP13-3 connectors for connecting battery, Main Electronics Box and other
+possible addons.
+
+<FlexTable>
+  <FlexTableItem>
+
+| Pin name | Cable color                   |
+| -------- | ----------------------------- |
+| DC-      | black                         |
+| DC+      | red / black with white stripe |
+| LED      | green                         |
+
+  </FlexTableItem>
+  <FlexTableItem style={{padding: '0 0.5rem 0 0.5rem'}}>
+    <WeipuDiagram
+      className='themedSvg'
+      style={{
+        width:'400px',
+      }} />
+  </FlexTableItem>
+</FlexTable>
+
+#### Battery charger
+
+The Rover is equipped with a 2A 12.6V Li-Ion battery charger that can charge the
+standard battery in approximately 4 hours. The charger is designed to be compact
+and portable, making it easy to transport and use in various environments. The
+charger is equipped with a standard 5.5/2.1 mm DC plug.
+
+The charger is outfitted with an LED status indicator designed to provide
+information about the charging status of the battery. A green LED signifies that
+the battery has reached full charge, while a red LED indicates that the battery
+is currently in the charging process.
+
+|       Parameter |              Value              |
+| --------------: | :-----------------------------: |
+|         Voltage |             12.6 V              |
+|         Current |            2 A (max)            |
+|    Charger type |             Li-Ion              |
+|    Charger plug | DC 5.5/2.1 mm (center positive) |
+| Charger adapter |  Weipu SP13-3 - DC 5.5/2.1 mm   |
+
+To connect the charger to the battery, a Weipu SP13-3 - DC 5.5/2.1 mm adapter is
+included with each Rover. This adapter allows for easy and secure connection
+between the charger and the battery, ensuring that the charging process is
+efficient and safe.
+
+For more information on how to charge the battery, please refer to the Leo Rover
+Getting started guide:
+
+<LinkButton docId="documentation/getting-started" />
+
+### Payload specification
+
+Leo Rover is designed to be modular and customizable, allowing users to attach
+various payloads and accessories to the Rover. The Rover features a mounting
+platform on the top, which can accommodate different payloads and accessories.
+The payload capacity of the Rover is approximately 5 kg, making it suitable for
+a wide range of applications, including research, education, and development.
+
+|                                  Parameter |                    Value                     |
+| -----------------------------------------: | :------------------------------------------: |
+|                           Payload capacity |                $\approx$ 5 kg                |
+|                          Hole grid spacing |                18 mm x 15 mm                 |
+|                   Mounting hole dimensions | 7 mm, equipped with T-KFS-M4-1 press-in nuts |
+| Main mounting plate dimensions (L x W x D) |            299 mm x 183 mm x 2 mm            |
+
+Apart from the mounting plate, it is possible to mount payloads directly to
+v-slot extrusions of the Leo Rover.
+
+In order to power the payload, we recommend purchasing a Powerbox module which
+replaces the additional quarter of the rover.
+
+<Powerbox />
+
+## Software specification
+
+{/* TODO for now copied from Rapha Rover and merged with 1.8 */}
+
+Rapha Rover's software heavily relies on The
+[Robot Operating System (ROS)](https://ros.org/) which offers the robot the
+following functionalities:
+
+- Abstraction layer facilitating communication between software components.
+- Open-source software components, maintained by the community.
+- A collection of standard message interfaces.
+- Tools for introspection.
+
+The primary segment of the software stack is partitioned into several
+[ROS Nodes](https://wiki.ros.org/Nodes), treated as computational units, each
+doing one logical thing. The nodes interact via:
+
+- **Topics** - Named buses enabling message exchange between nodes. They are
+  strongly typed and employ anonymous publish/subscribe semantics.
+- **Services** - A client/server mechanism for remote procedure calls between
+  nodes. The service server accepts remote procedure requests identified by name
+  and type, which must be known to the service client beforehand.
+- **Parameters** - Sets of key/value pairs maintained separately by each node,
+  utilized for node configuration during startup and runtime without
+  necessitating code modifications.
+- **TF transforms** - A single transform describes the relationship between 2
+  coordinate frames at a specific point in time. TF transforms are distributed
+  between nodes using topics, but, for the sake of clarity, we will refer to
+  them as separate entities.
+
+There are two important software components which don't run as native ROS nodes:
+
+- **Controller firmware** - The firmware itself acts as a ROS node but uses
+  eProsima's
+  [Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/) as its
+  middleware. Thus, it requires the presence of the Micro-ROS Agent on the
+  built-in computer to communicate with other ROS nodes.
+- **Web User Interface** - The WebUI establishes a connection with the Rosbridge
+  Server via WebSocket transport layer and employs the rosbridge protocol for
+  communication with the ROS nodes.
+
+<ThemedImageZoom
+  alt="Leo Rover 1.8 software diagram"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/specification/leo-rover-v1.8_software-diagram_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/specification/leo-rover-v1.8_software-diagram_white.webp',
+    ),
+  }}
+  width="2000"
+  height="914"
+  figStyle={{
+    width: 800,
+  }}
+/>
+
+## Firmware specification
+
+{/* TODO not touched for 1.9 */}
+
+This is the program that runs directly on the processor of the LeoCore board. It
+provides different functionalities to the Raspberry Pi through serial bus. The
+main features of the default
+[leocore_firmware](https://github.com/LeoRover/leocore_firmware) are:
+
+- differential drive controller
+  ([cmd_vel](https://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/Twist.html)
+  interface)
+- wheel states monitoring
+  ([joint_states](https://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/JointState.html)
+  interface)
+- battery voltage monitoring
+- wheel odometry calculation
+- IMU support
+
+## Web user interface (UI)
+
+{/* TODO not touched for 1.9 */}
+
+This is the user interface that can be accessed via a web browser. It
+communicates with Rosbridge server using
+[roslibjs](https://wiki.ros.org/roslibjs) to access functionalities that are
+available in ROS topics. The default
+[leo_ui](https://github.com/LeoRover/leo_ui) brings features such as:
+
+- control of the Rover via a keyboard or a virtual joystick
+- display of a camera stream from Web video server
+- output of current battery voltage measurement
+- reboot and shutdown buttons

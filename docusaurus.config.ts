@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import type { Options as ClientRedirectsOptions } from '@docusaurus/plugin-client-redirects';
+import type { Options as DocsOptions } from '@docusaurus/plugin-content-docs';
 
 const config: Config = {
   title: 'Fictionlab Documentation',
@@ -73,12 +73,23 @@ const config: Config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/',
-          sidebarPath: './sidebars.ts',
+          id: 'leo-rover',
+          path: 'docs/leo-rover',
+          routeBasePath: '/leo-rover',
+          sidebarPath: './sidebars/LeoSidebars.ts',
           editUrl: 'https://github.com/fictionlab/docs/edit/development/',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           showLastUpdateTime: true,
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: 'Leo Rover 1.9',
+            },
+            '1.8': {
+              label: 'Leo Rover 1.8',
+            },
+          },
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -137,16 +148,24 @@ const config: Config = {
           position: 'left',
           items: [
             {
-              type: 'docSidebar',
-              sidebarId: 'leoSidebar',
               label: 'Leo Rover',
+              to: '/leo-rover',
             },
             {
-              type: 'docSidebar',
-              sidebarId: 'raphaSidebar',
               label: 'Rapha Rover',
+              to: '/rapha-rover',
             },
           ],
+        },
+        {
+          label: 'Integrations',
+          position: 'left',
+          to: '/integrations',
+        },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          docsPluginId: 'leo-rover',
         },
         {
           href: 'https://www.leorover.tech/shop',
@@ -252,121 +271,43 @@ const config: Config = {
   } satisfies Preset.ThemeConfig,
   plugins: [
     [
-      '@docusaurus/plugin-client-redirects',
+      'content-docs',
       {
-        redirects: [
-          // old slug redirects
-          {
-            from: '/docs/leo-rover/guides/remote-desktop',
-            to: '/leo-rover/guides/remote-desktop',
-          },
-          {
-            from: '/docs/category/assembly-manuals',
-            to: '/leo-rover/manuals',
-          },
-          {
-            from: '/docs/leo-rover/manuals/wheels-to-meb',
-            to: '/leo-rover/manuals/combining-subassemblies',
-          },
-          {
-            from: '/docs/leo-rover/documentation/specification',
-            to: '/leo-rover/documentation/specification',
-          },
-          {
-            from: '/docs/leo-rover/getting-started',
-            to: '/leo-rover/documentation/getting-started',
-          },
-          {
-            from: '/docs/leo-rover/documentation/known-issues',
-            to: '/leo-rover/documentation/known-issues',
-          },
-          {
-            from: '/leo-rover/manuals/tools',
-            to: '/leo-rover/manuals/setup',
-          },
-          {
-            from: '/leo-rover/manuals/battery',
-            to: '/leo-rover/manuals/back-front-covers',
-          },
-          {
-            from: '/leo-rover/manuals/additional-quarter-and-front-cover',
-            to: '/leo-rover/manuals/back-front-covers',
-          },
-          {
-            from: '/leo-rover/manuals/meb-to-frame',
-            to: '/leo-rover/manuals/combining-subassemblies',
-          },
-          {
-            from: '/leo-rover/manuals/wheels-to-meb',
-            to: '/leo-rover/manuals/combining-subassemblies',
-          },
-          {
-            from: '/leo-rover/manuals/software',
-            to: '/leo-rover/manuals/boot-and-firmware',
-          },
-          {
-            from: '/leo-rover/manuals/final-touches',
-            to: '/leo-rover/manuals/combining-subassemblies',
-          },
-          // category redirects
-          {
-            from: '/category/rover-documentation',
-            to: '/leo-rover/documentation',
-          },
-          {
-            from: '/category/assembly-manuals',
-            to: '/leo-rover/manuals',
-          },
-          {
-            from: '/category/leo-examples',
-            to: '/leo-rover/leo-examples',
-          },
-          {
-            from: '/category/addons',
-            to: '/leo-rover/addons',
-          },
-          {
-            from: '/category/integrations',
-            to: '/leo-rover/integrations',
-          },
-          {
-            from: '/category/computing-devices',
-            to: '/leo-rover/integrations/computing-devices',
-          },
-          {
-            from: '/category/lidars',
-            to: '/leo-rover/integrations/lidars',
-          },
-          {
-            from: '/category/positioning-systems',
-            to: '/leo-rover/integrations/positioning-systems',
-          },
-          {
-            from: '/category/robotic-arms',
-            to: '/leo-rover/integrations/robotic-arms',
-          },
-          {
-            from: '/category/software',
-            to: '/leo-rover/integrations/software',
-          },
-          {
-            from: '/category/legacy-pre-leo-18',
-            to: '/leo-rover/integrations/legacy',
-          },
-          {
-            from: '/category/guides',
-            to: '/leo-rover/guides',
-          },
-          {
-            from: '/category/advanced-guides',
-            to: '/leo-rover/advanced-guides',
-          },
-          {
-            from: '/category/archive',
-            to: '/leo-rover/archive',
-          },
-        ],
-      } satisfies ClientRedirectsOptions,
+        id: 'rapha-rover',
+        path: 'docs/rapha-rover',
+        routeBasePath: 'rapha-rover',
+        sidebarPath: './sidebars/RaphaSidebars.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
+    ],
+    [
+      'content-docs',
+      {
+        id: 'integrations',
+        path: 'docs/integrations',
+        routeBasePath: 'integrations',
+        sidebarPath: './sidebars/integrationsSidebar.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
+    ],
+    [
+      'content-docs',
+      {
+        id: 'guidelines',
+        path: 'docs/guidelines',
+        routeBasePath: 'guidelines',
+        sidebarPath: './sidebars/guidelinesSidebar.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
     ],
   ],
 };

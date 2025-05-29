@@ -1,0 +1,7 @@
+{
+  "label": "High capacity battery",
+  "position": 3,
+  "collapsible": true,
+  "collapsed": true,
+  "link": { "type": "doc", "id": "high-capacity-battery" }
+}

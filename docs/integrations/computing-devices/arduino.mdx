@@ -1,0 +1,672 @@
+---
+title: Arduino boards
+sidebar_label: Arduino boards
+keywords:
+  - arduino
+  - microcontroller
+  - integration
+  - leo
+  - example
+description: >-
+  Discover the benefits of using Arduino with Leo Rover, including simplified
+  hardware projects and faster development.
+image: /img/robots/leo/integrations/arduino/arduino-on-leo.webp
+---
+
+import Product from '@site/docs/leo-rover/addons/powerbox/_powerbox-product.mdx';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+
+In this tutorial, we'll show you how to connect Arduino to Leo Rover.
+
+## What is Arduino?
+
+Before we get started, let's say a few words about what Arduino actually is.
+
+**Arduino** is an open-source electronic platform that allows users to easily
+access advanced technologies interacting with the physical world.
+
+### What do I need Arduino for?
+
+You might wonder what the point of having Arduino inside Leo Rover is. After
+all, isn't the robot already equipped with a Raspberry Pi micro-computer?
+
+Well, the simplicity of Arduino makes it more convenient for typical hardware
+projects. Arduino has analog capabilities that the Raspberry Pi lacks by
+default. Its flexibility allows you to work with almost any type of sensor.
+
+Arduino speeds up the creation of simple projects that don't require advanced
+software and a good Internet connection.
+
+Let's not forget that behind the name "Arduino" hide many boards, so if you want
+to learn how to choose the best one for your project, look
+[here](https://www.leorover.tech/post/how-to-choose-the-right-arduino-board).
+For our projects, we mostly use **Arduino DUE**.
+
+## What to expect?
+
+Having finished the tutorial you'll know how to connect Arduino to the Leo Rover
+and use its potential to further improve your projects and make the development
+process of future projects a little bit faster.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-on-leo.webp"
+  alt="Arduino on Leo Rover"
+  width="1785"
+  height="1659"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/remote-desktop"
+  title="Connect via remote desktop"
+  description="Learn how to remotely access your Leo Rover's desktop environment using RDP
+  and popular remote desktop clients."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+
+## List of components
+
+- Any Arduino ( or any other compatible board)
+- Any way of connecting the board to the rover
+- USB cable
+
+## Mechanical integration
+
+We have created mechanical interfaces for **Arduino DUE**, which you can get
+here:
+
+<LinkButton docId="addon-adapters" />
+
+You'll need to press in ten M3, threaded heat-set inserts into the base part.
+This allows you to use M3x6 Allen screws to hold the Arduino securely. The cover
+is held by 4 screws of the same size.
+
+Since Arduino Due has the largest footprint out of all the Arduino boards it
+should be pretty easy to adapt the provided Arduino DUE adapter models to fit
+other boards inside. All you need to do is use 3D CAD program like **Autodesk
+Fusion** to change the way mounting holes for the board are positioned.
+
+## Wiring and electronics connection
+
+For most intents and purposes the only connection you need to provide is an USB
+connection between the board and the USB port at the top of the rover. However,
+you may want to provide the microcontroller, and the sensors that you are using,
+with external power source. For such cases powerbox addon might be a good
+choice.
+
+<Product />
+
+## Software integration
+
+There are several ways to integrate Arduino into the rover. From this tutorial,
+you'll learn about two of them so that you can decide which one works best for
+you.
+
+<Tabs groupId="software-integration">
+  <TabItem value="mechanical-eng" label="Mechanical engineer way">
+    <Admonition type="info">
+      This way saves you from having to dive into the rover's insides. It works;
+      however, it does not allow you to communicate between the rover's onboard
+      computer and Arduino - this, in turn, makes it harder to use the data
+      harvested by any sensors connected to the Arduino.
+    </Admonition>
+
+    First, install Arduino IDE using any of those provided tutorials:
+
+    - [Arduino IDE installation and setup (Windows)](https://www.arduino.cc/en/Guide/Windows)
+    - [Arduino IDE installation and setup (Linux)](https://www.arduino.cc/en/Guide/Linux)
+
+    Then, you need to set up Arduino IDE (we're using Arduino DUE which needs a
+    special configuration in Arduino IDE).
+
+    To do so, do as follows: while in IDE, go to: **Tools** -> **Board** -> **Boards
+    Manager**
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-board-manager.webp"
+      width="954"
+      height="515"
+    />
+
+    Type `DUE` in the search bar and install the latest version of
+    `Arduino SAM Boards` (32-bits ARM Cortex-M3).
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-board-manager-due.webp"
+      width="976"
+      height="224"
+    />
+
+    The next step is to take care of the board specific setup:
+
+    - Connect the board to a USB port in your computer (use the port closer to the
+      barrel jack socket)
+    - Go to: **Tools** -> **Board** -> **Arduino ARM (32-bits) Boards** and choose
+      **Arduino Due (Programming Port)**
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-programming-port.webp"
+      width="955"
+      height="515"
+    />
+
+    - Go to: **Tools** -> **Port** and choose the port Arduino is connected to
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-programming-port-2.webp"
+      width="955"
+      height="515"
+    />
+
+  </TabItem>
+  <TabItem value="software-eng" label="Software engineer way">
+    <Admonition type='info'>
+      This way allows you to communicate between the rover's onboard computer
+      and the Arduino board. However, it takes a bit longer to set up than the
+      previous method.
+
+      Following the steps below gives you the ability to use Arduino IDE and
+      programming the boards directly from the Leo Rover's on-board computer. This
+      means that you won't have to disconnect the board from your computer and connect
+      it to the Leo Rover every time you make a small change in the code. However, it
+      comes with a drawback of using a less powerful computer to write the code at.
+    </Admonition>
+    <Admonition type="note">
+      If reconnecting the Arduino between your computer and Leo Rover every time you
+      make a change to the code is not a problem to you follow The **mechanical
+      engineer way** and then skip to Setting up the Rosserial communication.
+    </Admonition>
+
+    First connect to the rover via Remote Desktop and connect the rover to the
+    network (see [Prerequisites](#prerequisites)).
+
+    Now, install and set up Arduino IDE following instructions below:
+
+    Visit [this website](https://www.arduino.cc/en/software) and download the latest
+    version of `Arduino IDE`. Make sure to get the **Linux ARM 64 bits** version.
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-ide-linux.webp"
+      width="1118"
+      height="484"
+    />
+
+    Now, you need to extract the .tar file. To do so open new terminal
+    (**ctrl+alt+T**) and go to the downloads directory, and unpack the Arduino
+    installation files with `tar` command.
+
+    ```bash
+    cd ~/Downloads
+    tar -xf arduino-<version>-linuxarm.tar.xz
+    ```
+
+    <Admonition type="info">
+      Unpacking might take a while, just wait until it's completed.
+
+      Also make note of what Arduino IDE version you are installing as it might be
+      different. If you are not sure, what is your file, check the files while being
+      in Downloads directory with `ls` command.
+    </Admonition>
+
+    You can see the unpacked files in the directory using `ls` command.
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-downloaded.webp"
+      width="936"
+      height="55"
+    />
+
+    Now you need to move extracted files from `Downloads` directory, to `/opt`
+    directory. To do so type (while being in Downloads directory):
+
+    ```bash
+    sudo mv arduino-<Version> /opt
+    ```
+
+    <Admonition type="note">
+      When you are using sudo you might get asked for root password. Just type it in,
+      and confirm with Enter.
+    </Admonition>
+
+    Then you need to install the files. To do so go to the moved Arduino files in
+    `/opt` directory and run `install.sh` script.
+
+    <Admonition type="warning">
+      Once again pay attention to your Arduino files version, so you go to the correct
+      directory. You may also need to give execution rights to `install.sh` script. To
+      do so type:
+
+      ```bash
+      sudo chmod +x install.sh
+      ```
+    </Admonition>
+
+    **Arduino IDE** should be installed and you should see new icon on the Desktop.
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-new-icon.webp"
+      width="141"
+      height="316"
+      figStyle={{
+        width: 200
+      }}
+    />
+
+    Now, connect Arduino to the rover. To do so, plug the USB cable in and then,
+    open the Arduino IDE.
+
+    After that, set up the board specific options doing the following steps:
+
+    While in IDE, go to: **Tools** -> **Board** -> **Boards Manager**
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-board-manager.webp"
+      width="954"
+      height="515"
+    />
+
+    Type `DUE` in the search bar and install the latest version of
+    `Arduino SAM Boards` (32-bits ARM Cortex-M3).
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-board-manager-due.webp"
+      width="976"
+      height="224"
+    />
+
+    The next step is to take care of the board specific setup:
+
+    - Connect the board to a USB port in your computer (use the port closer to the
+      barrel jack socket)
+    - Go to: **Tools** -> **Board** -> **Arduino ARM (32-bits) Boards** and choose
+      **Arduino Due (Programming Port)**
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-programming-port.webp"
+      width="955"
+      height="515"
+    />
+
+    - Go to: **Tools** -> **Port** and choose the port Arduino is connected to
+
+    <ImageZoom
+      src="/img/robots/leo/integrations/arduino/arduino-programming-port-2.webp"
+      width="955"
+      height="515"
+    />
+
+  </TabItem>
+</Tabs>
+
+### Checking setup
+
+The easiest way to check if the board is working, is to use pre-created example
+codes. One of them is the blink sketch provided in the Arduino IDE examples.
+
+Go to: **File** -> **Examples** -> **01.Basics** and choose the **Blink** sketch
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-blink.webp"
+  width="956"
+  height="513"
+/>
+
+You should see something similar to this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-blink-code.webp"
+  width="956"
+  height="1035"
+/>
+
+Now, you'll have to verify the code and send it to the board. First, make sure
+the correct board and ports are chosen as shown below:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-ports.webp"
+  width="638"
+  height="428"
+  figStyle={{
+    width: 500,
+  }}
+/>
+
+Now you can **verify(1)** and **upload(2)** the code.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-verify-upload.webp"
+  width="238"
+  height="157"
+  figStyle={{
+    width: 250,
+  }}
+/>
+
+After a few seconds, you should see two things:
+
+- the following statement:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-upload-done.webp"
+  width="377"
+  height="163"
+  figStyle={{
+    width: 350,
+  }}
+/>
+
+- and Arduino's built-in LED blinking
+
+## Setting up the Rosserial communication
+
+First step is to download the `rosserial` library.
+
+Go to: **Tools** -> **Manage Libraries**
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-manage-libraries.webp"
+  width="960"
+  height="518"
+/>
+
+Type `rosserial` in the search bar and download `Rosserial Arduino Library`
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-search-rosserial.webp"
+  width="960"
+  height="518"
+/>
+
+The board that we are using - `Arduino Due` - needs one additional step in order
+to properly work with rosserial.
+
+:::info
+
+Skip this step if you are using another board.
+
+:::
+
+Find `ArduinoHardware.h`. The proper path to find the folder is as follows:
+
+```
+/Arduino/libraries/Rosserial_Arduino_Library/src
+```
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-hardware-h.webp"
+  width="797"
+  height="574"
+/>
+
+Modify **line 73** to state:
+
+```ino
+#if defined(USBCON) and !(defined(USE_USBCON)) and !(defined(_SAM3XA_))
+```
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-line-73.webp"
+  width="838"
+  height="78"
+/>
+
+## Examples
+
+From this point forward, most of our instructions will be rephrased instructions
+made by `wiki.ros.org`. You can check
+[this site](http://wiki.ros.org/rosserial_arduino/Tutorials) for more detailed
+instructions.
+
+In the first tutorial, you can see how to get data from Arduino to the rover`s
+mind.
+
+### Arduino Code (hello world - simple publisher)
+
+You can get to the sample code by following the path shown below:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-hello-world.webp"
+  width="1600"
+  height="869"
+/>
+
+Upload the code to Arduino. Make sure to use the correct `PORT` and `BOARD` in
+Arduino.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-board-port.webp"
+  width="565"
+  height="127"
+/>
+
+Then, start a new terminal window and launch `rosserial` node, that will start
+communication between Arduino and the rover's onboard computer.
+
+```bash
+rosrun rosserial_python serial_node.py port:=/dev/ttyACM0 __name:=my_node
+```
+
+:::warning
+
+Remember to set the `port` argument, to the same port you saw in Arduino IDE.
+
+`__name` argument can be set to whatever you like your node to be called
+
+:::
+
+Start another terminal window and check the list of running nodes (you should
+see your node there):
+
+```bash
+rosnode list
+```
+
+You can get more information about your node - eg. what topics it is
+listening/publishing to. As you can see, `/Arduino_COM_node` is publishing to
+`/chatter` topic
+
+```bash
+rosnode info /node_name
+```
+
+:::info
+
+After `/`, you need to provide the correct name of your node. You can start
+typing the name, and fill the line with **Tab** key (double tap).
+
+:::
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-rosnode-info.webp"
+  width="935"
+  height="377"
+/>
+
+You can also see list of all active topics by typing:
+
+```bash
+rostopic list
+```
+
+You should see one called `chatter` that was created by Arduino after you've
+created the node you've named.
+
+Now to see data published to our topic, type in the terminal:
+
+```bash
+rostopic echo /chatter
+```
+
+:::info
+
+If everything went according to our plan, by running this command you should be
+able to see the Arduino sending “Hello World” message to this topic.
+
+**Ctrl+C** lets you stop the program running in the terminal.
+
+:::
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-echo-chatter.webp"
+  width="937"
+  height="455"
+/>
+
+### Arduino as publisher and subscriber
+
+In this example, we will show you our real live use case of Arduino with Leo
+Rover.
+
+#### Description
+
+Our task was to check whether there is a correlation between soil quality and
+motor current in Leo Rover pulling a plow. Therefore we have designed a lowered
+plow, capable of gathering pulling force data and drove Leo Rover through soil
+of different quality, while gathering the data. And in the end, we could analyze
+gathered data.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-plow.webp"
+  width="1000"
+  height="563"
+/>
+
+The Plow is connected to the rest of the rover with a strain gauge beam. Pulling
+force can be observed as tiny changes in voltage, that get amplified with an
+amplifier. Arduino is used to gather the data and send it to the computer.
+
+:::note
+
+It's obvious that you will not be able to follow this guide with a plow, so you
+can replace it with a potentiometer or any other analog sensor. Here are the
+instruction, how to connect it, so it works with the rest of the tutorial:
+
+- Connect your sensor to `A0 pin` on Arduino,
+- Use 2 LEDs connected to respectively digital pin 10 and digital pin 11
+  (remember to use resistors) to test the subscriber part of the code.
+
+:::
+
+#### Code
+
+```arduino
+#include <Arduino.h>
+#include <ros.h>
+#include <std_msgs/Bool.h>
+#include <std_msgs/Float32.h>
+
+ros::NodeHandle  nh;
+
+std_msgs::Float32 tension_msg;
+std_msgs::Bool plow_state;
+
+void plow_control_callback( const std_msgs::Bool& msg){
+
+  if(msg.data == true){         //plow up
+    digitalWrite(10, HIGH);
+    digitalWrite(11, LOW);
+  }
+  else if (msg.data == false)    //plow down
+  {
+    digitalWrite(10, LOW);
+    digitalWrite(11, HIGH);
+    }
+}
+
+//setup a publisher
+ros::Publisher pub_tension("tension", &tension_msg);
+//setup a subscriber, make Arduino react to a message with plow_control_callback function
+ros::Subscriber<std_msgs::Bool> plow_control ("plow_control", &plow_control_callback );
+
+void setup()
+{
+  //actuator pins setup
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+
+  //rosserial communication setup
+  nh.initNode();
+  nh.subscribe(plow_control);    //make arduino listen to messages sent to a plow_control top-ic
+  nh.advertise(pub_tension);     //give arduino the ability to send messages to pub_tension topic
+}
+void loop()
+{
+  //get data and publish it
+  tension_msg.data = analogRead(A0);
+  pub_tension.publish(&tension_msg);
+  nh.spinOnce();
+  delay(1);
+}
+```
+
+#### Running and visualizing
+
+With the code imported to Arduino and all the necessary wires connected, you can
+start the Arduino node. To do so, open new terminal and type:
+
+```bash
+rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 __name:=Arduino_node
+```
+
+In another terminal run:
+
+```bash
+rqt_plot /tension/data
+```
+
+You`ll see a graph following the changes in sensor output.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arduino/arduino-tension-plot.webp"
+  width="605"
+  height="367"
+/>
+
+Sending either `True` or `False` to `plow_control` topic controls the plow
+position for us (either lowered or raised) for you it can control any binary
+device e.g. turn the LEDs on and off. You can send those messages by typing in
+the terminal:
+
+```bash
+rostopic pub /plow_control std_msgs/Bool  „data: false”
+```
+
+or:
+
+```bash
+rostopic pub /plow_control std_msgs/Bool  „data: true”
+```
+
+For instructions related to data recording refer to
+[this site](http://wiki.ros.org/rosbag/Tutorials). And If you want to make
+recordings easier to use, you can change `.bag` files to `.csv` files by
+following [this tutorial](https://github.com/AtsushiSakai/rosbag_to_csv).
+
+## What next?
+
+If you want to Learn more about working with ROS (e.g. make arduino node start
+on Leo Rover startup) check
+[this tutorial](/leo-rover/advanced-guides/ros-development).
+
+You can also find other ideas and tutorials here:
+
+- https://create.arduino.cc/projecthub/projects/tags/arduino
+- http://wiki.ros.org/rosserial_arduino/Tutorials
+
+:::info
+
+Now, everything should work, if not, contact us at contact@fictionlab.pl. We'll
+be happy to answer your questions and help you.
+
+:::
