@@ -19,7 +19,7 @@ PhantomX Pincher has been replaced with PincherX 100 Mobile Robotic Arm.
 Therefore we are no longer supporting this integration. For Integration with
 PincherX 100 mobile, check this tutorial:
 
-<LinkButton docId="integrations/robotic-arms/trossen-pincherx-100" />
+<LinkButton docId="robotic-arms/trossen-pincherx-100" />
 
 This integration is not compatible with Leo Rover v1.8. It is kept on site for
 legacy purposes.
@@ -31,9 +31,24 @@ Robotics' PhantomX Pincher Robot connected to Leo Rover.
 
 ## Prerequisites
 
-<LinkButton docId="guides/ssh" />
-<LinkButton docId="guides/connect-to-network" />
-<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+<LinkButton
+  to="/leo-rover/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
 
 <ImageZoom
   loading="eager"
@@ -115,7 +130,7 @@ servo IDs like in the picture below:
 
 To do this, you can follow our guide for the Arbotix controller here:
 
-<LinkButton docId="integrations/legacy/arbotix" />
+<LinkButton docId="legacy/arbotix" />
 
 In there, you will also find how to configure and use the
 [arbotix ROS driver](http://wiki.ros.org/arbotix).
@@ -139,7 +154,12 @@ To use these features, you will need to install these packages on your Leo Rover
 
 Make sure you have ROS installed:
 
-<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+<LinkButton
+  to="/leo-rover/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
 
 then type in the terminal:
 
@@ -152,7 +172,12 @@ sudo apt install ros-${ROS_DISTRO}-pincher-arm ros-${ROS_DISTRO}-leo-desktop
 
 Make sure your rover is connected to the Internet:
 
-<LinkButton docId="guides/connect-to-network" />
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
 
 You will only need packages that are required to start the arm driver:
 
@@ -281,7 +306,12 @@ with the nodes running on Leo Rover. To learn how to do this, you can follow
 **Connecting another computer to ROS network** section of **ROS development**
 tutorial:
 
-<LinkButton docId="advanced-guides/ros-development" />
+<LinkButton
+  to="/leo-rover/guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
 
 To visualize the position of the arm in RViz, just type:
 

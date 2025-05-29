@@ -57,14 +57,24 @@ data from the sensor like in the video below.
 
 ## Prerequisites
 
-<LinkButton docId="guides/ssh" />
-<LinkButton docId="advanced-guides/ros-development" />
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
 
 ## List of components
 
 - Hokuyo URG-04LX-UG01
 - 3D-printed 04008 Hokuyo URG-04LX adapter
-  ([available here](/leo-rover/integrations/addon-adapters#hokuyo-urg-04lx-adapter))
+  ([available here](/integrations/addon-adapters#hokuyo-urg-04lx-adapter))
 - miniUSB-USB A cable (provided by default with Leo Rover)
 - 4x M5x10 mounting screws
 - 2x M3x10 mounting screws
@@ -82,7 +92,7 @@ We developed 3D printable models of mechanical interfaces that allow you to
 mount the aforementioned sensor to the mounting plate of the rover. Locating the
 sensor the top of the robot provides a wide field of view with not many
 obstacles for the laser beam to get caught on. Get the files from here:
-[Addon Adapters](/leo-rover/integrations/addon-adapters).
+[Addon Adapters](/integrations/addon-adapters).
 
 - With 2x M3x6 Allen screws connect the sensor to the printed interface plate.
 - Use 4x M5x10 Allen screws to fasten the sensor to the Leo Rover.
@@ -247,12 +257,22 @@ If you have ROS installed on your computer, you can get a more graphical
 representation of the data with RViz. If you don't have ROS, you can follow this
 guide:
 
-<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+<LinkButton
+  to="/leo-rover/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
 
 Before starting RViz, make sure you completed the **Connecting another computer
 to ROS network** section of **ROS Development** tutorial:
 
-<LinkButton docId="advanced-guides/ros-development" />
+<LinkButton
+  to="/leo-rover/guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
 
 Now, open RViz by typing `rviz` in the terminal, or, if you have the `leo_viz`
 package installed, type:
@@ -302,4 +322,4 @@ might be interested in a tutorial about it.
 They are however, not the only way of teaching a Leo Rover how to move on it's
 own. Check out our [line follower](/leo-rover/leo-examples/line-follower)
 tutorial if you want to learn more. You can also check our
-[Integrations page](/leo-rover/integrations) for more instructions.
+[Integrations page](/integrations) for more instructions.

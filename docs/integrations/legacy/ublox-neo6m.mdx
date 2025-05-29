@@ -18,7 +18,7 @@ Therefore we are no longer supporting this integration.
 
 If you are looking for GPS module for Leo Rover v1.8 check this tutorial:
 
-<LinkButton docId="integrations/positioning-systems/ublox-evk-m8n" />
+<LinkButton docId="positioning-systems/ublox-evk-m8n" />
 
 This integration is not compatible with Leo Rover v1.8. It is kept on site for
 legacy purposes.
@@ -30,8 +30,18 @@ functionalities.
 
 ## Prerequisites
 
-<LinkButton docId="guides/ssh" />
-<LinkButton docId="guides/firmware-update" />
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/firmware-update"
+  title="Firmware update"
+  description="Learn how to easily update Leo Rover's firmware from Raspberry Pi without
+  extra cables. Step-by-step guide."
+/>
 
 The first step is to choose an appropriate GPS module. Before you make a
 decision, make sure your GPS sensor can communicate via a serial interface and
@@ -121,7 +131,12 @@ satellites.
 First you need to route the module cables out of the main electronics box (MEB).
 The easiest way is to use one of Dev-Covers that we prepared for such projects.
 
-<LinkButton docId="addons/additional-meb-covers" />
+<LinkButton
+  to="/leo-rover/addons/additional-meb-covers"
+  title="Additional MEB covers"
+  description="Learn how to 3D print your own dev-covers and mounting plates for the Leo
+  Rover Main Electronics Box using the provided CAD files."
+/>
 
 :::note
 
@@ -135,7 +150,12 @@ creative sourcing or designing your own.
 Make sure your rover is up-to-date. GPS functionality was added to the default
 firmware in the v1.0.0 release.
 
-<LinkButton docId="guides/firmware-update" />
+<LinkButton
+  to="/leo-rover/guides/firmware-update"
+  title="Firmware update"
+  description="Learn how to easily update Leo Rover's firmware from Raspberry Pi without
+  extra cables. Step-by-step guide."
+/>
 
 ### Enable GPS
 

@@ -72,8 +72,18 @@ MoveIt.
 
 ## Prerequisites
 
-<LinkButton docId="guides/ssh" />
-<LinkButton docId="advanced-guides/ros-development" />
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
 
 ## Mechanical integration
 
@@ -84,7 +94,7 @@ to connect the arm to the rover's mounting plate.
 If you have the original support plate, you can get the model for 3D printing
 here:
 
-<LinkButton docId="integrations/addon-adapters" />
+<LinkButton docId="addon-adapters" />
 
 ## Wiring and electronics connection
 
@@ -131,7 +141,12 @@ space required we recommend following the steps below.
 Make sure that your rover is connected to internet. If not, follow the guide
 below.
 
-<LinkButton docId="guides/connect-to-network" />
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
 
 Update the system to ensure that the newest versions of the packages and
 repositories are used:
@@ -269,7 +284,12 @@ To learn more about what the files under /etc/ros are used for and how do they
 correlate with each other, visit the **Adding additional functionality to the
 rover** section on **ROS Development** guide:
 
-<LinkButton docId="advanced-guides/ros-development" />
+<LinkButton
+  to="/leo-rover/guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
 
 :::
 
@@ -339,13 +359,23 @@ Here the script is recommended.
 
 Make sure that ROS in installed on your computer:
 
-<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+<LinkButton
+  to="/leo-rover/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
 
 and properly configured to communicate with the nodes running on the rover. For
 this, you can visit **Connecting other computer to ROS network** section of the
 **ROS Development** tutorial:
 
-<LinkButton docId="advanced-guides/ros-development" />
+<LinkButton
+  to="/leo-rover/guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
 
 After the installation `source` the devel space to make the new packages visible
 in your shell environment:
@@ -566,4 +596,4 @@ example.
 ## What next?
 
 If you found this tutorial interesting, make sure to check out other tutorials
-we provide on our [Integrations](/leo-rover/integrations) site.
+we provide on our [Integrations](/integrations) site.

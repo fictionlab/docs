@@ -22,8 +22,18 @@ specific firmware, and launch the additional user's interface.
 
 ## Prerequisites
 
-<LinkButton docId="guides/ssh" />
-<LinkButton docId="guides/connect-to-network" />
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
 
 ## Items needed
 
@@ -91,7 +101,12 @@ git checkout feature/relay
 Now, you need to build the firmware and flash it to the Rover. For instructions
 on how to do it, please follow the Firmware update tutorial:
 
-<LinkButton docId="guides/firmware-update" />
+<LinkButton
+  to="/leo-rover/guides/firmware-update"
+  title="Firmware update"
+  description="Learn how to easily update Leo Rover's firmware from Raspberry Pi without
+  extra cables. Step-by-step guide."
+/>
 
 Restart the `leo` service to be sure that new topics are registered properly.
 
@@ -111,7 +126,12 @@ git clone https://github.com/LeoRover/leo_ui_sample_relay.git
 In case of launching the additional UI reconfiguration of the nginx service is
 needed. Follow the tutorial below:
 
-<LinkButton docId="integrations/legacy/additional-ui" />
+<LinkButton
+  to="/integrations/legacy/additional-ui"
+  title="Include an additional UI"
+  description="Learn how to include an additional UI on the Leo Rover and reconfigure the
+  HTTP server. Detailed steps provided."
+/>
 
 ## Launch the additional UI
 
