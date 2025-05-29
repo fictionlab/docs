@@ -1,34 +1,16 @@
 ---
-title: Leo Rover 1.7 and below specification
-sidebar_label: Leo Rover 1.7 and below
-sidebar_position: 2
+title: Leo Rover specification
+sidebar_label: Specification
+sidebar_position: 1
 description: >-
-  Leo Rover 1.7 and below specifications: A compact, 4-wheeled,
-  remote-controlled robot for indoor/outdoor robotic project development,
-  learning, and research applications.
-unlisted: true
+  Leo Rover 1.8 specifications: A compact, 4-wheeled, remote-controlled robot
+  for indoor/outdoor robotic project development, learning, and research
+  applications.
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import FlexTable from '@site/src/components/FlexTable';
-import FlexTableItem from '@site/src/components/FlexTableItem';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import LinkButton from '@site/src/components/LinkButton';
-
-:::info
-
-This is a technical specification of the older version of the Leo Rover that is
-no longer available for purchase. <br /> If you are looking for specification of
-the latest version of the Leo Rover, please visit:
-
-<LinkButton
-  to="/leo-rover/documentation/specification"
-  title="Leo Rover specification"
-  description="Step-by-step guide to get your Leo Rover up and running, with tips on battery
-  installation, turning on the rover, and accessing the web UI"
-/>
-
-:::
 
 <ImageZoom
   loading="eager"
@@ -123,51 +105,32 @@ WiFi 2.4 or 5 GHz on internal RPi antennas for connectivity
 
 ### Electronics
 
-Raspberry Pi 3B+ as an on-board computer \
-Core2-ROS as real-time microcontroller: STM32F4 (@168MHz, 192KB RAM, 1MB Flash)
+Raspberry Pi 4B as an on-board computer \
+ LeoCore as a real-time microcontroller
 
 #### Internal open interfaces
 
-<FlexTable width='100%'>
-  <FlexTableItem width='50%'>
+Raspberry Pi:
 
-    Raspberry Pi:
-
-    - USB x2
-    - GPIO x20
-    - RJ45 Ethernet
-    - RPi display port
-    - Bluetooth 5.0 with BLE
-
-  </FlexTableItem>
-  <FlexTableItem width='50%'>
-
-    Core2:
-
-    - 6 x servomotor interface with built-in DC/DC converter (selectable multiple voltage level)
-    - 4 x UART
-    - 3 x I2C
-    - 1 x SPI
-    - 1 x CAN
-    - 13 x ADC
-    - 8 x interrupt input
-
-  </FlexTableItem>
-</FlexTable>
+- USB x2
+- GPIO x20
+- RJ45 Ethernet
+- RPi display port
+- Bluetooth 5.0 with BLE
 
 ## Hardware structure
 
 <ThemedImageZoom
-  alt="Leo Rover pre1.8 hardware diagram"
+  alt="Leo Rover 1.8 hardware diagram"
   sources={{
     light: useBaseUrl(
-      '/img/robots/leo/specification/leo-rover-pre1.8_hardware-diagram_black.webp',
+      '/img/robots/leo/specification/leo-rover-v1.8_hardware-diagram_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/leo/specification/leo-rover-pre1.8_hardware-diagram_white.webp',
+      '/img/robots/leo/specification/leo-rover-v1.8_hardware-diagram_white.webp',
     ),
   }}
-  width="1600"
+  width="1900"
   height="1150"
   figStyle={{
     width: 800,
@@ -176,62 +139,30 @@ Core2-ROS as real-time microcontroller: STM32F4 (@168MHz, 192KB RAM, 1MB Flash)
 
 ### Leo Rover controller
 
-Leo Rover is based on CORE2-ROS electronics board which, together with the
-Raspberry Pi computer, controls all the Rover's functionalities.
-
-We encourage you to check all the specs of the board itself as there's a great
-number of interfaces to be used for further development.
+Leo Rover since version 1.8 is based on the LeoCore electronics board which,
+together with the Raspberry Pi computer, controls all the Rover's
+functionalities.
 
 <ImageZoom
-  src="/img/robots/leo/specification/core2ros.webp"
-  alt="Core2-ROS board included in previous versions of Leo Rover's"
-  width="791"
-  height="791"
+  src="/img/robots/leo/specification/LeoCore.webp"
+  alt="LeoCore controller"
+  width="1600"
+  height="1120"
   figStyle={{
-    width: 500,
+    width: 600,
   }}
 />
 
-#### Electrical specification
-
-| Interface           | Description                                    | Parameters                                                                                                 |
-| ------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Power input         | 6.8-16V                                        | 70...3000mA current consumption, depends on external modules standard 5.5/2.1 mm DC plug (centre-positive) |
-| I/O ports           | 54 ports                                       | 3.3V/5V tolerant GPIOs series resistance is 330Ω                                                           |
-| ADC                 | up to 13 channels                              | 12-bit resolution                                                                                          |
-| PWM                 | up to 10 channels: 6x 3.3V, 4x H-bridge output | Period range for 3.3V outputs: 1...65535 μs Frequency range for H-bridge: 1Hz...21khz (in 16 steps)        |
-| UART                | up to 4 channels                               | baudrate: 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000, 1000000, 2000000, 4000000        |
-| I2C                 | 3 channels                                     | up to 400kHz                                                                                               |
-| SPI                 | 1                                              | up to 1 Mbps                                                                                               |
-| CAN                 | 1                                              | 500 kbps                                                                                                   |
-| External Interrupts | up to 8 channels                               | triggered by an edge or voltage level                                                                      |
-
-<ImageZoom
-  src="/img/robots/leo/specification/core2-cheatsheet.webp"
-  alt="Core2-ROS board cheat sheet"
-  width="1754"
-  height="1240"
-  caption="Source: Husarion Core2-ROS manual"
-/>
-
-:::tip
-
-To learn more about Core2-ROS visit
-[this site](https://husarion.com/manuals/core2/)
-
-:::
-
-#### Ports used by Leo Rover
-
-To make it easier, we listed all the interfaces used by the Rover as default.
+To make it easier, we listed all the interfaces used by Leo Rover as default.
 Just to make sure you don't interfere with them when developing.
 
-| Port                            | Functionality                                                                   |
-| ------------------------------- | ------------------------------------------------------------------------------- |
-| Power input                     | to power the board and Raspberry Pi                                             |
-| hExt pin 1 (I/O)                | to control the battery LED (to show the system readiness)                       |
-| hMot A, B, C & D (PWM H-bridge) | to power the rover motors and encodes                                           |
-| USB hSerial                     | used to flash firmware to the board (doesn't need to be connected all the time) |
+| Port                                    | Functionality                                                     |
+| --------------------------------------- | ----------------------------------------------------------------- |
+| Power input                             | to power the board                                                |
+| RPi port                                | to power and RPi serial communication                             |
+| LED output                              | to control the battery LED (to show system readiness)             |
+| Motor output A, B, C & D (PWM H-bridge) | to power the rover motors and encodes                             |
+| ST-link/V2 6-pin port                   | used to flash firmware to the board using ST-link/V2 (optionally) |
 
 :::warning
 
@@ -275,17 +206,17 @@ possible addons.
 ## Software structure
 
 <ThemedImageZoom
-  alt="Leo Rover pre1.8 software diagram"
+  alt="Leo Rover 1.8 software diagram"
   sources={{
     light: useBaseUrl(
-      '/img/robots/leo/specification/leo-rover-pre1.8_software-diagram_black.webp',
+      '/img/robots/leo/specification/leo-rover-v1.8_software-diagram_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/leo/specification/leo-rover-pre1.8_software-diagram_white.webp',
+      '/img/robots/leo/specification/leo-rover-v1.8_software-diagram_white.webp',
     ),
   }}
-  width="1360"
-  height="600"
+  width="2000"
+  height="914"
   figStyle={{
     width: 800,
   }}
