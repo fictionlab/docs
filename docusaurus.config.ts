@@ -81,6 +81,15 @@ const config: Config = {
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           showLastUpdateTime: true,
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: 'Leo Rover 1.9',
+            },
+            "1.8": {
+              label: 'Leo Rover 1.8',
+            },
+          },
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -153,14 +162,11 @@ const config: Config = {
           position: 'left',
           to: '/integrations',
         },
-        // {
-        //   type: 'docsVersionDropdown',
-        //   position: 'right',
-        //   docsPluginId: 'default',
-        //   versions: {
-        //     current: {label: 'Leo Rover 1.9'},
-        //   },
-        // },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          docsPluginId: 'leo-rover',
+        },
         {
           href: 'https://www.leorover.tech/shop',
           label: 'Online Store',

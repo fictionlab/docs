@@ -1,0 +1,119 @@
+---
+title: Visualizing the model using RViz
+sidebar_label: Visualizing the model using RViz
+sidebar_position: 4
+description: >-
+  Learn how to visualize the Leo Rover model using RViz, including instructions
+  for setting up the necessary packages and launching the visualization.
+---
+
+## Prerequisites
+
+<LinkButton docId="advanced-guides/ros-development" />
+
+## Installation
+
+To visualize the model, you will need 2 additional packages:
+
+- [leo_description](https://github.com/LeoRover/leo_description) - contains the
+  URDF model of Leo Rover with all the required mesh files.
+- [leo_viz](https://github.com/LeoRover/leo_viz) - contains visualization launch
+  files and RViz configurations for Leo Rover.
+
+You can build them using the instructions from
+[this chapter](ros-development#building-additional-ros-packages). You can also
+download the prebuilt packages from the ROS repository by executing:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-viz
+```
+
+## Launch
+
+Now, to visualize the model in RViz, just type:
+
+```bash
+roslaunch leo_viz rviz.launch
+```
+
+<ImageZoom
+  src="/img/robots/leo/guides/rviz/rviz.webp"
+  alt="RVIZ window"
+  width="1200"
+  height="707"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+Alternatively, you can open a fresh instance of RViz by typing:
+
+```bash
+rviz
+```
+
+In the **Fixed Frame** option choose base_link.
+
+<ImageZoom
+  src="/img/robots/leo/guides/rviz/rviz-base-link.webp"
+  alt="Location of Fixed Frame option"
+  width="1365"
+  height="728"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+In **Displays** panel, click **Add** and choose **RobotModel** plugin.
+
+<ImageZoom
+  src="/img/robots/leo/guides/rviz/rviz-add-robot-model.webp"
+  alt="Location of Add RobotModel option"
+  width="1364"
+  height="728"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+Change the **Background Color** to make the model more visible.
+
+<ImageZoom
+  src="/img/robots/leo/guides/rviz/rviz-change-background.webp"
+  alt="Location of Background change option"
+  width="1364"
+  height="728"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+You should see the wheels rotating when the Rover is being steered.
+
+## Running the visualization offline
+
+You can run the visualization without being connected to the Rover. For this,
+you will need to change environment variables to point to your loopback device:
+
+```bash
+export ROS_IP=127.0.0.1
+export ROS_MASTER_URI=http://127.0.0.1:11311
+```
+
+Then, use the launch file located in the `leo_viz` package:
+
+```bash
+roslaunch leo_viz view_model.launch
+```
+
+:::info
+
+[roslaunch](http://wiki.ros.org/roslaunch) will automatically spawn the Master
+node ([roscore](http://wiki.ros.org/roscore)) if it detects that it is not
+already running.
+
+:::
+
+An RViz instance with `RobotModel` plugin should start, as well as GUI for
+[joint_state_publisher](http://wiki.ros.org/joint_state_publisher) that let's
+you specify simulated wheel positions.

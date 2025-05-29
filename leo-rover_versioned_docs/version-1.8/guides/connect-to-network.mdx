@@ -1,0 +1,89 @@
+---
+title: Connect to a local network and the Internet
+sidebar_label: Connect to a local network and the Internet
+sidebar_position: 5
+description: >-
+  Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Prerequisites
+
+<LinkButton docId="guides/ssh" />
+
+## Tutorial
+
+When you connect the Rover to your local network that provides Internet
+connection, you'll be able to download files to the Rover, as well as forward
+the Internet to your computer when you're connected to the Rover's access point.
+
+The LeoOS uses [NetworkManager](https://en.wikipedia.org/wiki/NetworkManager) to
+manage the Raspberry Pi's internal Wifi. The Wifi interface can connect to both
+2.4 GHz and 5 GHz networks.
+
+There are 2 easy ways to connect to an access point:
+
+<Tabs groupId='interface'>
+    <TabItem value='text' label='Using text interface'>
+        Open the `Network Manager Text User Interface` via SSH by typing:
+
+        ```bash
+        nmtui
+        ```
+
+        <ImageZoom
+            src="/img/robots/leo/guides/connect-to-network/network-manager-tui.webp"
+            alt="Text User Interface of Network Manager"
+            width="597"
+            height="372"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        Select `Activate a connection` and choose your network from list below.
+
+        <ImageZoom
+            src="/img/robots/leo/guides/connect-to-network/nmtui-network-list.webp"
+            alt="Remote Desktop Connection app"
+            width="600"
+            height="418"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        Type in the password when prompted. Press `Esc` to quit.
+
+    </TabItem>
+    <TabItem value='rdp' label='Using graphical interface'>
+
+        Use remote desktop to connect to the Rover:
+
+        <LinkButton
+            to='remote-desktop'
+            title='Connect via remote desktop'
+        />
+        <br/>
+
+        Click on the **NetworkManager** applet icon on the systray and choose your network
+        (you might need to expand the **More** networks list).
+
+        <ImageZoom
+            src="/img/robots/leo/guides/connect-to-network/rdp-network-list.webp"
+            alt="Shown Network Manager applet"
+            width="788"
+            height="600"
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        When prompted, type in the password and click **Connect**.
+
+    </TabItem>
+
+</Tabs>

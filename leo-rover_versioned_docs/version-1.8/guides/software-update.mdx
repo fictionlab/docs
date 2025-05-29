@@ -1,0 +1,99 @@
+---
+title: Software update
+sidebar_label: Software update
+sidebar_position: 7
+description: >-
+  Detailed guide on updating the software of Leo Rover, covering steps to access
+  the microSD card, download and flash the latest LeoOS image.
+---
+
+## Flashing a new Raspberry Pi image
+
+### Access microSD charged
+
+To access microSD card from your Leo Rover, open the main electronics box by
+unscrewing the 4 socket-headed screws and extract the card from the SD card slot
+on the Raspberry Pi.
+
+Put the microSD card in the adapter and then connect it to your computer.
+
+### Download the newest LeoOS image
+
+You can find all releases of LeoOS
+[here](https://github.com/LeoRover/leo_os/releases). Choose the newest one and
+download the image (.img.xz file) you want. We recommend the `full` version. The
+`lite` version comes without a desktop environment, so it is an alternative if
+you don't need all the extra packages.
+
+### Flash image to microSD card
+
+#### Using Etcher
+
+Open [Etcher](https://www.balena.io/etcher/) and point it to your new SD card
+image location (.img or .img.xz file) via Select image.
+
+Click Select drive option and choose your card, then click Flash!
+
+<ImageZoom
+  src="/img/robots/leo/guides/software-update/etcher.webp"
+  alt="Balena Etcher window"
+  width="1024"
+  height="529"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+After the flashing completes, disconnect the card and put it back into the
+rover.
+
+#### Using command-line tools
+
+If you are using Linux or Mac, you can use `xz` and `dd` tools to copy
+compressed image file into your card like this:
+
+```bash
+xz -d -c [IMAGE_FILE] | sudo dd of=[SD_CARD_DEVICE] bs=4M status=progress && sync
+```
+
+example usage:
+
+```bash
+xz -d -c LeoOS-0.1-2020-06-29-full.img.xz | sudo dd of=/dev/mmcblk0 bs=4M status=progress && sync
+```
+
+:::danger
+
+`dd` can be dangerous to your system as it can wipe your data if used
+incorrectly.
+
+If you are not sure your `[SD_CARD_DEVICE]` is correct, we suggest using Etcher
+instead.
+
+If you persist on using `dd`, then remember to chose whole disk as your
+`[SD_CARD_DEVICE]`, not a partition from this disk. For example, chose
+`/dev/sdb`, not `/dev/sdb1`.
+
+:::
+
+## Updating software
+
+To download newest versions of system packages and ROS packages (including
+[leo_bringup](https://github.com/LeoRover/leo_bringup) and
+[leo_ui](https://github.com/LeoRover/leo_ui.git)), connect to Leo Rover via SSH:
+
+<LinkButton docId="guides/ssh" />
+
+Make sure you are connected to the Internet:
+
+<LinkButton docId="guides/connect-to-network" />
+
+And type the following commands:
+
+```bash
+sudo apt update
+```
+
+```bash
+sudo apt upgrade
+```

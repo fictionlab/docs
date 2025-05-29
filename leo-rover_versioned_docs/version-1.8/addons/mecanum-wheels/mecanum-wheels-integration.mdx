@@ -1,0 +1,165 @@
+---
+id: integration
+title: Mecanum wheels integration
+sidebar_label: Integration
+sidebar_position: 1
+keywords:
+  - mecanum
+  - leo rover
+  - holonomic motion
+  - robot
+  - integration
+  - mechanical
+  - software
+description: >-
+  Learn how to convert your Leo Rover to holonomic motion mode using mecanum
+  wheels for improved maneuverability and payload capacity.
+
+# image: TODO
+---
+
+Mecanum wheels are a common way of giving mobile robots holonomic motion
+abilities. While not flawless e.g., difficult terrain traversal with mecanum
+wheels is much more difficult, mounting mecanum wheels to Leo Rover comes with
+many benefits, with the most important being:
+
+- Ability to strafe.
+- Great reduction in resistances seen while driving (especially when turning).
+- Chance to mount heavier payload.
+
+## What to expect?
+
+Having finished the tutorial you'll know how to convert Leo Rover to holonomic
+motion mode.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/mecanum/leo-with-mecanum-wheels.webp"
+  width="1200"
+  height="900"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+## Referenced products
+
+<LinkButton
+  to="https://www.leorover.tech/shop/omni-wheel"
+  title="Omnidirectional wheel module - Leo Rover store"
+  icon="🛒"
+/>
+
+## List of components
+
+- 4 x Mecanum wheel (2 for each roller orientation)
+- 4 x Mecanum torque plate
+
+## Mechanical integration
+
+There are two ways mecanum wheels can be arranged:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/mecanum-x-o.webp"
+  width="1100"
+  height="557"
+/>
+
+While both configurations can work, “X” from the top seems to be more prevalent
+in robotics as it makes turning around the center more consistent. That's why
+software we provide assumes the „X” configuration is being used.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/mecanum-instruction-1.webp"
+  width="1000"
+  height="682"
+  caption="Remove the 5 screws holding torque plate in place."
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/mecanum-instruction-2.webp"
+  width="1000"
+  height="636"
+  caption="Remove the torque plate, rim and tire."
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/mecanum-instruction-3.webp"
+  width="1000"
+  height="429"
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/mecanum-instruction-4.webp"
+  width="1000"
+  height="675"
+  caption="Slide the mecanum wheel with correct roller orientation onto the motor tube."
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/mecanum-instruction-5.webp"
+  width="1000"
+  height="695"
+  caption="Attach the new, wider torque plate using the same screws you've removed before."
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/leo-with-mecanum-wheels.webp"
+  width="1200"
+  height="900"
+  caption="Repeat the steps for each of the 4 wheels of the rover."
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/leo-mecanum-top-view.webp"
+  width="1000"
+  height="544"
+/>
+
+## Software integration
+
+Adding the wheels to the software is really simple. You only need to change a
+single thing in one file and restart the rover. In `/etc/ros/setup.bash` file
+there is one environment variable `MECANUM_WHEELS` that is exported to the
+system. You need to change its value to true:
+
+```bash title="/etc/ros/setup.bash"
+export MECANUM_WHEELS=true
+```
+
+You can edit the file using this command:
+
+```bash
+nano /etc/ros/setup.bash
+```
+
+And then save its content with **Ctrl+O** and confirming with enter. You exit
+the program with **Ctrl+X**.
+
+Once it's done, you can just reboot the rover, and the wheels will be included
+in the software running on the robot.
+
+## Examples
+
+### Visualize Robot Model
+
+If you have ROS installed on your computer, you can see the robot model with the
+mecanum wheels attached in RViz.
+
+Before making any further steps, make sure you completed the Connecting another
+computer to ROS network section of ROS Development tutorial:
+
+<LinkButton
+  to="/advanced-guides/ros-development#connecting-another-computer-to-ros-network"
+  title="ROS development / Connection another computer to ROS network"
+/>
+
+To see the model, start `rviz`, and add **robot model** in the **display** view.
+Chose also `base_footprint` as **fixed frame**, and you should see the rover
+model with mecanum wheels attached.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/mecanum/rviz-leo-mecanum.webp"
+  width="1300"
+  height="605"
+/>

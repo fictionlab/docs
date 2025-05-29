@@ -1,0 +1,11 @@
+{
+  "label": "Addons",
+  "position": 5,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "Leo Rover addons",
+    "slug": "addons"
+  }
+}

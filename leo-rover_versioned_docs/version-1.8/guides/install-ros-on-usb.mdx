@@ -1,0 +1,49 @@
+---
+title: Install ROS on a bootable USB drive
+sidebar_label: Install ROS on a bootable USB drive
+sidebar_position: 11
+description: >-
+  Learn how to create a bootable USB drive with Ubuntu and ROS preinstalled for
+  easy setup and testing.
+---
+
+## Download and flash Ubuntu & ROS image to USB drive
+
+We prepared bootable images with Ubuntu and ROS preinstalled. They support
+64-bit architecture and both UEFI and Legacy boot. The images can be found
+[here](http://files.fictionlab.pl/ubuntu_ros_images/). Choose either Ubuntu
+16.04 with ROS Kinetic or Ubuntu 18.04 with ROS Melodic.
+
+You will need a USB drive with at least 8GB storage capacity. To flash the
+image, you can follow the same instructions as when flashing Leo Rover image to
+SD card:
+
+<LinkButton docId="guides/software-update" />
+
+:::warning
+
+Keep in mind that this will wipe all your data from the drive.
+
+:::
+
+Now, boot your computer from USB drive. Choose the first option in the
+`GRUB menu`. User should be automatically logged and desktop environment should
+appear.
+
+:::info
+
+Ubuntu system password: ubuntu
+
+:::
+
+## Extend your root partition to fill the whole drive
+
+This way your root storage will be extended to full storage capacity of USB
+drive - by default it's limited and would end up filling fast with any
+additional software installed.
+
+Open terminal (**Ctrl+Shift+T** shortcut) and type:
+
+```bash
+sudo ./expand_rootfs.sh
+```

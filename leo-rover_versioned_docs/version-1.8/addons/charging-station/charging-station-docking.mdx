@@ -1,0 +1,225 @@
+---
+id: autonomous-docking
+title: Autonomous docking tutorial
+sidebar_label: Autonomous docking
+sidebar_position: 2
+keywords:
+  - charging station
+  - charging dock
+  - dock
+  - tutorial
+  - autonomous dock
+  - autonomy
+  - ARTag
+description: >-
+  Learn how to autonomously dock your Leo Rover to a charging station using ROS.
+  Detailed tutorial with launch files and parameters.
+image: '/img/robots/leo/addons/charging-station/leo-on-charging-station.webp'
+---
+
+import Product from './_charging-station-product.mdx';
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/addons/charging-station/leo-on-charging-station.webp"
+  width={1920}
+  height={1080}
+  alt="Leo Rover docked on charging station"
+/>
+
+This tutorial will guide you through the procedure of docking your Leo Rover
+autonomously to the charging station.
+
+## Prerequisites
+
+<LinkButton docId="guides/ssh" />
+<LinkButton docId="advanced-guides/ros-development" />
+
+<Product />
+
+## Software integration
+
+### Preparing the environment
+
+To be able to perform the autonomous docking, you need to install our package on
+your rover. For now the only way is to build it from source, so it requires a
+ROS workspace on your rover (if you don't have one or don't know whether there
+is already a workspace on your rover, you can follow
+[this guide](/leo-rover/advanced-guides/ros-development#building-additional-ros-packages)).
+
+To install the package, connect to your rover through ssh, enter the `src`
+directory inside your workspace and execute these commands:
+
+```bash
+git clone https://github.com/LeoRover/leo_docking.git
+cd ..
+source devel/setup.bash
+rosdep install --from-paths src -iry
+catkin build
+```
+
+### Launching the software
+
+Now that everything is ready, we can proceed to launching some software. This
+whole section will describe in detail the functionalities provided in the
+`leo_docking` package and how to use them.
+
+Here's a brief summary of different parts of the docking software we will run:
+
+- Aruco Detector - it's necessary for detecting the charging station; provides
+  the docking process with needed coordinates.
+- Docking state machine - once we have the position of the station, it will be
+  used to set up the rover's position regarding the station and perform docking.
+- Docking Client - the way of controlling the process of the docking
+  (starting/aborting) and getting feedback from the autonomous docking.
+
+The first two functions are provided through the launch file located under the
+**launch** directory. All parameters for the running nodes are loaded from the
+YAML files located under the **config** directory.
+
+The client is run with `rosrun` command and takes three optional arguments, but
+it'll be covered later.
+
+#### Detector + State Machine
+
+As the state machine needs output from the detector, they are launched with one
+file. The detector provides the state machine with the station position in the
+`base_link` frame, and the state machine performs calculations and moves the
+rover based on the results. The machine has 3 main parts:
+
+- **Reaching docking area** - the machine enters this part when the rover is not
+  able to simple dock to the station from its starting position. The task of
+  this part is to get the rover in front of the station in some distance, facing
+  the station.
+- **Reaching docking point** - this part is responsible for getting the rover
+  right in front of the charging station where it'll be possible to make final
+  corrections in the position before riding onto the station.
+- **Docking** - the last part of the docking process that makes the rover dock
+  at the station; makes the rover drive onto the station until one of three
+  conditions are met:
+  - charging is detected
+  - distance to the marker on the station has been reached
+  - the wheels are blocked on the station - the rover reached the end of the
+    station.
+
+Here's a diagram that illustrates the state machine:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/docking-software/docking-software-state-machine.webp"
+  width="946"
+  height="907"
+/>
+
+:::info
+
+The ovals represent different states of the machine and the arrows show the
+transitions between the states. The two gray rectangles represent sub state
+machines to the main state machine.
+
+:::
+
+When it comes to the parameters, there are three files in the config directory:
+
+- **board_descriptions.yaml** - file containing definitions of 4 boards with
+  aruco markers.
+
+:::danger
+
+As the definitions are matched to the boards that we provide on the stations,
+it's better not to change values there if you don't know what the parameters
+mean.
+
+:::
+
+- **aruco_tracker.yaml** - file containing parameters for the opencv aruco
+  detector function and some ROS specific parameters.
+
+:::warning
+
+It's better not to change the ROS specific parameters. For the description of
+the opencv detector parameters, you can visit this link.
+
+:::
+
+- docking_config.yaml - file with all parameters for the state machine. You can
+  specify there linear and angular speed of the rover in specific states,
+  timeouts and more. Each parameter has it's comment describing what this
+  parameter is used for. There are also a few commented params - you can
+  uncomment them to specify the value for a given state (as long as the param is
+  commented, the value to the state is provided from the global parameter
+  defined in the beginning of the file).
+
+:::warning
+
+Although you have access to every file with parameters, it would be best not to
+touch any of the values unless you really need to because some part of the
+autonomous docking doesn't suit you. But remember that with wrong parameter
+setup the autonomous docking might not succeed.
+
+:::
+
+Having everything covered, to run the detector with the state machine, simply
+run on the rover:
+
+```bash
+roslaunch leo_docking dock_rover.launch
+```
+
+:::info
+
+Remember to source the setup.bash file in your ROS workspace. Otherwise, the
+command will fail.
+
+:::
+
+#### Docking Client
+
+Having the software described above launched, we have the state machine ready
+for action, but it needs a signal to start the docking. That's where the Docking
+Client comes in. It's a script that sends an ID of the target charging station
+(the marker board on the station to be precise) to the state machine. Once the
+state machine gets the number, it starts the docking process. Here are all the
+functionalities that the docking client provides:
+
+- Starting the docking process by sending a goal to the state machine actionlib
+  server,
+- Possibility of cancelling the docking with the ctrl+c key combination,
+- Getting feedback from the state machine,
+- Checking if the state machine is up or whether it stopped working during the
+  docking process,
+- Three optional command line arguments that are respectively: **ID of the
+  base**, **connection timeout**, **status check interval**.
+
+The command to run the client looks like this:
+
+```bash
+rosrun leo_docking docking_client <board_id> <timeout> <interval>
+```
+
+But as it was mentioned earlier, the arguments are optional, so a simple command
+to start the docking process is (in another terminal, with sourced workspace):
+
+```bash
+rosrun leo_docking docking_client
+```
+
+This will use the default values of the arguments ("1", "3", "2" respectively).
+Here is a customized example:
+
+```bash
+rosrun leo_docking docking_client 3 2 1.5
+```
+
+This command will result in the state machine trying to dock the rover to the
+station with ID "3", where the client will wait 2 seconds for getting connection
+with the state machine actionlib server and will check every 1.5 second if the
+server is still up.
+
+:::info
+
+You can also run the docking client on your host computer, but you would need to
+build the `leo_docking` package there and connect your rover to the ROS network
+running on the rover. You can do this by following
+[this guide](/leo-rover/advanced-guides/ros-development#connecting-another-computer-to-ros-network).
+
+:::

@@ -1,0 +1,108 @@
+---
+title: Known issues
+sidebar_label: Known issues
+sidebar_position: 5
+description: >-
+  Download resources for the Leo Rover including hardware specs, software,
+  wheels, addons, and more>
+---
+
+Here's a list of known issues and proposed ways how to tackle them.
+
+Normally, we're trying our best to fix any issues as soon as possible, but not
+all of them can be fixed just like that.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/documentation/rover-drowned-erc.webp"
+  alt="Flooded Leo Rover during ERC competition"
+  width="1000"
+  height="563"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+## Tires
+
+### Tires come off
+
+The tires are made of soft rubber and tend to grip too much on soft surfaces
+like grass, carpets, etc. Given the Rover relies on skid steering, the tires may
+come off the wheel rims when turning.
+
+**Fix 1**: Glue the tires to rims using a cyanoacrylate (minute) glue.
+
+**Fix 2**: Add more layers of sponge in the tires to make them more stiff. This
+lowers the contact area between the wheels and the ground, which, in turn,
+lowers the wheel traction. It may fix the problem on some terrains.
+
+### Wheels lift during zero-radius turning
+
+Sometimes one of the front wheels would lift up when the Rover turns in place on
+soft surfaces like grass, carpets, etc. As the opposite wheel is blocked,
+there's a momentum of force acting on the Rover suspension beam and lifting the
+wheel.
+
+<ImageZoom
+  src="/img/robots/leo/documentation/rover-wheel-lift.webp"
+  alt="Leo Rover lifting one of its wheels"
+  width="1449"
+  height="887"
+  figStyle={{
+    width: 500,
+  }}
+/>
+
+**Fix 1**: Lessen the grip. For ex. let the Rover drive on a dusty surface first
+or cover the tires in Power Tape.
+
+**Fix 2** (sort of): After finishing each turn, push the 0,0 command to the
+rover (release the joystick). This will let the rover level the wheels thanks to
+the force of gravity.
+
+### Wheels squeak when driving
+
+When the wheel rim is not 100% coaxial with the wheel bearings, the torque plate
+teeth act as an elastic joint to make it a bit easier for the motors. Then, the
+teeth rub in the rim sockets and tend to squeak.
+
+**Fix**: Lube the teeth with grease, oil, anything.
+
+### Excessive friction in one of the wheels
+
+One of the wheels acts odd compared to the others - is slower, more noisy or
+stuck.
+
+**Fix**: Check the wheel cap, most probably the encoder cables touch the encoder
+magnet and block the motor shaft.
+
+## Network
+
+### Unstable connection in crowded areas
+
+As the Rover access point relies on 2.4 GHz wifi, the connection can become
+unstable in areas full of people and devices, for ex. trade shows, due to
+crowded wifi bands.
+
+**Fix**: Use 5GHz modem built-in the RaspberryPi. For ex. connect the Rover to
+external 5GHz network and connect to the UI via router.
+
+<LinkButton docId="guides/connect-to-network" />
+
+## Software
+
+The joystick in the UI doesn't respond
+
+**Fix**: Don't use Apple devices.
+
+### Rover rotating in odometry without physically moving
+
+When completing the odometry part of tutorial about autonomous navigation, the
+rover seems to rotate in odometry reading, without actually moving. Reason for
+that behavior is IMU readings offset - it may provide data indicating the rover
+moving in the Z axis without the real movement.
+
+**Fix**: Calibrate IMU to eliminate the offset from the readings.
+
+<LinkButton docId="guides/imu-calibration" />
