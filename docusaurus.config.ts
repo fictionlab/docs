@@ -86,7 +86,7 @@ const config: Config = {
             current: {
               label: 'Leo Rover 1.9',
             },
-            "1.8": {
+            '1.8': {
               label: 'Leo Rover 1.8',
             },
           },
