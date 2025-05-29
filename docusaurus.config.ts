@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import type {Options as DocsOptions} from '@docusaurus/plugin-content-docs';
+import type { Options as DocsOptions } from '@docusaurus/plugin-content-docs';
 
 const config: Config = {
   title: 'Fictionlab Documentation',
@@ -265,43 +265,43 @@ const config: Config = {
   } satisfies Preset.ThemeConfig,
   plugins: [
     [
-    'content-docs',
-    {
-      id: 'rapha-rover',
-      path: 'docs/rapha-rover',
-      routeBasePath: 'rapha-rover',
-      sidebarPath: './sidebars/RaphaSidebars.ts',
-      editUrl: 'https://github.com/fictionlab/docs/edit/development/',
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
-      showLastUpdateTime: true,
-    } satisfies DocsOptions,
+      'content-docs',
+      {
+        id: 'rapha-rover',
+        path: 'docs/rapha-rover',
+        routeBasePath: 'rapha-rover',
+        sidebarPath: './sidebars/RaphaSidebars.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
     ],
     [
-    'content-docs',
-    {
-      id: 'integrations',
-      path: 'docs/integrations',
-      routeBasePath: 'integrations',
-      sidebarPath: './sidebars/integrationsSidebar.ts',
-      editUrl: 'https://github.com/fictionlab/docs/edit/development/',
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
-      showLastUpdateTime: true,
-    } satisfies DocsOptions,
+      'content-docs',
+      {
+        id: 'integrations',
+        path: 'docs/integrations',
+        routeBasePath: 'integrations',
+        sidebarPath: './sidebars/integrationsSidebar.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
     ],
-        [
-    'content-docs',
-    {
-      id: 'guidelines',
-      path: 'docs/guidelines',
-      routeBasePath: 'guidelines',
-      sidebarPath: './sidebars/guidelinesSidebar.ts',
-      editUrl: 'https://github.com/fictionlab/docs/edit/development/',
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
-      showLastUpdateTime: true,
-    } satisfies DocsOptions,
+    [
+      'content-docs',
+      {
+        id: 'guidelines',
+        path: 'docs/guidelines',
+        routeBasePath: 'guidelines',
+        sidebarPath: './sidebars/guidelinesSidebar.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
+      } satisfies DocsOptions,
     ],
   ],
 };
