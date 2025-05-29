@@ -277,13 +277,26 @@ const config: Config = {
       showLastUpdateTime: true,
     } satisfies DocsOptions,
     ],
-        [
+    [
     'content-docs',
     {
       id: 'integrations',
       path: 'docs/integrations',
       routeBasePath: 'integrations',
       sidebarPath: './sidebars/integrationsSidebar.ts',
+      editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+      showLastUpdateTime: true,
+    } satisfies DocsOptions,
+    ],
+        [
+    'content-docs',
+    {
+      id: 'guidelines',
+      path: 'docs/guidelines',
+      routeBasePath: 'guidelines',
+      sidebarPath: './sidebars/guidelinesSidebar.ts',
       editUrl: 'https://github.com/fictionlab/docs/edit/development/',
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex],

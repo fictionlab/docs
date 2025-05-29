@@ -1,7 +1,7 @@
 import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   integrationSidebar: [
-        {
+    {
       type: 'category',
       label: 'Integrations',
       link: { type: 'generated-index', title: 'Integrations', slug: '/' },
