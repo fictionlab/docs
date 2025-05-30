@@ -168,6 +168,11 @@ const config: Config = {
           docsPluginId: 'leo-rover',
         },
         {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          docsPluginId: 'integrations',
+        },
+        {
           href: 'https://www.leorover.tech/shop',
           label: 'Online Store',
           position: 'right',
@@ -294,6 +299,15 @@ const config: Config = {
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
         showLastUpdateTime: true,
+        lastVersion: 'current',
+        versions: {
+          'current': {
+            label: 'ROS 2 Jazzy',
+          },
+          'noetic': {
+            label: 'ROS 1 Noetic',
+          },
+        },
       } satisfies DocsOptions,
     ],
     [
