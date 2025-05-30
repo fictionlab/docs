@@ -301,10 +301,10 @@ const config: Config = {
         showLastUpdateTime: true,
         lastVersion: 'current',
         versions: {
-          'current': {
+          current: {
             label: 'ROS 2 Jazzy',
           },
-          'noetic': {
+          noetic: {
             label: 'ROS 1 Noetic',
           },
         },
