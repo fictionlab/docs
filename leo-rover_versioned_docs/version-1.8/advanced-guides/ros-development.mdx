@@ -55,10 +55,10 @@ rosnode list
 ```
 
 You should see the nodes described in the
-[software structure](/leo-rover/1.8/documentation/specification#software-structure).
-Among them, the rosserial server node (called `/serial_node` in this case)
-"bridges" communication with the CORE2 board, so any topics it publishes or
-subscribes are created and used in the firmware.
+[software structure](../documentation/specification#software-structure). Among
+them, the rosserial server node (called `/serial_node` in this case) "bridges"
+communication with the CORE2 board, so any topics it publishes or subscribes are
+created and used in the firmware.
 
 Let's get more information about this node:
 
@@ -583,7 +583,7 @@ In this section, we will assume you run Ubuntu 18.04 with ROS Melodic.
 First, connect your computer to the same network your rover is connected to. It
 can be either the Rover's Access Point (`LeoRover-XXXX` by default) or an
 external router (if you followed
-[Connect to the Internet tutorial](/leo-rover/1.8/guides/connect-to-network)).
+[Connect to the Internet tutorial](../guides/connect-to-network)).
 
 To properly communicate over the ROS network, your computer needs to be able to
 resolve the master.lan hostname. Open a terminal on your computer and type:
