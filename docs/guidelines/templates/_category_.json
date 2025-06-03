@@ -5,6 +5,7 @@
   "collapsed": false,
   "link": {
     "type": "generated-index",
-    "description": "All .mdx templates files can be found in /docs/guidelines/templates directory."
+    "description": "All .mdx templates files can be found in /docs/guidelines/templates directory.",
+    "slug": "templates"
   }
 }
