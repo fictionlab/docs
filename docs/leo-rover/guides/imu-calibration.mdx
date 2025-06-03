@@ -7,6 +7,15 @@ description: >-
   issues and get accurate sensor data.
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::info
+
+Since LeoOS 2.0 version you don't need to calibrate the IMU on the rover.
+
+:::
+
 ## Prerequisites
 
 <LinkButton docId="guides/connect-to-rover-ap" />
@@ -26,9 +35,18 @@ account in provided data from the sensor.
 To calibrate your IMU all you have to do is to connect to the rover via SSH, and
 execute the command:
 
-```bash
-rosrun leo_fw calibrate_imu
-```
+<Tabs groupId="update">
+  <TabItem value="ros2" label="ROS 2">
+    ```bash 
+    ros2 run leo_fw calibrate_imu
+    ```
+  </TabItem>
+  <TabItem value="ros1" label="ROS 1">
+    ```bash 
+    rosrun leo_fw calibrate_imu
+    ```
+  </TabItem>
+</Tabs>
 
 :::warning
 
@@ -42,9 +60,18 @@ The script has one optional argument which specifies how long the offset will be
 measured. It default to 10 seconds, so if you would like to measure it only 5
 seconds, you can execute:
 
-```bash
-rosrun leo_fw calibrate_imu 5
-```
+<Tabs groupId="update">
+  <TabItem value="ros2" label="ROS 2">
+    ```bash 
+    ros2 run leo_fw calibrate_imu 5
+    ```
+  </TabItem>
+  <TabItem value="ros1" label="ROS 1">
+    ```bash 
+    rosrun leo_fw calibrate_imu 5
+    ```
+  </TabItem>
+</Tabs>
 
 When the script finishes, the offset is automatically saved on the rover and
 used to provide accurate measurements.
