@@ -7,9 +7,6 @@ description: >-
   extra cables. Step-by-step guide.
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 ## Prerequisites
 
 <LinkButton docId="guides/ssh" />
@@ -28,14 +25,9 @@ sudo apt update && sudo apt upgrade
 
 And then, run the update script by typing:
 
-<Tabs groupId="update">
-  <TabItem value="ros2" label="ROS 2">
-    ```bash ros2 run leo_fw update ```
-  </TabItem>
-  <TabItem value="ros1" label="ROS 1">
-    ```bash rosrun leo_fw update ```
-  </TabItem>
-</Tabs>
+```bash
+ros2 run leo_fw update
+```
 
 The script will guide you through the flashing process.
 
