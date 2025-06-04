@@ -10,18 +10,26 @@ description: >-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+## Prerequisites
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+
+## Using remote desktop app
+
 If you are using the `full` version of LeoOS, you should have a desktop
-environment installed, as well as an RDP (Microsoft Remote Desktop Protocol)
-server. This allows you to remotely control a desktop session on your Rover from
-your computer.
+environment installed, as well as an VNC (Virtual Network Computing) server.
+This allows you to remotely control a desktop session on your Rover from your
+computer.
 
 <Tabs groupId='OS'>
     <TabItem value='windows' label='Windows'>
     
-    Click **Start**, type remote and choose **Remote Desktop Connection** app.
+    Install and open [TigerVNC viewer](https://sourceforge.net/projects/tigervnc/files/stable/1.15.0/).
+
+    Type `10.0.0.1` in the **VNC server** field and click **Connect**.
 
     <ImageZoom
-        src="/img/robots/leo/guides/remote-desktop/rdp.webp"
+        src="/img/robots/leo/guides/remote-desktop/tigervnc.webp"
         alt="Remote Desktop Connection app"
         width="407"
         height="253"
@@ -29,33 +37,6 @@ your computer.
             width: 400,
         }}
     />
-
-    Type `10.0.0.1` in the **Computer** field and click **Connect**.
-
-    <ImageZoom
-        src="/img/robots/leo/guides/remote-desktop/rdp-cert.webp"
-        alt="Certificate alert on RDP"
-        width="392"
-        height="469"
-        figStyle={{
-            width: 400,
-        }}
-    />
-
-    You should see a similar warning. Click **Yes** to proceed.
-
-    <ImageZoom
-        src="/img/robots/leo/guides/remote-desktop/xrdp.webp"
-        alt="XRDP app on RPi"
-        width="669"
-        height="587"
-        figStyle={{
-            width: 400,
-        }}
-    />
-
-    You should see the login screen. Choose `Xorg` session, type `pi` for the username, `raspberry` for the
-    password and click **OK**.
 
     </TabItem>
     <TabItem value='linux' label='Linux'>
@@ -77,7 +58,6 @@ your computer.
         - Protocol: `Remmina VNC Plugin`
         - Server: `10.0.0.1`
         - User name: `pi`
-        - User password: `raspberry`
         - Color depth: `True color (32 bpp)`
         - (Optional) Name - if you want to save the settings
 
