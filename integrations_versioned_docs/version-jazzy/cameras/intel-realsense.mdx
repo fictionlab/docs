@@ -119,8 +119,9 @@ want to install the newest version, you can follow
 ### Adding camera model
 
 As we want to have the camera model visible with the rover model, we need to
-change `robot.urdf.xacro` file in `/etc/ros/urdf` directory. On [this](https://github.com/IntelRealSense/realsense-ros/tree/ros2-master/realsense2_description/urdf) site you
-can see what RealSense urdf camera models are available in the
+change `robot.urdf.xacro` file in `/etc/ros/urdf` directory. On
+[this](https://github.com/IntelRealSense/realsense-ros/tree/ros2-master/realsense2_description/urdf)
+site you can see what RealSense urdf camera models are available in the
 `realsense2_description` package. Each of the urdf files there has `xacro macro`
 with a lot of properties. You have to include such macro in the
 `robot.urdf.xacro` file on the Rover, and change `name` property to avoid tf
@@ -177,10 +178,10 @@ ros2 launch realsense2_camera rs_camera.launch camera:=d435i_camera camera_names
 ```
 
 You need to specify the `camera` argument because of the tf frame conflicts. You
-have to put the same value as in the `urdf` file.
-We set here the `camera_namespace` argument for convenience - default value for it is
-"camera", which is the same as the robot's default camera. Therefore setting the argument to global
-namespace makes it easier to distinguish the node's topics.
+have to put the same value as in the `urdf` file. We set here the
+`camera_namespace` argument for convenience - default value for it is "camera",
+which is the same as the robot's default camera. Therefore setting the argument
+to global namespace makes it easier to distinguish the node's topics.
 
 It's much more comfortable to run this node automatically, as you may sometimes
 forget to. To launch it with the system we need to change `robot.launch` file in
@@ -213,14 +214,14 @@ ros-nodes-restart
 ### Reading and visualizing the data
 
 The topics from camera node should be now visible. You can check them with
-`ros2 topic` tool - topics from your node will have prefix and namespace specified by you in the
-`camera` and `camera_namespace` ROS arguments.
+`ros2 topic` tool - topics from your node will have prefix and namespace
+specified by you in the `camera` and `camera_namespace` ROS arguments.
 
 If you have ROS installed on your computer, you can get the camera image with
 `rqt`, and see the robot model with camera attached using `rviz`.
 
-In `rqt` go to **plugins** -> **visualization** choose
-**image view** and then choose your topic.
+In `rqt` go to **plugins** -> **visualization** choose **image view** and then
+choose your topic.
 
 :::note
 
