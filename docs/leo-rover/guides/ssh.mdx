@@ -10,58 +10,18 @@ description: >-
 ## Prerequisites
 
 <LinkButton docId="guides/connect-to-rover-ap" />
-
-## Using Putty
-
-Download and install Putty - it will allow you to establish SSH connection with
-the Rover and open a terminal session.
-
-Open Putty, type `10.0.0.1` as IP address and press Open.
-
-<ImageZoom
-  loading="eager"
-  src="/img/robots/leo/guides/ssh/putty-interface.webp"
-  alt="Interface of PuTTY"
-  width="452"
-  height="442"
-  figStyle={{
-    width: 400,
-  }}
-/>
-
-The first time you try to connect, you may see the security warning shown below.
-You can safely ignore it and click the **Yes** button.
-
-<ImageZoom
-  src="/img/robots/leo/guides/ssh/putty-alert.webp"
-  alt="Security alert of PuTTY"
-  width="377"
-  height="276"
-  figStyle={{
-    width: 400,
-  }}
-/>
-
-When asked for credentials, type:
-
-login: `pi` password: `raspberry`
-
-<ImageZoom
-  src="/img/robots/leo/guides/ssh/leo-rpi-terminal.webp"
-  alt="Terminal screen while connected to Leo Raspberry Pi"
-  width="661"
-  height="418"
-  figStyle={{
-    width: 400,
-  }}
-/>
-
-You'll see something like this. You're in!
-
 ## Using command line SSH client
 
 If you are using Linux or Mac OS, you most likely have an SSH client already
-installed. On Windows 10, you can use this guide to install OpenSSH.
+installed. On Windows 10, you can use
+[this](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui&pivots=windows-server-2025)
+guide to install OpenSSH.
+
+:::info
+
+On newer Windows versions the OpenSSH is automatically installed.
+
+:::
 
 To connect to your Rover, open a terminal session and type:
 
