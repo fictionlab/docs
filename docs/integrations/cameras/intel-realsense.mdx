@@ -69,8 +69,8 @@ and then mount the plate to the Rover.
 ## Wiring and electronics connection
 
 For connecting the camera to your Rover you can use USB-C cable, as RealSense
-has USB-C* 3.1 Gen 1* connector. You need to remove special plate on the back
-side of the camera, which covers the USB port, and you are ready to connect the
+has USB-C 3.1 Gen 1 connector. You need to remove special plate on the back side
+of the camera, which covers the USB port, and you are ready to connect the
 camera through the USB port on the Rover.
 
 <ImageZoom
@@ -81,13 +81,6 @@ camera through the USB port on the Rover.
     width: 400,
   }}
 />
-
-:::note
-
-The USB port on the rover is the USB 2.0 version. This may produce some warnings
-when running RealSense ROS nodes, but the camera still works.
-
-:::
 
 ## Software integration
 
@@ -112,7 +105,7 @@ sudo apt install ros-${ROS_DISTRO}-realsense2-description
 The version of librealsense2 is almost always behind the one available in
 RealSense™ official repository, but this way is much easier to install. If you
 want to install the newest version, you can follow
-[this tutorial](https://github.com/IntelRealSense/realsense-ros/blob/development/README.md#installation-instructions).
+[this tutorial](https://github.com/IntelRealSense/realsense-ros/blob/ros2-master/README.md#installation-on-ubuntu).
 
 :::
 
@@ -218,7 +211,7 @@ The topics from camera node should be now visible. You can check them with
 specified by you in the `camera` and `camera_namespace` ROS arguments.
 
 If you have ROS installed on your computer, you can get the camera image with
-`rqt`, and see the robot model with camera attached using `rviz`.
+`rqt`, and see the robot model with camera attached using `rviz2`.
 
 In `rqt` go to **plugins** -> **visualization** choose **image view** and then
 choose your topic.
