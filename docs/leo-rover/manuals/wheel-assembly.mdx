@@ -13,7 +13,7 @@ import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 
 <span style={{ color: '#bf7b2c', fontSize: '200%' }}>
-  **Assembly time ≈ 20 min per wheel**
+  **Assembly time ≈ 15 minutes per wheel**
 </span>
 
 <ThemedImageZoom
@@ -21,9 +21,11 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
   alt="Needed tools"
   sources={{
     light: useBaseUrl(
-      '/img/robots/leo/manuals/tools-V2/tools-wheel-black.webp',
+      '/img/robots/leo/manuals/tools/toolbox_1.9_wheel_black.webp',
     ),
-    dark: useBaseUrl('/img/robots/leo/manuals/tools-V2/tools-wheel-white.webp'),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/tools/toolbox_1.9_wheel_white.webp',
+    ),
   }}
   width="1480"
   height="2200"
@@ -43,8 +45,8 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
             loading="eager"
             alt="Grease"
             sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/tools-V2/loctite-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/tools-V2/loctite-white.webp'),
+              light: useBaseUrl('/img/robots/leo/manuals/tools/loctite_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/tools/loctite_white.webp'),
             }}
             width="2300"
             height="2400"
@@ -60,8 +62,8 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
             loading="eager"
             alt="loctite"
             sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/tools-V2/grease-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/tools-V2/grease-white.webp'),
+              light: useBaseUrl('/img/robots/leo/manuals/tools/grease_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/tools/grease_white.webp'),
             }}
             width="2300"
             height="2400"
@@ -73,11 +75,11 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 <ThemedImageZoom
   alt="Layer 2"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/tools-V2/layer-2-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/tools-V2/layer-2-white.webp'),
+    light: useBaseUrl('/img/robots/leo/manuals/tools/layer-2-1.9-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/tools/layer-2-1.9-white.webp'),
   }}
-  width="1480"
-  height="2200"
+  width="2000"
+  height="2000"
   figStyle={{
     width: 600,
   }}
@@ -88,22 +90,73 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 ## Step 1
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
-  <FlexTableItem
+    <FlexTableItem
     style={{
       width: '40%'
     }}
     mobileColumns={2}>
       <ThemedImageZoom
-            alt="Motor"
+            alt="Lithium grease"
             sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-1-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-1-white.webp'),
+              light: useBaseUrl('/img/robots/leo/manuals/tools/grease_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/tools/grease_white.webp'),
             }}
-            width="2300"
-            height="2400"
+            width="1500"
+            height="1500"
           />
   </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    width: '40%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Motor"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/manuals/wheel/motor_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/wheel/motor_white.webp'),
+    }}
+    width="1500"
+    height="1500"
+  />
+</FlexTableItem>
+
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 3 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/A_grease_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/A_grease_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+/>
+
+:::note
+
+Press a decent amount of lithium grease between the shaft <span
+style={{color : "#bf7b2c",}} > **seal** </span> and the motor housing.
+
+:::
+
+<ThemedImageZoom
+  alt="Motor with grease"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/motor_with_grease.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/motor_with_grease.webp'),
+  }}
+  width="2300"
+  height="2400"
+/>
+
+---
+
+## Step 2
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
 
 <FlexTableItem
   style={{
@@ -113,13 +166,13 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
   mobileColumns={2}
 >
   <ThemedImageZoom
-    alt="Upper motor mount"
+    alt="shaft adapter"
     sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-2-black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-2-white.webp'),
+      light: useBaseUrl('/img/robots/leo/manuals/wheel/shaft_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/wheel/shaft_white.webp'),
     }}
-    width="2300"
-    height="2400"
+    width="1500"
+    height="1500"
   />
 </FlexTableItem>
 
@@ -129,44 +182,124 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
       width: '40%'
     }}mobileColumns={2}>
       <ThemedImageZoom
-            alt="Lower motor mount"
+            alt="Set Screw M5"
             sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-3-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-3-white.webp'),
+              light: useBaseUrl('/img/robots/leo/manuals/wheel/headless_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/wheel/headless_white.webp'),
             }}
-            width="2300"
-            height="2400"
+            width="1500"
+            height="1500"
+            caption="Set Screw M5"
           />
 
   </FlexTableItem>
 
-    <FlexTableItem
+  <FlexTableItem
     style={{
       textAlign: 'center',
       width: '40%'
     }}mobileColumns={2}>
       <ThemedImageZoom
-            alt="4x M4x12 screw"
+            alt="loctite"
             sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-4-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/1-4-white.webp'),
+              light: useBaseUrl('/img/robots/leo/manuals/tools/loctite_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/tools/loctite_white.webp'),
             }}
-            width="2300"
-            height="2400"
-            caption="4x M4x12 screw"
+            width="1500"
+            height="1500"
           />
 
   </FlexTableItem>
+  
 </FlexTable>
 
 <ThemedImageZoom
-  alt="Step 1 - 1"
+  alt="Shaft addapter assembly"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/2-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/2-white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/wheel/A_shaft_adapter_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/wheel/A_shaft_adapter_white.webp',
+    ),
   }}
-  width="1480"
-  height="2200"
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Align the flat segment of <span style={{color : "#609ebe",}} > **motor
+shaft**</span> with <span style={{color : "#bf7b2c",}} > **headless
+screw**</span>. Use a drop of loctite to make sure it stays in place.
+
+:::
+
+<ThemedImageZoom
+  alt="Assembled shaft adapter"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/F_shaft_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/F_shaft_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+## Step 2
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+<FlexTableItem
+  style={{
+    width: '40%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Motor mount"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/manuals/wheel/mount_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/wheel/mount_white.webp'),
+    }}
+    width="1500"
+    height="1500"
+  />
+</FlexTableItem>
+
+<FlexTableItem
+  style={{
+    width: '40%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="2x M4x20 SHCS"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/manuals/wheel/M4x20_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/wheel/M4x20_white.webp'),
+    }}
+    width="1500"
+    height="1500"
+    caption="2x M4x20 SHCS"
+  />
+</FlexTableItem>
+
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Motor mount assembly"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/A_motor_mount_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/A_motor_mount_white.webp'),
+  }}
+  width="3000"
+  height="2121"
   figStyle={{
     width: 600,
   }}
@@ -180,367 +313,26 @@ until it touches the base of the bearing before tightening.
 :::
 
 <ThemedImageZoom
-  alt="Step 1- 2"
+  alt="Assembled motor mount"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/3-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/3-white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/manuals/wheel/A_motor_mount_2_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/manuals/wheel/A_motor_mount_2_white.webp',
+    ),
   }}
-  width="1480"
-  height="2200"
+  width="3000"
+  height="1060"
   figStyle={{
     width: 600,
   }}
 />
----
-
-## Step 2
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
-  <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="Motor hub"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/2-1-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/2-1-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-          />
-  </FlexTableItem>
-
-<FlexTableItem
-  style={{
-    width: '40%',
-  }}
-  mobileColumns={2}
->
-  <ThemedImageZoom
-    alt="2x M5x10 screw"
-    sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/2-2-black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/2-2-white.webp'),
-    }}
-    width="2300"
-    height="2400"
-    caption="2x M5x10 screw"
-  />
-</FlexTableItem>
-
-</FlexTable>
-
-<ThemedImageZoom
-  alt="Step 2 - 1"
-  sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/5-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/5-white.webp'),
-  }}
-  width="1480"
-  height="2200"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-:::note
-
-Do not tighten. Leave a **3mm** gap between the <span
-style={{color : "#bf7b2c",}} > **screw** </span> and motor mount.
-
-:::
-
-<ThemedImageZoom
-  alt="Step 2 - 2"
-  sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-white.webp'),
-  }}
-  width="1480"
-  height="2200"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
----
-
-## Step 3
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-    <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="Lithium grease"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/3-3-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/3-3-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-          />
-  </FlexTableItem>
-
-</FlexTable>
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
-  <FlexTableItem
-    style={{
-      width: '50%'
-    }}
-    mobileColumns={1}>
-      <ThemedImageZoom
-            alt="Step 3 - 1"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/9-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/9-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-          />
-  </FlexTableItem>
-
-<FlexTableItem
-  style={{
-    width: '50%',
-  }}
-  mobileColumns={1}
->
-  <ThemedImageZoom
-    alt="Step 3-2"
-    sources={{
-      light: useBaseUrl(
-        '/img/robots/leo/manuals/wheel-V2/wheel-assembly-19.webp',
-      ),
-      dark: useBaseUrl(
-        '/img/robots/leo/manuals/wheel-V2/wheel-assembly-19.webp',
-      ),
-    }}
-    width="2300"
-    height="2400"
-  />
-</FlexTableItem>
-
-</FlexTable>
-
-:::note
-
-Press a decent amount of lithium grease between the shaft <span
-style={{color : "#bf7b2c",}} > **seal** </span> and the motor housing.
-
-:::
-
 ---
 
 ## Step 4
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
-  <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="Motor hub"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-1-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-1-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-          />
-  </FlexTableItem>
-
-<FlexTableItem
-  style={{
-    width: '40%',
-  }}
-  mobileColumns={2}
->
-  <ThemedImageZoom
-    alt="Motor shaft adapter"
-    sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-2-black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-2-white.webp'),
-    }}
-    width="2300"
-    height="2400"
-  />
-</FlexTableItem>
-
-    <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="M5 set screw"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-3-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-3-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-            caption="M5 set screw"
-          />
-
-  </FlexTableItem>
-
-    <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="loctite"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-4-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/4-4-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-          />
-
-  </FlexTableItem>
-</FlexTable>
-
-<ThemedImageZoom
-  alt="4 - 1"
-  sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/11-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/11-white.webp'),
-  }}
-  width="1480"
-  height="2200"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-:::note
-
-Align the hole in <span style={{color : "#609ebe",}} > **shaft adapter** </span>
-with the flat part of motor shaft.\
-Put a drop of loctite onto the <span style={{color : "#bf7b2c",}} > **set
-screw**</span> before tightening.
-
-:::
-
-<ThemedImageZoom
-  alt="4-2"
-  sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/12-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/12-white.webp'),
-  }}
-  width="1480"
-  height="2200"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
----
-
-## Step 5
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
-  <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="Tire"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/5-1-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/5-1-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-          />
-  </FlexTableItem>
-
-<FlexTableItem
-  style={{
-    width: '40%',
-  }}
-  mobileColumns={2}
->
-  <ThemedImageZoom
-    alt="Rim"
-    sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/5-2-black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/5-2-white.webp'),
-    }}
-    width="2300"
-    height="2400"
-  />
-</FlexTableItem>
-
-</FlexTable>
-
-<ThemedImageZoom
-  alt="5 - 1"
-  sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/14-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/14-white.webp'),
-  }}
-  width="1480"
-  height="2200"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-:::warning
-
-Make sure that the full length of tire's brim sits in the groove
-
-:::
-
-<ThemedImageZoom
-  alt="5 - 2"
-  sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/15-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/15-white.webp'),
-  }}
-  width="1480"
-  height="2200"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
----
-
-## Step 6
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
-  
-  <FlexTableItem
-    style={{
-      width: '40%'
-    }}
-    mobileColumns={2}>
-      <ThemedImageZoom
-            alt="Motor hub"
-            sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-1-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-1-white.webp'),
-            }}
-            width="2300"
-            height="2400"
-          />
-  </FlexTableItem>
 
 <FlexTableItem
   style={{
@@ -551,11 +343,11 @@ Make sure that the full length of tire's brim sits in the groove
   <ThemedImageZoom
     alt="Wheel"
     sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-2-black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-2-white.webp'),
+      light: useBaseUrl('/img/robots/leo/manuals/wheel/Rim_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/wheel/Rim_white.webp'),
     }}
-    width="2300"
-    height="2400"
+    width="1500"
+    height="1500"
   />
 </FlexTableItem>
 
@@ -567,11 +359,11 @@ Make sure that the full length of tire's brim sits in the groove
       <ThemedImageZoom
             alt="Torque plate"
             sources={{
-              light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-3-black.webp'),
-              dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-3-white.webp'),
+              light: useBaseUrl('/img/robots/leo/manuals/wheel/torque_plate_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/wheel/torque_plate_white.webp'),
             }}
-            width="2300"
-            height="2400"
+            width="1500"
+            height="1500"
           />
 
   </FlexTableItem>
@@ -583,26 +375,26 @@ Make sure that the full length of tire's brim sits in the groove
   mobileColumns={2}
 >
   <ThemedImageZoom
-    alt="5x rounded M4x8 screw"
+    alt="5x M4x8 BHCS"
     sources={{
-      light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-4-black.webp'),
-      dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/6-4-white.webp'),
+      light: useBaseUrl('/img/robots/leo/manuals/wheel/M4x8_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/wheel/M4x8_white.webp'),
     }}
-    width="2300"
-    height="2400"
-    caption="5x rounded M4x8 screw"
+    width="1500"
+    height="1500"
+    caption="5x M4x8 BHCS"
   />
 </FlexTableItem>
 
 </FlexTable>
 
 <ThemedImageZoom
-  alt="6 - 1"
+  alt="6 - 2"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/17-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/17-white.webp'),
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/A_rim_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/A_rim_white.webp'),
   }}
-  width="1480"
+  width="3000"
   height="2200"
   figStyle={{
     width: 600,
@@ -612,10 +404,10 @@ Make sure that the full length of tire's brim sits in the groove
 <ThemedImageZoom
   alt="6 - 2"
   sources={{
-    light: useBaseUrl('/img/robots/leo/manuals/wheel-V2/18-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/manuals/wheel-V2/18-white.webp'),
+    light: useBaseUrl('/img/robots/leo/manuals/wheel/F_rim_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/wheel/F_rim_white.webp'),
   }}
-  width="1480"
+  width="3000"
   height="2200"
   figStyle={{
     width: 600,
@@ -623,6 +415,8 @@ Make sure that the full length of tire's brim sits in the groove
 />
 ---
 
-<span style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-  That's it! Repeat the steps until you have 4 wheels.
-</span>
+:::info
+
+Repeat until you have a total of 4 wheels.
+
+:::
