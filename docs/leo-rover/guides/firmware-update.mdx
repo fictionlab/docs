@@ -7,26 +7,22 @@ description: >-
   extra cables. Step-by-step guide.
 ---
 
-## Prerequisites
+You can use the [leo_fw](http://wiki.ros.org/leo_fw) package to flash the newest
+firmware from Raspberry Pi without connecting any additional cables. To do this,
+login to your Leo Rover:
 
 <LinkButton docId="guides/ssh" />
 
-## Flashing the newest firmware
+Make sure you are connected to the Internet:
 
-You can use the [leo_fw](http://wiki.ros.org/leo_fw) package to flash the newest
-firmware from Raspberry Pi without connecting any additional cables. To do this,
-login to your Leo Rover.
-
-Make sure you have the latest versions of the packages:
-
-```bash
-sudo apt update && sudo apt upgrade
-```
+<LinkButton docId="guides/connect-to-network" />
+and have the latest versions of the packages: ```bash sudo apt update && sudo
+apt upgrade ```
 
 And then, run the update script by typing:
 
 ```bash
-rosrun leo_fw update
+ros2 run leo_fw update
 ```
 
 The script will guide you through the flashing process.

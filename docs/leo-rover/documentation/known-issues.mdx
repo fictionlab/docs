@@ -95,14 +95,3 @@ external 5GHz network and connect to the UI via router.
 The joystick in the UI doesn't respond
 
 **Fix**: Don't use Apple devices.
-
-### Rover rotating in odometry without physically moving
-
-When completing the odometry part of tutorial about autonomous navigation, the
-rover seems to rotate in odometry reading, without actually moving. Reason for
-that behavior is IMU readings offset - it may provide data indicating the rover
-moving in the Z axis without the real movement.
-
-**Fix**: Calibrate IMU to eliminate the offset from the readings.
-
-<LinkButton docId="guides/imu-calibration" />
