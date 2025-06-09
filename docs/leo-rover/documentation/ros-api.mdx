@@ -186,6 +186,66 @@ description: >-
 
 ## Parameters
 
+#### /camera
+
+- `role` (type: `string`, read-only)
+
+  Which [StreamRole] to use. (possible choices: `raw`, `still`, `video`,
+  `viewfinder`)
+
+- `format` (type: `string`, read-only)
+
+  The pixel format of the camera stream. For possible values, check [picamera2
+  documentation (Appendix A)].
+
+- `width`, `height` (type: `int`, read-only)
+
+  The width and height of the camera stream in pixels.
+
+- `sensor_mode` (type: `sting`, read-only)
+
+  The desired raw sensor format resolution (format: `width:height`)
+
+- `orientation` (type: `int`, read-only)
+
+  The orientation of the camera in degrees. Possible values: 0, 90, 180, 270.
+
+- `frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the camera stream.
+
+:::info
+
+Apart from the aforementioned parameters, the camera node also translates the
+libcamera controls into ROS parameters. The camera controls are documented in
+[picamera2 documentation (Appendix C)].
+
+:::
+
+#### /camera/debayer
+
+- `.image_color.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the color image. Range: 0-100.
+
+- `.image_mono.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the monochrome image. Range: 0-100.
+
+#### /camera/rectify_mono
+
+- `.image_rect_color.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the rectified color image. Range:
+  0-100.
+
+#### /camera/rectify_color
+
+- `.image_rect.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the rectified monochrome image. Range:
+  0-100.
+
 #### /firmware
 
 :::info
@@ -246,66 +306,6 @@ The parameters for `/firmware` node can be overridden by modifying the
 
   The voltage (in Volts) below which the battery is considered low. If the
   battery goes below this voltage, the LED indicator will start blinking fast.
-
-#### /camera
-
-- `role` (type: `string`, read-only)
-
-  Which [StreamRole] to use. (possible choices: `raw`, `still`, `video`,
-  `viewfinder`)
-
-- `format` (type: `string`, read-only)
-
-  The pixel format of the camera stream. For possible values, check [picamera2
-  documentation (Appendix A)].
-
-- `width`, `height` (type: `int`, read-only)
-
-  The width and height of the camera stream in pixels.
-
-- `sensor_mode` (type: `sting`, read-only)
-
-  The desired raw sensor format resolution (format: `width:height`)
-
-- `orientation` (type: `int`, read-only)
-
-  The orientation of the camera in degrees. Possible values: 0, 90, 180, 270.
-
-- `frame_id` (type: `string`, read-only)
-
-  The TF frame associated with the camera stream.
-
-:::info
-
-Apart from the aforementioned parameters, the camera node also translates the
-libcamera controls into ROS parameters. The camera controls are documented in
-[picamera2 documentation (Appendix C)].
-
-:::
-
-#### /camera/debayer
-
-- `.image_color.compressed.jpeg_quality` (type: `int`)
-
-  The quality of the JPEG compression for the color image. Range: 0-100.
-
-- `.image_mono.compressed.jpeg_quality` (type: `int`)
-
-  The quality of the JPEG compression for the monochrome image. Range: 0-100.
-
-#### /camera/rectify_mono
-
-- `.image_rect_color.compressed.jpeg_quality` (type: `int`)
-
-  The quality of the JPEG compression for the rectified color image. Range:
-  0-100.
-
-#### /camera/rectify_color
-
-- `.image_rect.compressed.jpeg_quality` (type: `int`)
-
-  The quality of the JPEG compression for the rectified monochrome image. Range:
-  0-100.
 
 #### /firmware_message_converter
 
