@@ -172,6 +172,10 @@ description: >-
 
   Perform software reset of the controller board.
 
+- `imu_filter/reset_calibration` ([std_srvs/srv/Trigger])
+
+  Reset the IMU calibration. This will reset the dynamic gyroscope bias.
+
 - `system/reboot` ([std_srvs/srv/Trigger])
 
   Perform reboot of the onboard computer's system.
@@ -240,9 +244,44 @@ The parameters for `/firmware` node can be overridden by modifying the
 
 - `battery_min_voltage`
 
-  TODO
+  The voltage (in Volts) below which the battery is considered low. If the
+  battery goes below this voltage, the LED indicator will start blinking fast.
 
 #### /camera
+
+- `role` (type: `string`, read-only)
+
+  Which [StreamRole] to use. (possible choices: `raw`, `still`, `video`,
+  `viewfinder`)
+
+- `format` (type: `string`, read-only)
+
+  The pixel format of the camera stream. For possible values, check [picamera2
+  documentation (Appendix A)].
+
+- `width`, `height` (type: `int`, read-only)
+
+  The width and height of the camera stream in pixels.
+
+- `sensor_mode` (type: `sting`, read-only)
+
+  The desired raw sensor format resolution (format: `width:height`)
+
+- `orientation` (type: `int`, read-only)
+
+  The orientation of the camera in degrees. Possible values: 0, 90, 180, 270.
+
+- `frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the camera stream.
+
+:::info
+
+Apart from the aforementioned parameters, the camera node also translates the
+libcamera controls into ROS parameters. The camera controls are documented in
+[picamera2 documentation (Appendix C)].
+
+:::
 
 #### /camera/debayer
 
@@ -267,6 +306,34 @@ The parameters for `/firmware` node can be overridden by modifying the
 
   The quality of the JPEG compression for the rectified monochrome image. Range:
   0-100.
+
+#### /firmware_message_converter
+
+- `imu_angular_velocity_covariance_diagonal`
+- `imu_frame_id`
+- `imu_linear_acceleration_covariance_diagonal`
+- `odom_frame_id`
+- `robot_frame_id`
+- `tf_frame_prefix`
+- `wheel_joint_names`
+- `wheel_odom_mecanum_twist_covariance_diagonal`
+- `wheel_odom_twist_covariance_diagonal`
+
+#### /imu_filter
+
+- `bias_alpha`
+- `bias_save_period`
+- `do_adaptive_gain`
+- `do_bias_estimation`
+- `do_save_bias`
+- `gain_acc`
+- `orientation_variance`
+
+#### /odom_filter
+
+- `publish_tf` (type: `bool`)
+
+  Whether to publish the TF frame for the odometry.
 
 [geometry_msgs/msg/Twist]:
   https://docs.ros2.org/latest/api/geometry_msgs/msg/Twist.html
@@ -297,3 +364,9 @@ The parameters for `/firmware` node can be overridden by modifying the
   https://docs.ros2.org/latest/api/std_srvs/srv/Trigger.html
 [tf2_msgs/msg/TFMessage]:
   https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
+[picamera2 documentation (Appendix A)]:
+  https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf#page=82
+[picamera2 documentation (Appendix C)]:
+  https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf#page=86
+[StreamRole]:
+  https://libcamera.org/api-html/namespacelibcamera.html#a295d1f5e7828d95c0b0aabc0a8baac03
