@@ -2,6 +2,7 @@
 title: Leo Rover ROS API
 sidebar_label: ROS API
 sidebar_position: 3
+toc_max_heading_level: 4
 keywords:
   - ros
   - api
@@ -180,6 +181,92 @@ description: >-
   Perform shutdown of the onboard computer's system.
 
 ## Parameters
+
+#### /firmware
+
+:::info
+
+The parameters for `/firmware` node can be overridden by modifying the
+`/etc/ros/firmware_overrides.yaml` file.
+
+:::
+
+- `wheels/encoder_resolution` (type: `float`)
+
+  The resolution of the wheel encoder in counts per rotation.
+
+- `wheels/torque_constant` (type: `float`)
+
+  The torque in Nm produced by the wheel per 1 Ampere of windind current.
+
+- `wheels/pid/p` (type: `float`)
+
+  The P constant of the PID regulator.
+
+- `wheels/pid/i` (type: `float`)
+
+  The I constant of the PID regulator.
+
+- `wheels/pid/d` (type: `float`)
+
+  The D constant of the PID regulator.
+
+- `wheels/pwm_duty_limit`
+
+  The limit of the PWM duty applied to the motor in percent.
+
+- `controller/wheel_radius` (type: `float`)
+
+  The radius of the wheel in meters.
+
+- `controller/wheel_separation` (type: `float`)
+
+  The distance (in meters) between the centers of the left and right wheels.
+
+- `controller/wheel_base` (type: `float`)
+
+  The distance (in meters) between the centers of the rear and front wheels.
+
+- `controller/angular_velocity_multiplier` (type: `float`)
+
+  The angular velocity in `cmd_vel` command is multiplied by this parameter and
+  the calculated odometry has its angular velocity divided by this parameter.
+
+- `controller/input_timeout` (type: `int`)
+
+  The timeout (in milliseconds) for the `cmd_vel` commands. The controller will
+  be disabled if it does not receive a command within the specified time. If set
+  to 0, the timeout is disabled.
+
+- `battery_min_voltage`
+
+  TODO
+
+#### /camera
+
+
+
+#### /camera/debayer
+
+- `.image_color.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the color image. Range: 0-100.
+
+- `.image_mono.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the monochrome image. Range: 0-100.
+
+#### /camera/rectify_mono
+
+- `.image_rect_color.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the rectified color image. Range: 0-100.
+
+#### /camera/rectify_color
+
+- `.image_rect.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the rectified monochrome image. Range: 0-100.
 
 [geometry_msgs/msg/Twist]:
   https://docs.ros2.org/latest/api/geometry_msgs/msg/Twist.html
