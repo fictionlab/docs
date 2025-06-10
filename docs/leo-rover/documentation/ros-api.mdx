@@ -309,25 +309,87 @@ The parameters for `/firmware` node can be overridden by modifying the
 
 #### /firmware_message_converter
 
-- `imu_angular_velocity_covariance_diagonal`
-- `imu_frame_id`
-- `imu_linear_acceleration_covariance_diagonal`
-- `odom_frame_id`
-- `robot_frame_id`
-- `tf_frame_prefix`
-- `wheel_joint_names`
-- `wheel_odom_mecanum_twist_covariance_diagonal`
-- `wheel_odom_twist_covariance_diagonal`
+- `robot_frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the robot.
+
+- `odom_frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the odometry readings.
+
+- `imu_frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the IMU readings.
+
+- `tf_frame_prefix` (type: `string`, read-only)
+
+  The prefix added to the published TF frames.
+
+- `wheel_joint_names` (type: `string[]`, read-only)
+
+  The names of the wheel joints used in the `joint_states` topic. The order of
+  the names is: front left, rear left, front right, rear right.
+
+- `wheel_odom_twist_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the standard wheel odometry twist
+  readings. The size of the array must be 6, representing the variances for the
+  linear x, linear y, linear z, angular x, angular y and angular z axes.
+
+- `wheel_odom_mecanum_twist_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the mecanum wheel odometry twist
+  readings. The size of the array must be 6, representing the variances for the
+  linear x, linear y, linear z, angular x, angular y and angular z axes.
+
+- `imu_angular_velocity_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the IMU angular velocity readings.
+  The size of the array must be 3, representing the variances for the x, y and z
+  axes.
+
+- `imu_linear_acceleration_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the IMU linear acceleration
+  readings. The size of the array must be 3, representing the variances for the
+  x, y and z axes.
 
 #### /imu_filter
 
-- `bias_alpha`
-- `bias_save_period`
-- `do_adaptive_gain`
-- `do_bias_estimation`
-- `do_save_bias`
-- `gain_acc`
-- `orientation_variance`
+- `gain_acc` (type: `float`)
+
+  Gain for the complementary filter for orientation estimation. The value must
+  be in the range (0, 1).
+
+- `do_adaptive_gain` (type: `bool`)
+
+  Whether to use adaptive gain for the complementary filter. If set to `true`,
+  the gain will be adjusted based on the accelerometer readings.
+
+- `bias_alpha` (type: `float`)
+
+  The gyroscope bias estimation gain. The value must be in the range (0, 1).
+
+- `do_bias_estimation` (type: `bool`)
+
+  Whether to do bias estimation of the angular velocity (gyroscope readings). If
+  set to `false`, the gyroscope readings will not be filtered and will be
+  published as is.
+
+- `do_save_bias` (type: `bool`)
+
+  Whether to periodically store the gyroscope bias on the disk and load it upon
+  startup.
+
+- `bias_save_period` (type: `int`)
+
+  Time interval between current imu bias save (in seconds).
+
+- `orientation_variance` (type: `float`)
+
+  The variance of the orientation estimation. Will be used to fill the diagonal
+  of the covariance matrix of the IMU orientation readings. The value must be
+  greater than 0.
 
 #### /odom_filter
 
