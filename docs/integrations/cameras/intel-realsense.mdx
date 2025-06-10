@@ -167,11 +167,11 @@ simply do it by typing in terminal those commands
 
 ```bash
 source /opt/ros/${ROS_DISTRO}/setup.bash
-ros2 launch realsense2_camera rs_camera.launch camera:=d435i_camera camera_namespace:=/
+ros2 launch realsense2_camera rs_launch.py camera_name:=d435i_camera camera_namespace:=/
 ```
 
-You need to specify the `camera` argument because of the tf frame conflicts. You
-have to put the same value as in the `urdf` file. We set here the
+You need to specify the `camera_name` argument because of the tf frame
+conflicts. You have to put the same value as in the `urdf` file. We set here the
 `camera_namespace` argument for convenience - default value for it is "camera",
 which is the same as the robot's default camera. Therefore setting the argument
 to global namespace makes it easier to distinguish the node's topics.
@@ -182,16 +182,16 @@ forget to. To launch it with the system we need to change `robot.launch` file in
 between the `<launch>` tag:
 
 ```xml title="/etc/ros/robot.launch"
-<include file="$(find realsense2_camera)/launch/rs_camera.launch">
-    <arg name="camera" value="d435i_camera"/>
+<include file="$(find-pkg-share realsense2_camera)/launch/rs_launch.py" >
+    <arg name="camera_name" value="d435i_camera"/>
     <arg name="camera_namespace" value="/"/>
 </include>
 ```
 
 :::warning
 
-Make sure to specify the `camera` argument to the right value. You need that for
-working camera model in visualization.
+Make sure to specify the `camera_name` argument to the right value. You need
+that for working camera model in visualization.
 
 :::
 
