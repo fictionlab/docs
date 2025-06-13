@@ -111,21 +111,25 @@ want to install the newest version, you can follow
 
 ### Adding camera model
 
-As we want to have the camera model visible with the rover model, we need to
-change `robot.urdf.xacro` file in `/etc/ros/urdf` directory. On
+As we would like to have the robot aware of where the camera is, we need to
+create an URDF file with the RealSense included. On
 [this](https://github.com/IntelRealSense/realsense-ros/tree/ros2-master/realsense2_description/urdf)
-site you can see what RealSense urdf camera models are available in the
-`realsense2_description` package. Each of the urdf files there has `xacro macro`
-with a lot of properties. You have to include such macro in the
-`robot.urdf.xacro` file on the Rover, and change `name` property to avoid tf
-frame conflicts. To do so, you need to include such lines:
+site you can see which urdf camera models are available in the
+`realsense2_description` package. Each of the files there has a `xacro macro`
+with a lot of properties. We need to include the correct macro to make the
+camera visible with the robot's model.
 
-```xml
-<xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+```xml title="/etc/ros/urdf/realsense.urdf.xacro"
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<xacro:sensor_d435i parent="base_link" name="d435i_camera">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-</xacro:sensor_d435i>
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+
+  <xacro:sensor_d435i parent="base_link" name="d435i_camera">
+    <origin xyz="0.132 0 0.0102" rpy="0 0.0872 0"/>
+  </xacro:sensor_d435i>
+
+</robot>
 ```
 
 You can specify `name` property to anything you want. We just need to change it,
@@ -134,30 +138,19 @@ specifying the position of the camera regarding the link specified in parent
 property. So if the `parent` property is set to "base_link", the position in
 `origin` property is regarding the origin of the Rover.
 
-In the end, your `robot.urdf.xacro` file should look like this:
+:::warning
+
+If you are not using our mounting adapter you might have to change the values in
+`origin` property.
+
+:::
+
+Now we have to include our camera model in `robot.urdf.xacro` file - the
+description that is uploaded at boot. Add this line somewhere between `<robot>`
+tag.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
-<?xml version="1.0" encoding="utf-8"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
-  name="leo">
-
-  <xacro:arg name="link_prefix" default="" />
-  <xacro:arg name="mecanum_wheels" default="false" />
-
-  <xacro:include filename="$(find leo_description)/urdf/macros.xacro" />
-  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
-
-  <xacro:leo default_antenna="true"
-    rockers_fixed="true"
-    footprint_link="true"
-    link_prefix="$(arg link_prefix)"
-    joint_prefix=""
-    mecanum_wheels="$(arg mecanum_wheels)" />
-
-  <xacro:sensor_d435i parent="base_link" name="d435i_camera">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </xacro:sensor_d435i>
-</robot>
+<xacro:include filename="/etc/ros/urdf/realsense.urdf.xacro">
 ```
 
 ### Launching camera nodes on system startup
@@ -167,25 +160,25 @@ simply do it by typing in terminal those commands
 
 ```bash
 source /opt/ros/${ROS_DISTRO}/setup.bash
-ros2 launch realsense2_camera rs_launch.py camera_name:=d435i_camera camera_namespace:=/
+ros2 launch realsense2_camera rs_launch.py camera_name:=d435i_camera camera_namespace:=/"/"
 ```
 
 You need to specify the `camera_name` argument because of the tf frame
 conflicts. You have to put the same value as in the `urdf` file. We set here the
 `camera_namespace` argument for convenience - default value for it is "camera",
 which is the same as the robot's default camera. Therefore setting the argument
-to global namespace makes it easier to distinguish the node's topics.
+to empty string will automatically put the node's topics into global namespace.
 
-It's much more comfortable to run this node automatically, as you may sometimes
-forget to. To launch it with the system we need to change `robot.launch` file in
-`/etc/ros/` directory. You have to include those lines in the file, somewhere
-between the `<launch>` tag:
+We can create a launch file that would start the node with a fitting
+configuration.
 
-```xml title="/etc/ros/robot.launch"
-<include file="$(find-pkg-share realsense2_camera)/launch/rs_launch.py" >
-    <arg name="camera_name" value="d435i_camera"/>
-    <arg name="camera_namespace" value="/"/>
-</include>
+```xml title="/etc/ros/realsense.launch.xml"
+<launch>
+  <include file="$(find-pkg-share realsense2_camera)/launch/rs_launch.py">
+	  <arg name="camera_namespace" value=""/>
+	  <arg name="camera_name" value="d435i_camera"/>
+  </include>
+</launch>
 ```
 
 :::warning
@@ -194,6 +187,24 @@ Make sure to specify the `camera_name` argument to the right value. You need
 that for working camera model in visualization.
 
 :::
+
+:::info
+
+You can check what other options you can specify directly in the file by running
+in terminal
+
+```bash
+ros2 launch realsense2_camera rs_launch.py -s
+```
+
+:::
+
+Include the launch file in the `robot.launch.xml` file somewhere between
+`<launch>` tag, so that the node starts at boot.
+
+```xml title="/etc/ros/robot.launch.xml"
+<include file="/etc/ros/realsense.launch.xml"/>
+```
 
 Now, the realsense camera node will be launched with every system startup. You
 can also force this start right now with
