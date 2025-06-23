@@ -15,7 +15,8 @@ description: >-
 
 - `cmd_vel` ([geometry_msgs/msg/Twist])
 
-  Target velocity of the Rover. Only linear.x $[\frac{m}{s}]$ and angular.z
+  Target velocity of the Rover. Only `linear.x` $[\frac{m}{s}]$, `linear.y`
+  $[\frac{m}{s}]$ (if using the mecanum wheels mode) and `angular.z`
   $[\frac{rad}{s}]$ are used.
 
 - `firmware/wheel_{FL,RL,FR,RR}/cmd_pwm_duty` ([std_msgs/msg/Float32])
@@ -304,6 +305,13 @@ The parameters for `/firmware` node can be overridden by modifying the
 
   The voltage (in Volts) below which the battery is considered low. If the
   battery goes below this voltage, the LED indicator will start blinking fast.
+
+- `mecanum_wheels` (type: `bool`)
+
+  Enables mecanum wheel functionality. When set to `true`, the robot switches
+  to mecanum wheel kinematics, enabling omnidirectional movement including
+  lateral strafing via `linear.y` commands and adjusting odometry calculations
+  for mecanum wheel geometry.
 
 #### /firmware_message_converter
 
