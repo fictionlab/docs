@@ -374,12 +374,12 @@ The parameters for `/firmware` node can be overridden by modifying the
   set to `false`, the gyroscope readings will not be filtered and will be
   published as is.
 
-- `do_save_bias` (type: `bool`)
+- `do_save_bias` (type: `bool`, read-only)
 
   Whether to periodically store the gyroscope bias on the disk and load it upon
   startup.
 
-- `bias_save_period` (type: `int`)
+- `bias_save_period` (type: `int`, read-only)
 
   Time interval between current imu bias save (in seconds).
 
