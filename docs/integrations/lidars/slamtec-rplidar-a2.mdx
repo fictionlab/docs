@@ -291,10 +291,20 @@ Now, open RViz by typing `rviz2` in the terminal, or, if you have the `leo_viz`
 package installed, type:
 
 ```bash
-ros2 launch leo_viz rviz.launch
+ros2 launch leo_viz rviz.launch.xml
 ```
 
 This will start RViz with visualization of the current robot model.
+
+:::info
+
+You can easily install the `leo_viz` package with this command
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-desktop
+```
+
+:::
 
 On the Displays panel click **Add** -> **By topic** and search for the `/scan`
 topic. Choose the **LaserScan** display and click **Ok**.
