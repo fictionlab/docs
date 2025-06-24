@@ -345,26 +345,84 @@ There are two important software components which don't run as native ROS nodes:
   caption="Overview of the software components"
 />
 
-## Firmware specification
+### ROS nodes
 
-{/* TODO not touched for 1.9 */}
+<table>
+  <thead>
+    <tr>
+      <th style={{ textAlign: 'right' }}>ROS Node</th>
+      <th style={{ textAlign: 'left' }}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Firmware Node</td>
+      <td>
+        The node spawned by the LeoCore controller firmware. Allows controlling the robot's wheels
+        via topics. Additionally, it publishes relevant information, including:
 
-This is the program that runs directly on the processor of the LeoCore board. It
-provides different functionalities to the Raspberry Pi through serial bus. The
-main features of the default
-[leocore_firmware](https://github.com/LeoRover/leocore_firmware) are:
+        - State of the dynamic joints controlled by LeoCore.
+        - Data retrieved from the onboard IMU sensor.
+        - Battery voltage.
+        - Computed odometry.
+      </td>
+    </tr>
+    <tr>
+      <td>Robot State Publisher</td>
+      <td>
+        Parses the kinematic tree model of the robot in URDF format and broadcasts the
+        robot state using TF transforms. Here's how it operates:
 
-- differential drive controller
-  ([cmd_vel](https://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/Twist.html)
-  interface)
-- wheel states monitoring
-  ([joint_states](https://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/JointState.html)
-  interface)
-- battery voltage monitoring
-- wheel odometry calculation
-- IMU support
+        - Fixed joints, like sensor positions, are published as static transforms.
+        - Movable joints, such as wheel states, are published as dynamic transforms,
+          based on the current joint states published by the Firmware Node.
 
-## Web user interface (UI)
+        It also publishes the robot URDF description on a designated topic, making it
+        easily accessible to other nodes.
+      </td>
+    </tr>
+    <tr>
+      <td>Camera Driver</td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td>Firmware Message Converter</td>
+      <td>
+        Converts messages from the Firmware Node to standard ROS messages.
+      </td>
+    </tr>
+    <tr>
+      <td>IMU Filter</td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td>Odometry Filter</td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td>Web Video Server</td>
+      <td>
+        Provides a HTTP video streaming of ROS image topic for the Web User Interface.
+      </td>
+    </tr>
+    <tr>
+      <td>Rosbridge Server</td>
+      <td>
+        Provides a WebSocket interface to the ROS system, allowing the Web User Interface
+        to communicate with ROS nodes.
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+### Web user interface (UI)
 
 {/* TODO not touched for 1.9 */}
 
