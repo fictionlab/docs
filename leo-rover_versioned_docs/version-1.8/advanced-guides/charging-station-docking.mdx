@@ -2,7 +2,7 @@
 id: autonomous-docking
 title: Autonomous docking tutorial
 sidebar_label: Autonomous docking
-sidebar_position: 2
+sidebar_position: 8
 keywords:
   - charging station
   - charging dock
@@ -18,6 +18,10 @@ image: '/img/robots/leo/addons/charging-station/leo-on-charging-station.webp'
 ---
 
 import Product from '@site/src/products/charging-station.mdx';
+import LinkButton from '@site/src/components/LinkButton';
+import ROS2info from './_advanced-guides-ROS2-info.mdx';
+
+<ROS2info />
 
 <ImageZoom
   loading="eager"
@@ -32,6 +36,11 @@ autonomously to the charging station.
 
 ## Prerequisites
 
+<LinkButton
+  to="/leo-rover/1.8/addons/charging-station"
+  title="Charging station specification"
+  description="Extend your Leo Rover's battery life - Charging Station Specification"
+/>
 <LinkButton docId="guides/ssh" />
 <LinkButton docId="advanced-guides/ros-development" />
 
@@ -47,7 +56,7 @@ To be able to perform the autonomous docking, you need to install our package on
 your rover. For now the only way is to build it from source, so it requires a
 ROS workspace on your rover (if you don't have one or don't know whether there
 is already a workspace on your rover, you can follow
-[this guide](../../advanced-guides/ros-development#building-additional-ros-packages)).
+[this guide](/leo-rover/1.8/advanced-guides/ros-development#building-additional-ros-packages)).
 
 To install the package, connect to your rover through ssh, enter the `src`
 directory inside your workspace and execute these commands:
@@ -222,6 +231,6 @@ server is still up.
 You can also run the docking client on your host computer, but you would need to
 build the `leo_docking` package there and connect your rover to the ROS network
 running on the rover. You can do this by following
-[this guide](../../advanced-guides/ros-development#connecting-another-computer-to-ros-network).
+[this guide](/leo-rover/1.8/advanced-guides/ros-development#connecting-another-computer-to-ros-network).
 
 :::
