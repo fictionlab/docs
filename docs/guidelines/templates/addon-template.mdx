@@ -11,16 +11,14 @@ unlisted: true
 
 ## Prerequisites and information
 
-1. Create folder with addon name in corresponding rover folder
-2. Inside newly created folder
-   - Create new [ProductPreview](/guidelines/components#productpreview) partial
-     markdown file. Name should look like this `_addon-name-product.mdx`
-   - Create new `.mdx` file **named the same as folder**
-3. When copying and filling this template, remove all comments
+1. Create new [ProductPreview](../components#productpreview) partial markdown
+   and put it inside `src/products/addon_name.mdx` file.
+1. Create new `addon-name.mdx` addon file inside the `addons` directory.
+1. When copying and filling this template, remove all comments
    (`{/* comment example  */}` ).
-4. When copying directly from `.mdx` file, remove all code blocks (only fencing,
+1. When copying directly from `.mdx` file, remove all code blocks (only fencing,
    leave content).
-5. Inline code indicates that this fragment needs to be replaced with other
+1. Inline code indicates that this fragment needs to be replaced with other
    content, such as a React component, description, etc.
 
 ## Template
@@ -40,7 +38,7 @@ image:
 ```
 
 ```jsx title="Required imports"
-import Product from './_addon_name-product.mdx'; // use product file that you created as prerequisite
+import Product from '@site/src/products/addon_name.mdx'; // use product file that you created as prerequisite
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FusionEmbed from '@site/src/components/FusionEmbed';
@@ -52,7 +50,7 @@ import FusionEmbed from '@site/src/components/FusionEmbed';
 
 ## Referenced product
 
-`Product Preview - imported _addon_name-product.mdx`
+`Product Preview - imported from src/products/addon_name.mdx`
 
 ## Main parameters
 

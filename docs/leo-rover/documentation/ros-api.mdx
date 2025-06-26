@@ -1,0 +1,441 @@
+---
+title: Leo Rover ROS API
+sidebar_label: ROS API
+sidebar_position: 3
+toc_max_heading_level: 4
+keywords:
+  - ros
+  - api
+description: >-
+  Description of the ROS API for Leo Rover. Includes subscribed topics,
+  published topics and advertised services.
+---
+
+## Subscribed topics
+
+- `cmd_vel` ([geometry_msgs/msg/Twist])
+
+  Target velocity of the Rover. Only `linear.x` $[\frac{m}{s}]$, `linear.y`
+  $[\frac{m}{s}]$ (if using the mecanum wheels mode) and `angular.z`
+  $[\frac{rad}{s}]$ are used.
+
+- `firmware/wheel_{FL,RL,FR,RR}/cmd_pwm_duty` ([std_msgs/msg/Float32])
+
+  Target PWM duty cycle for each wheel motor. $[\%]$
+
+  :::warning
+
+  Cannot be used at the same time as other `cmd` topics.
+
+  :::
+
+- `firmware/wheel_{FL,RL,FR,RR}/cmd_velocity` ([std_msgs/msg/Float32])
+
+  Target velocity of the individual wheels. $[\frac{rad}{s}]$
+
+  :::warning
+
+  Cannot be used at the same time as other `cmd` topics.
+
+  :::
+
+## Published Topics
+
+- `merged_odom` ([nav_msgs/msg/Odometry])
+
+  Merged odometry calculated from wheel encoders and the onboard IMU.
+
+  :::info
+
+  This is the preferred topic to use for odometry data. Use this topic instead
+  of `wheel_odom` or `firmware/wheel_odom`.
+
+  :::
+
+- `wheel_odom` ([nav_msgs/msg/Odometry])
+
+  Odometry calculated from wheel encoders.
+
+- `imu/data` ([sensor_msgs/msg/Imu])
+
+  Filtered readings from the onboard IMU. The filter does 2 things:
+  - Adds a dynamic bias to the gyroscope readings.
+  - Adds an estimated orientation by fusing the accelerometer and gyroscope
+    data.
+
+  :::info
+
+  This is the preferred topic to use for IMU data. Use this topic instead of
+  `imu/data_raw` or `firmware/imu`
+
+  :::
+
+- `imu/data_raw` ([sensor_msgs/msg/Imu])
+
+  Raw gyroscope and accelerometer readings from the onboard IMU.
+
+- `imu/rpy` ([geometry_msgs/msg/Vector3Stamped])
+
+  Roll, pitch and yaw angles calculated from the IMU data. $[rad]$
+
+- `camera/image_raw` ([sensor_msgs/msg/Image])
+
+  Raw, unprocessed image data from the camera.
+
+- `camera/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Intrinsic and extrinsic parameters of the camera, such as calibration data.
+
+- `camera/image_color` ([sensor_msgs/msg/Image])
+
+  Color image data from the camera. No different from `camera/image_raw`.
+
+- `camera/image_color/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed color image data from the camera.
+
+- `camera/image_mono` ([sensor_msgs/msg/Image])
+
+  Monochrome (grayscale) image data from the camera.
+
+- `camera/image_mono/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed monochrome (grayscale) image data from the camera.
+
+- `camera/image_rect` ([sensor_msgs/msg/Image])
+
+  Rectified (undistorted) monochrome image data from the camera.
+
+- `camera/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed rectified monochrome image data from the camera.
+
+- `camera/image_rect_color` ([sensor_msgs/msg/Image])
+
+  Rectified (undistorted) color image data from the camera.
+
+- `camera/image_rect_color/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed rectified color image data from the camera.
+
+- `firmware/battery` ([std_msgs/msg/Float32])
+
+  Current battery voltage reading. $[V]$
+
+- `firmware/battery_averaged` ([std_msgs/msg/Float32])
+
+  Battery voltage estimated from averaging readings from last 30 seconds. $[V]$
+
+- `joint_states` ([sensor_msgs/msg/JointState])
+
+  Current state of the robot joints.
+
+- `robot_description` ([std_msgs/msg/String])
+
+  The URDF description of the robot.
+
+- `/parameter_events` ([rcl_interfaces/msg/ParameterEvent])
+
+  Parameter events (additions, changes or deletions) from all the running ROS
+  nodes.
+
+- `/rosout` ([rcl_interfaces/msg/Log])
+
+  Logs from all the running ROS nodes.
+
+- `/tf`, `/tf_static` ([tf2_msgs/msg/TFMessage])
+
+  Relationships between TF frames in the ROS network. \
+  These topics are used by the
+  [tf2 library](https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Tf2.html).
+
+## Services
+
+- `reset_odometry` ([std_srvs/srv/Trigger])
+
+  Reset odometry position.
+
+- `camera/set_camera_info` ([sensor_msgs/srv/SetCameraInfo])
+
+  Set onboard camera calibration parameters.
+
+- `firmware/get_board_type` ([std_srvs/srv/Trigger])
+
+  Get the type of the controller board.
+
+- `firmware/get_firmware_version` ([std_srvs/srv/Trigger])
+
+  Get the version of the firmware running on the controller board.
+
+- `firmware/reset_board` ([std_srvs/srv/Trigger])
+
+  Perform software reset of the controller board.
+
+- `imu_filter/reset_calibration` ([std_srvs/srv/Trigger])
+
+  Reset the IMU calibration. This will reset the dynamic gyroscope bias.
+
+- `system/reboot` ([std_srvs/srv/Trigger])
+
+  Perform reboot of the onboard computer's system.
+
+- `system/shutdown` ([std_srvs/srv/Trigger])
+
+  Perform shutdown of the onboard computer's system.
+
+## Parameters
+
+#### /camera
+
+- `role` (type: `string`, read-only)
+
+  Which [StreamRole] to use. (possible choices: `raw`, `still`, `video`,
+  `viewfinder`)
+
+- `format` (type: `string`, read-only)
+
+  The pixel format of the camera stream. For possible values, check [picamera2
+  documentation (Appendix A)].
+
+- `width`, `height` (type: `int`, read-only)
+
+  The width and height of the camera stream in pixels.
+
+- `sensor_mode` (type: `sting`, read-only)
+
+  The desired raw sensor format resolution (format: `width:height`)
+
+- `orientation` (type: `int`, read-only)
+
+  The orientation of the camera in degrees. Possible values: 0, 90, 180, 270.
+
+- `frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the camera stream.
+
+:::info
+
+Apart from the aforementioned parameters, the camera node also translates
+**some** of the libcamera controls into ROS parameters. The camera controls are
+documented in [picamera2 documentation (Appendix C)].
+
+:::
+
+#### /camera/debayer
+
+- `.image_color.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the color image. Range: 0-100.
+
+- `.image_mono.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the monochrome image. Range: 0-100.
+
+#### /camera/rectify_mono
+
+- `.image_rect_color.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the rectified color image. Range:
+  0-100.
+
+#### /camera/rectify_color
+
+- `.image_rect.compressed.jpeg_quality` (type: `int`)
+
+  The quality of the JPEG compression for the rectified monochrome image. Range:
+  0-100.
+
+#### /firmware
+
+:::info
+
+The parameters for `/firmware` node can be overridden by modifying the
+`/etc/ros/firmware_overrides.yaml` file.
+
+:::
+
+- `wheels/encoder_resolution` (type: `float`)
+
+  The resolution of the wheel encoder in counts per rotation.
+
+- `wheels/torque_constant` (type: `float`)
+
+  The torque (in newton-meters) produced by the wheel per 1 Ampere of windind
+  current.
+
+- `wheels/pid/p` (type: `float`)
+
+  The P constant of the PID regulator.
+
+- `wheels/pid/i` (type: `float`)
+
+  The I constant of the PID regulator.
+
+- `wheels/pid/d` (type: `float`)
+
+  The D constant of the PID regulator.
+
+- `wheels/pwm_duty_limit`
+
+  The limit of the PWM duty applied to the motor in percent.
+
+- `controller/wheel_radius` (type: `float`)
+
+  The radius of the wheel in meters.
+
+- `controller/wheel_separation` (type: `float`)
+
+  The distance (in meters) between the centers of the left and right wheels.
+
+- `controller/wheel_base` (type: `float`)
+
+  The distance (in meters) between the centers of the rear and front wheels.
+
+- `controller/angular_velocity_multiplier` (type: `float`)
+
+  The angular velocity in `cmd_vel` command is multiplied by this parameter and
+  the calculated odometry has its angular velocity divided by this parameter.
+
+- `controller/input_timeout` (type: `int`)
+
+  The timeout (in milliseconds) for the `cmd_vel` commands. The controller will
+  be disabled if it does not receive a command within the specified time. If set
+  to 0, the timeout is disabled.
+
+- `battery_min_voltage` (type: `float`)
+
+  The voltage (in Volts) below which the battery is considered low. If the
+  battery goes below this voltage, the LED indicator will start blinking fast.
+
+- `mecanum_wheels` (type: `bool`)
+
+  Enables mecanum wheel functionality. When set to `true`, the robot switches to
+  mecanum wheel kinematics, enabling omnidirectional movement including lateral
+  strafing via `linear.y` commands and adjusting odometry calculations for
+  mecanum wheel geometry.
+
+#### /firmware_message_converter
+
+- `robot_frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the robot.
+
+- `odom_frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the odometry readings.
+
+- `imu_frame_id` (type: `string`, read-only)
+
+  The TF frame associated with the IMU readings.
+
+- `tf_frame_prefix` (type: `string`, read-only)
+
+  The prefix added to the published TF frames.
+
+- `wheel_joint_names` (type: `string[]`, read-only)
+
+  The names of the wheel joints used in the `joint_states` topic. The order of
+  the names is: front left, rear left, front right, rear right.
+
+- `wheel_odom_twist_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the standard wheel odometry twist
+  readings. The size of the array must be 6, representing the variances for the
+  linear x, linear y, linear z, angular x, angular y and angular z axes.
+
+- `wheel_odom_mecanum_twist_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the mecanum wheel odometry twist
+  readings. The size of the array must be 6, representing the variances for the
+  linear x, linear y, linear z, angular x, angular y and angular z axes.
+
+- `imu_angular_velocity_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the IMU angular velocity readings.
+  The size of the array must be 3, representing the variances for the x, y and z
+  axes.
+
+- `imu_linear_acceleration_covariance_diagonal` (type: `float[]`, read-only)
+
+  The diagonal of the covariance matrix for the IMU linear acceleration
+  readings. The size of the array must be 3, representing the variances for the
+  x, y and z axes.
+
+#### /imu_filter
+
+- `gain_acc` (type: `float`)
+
+  Gain for the complementary filter for orientation estimation. The value must
+  be in the range (0, 1).
+
+- `do_adaptive_gain` (type: `bool`)
+
+  Whether to use adaptive gain for the complementary filter. If set to `true`,
+  the gain will be adjusted based on the accelerometer readings.
+
+- `bias_alpha` (type: `float`)
+
+  The gyroscope bias estimation gain. The value must be in the range (0, 1).
+
+- `do_bias_estimation` (type: `bool`)
+
+  Whether to do bias estimation of the angular velocity (gyroscope readings). If
+  set to `false`, the gyroscope readings will not be filtered and will be
+  published as is.
+
+- `do_save_bias` (type: `bool`, read-only)
+
+  Whether to periodically store the gyroscope bias on the disk and load it upon
+  startup.
+
+- `bias_save_period` (type: `int`, read-only)
+
+  Time interval between current imu bias save (in seconds).
+
+- `orientation_variance` (type: `float`)
+
+  The variance of the orientation estimation. Will be used to fill the diagonal
+  of the covariance matrix of the IMU orientation readings. The value must be
+  greater than 0.
+
+#### /odom_filter
+
+- `publish_tf` (type: `bool`)
+
+  Whether to publish the TF frame for the odometry.
+
+[geometry_msgs/msg/Twist]:
+  https://docs.ros2.org/latest/api/geometry_msgs/msg/Twist.html
+[geometry_msgs/msg/Vector3Stamped]:
+  https://docs.ros2.org/latest/api/geometry_msgs/msg/Vector3Stamped.html
+[nav_msgs/msg/Odometry]:
+  https://docs.ros2.org/latest/api/nav_msgs/msg/Odometry.html
+[rcl_interfaces/msg/Log]:
+  https://docs.ros2.org/latest/api/rcl_interfaces/msg/Log.html
+[rcl_interfaces/msg/ParameterEvent]:
+  https://docs.ros2.org/latest/api/rcl_interfaces/msg/ParameterEvent.html
+[sensor_msgs/msg/CameraInfo]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html
+[sensor_msgs/msg/CompressedImage]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/CompressedImage.html
+[std_msgs/msg/Empty]: https://docs.ros2.org/latest/api/std_msgs/msg/Empty.html
+[sensor_msgs/msg/Image]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html
+[sensor_msgs/msg/Imu]: https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html
+[sensor_msgs/msg/JointState]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/JointState.html
+[sensor_msgs/srv/SetCameraInfo]:
+  https://docs.ros2.org/latest/api/sensor_msgs/srv/SetCameraInfo.html
+[std_msgs/msg/Float32]:
+  https://docs.ros2.org/latest/api/std_msgs/msg/Float32.html
+[std_msgs/msg/String]: https://docs.ros2.org/latest/api/std_msgs/msg/String.html
+[std_srvs/srv/Trigger]:
+  https://docs.ros2.org/latest/api/std_srvs/srv/Trigger.html
+[tf2_msgs/msg/TFMessage]:
+  https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
+[picamera2 documentation (Appendix A)]:
+  https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf#page=82
+[picamera2 documentation (Appendix C)]:
+  https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf#page=86
+[StreamRole]:
+  https://libcamera.org/api-html/namespacelibcamera.html#a295d1f5e7828d95c0b0aabc0a8baac03

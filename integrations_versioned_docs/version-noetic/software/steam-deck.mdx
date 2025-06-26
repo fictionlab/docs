@@ -1,0 +1,228 @@
+---
+title: Steam deck
+sidebar_label: Steam deck
+keywords:
+  - steam deck
+  - handheld
+  - controller
+  - distrobox
+  - tutorial
+  - leo
+  - integration
+  - example
+description: >-
+  Unleash the potential of your Leo Rover with the Steam Deck. Learn how to
+  install Ubuntu, ROS, and additional packages to create a versatile control
+  setup for your rover.
+image: /img/robots/leo/integrations/steam-deck/steam-deck-leo.webp
+---
+
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+In this tutorial, we will show you how to use the Steam Deck with your Leo
+Rover.
+
+If you want to use your Leo Rover in the field or somewhere outside the comfy
+lab environment, you may find operating from your host machine to be quite
+problematic. That's where a much smaller and handy device comes in - giving you
+full control over your rover at all times.
+
+## What to expect?
+
+With Steam Deck's capabilities of a full-fledged computer, the range of its
+possibilities is virtually endless. So, we can't demonstrate every potential
+use, but we can give you a glimpse of its possibilities by showing you how we've
+applied it to our use case as an example.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/steam-deck/steam-deck-leo.webp"
+  width="1600"
+  height="1172"
+/>
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/connect-to-rover-ap"
+  title="Connect to Leo Rover AP"
+  description="Learn how to connect to your Leo Rover via WiFi."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+
+## List of components
+
+- Steam Deck,
+- Keyboard and (eventually) mouse,
+- USB C - USB adapter.
+
+## Software integration
+
+:::info
+
+In this part we are assuming you have your Steam Deck connected to the internet,
+and you are operating in the desktop mode (instructions how to enter the desktop
+[here](https://www.trustedreviews.com/how-to/how-to-get-to-desktop-mode-on-steam-deck-4296327))
+
+As you will need to write some commands in the console on the Steam Deck, we
+recommend, for your comfort, to connect a keyboard and mouse to the device. You
+can also open this tutorial on the browser in the Steam Deck, to be able to copy
+paste the instructions.
+
+:::
+
+To run ROS applications on the Steam Deck, we need to install ROS itself. But as
+it's not so simple to do on the SteamOS, first, you need to get another Linux
+distribution on your device.
+
+In order to get Ubuntu 20.04 on your Steam Deck, you can follow the
+[install Ubuntu on distrobox tutorial](https://www.gamingonlinux.com/2022/09/distrobox-can-open-up-the-steam-deck-to-a-whole-new-world/)
+by Liam Dawe.
+
+:::note
+
+As the system installed in distrobox has only the basic packages, before next
+step you need to install some additional tools. Being in ubuntu 20.04 on your
+Steam Deck please perform this installation
+
+```bash
+sudo apt install lsb-release
+```
+
+:::
+
+Once you have completed the steps and can access Ubuntu 20.04 on your Steam
+Deck, you need to perform the ROS installation. You can follow
+[this](http://wiki.ros.org/noetic/Installation/Ubuntu) guide.
+
+:::warning
+
+Remember that you need to install ROS inside the distrobox environment (Ubuntu
+20.04), otherwise the installation will fail.
+
+:::
+
+Having completed the installation, you are ready to try our examples!
+
+## Examples
+
+:::info
+
+The examples described in this section were done for a rover configuration which
+has integrated lidar and realsense camera. You can follow those guides to get
+the same rover setup:
+
+<LinkButton docId="cameras/intel-realsense" />
+<LinkButton docId="lidars/slamtec-rplidar-a2" />
+
+Also for the examples to work, you have to connect your SteamDeck to the rover's
+access point.
+
+:::
+
+We have provided a GitHub repository with additional files and setup script
+needed to perform our use-cases of the Steam Deck with Leo Rover.
+
+But first, you need two `ROS` packages. Execute this command in distrobox image:
+
+```bash
+source /opt/ros/noetic/setup.bash
+sudo apt install ros-${ROS_DISTRO}-leo
+sudo apt install ros-${ROS_DISTRO}-realsense2-description
+```
+
+Having installed those packages, clone
+[this](https://github.com/LeoRover/leo_SteamDeck) repository into your Steam
+Deck:
+
+```bash
+git clone https://github.com/LeoRover/leo_SteamDeck.git
+```
+
+:::note
+
+You don't have to do the cloning from the ubuntu 20.04 image. If you clone the
+repository from the SteamOS, you will be able to access the files from ubuntu
+image. If you still want to clone the repo while being in the ubuntu, then you
+have to install git:
+
+```bash
+sudo apt install git
+```
+
+:::
+
+Once you clone the repository, all you have to do is to enter the directory with
+the files and run the `setup.sh` script:
+
+```bash
+cd leo_SteamDeck
+./setup.sh
+```
+
+When the script finishes the setup, you will see four applications on the
+desktop:
+
+- `Leo Movement` - example which allows you to operate the rover from your Steam
+  Deck and display camera image,
+- `Leo Lidar` - example which allows you to operate the rover from the Steam
+  Deck and display LiDAR scan data in RViz,
+- `Leo Depth Camera` - example which allows you to operate the rover from the
+  SteamDeck and display depth data in RViz,
+- `Virtual Keyboard`- applications that run virtual keyboard - useful when you
+  don't have connected physical keyboard.
+
+:::tip
+
+To use the virtual keyboard, you need to install **inside the ubuntu 20.04
+image** florence app:
+
+```bash
+sudo apt install florence
+```
+
+:::
+
+To move the rover while the chosen app is running, use the `left joystick` while
+holding the `L1` button. Moving the joystick forward/backwards controls the
+rover's linear speed, and left/right controls the angular speed.
+
+:::info
+
+If your rover doesn't move with this setup, try unplugging all docking stations
+and external devices of your SteamDeck, and restart the device.
+
+If this doesn't help, there is a file `steam_deck_config.yaml` inside the
+`leo_SteamDeck/configs` directory. There are defined mappings for the axes and
+enable button. You can change the predefined values of those parameters to
+whatever axes and button id's you want. To find the id's of buttons and axes go
+on your SteamDeck into **System Settings** -> **Input Devices** -> **Game
+Controller** (remember that the id's you will put in the file are indexed from 0
+not 1, so if you want e.g button nr 4 you need to put 3 in the file).
+
+One last solution is to check the **Controller Action**. If it's set to
+**Desktop** then you won't get any readings from joysticks and buttons. You can
+switch the mode with the **Start** button (the one with three stripes next to A
+B X Y buttons) by holding it for some time. Current mode will be displayed in
+the bottom right corner of your screen (It needs to be in **Gamepad** mode for
+our applications to work).
+
+:::
+
+Here you can see demonstration of usage of the described applications in our
+example:
+
+<div className="video-container">
+  <LiteYouTubeEmbed
+    id="D5LKhFrvm0k"
+    params="autoplay=0&autohide=1&showinfo=0&rel=0"
+    poster="hqdefault"
+    title="Leo Rover Unboxing and Getting Started"
+    webp
+  />
+</div>

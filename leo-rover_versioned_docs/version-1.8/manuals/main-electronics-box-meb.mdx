@@ -1,0 +1,1095 @@
+---
+title: 'Task 2: Main electronics box (MEB)'
+sidebar_label: 'Task 2: Main electronics box (MEB)'
+sidebar_position: 2
+description: >
+  Detailed instructions for assembling Leo Rover's Main electronics box,
+  including necessary tools and estimated time.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import FlexTable from '@site/src/components/FlexTable';
+import FlexTableItem from '@site/src/components/FlexTableItem';
+
+<span style={{ color: '#bf7b2c', fontSize: '200%' }}>
+  **Assembly time ≈ 60 minutes**
+</span>
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Needed tools"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/tools/tools-meb-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/tools/tools-meb-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            loading="eager"
+            alt="vaseline"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/tools/vaseline-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/tools/vaseline-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    loading="eager"
+    alt="loctite"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/tools/loctite-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/tools/loctite-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+  />
+</FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    loading="eager"
+    alt="loctite"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/tools/screwdriver-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/tools/screwdriver-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+  />
+</FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Layer 3"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/tools/layer-3-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/tools/layer-3-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+---
+
+## Step 0
+
+<ImageZoom
+  src="/img/robots/leo/manuals/software/software-4.webp"
+  width="1200"
+  height="802"
+/>
+
+<span style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+  Burn LeoOs image to the microSD card using this tutorial:
+</span>
+<LinkButton docId="guides/software-update" />
+
+---
+
+## Step 1
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="RPi"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '40%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="WiFi dongle"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-2-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-2-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+    caption="WiFi adapter"
+  />
+</FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="90 deg antenna adapter"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-3-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-3-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+
+  </FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="SD Card"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-4-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/1-4-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+            caption="SD card with burnt LeoOS image"
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 1 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+<ThemedImageZoom
+  alt="Step 1 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/3-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/3-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+---
+
+## Step 2
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="MEB box"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="4x pan head B2.2x6.5 screw"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-2-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-2-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+    caption="4x pan head B2.2x6.5 screw"
+  />
+</FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '30%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Camera cover"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-3-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/2-3-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 2 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Do not overtighten the <span style={{color : "#bf7b2c",}} > **screw**</span>.
+
+:::
+
+<ThemedImageZoom
+  alt="Step 2 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+---
+
+## Step 3
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 2 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/3-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/3-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+  <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Cable with barrel jack"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/3-2-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/3-2-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 3 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<ThemedImageZoom
+  alt="Step 3 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+---
+
+## Step 4
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 3 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/4-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/4-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+  <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="USB cable"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/4-2-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/4-2-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 4 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/11-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/11-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<ThemedImageZoom
+  alt="Step 4 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/12-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/12-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+---
+
+## Step 5
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '33%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 4 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '33%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Antenna cable"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-2-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-2-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+  />
+</FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '33%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Vaseline"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-3-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/5-3-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 5 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/14-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/14-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Cover the <span style={{color : "#bf7b2c",}} > **seal** </span> with vaseline
+before assembly.
+
+:::
+
+<ThemedImageZoom
+  alt="Step 5 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/15-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/15-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+---
+
+## Step 6
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 5 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Step 1 assembly"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-2-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-2-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+  />
+</FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '30%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="4x M2.5x40 distance"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-3-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/6-3-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+            caption="4x M2.5x40 distance"
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 6 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/17-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/17-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<ThemedImageZoom
+  alt="Step 6 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/18-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/18-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Connect <span style={{color : "#609ebe",}} > **antenna** </span> and <span
+style={{color : "#bf7b2c",}} > **USB cable** </span>.
+
+:::
+
+---
+
+## Step 7
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 6 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '40%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Camera and camera ribbon"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-2-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-2-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+  />
+</FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Camera holder"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-3-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-3-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+
+  </FlexTableItem>
+
+   <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="4x pan head B2.2x6.5 screw"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-4-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/7-4-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+            caption="4x pan head B2.2x6.5 screw"
+          />
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 7 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/20-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/20-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Do not overtighten the <span style={{color : "#bf7b2c",}} > **screw**</span>.\
+Make sure the <span style={{color : "#609ebe",}} > **ribbon** </span> is pushed
+all the way into the connector.
+
+:::
+
+<ThemedImageZoom
+  alt="Step 7 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/21-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/21-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<ThemedImageZoom
+  alt="Step 7 - 3"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/22-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/22-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::warning
+
+Connect the other end of the <span
+style={{ color: '#609ebe' }}>**ribbon**</span> to the **CAMERA** port of
+Raspberry Pi.
+
+:::
+
+---
+
+## Step 8
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '33%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 7 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '33%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="LeoCore"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-2-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-2-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+  />
+</FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '33%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="4x M2.5x40 distance"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-3-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/8-3-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+            caption="4x M2.5x40 distance"
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 8 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/24-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/24-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<ThemedImageZoom
+  alt="Step 8 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/25-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/25-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Connect <span style={{color : "#609ebe",}} > **power** </span> and <span
+style={{color : "#bf7b2c",}} > **LED**</span> cables.
+
+:::
+
+---
+
+## Step 9
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '33%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 8 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '33%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="4x pan head M2.5x8 plastic screw"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-2-black.webp'),
+      dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-2-white.webp'),
+    }}
+    width="2300"
+    height="2400"
+    caption="4x pan head M2.5x8 plastic screw"
+  />
+</FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '33%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Plastic electronics stack cover"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-3-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/9-3-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 9 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/27-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/27-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<ThemedImageZoom
+  alt="Step 9 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/28-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/28-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+---
+
+## Step 10
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 9 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/10-1-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/10-1-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+  </FlexTableItem>
+
+  <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Seal string"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/10-2-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/10-2-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+            caption=" Seal string"
+          />
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 10 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/30-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/30-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<ThemedImageZoom
+  alt="Step 10 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/31-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/31-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Make sure that the full length of the <span style={{color : "#bf7b2c",}} >
+**seal** </span> sits in the groove.\
+Cut excess material, leave **≈1cm** of overlap
+
+:::
+
+---
+
+## Step 11
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly' }}>
+  <FlexTableItem
+    style={{
+      width: '33%',
+    }}
+    mobileColumns={2}
+  >
+    <ThemedImageZoom
+            alt="Step 10 assembly"
+      sources={{
+        light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/11-1-black.webp'),
+        dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/11-1-white.webp'),
+      }}
+      width="2300"
+      height="2400"
+    />
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '33%',
+    }}
+    mobileColumns={2}
+  >
+    <ThemedImageZoom
+            alt="4x M4x6 distance"
+      sources={{
+        light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/11-2-black.webp'),
+        dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/11-2-white.webp'),
+      }}
+      width="2300"
+      height="2400"
+      caption="4x M4x6 distance"
+    />
+  </FlexTableItem>
+
+      <FlexTableItem
+    style={{
+      width: '33%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="loctite"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/1.8/manuals/wheel/4-4-black.webp'),
+              dark: useBaseUrl('/img/robots/leo/1.8/manuals/wheel/4-4-white.webp'),
+            }}
+            width="2300"
+            height="2400"
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Step 11 - 1"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/33-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/33-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+:::note
+
+Put a drop of loctite onto the threads of the <span
+style={{color : "#bf7b2c",}} > **distances**</span> before tightening.
+
+:::
+
+<ThemedImageZoom
+  alt="Step 11 - 2"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/1.8/manuals/meb/34-black.webp'),
+    dark: useBaseUrl('/img/robots/leo/1.8/manuals/meb/34-white.webp'),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>

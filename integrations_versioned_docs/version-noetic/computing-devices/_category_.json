@@ -1,0 +1,11 @@
+{
+  "label": "Computing devices",
+  "position": 1,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "Computing devices",
+    "slug": "computing-devices"
+  }
+}

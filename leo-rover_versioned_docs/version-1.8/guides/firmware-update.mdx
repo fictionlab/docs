@@ -1,0 +1,87 @@
+---
+title: Firmware update
+sidebar_label: Firmware update
+sidebar_position: 8
+description: >-
+  Learn how to easily update Leo Rover's firmware from Raspberry Pi without
+  extra cables. Step-by-step guide.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Prerequisites
+
+<LinkButton docId="guides/ssh" />
+
+## Flashing the newest firmware
+
+You can use the [leo_fw](http://wiki.ros.org/leo_fw) package to flash the newest
+firmware from Raspberry Pi without connecting any additional cables. To do this,
+login to your Leo Rover.
+
+Make sure you have the latest versions of the packages:
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+And then, run the update script by typing:
+
+<Tabs groupId="update">
+  <TabItem value="ros1" label="ROS 1">
+    ```bash
+    rosrun leo_fw update
+    ```
+
+  </TabItem>
+  <TabItem value="ros2" label="ROS 2">
+    ```bash
+    ros2 run leo_fw update
+    ```
+    
+  </TabItem>
+</Tabs>
+
+The script will guide you through the flashing process.
+
+If you are flashing the firmware for the first time, the script won't be able to
+determine the board type to flash the correct firmware binary. You will be asked
+to manually choose what board you have:
+
+- 1 - for `LeoCore` (the default option - provided in square brackets, after
+  prompt)
+- 2 - for `Husarion Core2`
+
+If you don't know what your board type is, you need to see it in the Main
+Electronics Box. Here are the photos of boards that could be in Leo Rover:
+
+<ImageZoom
+  src="/img/robots/leo/specification/LeoCore.webp"
+  alt="Remote Desktop Connection app"
+  width="1600"
+  height="1120"
+  figStyle={{
+    width: 400,
+  }}
+  caption="LeoCore - available since Leo Rover 1.8"
+/>
+
+<ImageZoom
+  src="/img/robots/leo/specification/core2ros.webp"
+  alt="Remote Desktop Connection app"
+  width="791"
+  height="791"
+  figStyle={{
+    width: 400,
+  }}
+  caption="Husarion Core2 - included in Leo Rover < 1.8"
+/>
+
+After choosing your option, you will see what the firmware version will be
+installed. You need to confirm that you want to flash this firmware, and the
+process will start.
+
+If you are just updating the firmware, the script will detect the firmware
+version and board type. So, you will only need to confirm that you want to flash
+the firmware.

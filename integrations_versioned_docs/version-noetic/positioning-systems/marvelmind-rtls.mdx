@@ -1,0 +1,733 @@
+---
+title: Marvelmind Indoor Navigation System
+sidebar_label: Marvelmind Indoor Navigation System
+keywords:
+  - marvelmind
+  - indoor
+  - gps
+  - rtls
+  - ips
+  - navigation
+  - positioning
+  - leo
+  - integration
+  - example
+description: >-
+  Marvelmind Indoor "GPS" integration guide for Leo Rover, an off-the-shelf
+  indoor navigation system for autonomous robots.
+image: /img/robots/leo/integrations/marvelmind-gps/marvelmind-set.webp
+---
+
+In this tutorial, we will show you how to connect Marvelmind Indoor GPS system
+with Leo Rover.
+
+**Marvelmind Indoor Navigation System** is an off-the-shelf indoor navigation
+system, designed to provide precise (±2cm) location data to autonomous robots,
+vehicles (AGV), and copters. It can also be used to track moving objects via
+mobile beacons attached to them. Other applications include, for example,
+forklifts, virtual reality (VR) systems, helmets for construction workers or
+miners, etc.
+
+For the purpose of this tutorial, we have prepared `leo_marvelmind` package
+which makes use of Marvelmind ROS packages to provide the rover's estimated
+position, from the Marvelmind system. You won't have to write a single line of
+code, but some configuration may need to be tweaked to work best in your
+environment.
+
+Make sure you are operating on the newest image for the Raspberry Pi and you are
+up-to-date with the packages and have the newest firmware flashed.
+
+You will also need to have ROS installed on your computer and some previous
+experience with ROS is also recommended.
+
+:::info
+
+This tutorial was done on linux. If you are using windows, you might need to
+download and install STM32 Drivers and (optionally) DfuSe (DFU programmer). Both
+can be found on [Marvelmind page](https://marvelmind.com/download/).
+
+:::
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/connect-to-rover-ap"
+  title="Connect to Leo Rover AP"
+  description="Learn how to connect to your Leo Rover via WiFi."
+/>
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/rviz"
+  title="Visualizing the model using RViz"
+  description="Learn how to visualize the Leo Rover model using RViz, including instructions
+  for setting up the necessary packages and launching the visualization."
+/>
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+
+## List of components
+
+In this tutorial, we integrate Marvelmind Starter Set Super-MP-3D consisting of:
+
+- 4 stationary [Super-Beacons](https://marvelmind.com/product/super-beacon/)
+- 1 mobile [Super-Beacon](https://marvelmind.com/product/super-beacon/)
+- 1 [Modem v5.1](https://marvelmind.com/product/modem-hw-v5-1/) supporting up to
+  250 beacons
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/marvelmind-set.webp"
+  width="1300"
+  height="662"
+/>
+
+Marvelmind provides a few architectures for their system. This tutorial is
+configured for `Inverse Architecture (IA)`:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/inverse-architecture.webp"
+  width="1300"
+  height="693"
+/>
+
+Here is a quick comparison of the architectures:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/architecture-comparison.webp"
+  width="1300"
+  height="530"
+/>
+
+You can find some more information in this and
+[FAQ section](https://marvelmind.com/faq/) on the Marvelmind page.
+
+:::note
+
+Inverse architecture requires stationary beacons to have different frequencies.
+
+:::
+
+## Software integration
+
+### Downloading Marvelmind software and API
+
+In order to use Marvelmind system for navigation, you need Marvelmind API and
+their software. In the software, you can find the newest firmware for the
+beacons and modem, and API is needed to upload it to the device.
+
+To download the required files, you can go to Marvelmind
+[page with downloads](https://marvelmind.com/download/), and find the newest
+package, or download it from
+[here](https://marvelmind.com/pics/marvelmind_SW.zip).
+
+Once you have downloaded the package, you need to unzip it. On Linux, it can be
+done with the `unzip` command line tool. In terminal, just go to the directory
+where the zip file has been downloaded (default is `~/Downloads`) and type:
+
+```bash
+unzip marvelmind_SW.zip
+```
+
+Then, in the extracted directory, go to `Dashboard/linux`. The next directory
+you need to choose based on your computer's architecture (for us it was `x86`).
+
+:::tip
+
+In the `Dashboard/linux` directory, there is a PDF file with instructions for
+the linux versions of dashboard. It's worth to do the things described there.
+
+:::
+
+You can check what your architecture is with:
+
+```bash
+uname -m
+```
+
+or:
+
+```bash
+dpkg --print-architecture
+```
+
+Then, go to the specified directory, and give execution rights to
+`dashboard_<computer architecture>` file:
+
+```bash
+chmod +x dashboard_x86
+```
+
+### Updating firmware on beacons and modem
+
+:::note
+
+For each beacon you will need to do the same things. There is only one
+additional step for the mobile beacon, but it will be mentioned later.
+
+Beacon configuration requires it to be connected to the computer, so it might be
+faster for you to complete upgrading and configuring beacon and then switching
+to the next beacon, than switching beacons after firmware update, and then
+connecting them once again, for configuration.
+
+:::
+
+First, charge all the beacons with a USB cable (full charging takes 2-4 hours).
+
+Run the dashboard by typing in the correct directory:
+
+```bash
+./dashboard_<computers architecture>
+```
+
+You should see something like this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/dashboard.webp"
+  width="1300"
+  height="696"
+/>
+
+Now, you need to turn on your beacons (or just the currently upgraded ones not
+to waste the battery in other beacons) by placing the DIP switches like it is
+shown below:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/dip-switches.webp"
+  width="1300"
+  height="331"
+/>
+
+Now, connect the beacon to the computer with the USB cable. Once it is found,
+your screen should change to something like this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/connected-beacon.webp"
+  width="1300"
+  height="696"
+/>
+
+:::info
+
+If you have problems with connecting beacons to the computer, there are some
+solutions:
+
+- Check with `dmesg -w` if your computer detects connection of usb device (run
+  it before connecting beacon to computer),
+- If you see the message “**Not found modem connection to computer through
+  USB**” it usually means that you don't have STM32 drivers installed. To
+  install the driver, down load it with link at top window in the Dashboard and
+  run the installation file, then click on the link under and install the
+  driver.
+
+:::
+
+If your beacon is connected, go to **Firmware** -> **Upload firmware**. You
+should see a new window.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/upload-firmware.webp"
+  width="1300"
+  height="696"
+/>
+
+Click **Open file** and choose the correct firmware file. As we are integrating
+for Inverse Architecture, choose from the base directory of unzipped package
+**Software_ia**. Then, choose **super_beacon_ia** (if you have some other type
+of beacon, choose the directory for your device). From there, choose the `.hex`
+file (there should be only one in the directory) and click **Open**. Then, click
+the **Next** button in the bottom part of the window, and the firmware upload
+will start.
+
+:::info
+
+For modem, the only difference is that from `Software_ia` directory you need to
+choose `modem_hw51_ia` or `modem_hw49_ia` directory, depending on the type of
+the modem you have.
+
+:::
+
+When the update is complete, you will see something like this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/firmware-update-completed.webp"
+  width="1300"
+  height="696"
+/>
+
+:::warning
+
+Make sure that you upload right firmware (beacon's SW to beacons and modem's SW
+to modem) and that you chose right version of the device (if you have doubts,
+you can check it on the sticker that's on the bottom part of the device).
+
+:::
+
+If you have any problems with HEX programming, use DFU. Full instruction can be
+found
+[here](https://marvelmind.com/pics/marvelmind_navigation_system_manual.pdf) on
+page 109.
+
+### Configuring Beacons
+
+While the beacon is connected, click **Default** in the dashboard to upload the
+default settings (the beacon will reconnect to the dashboard).
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/configure-beacons-1.webp"
+  width="1300"
+  height="696"
+/>
+
+Change the **Device address** at your convenience (it's important, as we will
+wake the beacons based on their IDs).
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/configure-beacons-2.webp"
+  width="1300"
+  height="696"
+/>
+
+Change the **Ultrasonic frequency** to the frequency given on the sticker on the
+bottom side of the device.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/configure-beacons-3.webp"
+  width="1300"
+  height="696"
+/>
+
+You can also change the **Radio frequency** band to some value that is legal in
+your country.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/configure-beacons-4.webp"
+  width="1300"
+  height="696"
+/>
+
+**Only for the mobile beacon**: change the **Hedgehog mode** to `enabled`.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/configure-beacons-5.webp"
+  width="1300"
+  height="696"
+/>
+
+Choose IMU mode `Normal` from **IMU** section.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/configure-beacons-6.webp"
+  width="1300"
+  height="696"
+/>
+
+**Only for the mobile beacon**: in **Interfaces** section enable **Processed IMU
+data** and **Raw internal sensors data**.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/configure-beacons-7.webp"
+  width="500"
+  height="788"
+  figStyle={{
+    width: 500,
+  }}
+/>
+
+:::info
+
+Don't worry if during configuration device reconnects to the computer, it
+sometimes happens.
+
+:::
+
+To save changes, press **Write changes** in the upper right part of the
+dashboard, and reset the device (the button above the DIP switches for beacon;
+the button on the side - for modem).
+
+### Mounting Beacons to the walls
+
+With each beacon, there is a velcro in the box. You need to attach one part to
+the beacon, and the other to the wall.
+
+Place the stationary beacons high on the walls vertically in a way that will
+provide optimal ultrasonic coverage (make sure that the antenna is in the upper
+right corner of the beacons).
+
+Measure the height at which the beacons are placed, as we will need it for
+future change in settings.
+
+[Here is a video](https://www.youtube.com/watch?v=WY0HkLzmjys) with additional
+instructions on installing the beacons on the walls.
+
+Possible setup:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/mounting-setup-1.webp"
+  width="1300"
+  height="558"
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/mounting-setup-2.webp"
+  width="1300"
+  height="772"
+/>
+
+:::warning
+
+Make sure that beacons can "see" each other. If there is something in the way,
+the system might have problems with measuring distance between beacons.
+
+:::
+
+### Setting Map
+
+If you have turned off the dashboard, turn it on and connect the modem to your
+computer. Turn on all the stationary beacons. Now, you need to wake them up. In
+the dashboard, with the connected modem (in the lower left corner, the modem
+should be shown as connected), in the lower part of the dashboard, there are
+numbers of devices. Double click on a number to wake up a device with a given
+number.
+
+:::info
+
+It might take 7-10 seconds for the beacons to wake up.
+
+:::
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/setting-map-1.webp"
+  width="1300"
+  height="696"
+/>
+
+Now, when the beacons are turned on, the system may run the frequency search if
+it is the very first time you are waking up the beacons.
+
+:::note
+
+If this step does not work, disconnect the modem and connect that beacon again
+via USB. Press the DEFAULT button in the Dashboard and the Read All button to
+make sure that the radio settings are the default ones.
+
+Also check that the radio settings on the modem and the radio settings on the
+beacon are the same.
+
+:::
+
+Now, by clicking on the woken device, you can see and change its options (you
+can check RSSI, voltage, ultrasonic filter settings, etc.) on the panel in the
+right part of the Dashboard.
+
+:::info
+
+Double click on the device to both put it into sleep mode and to wake it up.
+
+If the modem is not active and is not powered, the beacons will go into sleep
+mode automatically after 1 minute
+
+:::
+
+For each beacon you have turned on, enter the height it's placed at.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/setting-map-2.webp"
+  width="1300"
+  height="696"
+/>
+
+At this moment, the map should zoom in and form automatically. If the map didn't
+form well, check the table of distances in the upper left corner.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/setting-map-3.webp"
+  width="1300"
+  height="696"
+/>
+
+:::note
+
+Only 4 stationary beacons may be in 1 submap. If you wake up more beacons,
+create new submap for them. Or it won't be displayed on the map and in the table
+of distances.
+
+:::
+
+Next, you need to make the service zone. To do so, just press **Shift+Left mouse
+button** on the map to add a point (press the same combination on a point to
+remove it). Two points will form a line; three and more - a polygon. In the end,
+you should have something like this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/setting-map-4.webp"
+  width="1300"
+  height="696"
+/>
+
+The last step is to freeze the submap and the map (provided that everything in
+the previous steps was good). When you freeze the map, stationary beacons will
+stop measuring relative distances and will be ready to measure distance from the
+mobile beacon.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/setting-map-5.webp"
+  width="1300"
+  height="696"
+/>
+
+#### Solving problems with table of distances
+
+If in the table you see some empty cells (except for the cells on diagonal) or
+marked yellow/red, it is an indication that distances between some beacons are
+measured inconsistently or are not measured at all. Try re-positioning them
+because usually there is an obstruction of some sort between the beacons.
+
+You can also input the distance between beacons manually. To do so, just
+**right-click** on a cell that corresponds to a given pair of beacons, then,
+choose **Enter distance for pair**. After that, you can also freeze the distance
+for that pair (or you can later freeze the whole submap at once).
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/distance-table.webp"
+  width="500"
+  height="323"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+Here are the meanings of possible cell colors:
+
+- white - everything is good, you can freeze the map
+- yellow - something seems to be wrong, check distances and sensors before
+  freezing
+- red - some critical misses, do not freeze the map; manually measure and input
+  distance, or reposition the beacon
+- green - frozen distance, you can freeze the map, but be careful with values
+
+It's also worth considering the diagnostic messages in the upper part of the
+Dashboard. There, you can find important system's messages which may contain a
+lot of useful information (for example, a message about repeating beacon
+frequency when you have IA).
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/diagnostic-messages.webp"
+  width="1300"
+  height="696"
+/>
+
+### Starting measurement
+
+As you could mount beacons to the walls, you can also mount the mobile beacon on
+the rover using velcro.
+
+:::warning
+
+For the beacon to have the same rotation axes as the rover, you need to mount it
+in such way, that the beacon antenna is in the upper right corner, when looking
+from above the rover (in z axis).
+
+You also need to connect the mobile beacon to the rover, with a micro-usb cable
+(connect the cable to the slot, of the beacon, which you used to charge the
+beacons), to the usb socket on the rover's mounting plate (you may need some
+adapters to do so).
+
+:::
+
+When you have the map, and mobile beacon is mounted on the rover, you can turn
+it on following the steps for stationary beacons (turn on the power of the
+beacon, wake it up in the dashboard, input height). After you have done those
+steps, mobile beacon should be traceable in 5-7 seconds. The system is now fully
+operational.
+
+:::info
+
+It's possible, that after waking the mobile beacon, you will have to unfreeze
+the map, and freeze it again. Doing this, will allow the system to add the
+mobile beacon to the map. Follow the diagnostic messages in case of a problem.
+
+:::
+
+## Examples
+
+### Marvelmind navigation with ROS
+
+Right now, the only way we see the estimated position of the rover is in the
+dashboard. But it would be more useful to integrate the Marvelmind navigation
+system with ROS, as it will allow us to do anything with the position (for
+example, navigating the rover).
+
+To do so, we utilize
+[leo_marvelmind](https://github.com/LeoRover/leo_marvelmind) package which
+provides:
+
+- marvelmind `hedge_rcv_bin` node which is able to communicate with mobile
+  beacon or modem and provide received location and other data
+- nodes for parsing messages from Marvelmind topics to ROS msgs
+- robot localization nodes to have estimation of the rover position using rover
+  data and Marvelmind data
+
+#### Installing packages:
+
+First you need to download our `leo_marvelmind` package, from github repository.
+To do so, connect to the rover via ssh. Once you are connected, you need to
+download the package in your `ros workspace`, in the src directory. If it's in
+your home directory, type:
+
+```bash
+cd ~/ros_ws/src
+git clone https://github.com/LeoRover/leo_marvelmind_tutorial.git
+```
+
+Now we need to install all required rosdep dependencies:
+
+```bash
+cd ~/ros_ws
+source devel/setup.bash
+rosdep install --from-paths src -i
+```
+
+And in the end, if everything installed successfully, you have to build the
+package:
+
+```bash
+catkin build
+```
+
+#### Adding mobile beacon to URDF model
+
+The rover should be aware of where the beacon is located, and what space it
+occupies. You can ensure it does that by making URDF model of the beacon.
+
+We will have separate URDF file for the beacon model, and we will link it to the
+rover's URDF.
+
+Our beacon model is `5.5 x 5.5 x 6.5 cm` large, and we mounted it `7 cm` in
+front of the mounting hole that serves as a `base_link` in robot's URDF model.
+Therefore, our beacon URDF model looks like this:
+
+```xml title="/etc/ros/urdf/beacon.urdf.xacro"
+<?xml version="1.0"?>
+
+ <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- a link representing visual and collision
+       properties of the sensor -->
+  <link name="beacon_base_link">
+    <visual>
+      <origin xyz="0 0 0.02"/>
+      <geometry>
+        <box size="0.055 0.055 0.065"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 0.7"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02"/>
+      <geometry>
+        <box size="0.055 0.055 0.065"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- fixed joint that attaches
+       the sensor to the rover's body -->
+  <joint name="beacon_base_joint" type="fixed">
+    <origin xyz="0.07 0 0"/>
+    <parent link="base_link"/>
+    <child link="beacon_base_link"/>
+  </joint>
+
+  <!-- reference frame for sensor readings -->
+  <link name="beacon_frame"/>
+
+  <!-- fixed joint that sets the origin
+       of the reference frame -->
+  <joint name="beacon_joint" type="fixed">
+    <origin xyz="0 0 0.02"/>
+    <parent link="beacon_base_link"/>
+    <child link="beacon_frame"/>
+  </joint>
+
+ </robot>
+```
+
+Now, we need to link it to the main urdf file. To do so, you need to include
+this line in `/etc/ros/robot.urdf.xacro` file (somewhere between `<robot>` and
+`</robot>` tags):
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+<xacro:include filename="/etc/ros/urdf/beacon.urdf.xacro"/>
+```
+
+Now, to make beacon visible for the rover, you need to reboot the robot, or
+restart `leo` service:
+
+```bash
+sudo systemctl restart leo
+```
+
+#### Description of all the nodes and topics
+
+- `hedge_rcv_bin` - node from `marvelmind_nav` package. Gives us topics:
+  - `hedge_pos_ang` which contains the position of mobile beacon returned from
+    marvelmind system
+  - `hedge_imu_fusion` which contains fused data from mobile beacon imu
+  - `hedge_imu_raw` with raw data from imu
+- `wheel_odom_parser` which subscribes to `wheel_odom` topic, and adds to it
+  covariance matrix. It's also publishing such message as
+  `TwistWithCovarianceStamped` msg on `wheel_odom_with_covariance` topic
+- `pose_parser` which takes the pose from marvelmind system, adds to the
+  position wheel odometry with covariance, and publishes it as `Odometry` msg.
+- `imu_parser` which subscribes to marvelmind imu topics, and organizes two
+  messages into `sensor_msgs/Imu`
+- `robot_loc_odom` and `robot_loc_map` which are robot localization nodes. One
+  publishing odom to base link transform, and the other map to odom.
+
+Lists of parameters for parsers are in the `leo_marvelmind/config` directory.
+Except for subscribed/published topic names, there are also covariances, so you
+can change those at your convenience.
+
+You can run all nodes using `marvelmind_localization.launch` file by sourcing
+the devel directory and typing command:
+
+```bash
+roslaunch leo_marvelmind marvelmind_localization.launch
+```
+
+Here's a diagram that illustrates the nodes launched by the
+`marvelmind_localization.launch` file and the connections between them:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/marvelmind-gps/marvelmind-gps-node-graph.webp"
+  width="1300"
+  height="369"
+/>
+
+Then, you can also run `rviz` (on your computer if it is not installed on the
+rover - you need to export ros variables) and add robot model, and visualize the
+estimated position (remember to chose map as fixed frame). You can find more
+instructions here:
+
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/rviz"
+  title="Visualizing the model using RViz"
+  description="Learn how to visualize the Leo Rover model using RViz, including instructions
+  for setting up the necessary packages and launching the visualization."
+/>
+
+## What next?
+
+Now, that you know how to use in-door GPS you might want to learn about outdoor
+GPS. Check out our tutorial on
+[U-blox GPS Module](../positioning-systems/ublox-evk-m8n). Or go to our
+[Integrations page](/integrations) site, where you can find more tutorials on a
+range of topics.

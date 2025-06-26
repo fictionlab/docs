@@ -1,0 +1,37 @@
+/docs/leo-rover /leo-rover 301
+/docs/leo-rover/* /leo-rover/:splat 301
+/leo-rover/integrations /integrations 301
+/leo-rover/integrations/* /integrations/:splat 301
+/leo-rover/getting-started /leo-rover/documentation/getting-started 301
+/leo-rover/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
+/leo-rover/1.8/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
+
+# manuals redirects
+/leo-rover/manuals/wheels-to-meb /leo-rover/manuals/combining-subassemblies 301
+/leo-rover/manuals/tools /leo-rover/manuals/setup 301
+/leo-rover/manuals/battery /leo-rover/manuals/back-front-covers 301
+/leo-rover/manuals/additional-quarter-and-front-cover /leo-rover/manuals/back-front-covers 301
+/leo-rover/manuals/meb-to-frame /leo-rover/manuals/combining-subassemblies 301
+/leo-rover/manuals/software /leo-rover/manuals/boot-and-firmware 301
+/leo-rover/manuals/final-touches /leo-rover/manuals/combining-subassemblies 301
+
+# temporary redirects for ROS1 advanced guides and leo examples
+/leo-rover/advanced-guides/* /leo-rover/1.8/advanced-guides/:splat 302
+/leo-rover/leo-examples/* /leo-rover/1.8/leo-examples/:splat 302
+
+# category redirects
+/category/rover-documentation /leo-rover/documentation 301
+/category/assembly-manuals /leo-rover/manuals 301
+/category/rover-manuals /leo-rover/manuals 301
+/category/leo-examples /leo-rover/leo-examples 301
+/category/addons /leo-rover/addons 301
+/category/integrations /leo-rover/integrations 301
+/category/computing-devices /leo-rover/integrations/computing-devices 301
+/category/lidars /leo-rover/integrations/lidars 301
+/category/positioning-systems /leo-rover/integrations/positioning-systems 301
+/category/robotic-arms /leo-rover/integrations/robotic-arms 301
+/category/software /leo-rover/integrations/software 301
+/category/legacy-pre-leo-18 /leo-rover/integrations/legacy 301
+/category/guides /leo-rover/guides 301
+/category/advanced-guides /leo-rover/advanced-guides 301
+/category/archive /leo-rover/archive 301

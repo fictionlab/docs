@@ -1,0 +1,119 @@
+---
+title: Leo Rover wheels
+sidebar_label: Leo Rover wheels
+sidebar_position: 4
+description: >-
+  Detailed specifications for the Leo Rover, including dimensions, speed,
+  payload capacity, and more. Ideal for developers and enthusiasts.
+---
+
+## Wheel motors
+
+### Bühler Motors 1.61.077.414
+
+Leo Rover v1.8 (as well as older Turtle Rover) uses Bühler motors as the wheels
+actuators. Here, you have all the useful resources listed in case you need to
+access the motors specifications.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/documentation/leo-buhler.webp"
+  alt="Buhler motor of Leo Rover 1.8"
+  width="1200"
+  height="801"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<LinkButton
+  url="http://www.mobot.pl/download/1_61_077_4xx_en.pdf"
+  title="1.61.077.411 motor specification - mobot.pl"
+/>
+
+<LinkButton
+  url="http://www.buehler-motor.pl/download/1_61_077_xxx_1.stp"
+  title="1.61.077.411 motor CAD model - buehler-motor.pl"
+/>
+
+### Pololu Romi 12 CPR magnetic encoders
+
+Connection:
+
+| Encoder PIN | Mating Connection                                            |
+| ----------- | ------------------------------------------------------------ |
+| M1          | negative (-) pole of the motor & OUT A of Core2ROS / LeoCore |
+| M2          | positive (+) pole of the motor & OUT B of Core2ROS / LeoCore |
+| VCC         | +5V PIN of Core2ROS / LeoCore                                |
+| OUT A       | ENC A on Core2ROS / LeoCore                                  |
+| OUT B       | ENC B on Core2ROS / LeoCore                                  |
+| GND         | GND PIN of Core2ROS / LeoCore                                |
+
+### Dimension drawings
+
+Mind that the encoder magnets are modified to fit Bühler Motors shaft. Internal
+hole is redrilled to 3 mm (instead of 1.5 mm).
+
+<LinkButton
+  url="https://www.pololu.com/file/0J1210/romi-encoder-dimension-diagram.pdf"
+  title="Romi 12 CPR encoder drawings - pololu.com"
+/>
+
+<LinkButton
+  url="https://www.pololu.com/product/3542/resources"
+  title="Romi 12 CPR encoder CAD model - pololu.com"
+/>
+
+### Wheel tires
+
+Tire specifications:
+
+- Inner rim diameter: 2.8" (~71mm)
+- Outer diameter: ~125 mm
+- Width: ~70 mm
+- Typically described as for 1/10 scale Monster Truck RC vehicles
+
+<ImageZoom
+  src="/img/robots/leo/documentation/leo-tire.webp"
+  alt="Buhler motor of Leo Rover 1.8"
+  width="600"
+  height="401"
+  figStyle={{
+    width: 500,
+  }}
+/>
+
+:::info
+
+The dimensions may vary +- 10mm with no compatibility issues, remember the tires
+are made of rubber, they can stretch.
+
+:::
+
+You can always look for different outer diameter tires, but it will change the
+rover's speed and force (slope/climbing ability). You can as well find different
+rubber compounds: softer or tougher ones. Keep in mind that softer compounds
+will affect Leo Rover's turning resistance, but on the other hand, will help it
+climb obstacles.
+
+_Higher outer diameter = higher speed & lower force_
+
+_Lower outer diameter = lower speed & higher force_
+
+It's always a matter of compromise.
+
+$$
+\text{Rover Speed}~\Big\lbrack\frac{m}{s}\Big\rbrack = \frac{ \text{wheel diameter [m]} * \pi * \text{motor speed [RPM]}}{ 60 }
+$$
+
+$$
+\text{Rover Force [N]} = \frac{4 * \text{motor torque [Nm]}}{\text{wheel diameter[m]}}
+$$
+
+### Useful links
+
+Stock tires of Leo Rover are similar to these:
+[Aliexpress](https://www.aliexpress.com/i/32735892787.html)
+
+For example, you can look for tires to switch to here:
+[RCplanet](https://www.rcplanet.com/1-10-monster-truck-tires/)

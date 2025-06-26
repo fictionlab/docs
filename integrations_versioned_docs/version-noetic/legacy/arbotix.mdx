@@ -1,0 +1,334 @@
+---
+title: ArbotiX-M Robocontroller
+sidebar_label: ArbotiX-M Robocontroller
+keywords:
+  - arbotix
+  - dynamixel
+  - leo
+  - integration
+description: >-
+  Learn how to use the ArbotiX-M Robocontroller board to control DYNAMIXEL
+  servos with ROS. Includes setup guide and example code.
+---
+
+:::warning
+
+This integration is not compatible with Leo Rover v1.8. It is kept on site for
+legacy purposes.
+
+:::
+
+This tutorial will show you how to use the Arbotix-M Robocontroller board to
+control DYNAMIXEL servos with ROS.
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arbotix/arbotix-schematic.webp"
+  width="1353"
+  height="518"
+/>
+
+## Flash the Arbotix board
+
+Before you can use the Arbotix board with ROS, you need to flash a proper
+firmware. Follow the
+[Quick Start Guide](https://web.archive.org/web/20210506193606/https://learn.trossenrobotics.com/arbotix/7-arbotix-quick-start-guide)
+from TrossenRobotics to learn how to program the board with Arduino IDE.
+
+If you have successfully programmed the example sketches, open the ros sketch
+from `Arbotix Sketches` (**File** -> **Sketchbook** -> **ArbotiX Sketches** ->
+**ros**).
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arbotix/flash-arbotix.webp"
+  width="1362"
+  height="729"
+/>
+
+Then **compile it** (the green check button) and **upload** (the green arrow
+button) to the board.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arbotix/compile-upload.webp"
+  width="1362"
+  height="729"
+/>
+
+The rest of this tutorial can be done in any machine that runs ROS and have an
+Internet connection. It can be Leo Rover:
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+
+or your computer:
+
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
+
+## Install Arbotix ROS driver
+
+The driver for Arbotix board is distributed in
+[arbotix](http://wiki.ros.org/arbotix) package. It can be installed from
+official repository just by typing:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-arbotix
+```
+
+## Set Dynamixel IDs and test the servos
+
+Make sure your setup looks like this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arbotix/arbotix-setup.webp"
+  width="1760"
+  height="1829"
+/>
+
+Then, type in your terminal:
+
+```bash
+arbotix_terminal
+```
+
+:::info
+
+As `arbotix_terminal` is a ROS command, remember to source your `devel`
+workspace before you call it, if you are doing the tutorial on your computer.
+
+:::note
+
+`arbotix_terminal` by default, assumes the board is connected on `/dev/ttyUSB0`
+port. If it is attached to another device, you can specify it like this:
+
+```bash
+arbotix_terminal [PORT]
+```
+
+To check which port the device connects to, you can, for instance, run
+`dmesg -w` (**Ctrl+C** to exit), connect the device and check kernel logs.
+
+If you are using Ubuntu on Windows Subsystem for Linux, you need to open Device
+Manager and look under Ports for COM port number of the device. `COM[N]`
+corresponds to `/dev/ttyS[N]` path. (e.g. **COM4** -> `/dev/ttyS4`). You might
+need to run:
+
+```bash
+sudo chmod 666 /dev/ttyS[N]
+```
+
+:::
+
+A terminal prompt should appear. Type `help` for the list of commands.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/arbotix/arbotix-terminal.webp"
+  width="825"
+  height="283"
+/>
+
+Connect the Dynamixel you want to set id to. Then type ls to see id of connected
+servo.
+
+:::note
+
+Sometimes to get list of the connected servos, you may have to run ls command
+couple times.
+
+:::
+
+ype `mv [source] [target]` to change it. For example, when the servo has ID 1
+and we want to set it to 2, just type:
+
+```bash
+mv 1 2
+```
+
+:::warning
+
+When you have connected multiple servos, this command will change ALL servos
+with `ID [source]` (1 in this example) to `ID [target]`.
+
+:::
+
+You can also read and change some parameters to test servo movement with `get`
+and `set` commands. For example, to read current position of servo with ID 1,
+type:
+
+```bash
+get pos 1
+```
+
+To move the servo to position 300 (the range is between 0 and 1023), type:
+
+```bash
+set pos 1 300
+```
+
+To set the goal speed of the servo to half of the maximum, type:
+
+```bash
+set spd 1 512
+```
+
+The servo should start moving continuously in one direction.
+
+## Test the ROS driver
+
+We will create a package that tests the arbotix driver. Let's start by creating
+a catkin workspace (if you don't have one yet):
+
+```bash
+mkdir -p ~/ros_ws/src && cd ~/ros_ws/
+catkin init
+catkin config --extend /opt/ros/${ROS_DISTRO}
+```
+
+and an empty package:
+
+```bash
+cd ~/ros_ws/src
+catkin create pkg arbotix_test --catkin-deps arbotix_python
+```
+
+Inside the package, create `config/test.yaml` file with the following content:
+
+```yaml
+port: /dev/ttyUSB0
+rate: 15
+joints:
+  {
+    dynamixel1: { id: 1 },
+    dynamixel2: { id: 2 },
+    dynamixel3: { id: 3 },
+    dynamixel4: { id: 4 },
+    dynamixel5: { id: 5 },
+  }
+```
+
+:::warning
+
+You might need to change the port parameter
+
+:::
+
+:::info
+
+You can set more parameters for each joint, like maximum speed, minimum and
+maximum angle etc. A brief documentation (Unfortunately, a little outdated) can
+be found [here](http://wiki.ros.org/arbotix_python#Parameters).
+
+:::
+
+And `launch/test.launch` with the following:
+
+```xml
+<launch>
+  <node name="arbotix_driver_test" pkg="arbotix_python" type="arbotix_driver" output="screen">
+    <rosparam file="$(find arbotix_test)/config/test.yaml" command="load" />
+  </node>
+</launch>
+```
+
+Build the package and source the result space:
+
+```bash
+cd ~/ros_ws
+catkin build
+source devel/setup.bash
+```
+
+Now, run the launch file, by typing:
+
+```bash
+roslaunch arbotix_test test.launch
+```
+
+You should see new topics spawned (check with rostopic list):
+
+```bash
+/joint_states
+/dynamixel1/command
+/dynamixel2/command
+/dynamixel3/command
+/dynamixel4/command
+/dynamixel5/command
+```
+
+And new services (check with `rosservice list`):
+
+```bash
+/dynamixel1/enable
+/dynamixel1/relax
+/dynamixel1/set_speed
+/dynamixel2/enable
+...
+```
+
+To shortly summarize the features:
+
+- `/dynamixelX/command` topic will enable the torque and move the servo with ID
+  X to a specified position if published to. The position is specified in
+  radians.
+- `/dynamixelX/enable` service will just enable the torque on the servo.
+- `/dynamixelX/relax` service will relax the servo (disable the torque).
+- `/dynamixelX/set_speed` service will set the speed the servo will move with
+  when it receives a new command. The speed is specified in radians per second.
+- The current joint positions and velocities are published to `/joint_states`
+  topic.
+
+We can try to test the features using `rostopic` and `rosservice` tools.
+
+Assuming you have connected the servo with ID 1, start by setting the speed to a
+safe value (0.2 rad/s in this case):
+
+```bash
+rosservice call /dynamixel1/set_speed 0.2
+```
+
+Move servo to a default neutral value:
+
+```bash
+rostopic pub /dynamixel1/command std_msg/Float64 -- 0.0
+```
+
+:::info
+
+The maximum angle range for a Dynamixel servo is [-150, 150] degrees which is
+equal to approximately [-2.62, 2.62] in radians
+
+:::
+
+Relax joint:
+
+```bash
+rosservice call /dynamixel1/relax
+```

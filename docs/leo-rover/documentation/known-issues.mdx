@@ -1,7 +1,7 @@
 ---
 title: Known issues
 sidebar_label: Known issues
-sidebar_position: 5
+sidebar_position: 6
 description: >-
   Download resources for the Leo Rover including hardware specs, software,
   wheels, addons, and more>
@@ -88,21 +88,10 @@ crowded wifi bands.
 **Fix**: Use 5GHz modem built-in the RaspberryPi. For ex. connect the Rover to
 external 5GHz network and connect to the UI via router.
 
-<LinkButton docId="leo-rover/guides/connect-to-network" />
+<LinkButton docId="guides/connect-to-network" />
 
 ## Software
 
 The joystick in the UI doesn't respond
 
 **Fix**: Don't use Apple devices.
-
-### Rover rotating in odometry without physically moving
-
-When completing the odometry part of tutorial about autonomous navigation, the
-rover seems to rotate in odometry reading, without actually moving. Reason for
-that behavior is IMU readings offset - it may provide data indicating the rover
-moving in the Z axis without the real movement.
-
-**Fix**: Calibrate IMU to eliminate the offset from the readings.
-
-<LinkButton docId="leo-rover/guides/imu-calibration" />

@@ -10,12 +10,6 @@ description: >-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Prerequisites
-
-<LinkButton docId="leo-rover/guides/ssh" />
-
-## Tutorial
-
 When you connect the Rover to your local network that provides Internet
 connection, you'll be able to download files to the Rover, as well as forward
 the Internet to your computer when you're connected to the Rover's access point.
@@ -28,8 +22,9 @@ There are 2 easy ways to connect to an access point:
 
 <Tabs groupId='interface'>
     <TabItem value='text' label='Using text interface'>
-        Open the `Network Manager Text User Interface` via SSH by typing:
-
+        Use the `Network Manager Text User Interface` via SSH:
+        <LinkButton docId="guides/ssh" />
+        Type in the console:
         ```bash
         nmtui
         ```
@@ -63,10 +58,7 @@ There are 2 easy ways to connect to an access point:
 
         Use remote desktop to connect to the Rover:
 
-        <LinkButton
-            to='remote-desktop'
-            title='Connect via remote desktop'
-        />
+        <LinkButton docId="guides/remote-desktop" />
         <br/>
 
         Click on the **NetworkManager** applet icon on the systray and choose your network

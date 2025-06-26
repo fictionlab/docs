@@ -1,0 +1,10 @@
+{
+  "label": "Old assembly manuals",
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "Old assembly manuals",
+    "slug": "archive/old-manuals"
+  }
+}

@@ -19,6 +19,40 @@ Put the microSD card in the adapter and then connect it to your computer.
 
 ### Download the newest LeoOS image
 
+:::info
+
+As it might be a bit confusing which LeoOS version you should install on your
+rover, here's a breakdown of the possible combinations depending on your robot
+hardware version and the associated ROS version.
+
+<table>
+  <tr>
+    <th>Robot Version</th>
+    <th>LeoOS version</th>
+    <th>ROS Version</th>
+  </tr>
+  <tr>
+    <td rowspan="2">Leo 1.8</td>
+    <td>1.x.x</td>
+    <td>ROS 1</td>
+  </tr>
+  <tr>
+    <td>2.x.x</td>
+    <td>ROS 2</td>
+  </tr>
+  <tr>
+    <td>Leo 1.9</td>
+    <td> 2.x.x</td>
+    <td>ROS 2</td>
+  </tr>
+</table>
+
+For access to Leo Rover 1.8 documentation specific to ROS 1, navigate to the
+page's upper right corner and utilize the version selector to choose the Leo
+Rover 1.8 documentation set.
+
+:::
+
 You can find all releases of LeoOS
 [here](https://github.com/LeoRover/leo_os/releases). Choose the newest one and
 download the image (.img.xz file) you want. We recommend the `full` version. The
@@ -78,15 +112,14 @@ If you persist on using `dd`, then remember to chose whole disk as your
 
 ## Updating software
 
-To download newest versions of system packages and ROS packages (including
-[leo_bringup](https://github.com/LeoRover/leo_bringup) and
-[leo_ui](https://github.com/LeoRover/leo_ui.git)), connect to Leo Rover via SSH:
+To download newest versions of system packages and ROS packages connect to Leo
+Rover via SSH:
 
-<LinkButton docId="leo-rover/guides/ssh" />
+<LinkButton docId="guides/ssh" />
 
 Make sure you are connected to the Internet:
 
-<LinkButton docId="leo-rover/guides/connect-to-network" />
+<LinkButton docId="guides/connect-to-network" />
 
 And type the following commands:
 

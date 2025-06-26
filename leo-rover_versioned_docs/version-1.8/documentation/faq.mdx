@@ -1,0 +1,72 @@
+---
+title: Frequently asked questions
+sidebar_label: Frequently asked questions
+sidebar_position: 6
+description: >-
+  Answers to frequently asked questions about the Leo Rover's features, setup,
+  and use for robotics enthusiasts.
+---
+
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
+
+### How long does it take to assemble the Rover?
+
+It should take you about 8 hours.
+
+### Do I need to buy anything other than Dev Kit to build the Rover?
+
+No, the Kit is designed to include every component needed.
+
+### What tools and knowledge do I need to assemble the Rover?
+
+All the needed tools are provided with the kit. As to knowledge, no skills are
+required, but assembling the rover will surely go more smoothly if you know what
+you're doing. A lot of patience and persistence will be an asset too :)
+
+### What is in the box?
+
+In the unboxing video, Szymon shows what you can expect when you finally get the
+Leo Rover Developer Kit on your workbench and start digging in the boxes.
+
+<div className="video-container">
+  <LiteYouTubeEmbed
+    id="C_blxqBQr7Q"
+    params="autoplay=0&autohide=1&showinfo=0&rel=0"
+    poster="hqdefault"
+    title="Leo Rover Unboxing and Getting Started"
+    webp
+  />
+</div>
+
+### Can I write my own software to the Rover?
+
+Yes, of course. The Rover is developer-ready. You can learn more on
+`docs.leorover.tech` or on Github. The software is open-source and written the
+way it's easy to navigate. On top of that, our team can provide you with support
+in case something is not clear.
+
+See more:
+
+<LinkButton docId="advanced-guides/ros-development" />
+
+### Is the Rover autonomous?
+
+By default Leo Rover is remotely controlled with video streaming and UI
+ready-to-go. It's not autonomous, but it's autonomy-ready. The software is based
+on Robot Operating System (ROS) which is known for easiness of autonomy and
+semi-autonomy features implementation. The simplest way is to add a lidar or
+stereovision camera to enhance the Rover self-navigation and then build your
+features on top of that. The Rover itself has one front camera and 4 wheel
+encoders onboard, so it provides video streaming and basic odometry
+out-of-the-box.
+
+See more:
+
+<LinkButton docId="advanced-guides/autonomous-navigation" />
+
+### Does Leo Rover send any data back to the manufacturer?
+
+No. And we're extremely cautious not to do that in the future. Everything that
+happens in the Rover is between you and the software. We don't gather any data
+and connecting the Rover to the Internet is only for your own convenience.

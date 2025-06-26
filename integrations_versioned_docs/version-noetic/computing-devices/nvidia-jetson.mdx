@@ -1,0 +1,188 @@
+---
+title: NVIDIA Jetson
+sidebar_label: NVIDIA Jetson
+keywords:
+  - nvidia
+  - jetson
+  - xavier
+  - board computer
+  - integration
+  - leo
+  - example
+description: >-
+  Learn how to connect a powerful additional computer like NVIDIA Jetson to your
+  Leo Rover for resource-intensive projects.
+image: /img/robots/leo/integrations/additional-computer/jetson-on-leo.webp
+---
+
+import Product from '@site/src/products/powerbox.mdx';
+
+In this tutorial, we will show you how to connect and use additional board
+computer, like NVIDIA Jetson or Raspberry Pi, on your rover.
+
+If you want to build a resource heavy project, like one involving image
+recognition, object detection or speech processing, you might find Leo Rovers
+built-in Raspberry Pi to be quite restricting in case of processing power. In
+situations like this one, it's wise to attach an entire additional, preferably
+more powerful, computer to the rover. This allows you to run more
+resource-intensive processes while leaving the control of the rover to the
+Raspberry Pi.
+
+## What to expect?
+
+The sheer amount of things you can do with a whole additional computer makes it
+almost impossible to show the possibilities. However, we can show you an example
+of our use case.
+
+As a technical partner of the European Rover Challenge we had to create a Leo
+Rover with payload created entirely for the competition. The design of it proved
+to be too demanding for a simple Raspberry Pi. That's why the Leo Rover in ERC
+Spec had an additional Nvidia Jetson Xavier NX running the most demanding
+processes. This allowed the rover to, among others, run a ZED camera for spatial
+perception. You can learn more about the Leo Rover ERC configuration here:
+[Leo Rover Blog - How did Leo Rover turn into a competition robot](https://www.leorover.tech/post/leo-rover-competition-robot).
+
+## Mechanical integration
+
+In order to connect additional computer to the Leo Rover you'll need to provide
+a way of connecting an ethernet cable straight into the built-in Raspberry PI of
+the rover. We've created a special MEB cover, that you can find
+[here](/leo-rover/addons/additional-meb-covers), with an opening for the cable
+can fit through.
+
+<ImageZoom
+  src="/img/robots/leo/addons/meb-covers/00188-dev-meb-cover.webp"
+  alt="00188_DEV MEB cover for Leo Rover"
+  width="1920"
+  height="1080"
+/>
+
+The process of changing the cover is really easy. Just unscrew the 4 screws
+holding the MEB cover, remove it, and fasten the new cover in place using the
+same screws you just removed.
+
+## Wiring and electronics connection
+
+### On board computer - additional computer connections
+
+You need to connect your computer with Raspberry PI in the Main Electronics Box,
+with ethernet cable.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/additional-computer/jetson-on-leo.webp"
+  alt="NVidia Jetson mounted on Leo Rover"
+  width="1200"
+  height="900"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Jetson computer connected with ethernet cable to the rover"
+/>
+
+<ImageZoom
+  src="/img/robots/leo/integrations/additional-computer/ethernet-raspberry-pi.webp"
+  alt="Ethernet cable inserted into Raspberry Pi on Leo Rover"
+  width="1200"
+  height="900"
+  figStyle={{
+    width: 600,
+  }}
+  caption="The same cable connected to the Raspberry Pi on the rover"
+/>
+
+## Power supply
+
+For supplying power to your BC you need to provide power connection to rovers
+battery. Our proposed solution is a
+[Powerbox addon](/leo-rover/addons/powerbox).
+
+<Product />
+
+It's a module that replaces Leo Rover right quarter and provides additional
+power sockets.
+
+We will use one of this sockets, and connect our board computer to it, with
+special cable (you will need to make it on your own), here is an example for
+Jetson computer.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/additional-computer/jetson-cable.webp"
+  alt="Photo of Powerbox addon"
+  width="960"
+  height="720"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+The cable needs to have correct pluggable terminal block (you get them with
+power box, but you can also buy them here).
+
+:::warning
+
+You need to check what voltage your board computer needs, so you plug it in the
+correct power socket. PowerBox has two types of power sockets:
+
+- 5V DC power socket (via 12V-5V 9A DC converter) - marked as 5V
+- 12V DC power socket (directly from the battery) - marked as BAT
+
+:::
+
+## Software integration
+
+There are no additional steps regarding the network configuration. Ethernet
+connection should work the same way as the wifi connection with the rover. The
+additional board computer will be given an IP address, and can be connected to
+the ROS network the same way as it's described in **Connecting another computer
+to ROS network** section of **ROS Development**:
+
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+
+:::info
+
+If you want to check what ip address your board computer has, you can install
+nmap and use it to check the ip. To do so type on your rover
+
+```bash
+sudo apt install nmap
+nmap 10.0.0.1/24
+```
+
+This will scan all ports from `10.0.0.1` to `10.0.0.255` and will print out the
+used ones. In output there will be also address of Raspberry Pi, but you can
+distinguish it from others, as it will have also line Nmap scan report for leo
+(`10.0.0.1`)
+
+:::
+
+:::info
+
+The only thing you might need to do is to configure the board computer itself.
+You can find instruction for flashing the newest firmware here:
+
+- [video tutorial](https://www.youtube.com/watch?v=ntaXWS8Lk34) on how to use
+  Raspberry PI imager, and [link](https://www.raspberrypi.com/software) to
+  download
+- [tutorial](https://docs.nvidia.com/jetson/l4t/index.html#page/Tegra%20Linux%20Driver%20Package%20Development%20Guide/quick_start.html#wwpID0EXHA)
+  on flashing JetPack on NVIDIA Jetson computers
+
+:::
+
+:::warning
+
+If you have some setup on your board computer, flashing it will remove all your
+configuration.
+
+:::
+
+## What next?
+
+With a whole additional computer connected to your Leo Rover you can start
+projects requiring much more processing power than before. Check out our guide
+on [Autonomous Navigation](/leo-rover/1.8/advanced-guides/autonomous-navigation)
+for one such example.

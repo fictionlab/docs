@@ -1,0 +1,333 @@
+---
+title: Luxonis Oak-D
+sidebar_label: Luxonis Oak-D
+keywords:
+  - luxonis
+  - oak-d
+  - stereo
+  - camera
+  - integration
+  - autonomy
+  - leo
+  - example
+description: >-
+  Learn how to connect an Oak-D stereo camera to your Leo Rover for robotic
+  vision applications like mapping, object recognition, and 3D scanning.
+image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
+---
+
+This tutorial will guide you through the process of connecting an Oak-D camera
+to your Leo Rover.
+
+OAK-D is the ultimate camera for robotic vision that perceives the world like a
+human by combining stereo depth camera and high-resolution color camera with an
+on-device Neural Network inferencing and Computer Vision capabilities. It uses
+USB-C for both power and USB3 connectivity. In robotics, stereo cameras are
+commonly used for mapping the environment, object recognition, 3D scanning and
+in many other.
+
+## What to expect?
+
+After completing this tutorial, you will have successfully connected an Oak-D
+stereo camera to the Leo Rover in ROS, and you will possess basic knowledge
+about the use of stereo cameras.
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
+
+## List of components
+
+- Oak-D Series Stereo Camera
+- Any mounting solution (eg.
+  [Universal Camera Mast](/leo-rover/addons/universal-camera-mast))
+- USB-A to USB-C wire
+- (optional) USB-C to DC power supply
+
+## Mechanical integration
+
+There are multiple use cases for stereo cameras. Since we cannot predict them
+all, we cannot design a perfect mount for all of them. That's why we provide a
+[Universal Camera Mast](/leo-rover/addons/universal-camera-mast) that can fit a
+wide range of projects.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-d/oak-d-ucm.webp"
+  width="1200"
+  height="668"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+## Wiring and electronics connection
+
+Whether you are using our Universal Camera Mast or your own custom solution,
+you'll need to connect the camera to the rover somehow.
+
+The USB port placed on the mounting plate of the rover does not support USB 3.0
+that's necessary to run the camera. That's why you'll need to connect the USB-C
+wire straight to the USB ports of the rovers built-in Raspberry Pi.
+
+Kacper from our team likes to remove the micro-usb port entirely and run the
+wire straight through the newly created hole. This solution, combined with the
+use of a cable gland, keeps the MEB box waterproof.
+
+Second common solution involves printing a new cover for the MEB box. Dev cover
+found [here](/leo-rover/addons/additional-meb-covers), provides a wide opening
+for running wires straight into the MEB. This solution can be extremely useful
+in projects that don't need to be waterproof.
+
+<ImageZoom
+  src="/img/robots/leo/addons/meb-covers/00188-dev-meb-cover.webp"
+  width="1920"
+  height="1080"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+If the camera isn't the only thing connected to the rover you might need to
+provide an external power connection. [Powerbox](/leo-rover/addons/powerbox)
+might come in handy in such situations.
+
+## Software integration
+
+### Installing the packages
+
+Add USB rules to your system:
+
+```bash
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | sudo tee /etc/udev/rules.d/80-movidius.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
+Install `depthai-ros` packages(only available in ROS noetic):
+
+```bash
+sudo apt install ros-noetic-depthai-ros
+```
+
+### Adding camera model
+
+As we want to have the camera model visible with the rover model, we need to
+change `robot.urdf.xacro` file in `/etc/ros/urdf` directory. Package
+`depthai_descriptions` is installed alongside `depthai-ros` and it contains Oak
+camera models and xacro macros that we can easily add.
+
+To include the Oak camera macro add following lines to
+`/etc/ros/urdf/robot.urdf.xacro` file:
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+<xacro:include filename="$(find depthai_descriptions)/urdf/include/depthai_macro.urdf.xacro"/>
+
+<!-- TODO add correct cam position-->
+<xacro:depthai_camera camera_name="oak"
+                      camera_model="OAK-D-PRO"
+                      base_frame="oak-d_frame"
+                      parent="base_link"
+                      cam_pos_x="0.0"
+                      cam_pos_y="0.0"
+                      cam_pos_z="0.0"
+                      cam_roll="0.0"
+                      cam_pitch="0.0"
+                      cam_yaw="0.0"/>
+```
+
+This macro contains a lot of parameters that are set to a default Oak-D Pro
+camera setup on a rover. You can adjust those parameters to your needs (e.g. if
+you have the camera mounted in a different position or you are using a different
+camera model).
+
+In the end, your `robot.urdf.xacro` file should look like this:
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="leo">
+
+  <xacro:include filename="$(find leo_description)/urdf/macros.xacro"/>
+
+  <xacro:leo default_antenna="true"
+             rockers_fixed="true"
+             footprint_link="true"
+	     link_prefix=""
+             joint_prefix=""/>
+
+	<xacro:include filename="$(find depthai_descriptions)/urdf/include/depthai_macro.urdf.xacro"/>
+
+  <!-- TODO add correct cam position-->
+  <xacro:depthai_camera camera_name="oak"
+                        camera_model="OAK-D-PRO"
+                        base_frame="oak-d_frame"
+                        parent="base_link"
+                        cam_pos_x="0.0"
+                        cam_pos_y="0.0"
+                        cam_pos_z="0.0"
+                        cam_roll="0.0"
+                        cam_pitch="0.0"
+                        cam_yaw="0.0"/>
+
+</robot>
+```
+
+### Creating launch and configuration files
+
+To launch the camera you can, create your own launch file, use one of the
+example packages from `depthai-ros` package or you can use the provided launch
+file which provides basic functionalities such as camera image and point cloud
+created from depth data.
+
+In `/etc/ros` create a `.yaml` configuration file. This example contains
+configuration for Oak-D Pro point cloud mapping.
+
+```yaml title="/etc/ros/leo_oak_pcl.yaml"
+/oak:
+  camera_i_nn_type: none
+  camera_i_laser_dot_brightness: 1000
+  camera_i_enable_imu: true
+  camera_i_enable_ir: true
+
+  imu_i_acc_freq: 50
+  imu_i_rot_freq: 50
+  imu_i_gyro_freq: 50
+
+  rgb_i_fps: 10.0
+  rgb_i_resolution: '720P'
+
+  left_i_publish_topic: false
+  left_i_fps: 10.0
+
+  right_i_publish_topic: false
+  right_i_fps: 10.0
+
+  stereo_i_align_depth: true
+  stereo_i_subpixel: true
+  stereo_i_stereo_conf_threshold: 110
+  stereo_i_enable_brightness_filter: false
+  stereo_i_brightness_filter_min_brightness: 1
+  stereo_i_brightness_filter_max_brightness: 225
+  stereo_i_enable_decimation_filter: true
+  stereo_i_publish_right_rect: true
+```
+
+Next, also in `/etc/ros` create a launch file that will use the previously added
+configuration and will create a `nodelet` manager and appropriate nodelets.
+Nodelets are used for communication efficiency.
+
+```xml title="/etc/ros/leo_oak_pcl.launch"
+<?xml version="1.0"?>
+<launch>
+    <arg name="name" default="oak" />
+    <arg name="params_file" default="/etc/ros/leo_oak_pcl.yaml"/>
+
+    <rosparam file="$(arg params_file)" />
+    <node pkg="rosservice" if="$(optenv DEPTHAI_DEBUG 0)" type="rosservice" name="set_log_level" args="call --wait /oak_nodelet_manager/set_logger_level 'ros.depthai_ros_driver' 'debug'" />
+
+    <node pkg="nodelet" type="nodelet" name="$(arg  name)_nodelet_manager" args="manager" output="screen">
+        <remap from="/nodelet_manager/load_nodelet" to="$(arg name)/nodelet_manager/load_nodelet"/>
+        <remap from="/nodelet_manager/unload_nodelet" to="$(arg name)/nodelet_manager/unload_nodelet"/>
+        <remap from="/nodelet_manager/list" to="$(arg name)/nodelet_manager/list"/>
+    </node>
+
+    <node name="$(arg  name)" pkg="nodelet" type="nodelet" output="screen" required="true" args="load depthai_ros_driver/Camera $(arg  name)_nodelet_manager"/>
+
+    <node pkg="nodelet" type="nodelet" name="depth_image_to_rgb_pointcloud"
+        args="load depth_image_proc/point_cloud_xyzrgb $(arg  name)_nodelet_manager">
+        <param name="queue_size" value="1"/>
+        <remap from="rgb/camera_info" to="$(arg name)/rgb/camera_info"/>
+        <remap from="rgb/image_rect_color" to="$(arg name)/rgb/image_raw"/>
+        <remap from="depth_registered/image_rect" to="$(arg name)/stereo/image_raw"/>
+        <remap from="depth_registered/points" to="$(arg name)/points"/>
+    </node>
+</launch>
+```
+
+For more information about oak configuration and usage examples you can check
+out the
+[depthai-ros github repository](https://github.com/luxonis/depthai-ros/tree/noetic).
+
+### Launching camera nodes on system startup
+
+Include your launch file in the `robot.launch` file, so that your node will
+start at boot.
+
+In `/etc/ros/robot.launch` add this line between `<launch>` tags:
+
+```xml title="/etc/ros/robot.launch"
+<include file="/etc/ros/leo_oak_pcl.launch"/>
+```
+
+Now your Oak-D camera ROS nodes will start at launch.
+
+## Examples
+
+### Reading and visualizing the data
+
+The topics from camera node should be now visible. You can check them with
+`rostopic` tool - topics from your node will have prefix specified by you in the
+`camera` ROS argument.
+
+If you have ROS installed on your computer, you can get the camera image with
+rqt, and see the robot model with camera attached using rviz.
+
+Before starting any of the programs, make sure you completed the **Connecting
+another computer to ROS network** of **ROS development** tutorial:
+
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+
+Now you can start `rqt`, and from `plugins` -> `visualization` choose
+`image view` and then choose your topic.
+
+:::note
+
+Don't worry if the quality is low, and the image is lagging. It is due to
+transfer of the data through your rover and computer.
+
+:::
+
+You can also start RViz, and add **robot model** in the **display** view. Chose
+also `base_link` as **fixed frame**, and you should see the rover model with
+camera attached.
+
+You can also display `tf tree` in rqt, to see if everything is configured
+correctly (**plugins** -> **visualization** -> **TF Tree**)
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-d/tf-tree-oak-d.webp"
+  width="1834"
+  height="430"
+/>
+
+## What next?
+
+Stereo cameras are commonly used in projects involving
+[autonomous navigation](/leo-rover/1.8/advanced-guides/autonomous-navigation),
+you might be interested in a tutorial about it.
+
+They are however, not the only way of teaching a Leo Rover how to move on it's
+own. Check out our [line follower](/leo-rover/1.8/leo-examples/line-follower)
+tutorial if you want to learn more. You can also check our
+[Integrations page](/integrations) for more instructions.
