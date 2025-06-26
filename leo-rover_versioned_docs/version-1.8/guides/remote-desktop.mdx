@@ -15,6 +15,12 @@ environment installed, as well as an RDP (Microsoft Remote Desktop Protocol)
 server. This allows you to remotely control a desktop session on your Rover from
 your computer.
 
+Firstly, you will have to connect to the Rover's network:
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+
+<Tabs groupId='leoOS-version'>
+<TabItem value='leoOS1' label='LeoOS 1.x'>
 <Tabs groupId='OS'>
     <TabItem value='windows' label='Windows'>
     
@@ -161,4 +167,22 @@ your computer.
 
     </TabItem>
 
+</Tabs>
+</TabItem>
+<TabItem value='leoOS2' label='LeoOS 2.x'>
+Now, to connect to the robot's desktop you have to install and open
+[TigerVNC viewer](https://tigervnc.org/)
+
+Type `10.0.0.1` in the **VNC server** field and click **Connect**.
+
+<ImageZoom
+  src="/img/robots/leo/guides/remote-desktop/tigervnc.webp"
+  alt="Remote Desktop Connection app"
+  width="407"
+  height="253"
+  figStyle={{
+    width: 400,
+  }}
+/>
+</TabItem>
 </Tabs>
