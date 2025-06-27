@@ -178,8 +178,7 @@ tag.
 
 To launch the camera you can, create your own launch file, use one of the
 example packages from `depthai-ros` package or you can use the provided launch
-file which provides basic functionalities such as camera image and point cloud
-created from depth data.
+file which provides basic functionalities such as camera image and depth data.
 
 In `/etc/ros` create a `.yaml` configuration file. This example contains
 configuration for Oak-D Pro Wide rbg and depth camera.
@@ -336,9 +335,9 @@ sudo apt install ros-${ROS_DISTRO}-depthai-descriptions
 
 :::
 
-You can also just start RViz (`rviz2` command), and add **robot model** in the
-**display** view. Chose also `base_link` as **fixed frame**, and you should see
-the rover model with camera attached.
+With RViz opened, add **robot model** in the **display** view. Chose also
+`base_link` as **fixed frame**, and you should see the rover model with camera
+attached.
 
 You can also display `tf tree` in rqt, to see if everything is configured
 correctly (**plugins** -> **visualization** -> **TF Tree**)
