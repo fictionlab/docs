@@ -331,7 +331,7 @@ There are two important software components which don't run as native ROS nodes:
   communication with the ROS nodes.
 
 <ThemedImageZoom
-  alt="Overview of Rapha Rover's software components"
+  alt="Overview of Leo Rover's software components"
   sources={{
     light: useBaseUrl(
       '/img/robots/rapha/specification/rapha-software-light.webp',
@@ -384,7 +384,14 @@ There are two important software components which don't run as native ROS nodes:
     <tr>
       <td>Camera Driver</td>
       <td>
+        Publishes camera info and various camera images including:
 
+        - Color image.
+        - Monochrome image.
+        - Rectified images in color and monochrome.
+
+        All images are published at 15 FPS in their original resolution 
+        and their compressed versions.
       </td>
     </tr>
     <tr>
@@ -396,13 +403,17 @@ There are two important software components which don't run as native ROS nodes:
     <tr>
       <td>IMU Filter</td>
       <td>
-
+        Processes raw IMU data using a complementary filter to compute orientation.
+        The node publishes filtered IMU messages with estimated orientation and RPY angles.
+        It also enables calibration reset via a service.
       </td>
     </tr>
     <tr>
       <td>Odometry Filter</td>
       <td>
-
+        Fuses wheel odometry and filtered IMU data to compute robot pose and velocity and publishes it. 
+        It optionally broadcasts an odometry TF transform and supports resetting the odometry via
+        a service.
       </td>
     </tr>
     <tr>
@@ -421,6 +432,21 @@ There are two important software components which don't run as native ROS nodes:
 
   </tbody>
 </table>
+
+<ThemedImageZoom
+  alt="Simplified graph of core ROS nodes running on Leo Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9-ros-diagram-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9-ros-diagram-dark.webp',
+    ),
+  }}
+  width="2000"
+  height="819"
+  caption="Simplified graph of core ROS nodes running on Leo Rover"
+/>
 
 ### Web user interface (UI)
 
