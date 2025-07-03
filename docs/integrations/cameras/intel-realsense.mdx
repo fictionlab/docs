@@ -133,7 +133,7 @@ camera visible with the robot's model.
 ```
 
 You can specify `name` property to anything you want. We just need to change it,
-so we don't have conflicts on `camera_link` tf frame. `Origin` property is for
+so we don't have conflicts on `camera_link` tf frame. `origin` property is for
 specifying the position of the camera regarding the link specified in parent
 property. So if the `parent` property is set to "base_link", the position in
 `origin` property is regarding the origin of the Rover.
@@ -146,8 +146,8 @@ If you are not using our mounting adapter you might have to change the values in
 :::
 
 Now we have to include our camera model in `robot.urdf.xacro` file - the
-description that is uploaded at boot. Add this line somewhere between `<robot>`
-tag.
+description that is uploaded at boot. Add this line somewhere before the closing
+`</robot>` tag.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
 <xacro:include filename="/etc/ros/urdf/realsense.urdf.xacro"/>
@@ -175,8 +175,8 @@ configuration.
 ```xml title="/etc/ros/realsense.launch.xml"
 <launch>
   <include file="$(find-pkg-share realsense2_camera)/launch/rs_launch.py">
-	  <arg name="camera_namespace" value=""/>
-	  <arg name="camera_name" value="d435i_camera"/>
+    <arg name="camera_namespace" value=""/>
+    <arg name="camera_name" value="d435i_camera"/>
   </include>
 </launch>
 ```
@@ -199,8 +199,8 @@ ros2 launch realsense2_camera rs_launch.py -s
 
 :::
 
-Include the launch file in the `robot.launch.xml` file somewhere between
-`<launch>` tag, so that the node starts at boot.
+Include the launch file in the `robot.launch.xml` file somewhere before the
+closing `</launch>` tag, so that the node starts at boot.
 
 ```xml title="/etc/ros/robot.launch.xml"
 <include file="/etc/ros/realsense.launch.xml"/>
@@ -234,7 +234,7 @@ transfer of the data through your rover and computer.
 
 :::
 
-You can also start RViz, and add **robot model** in the **display** view. Chose
+You can also start RViz, and add **robot model** in the **display** view. Choose
 also `base_link` as **fixed frame**, and you should see the rover model with
 camera attached.
 
