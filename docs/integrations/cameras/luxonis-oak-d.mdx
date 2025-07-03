@@ -167,8 +167,8 @@ of this guide section
 :::
 
 Now we have to include our camera model in `robot.urdf.xacro` file - the
-description that is uploaded at boot. Add this line somewhere between `<robot>`
-tag.
+description that is uploaded at boot. Add this line somewhere before the closing
+`</robot>` tag.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
 <xacro:include filename="/etc/ros/urdf/oak.urdf.xacro"/>
@@ -259,7 +259,8 @@ out the
 Include your launch file in the `robot.launch.xml` file, so that your node will
 start at boot.
 
-In `/etc/ros/robot.launch.xml` add this line between `<launch>` tags:
+In `/etc/ros/robot.launch.xml` add this line somewhere before the closing
+`</launch>` tag:
 
 ```xml title="/etc/ros/robot.launch.xml"
 <include file="/etc/ros/oak.launch.xml"/>
