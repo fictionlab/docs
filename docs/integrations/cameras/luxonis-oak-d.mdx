@@ -70,9 +70,19 @@ wide range of projects.
 Whether you are using our Universal Camera Mast or your own custom solution,
 you'll need to connect the camera to the rover somehow.
 
-The USB port placed on the mounting plate of the rover does not support USB 3.0
-that's necessary to run the camera. That's why you'll need to connect the USB-C
-wire straight to the USB ports of the rovers built-in Raspberry Pi.
+The USB port placed on the mounting plate of the rover supports USB 3.0 which
+means you can connect the camera directly to this port without additional
+modifications.
+
+:::warning
+
+That is not true for Leo Rover robot version 1.8 and below. If you have this
+model, you have to follow one of the approaches presented below.
+
+:::
+
+Alternatively you can connect the USB-C wire straight to the USB ports of the
+rovers built-in Raspberry Pi.
 
 Kacper from our team likes to remove the micro-usb port entirely and run the
 wire straight through the newly created hole. This solution, combined with the
@@ -150,12 +160,11 @@ macros that we can easily add (list of available models
 
 :::warning
 
-This macro contains a lot of parameters that are set to a default Oak-D Pro Wide
-camera setup on a rover. You will need to adjust those parameters to your setup
-if you have the camera mounted in a different position or you are using a
-different camera model. Remember that the position of the camera is provided in
-reference to `base_link` frame. The location of the frame can be seen at the end
-of this guide section
+The parameters named `cam_<>` determine camera's position and orientation in the
+robot model. In the file above they are set to the default values, therefore you
+will have to adjust those parameters to your setup. Remember that the position
+of the camera is provided in reference to the `base_link` frame. The location of
+the frame can be seen at the end of this guide section:
 
 <LinkButton
   to="/leo-rover/1.8/advanced-guides/ros-development#expanding-the-urdf-model"
@@ -239,14 +248,11 @@ configuration for the oak camera node.
 </launch>
 ```
 
-:::tip
-
-You can set the `name` and `namespace` properties of the `node` tag to whatever
-you want.
-
-:::
-
 :::info
+
+You can set the `namespace` property of the `node` tag to whatever you want, but
+the `name` has to be set to the same value as the `camera_name` in urdf file.
+It's required for the camera data to be placed in correct TF frame.
 
 For more information about oak configuration and usage examples you can check
 out the
