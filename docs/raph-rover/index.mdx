@@ -1,15 +1,15 @@
 ---
-title: Getting started with Rapha Rover
+title: Getting started with Raph Rover
 sidebar_label: Getting started
 keywords:
-  - rapha
+  - raph
   - rover
   - getting started
 sidebar_position: 1
 description: >-
-  Get started with Rapha Rover: setup guide on contents, powering on, charging,
+  Get started with Raph Rover: setup guide on contents, powering on, charging,
   internet connection, and SSH access for a seamless start with your new rover.
-image: /img/robots/rapha/rapha-rover.webp
+image: /img/robots/raph/raph-rover.webp
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -19,11 +19,11 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 
 :::note
 
-Rapha Rover is still in beta and not available for sale at this time.
+Raph Rover is still in beta and not available for sale at this time.
 
 :::
 
-Rapha Rover is a versatile platform designed for a wide range of robotic
+Raph Rover is a versatile platform designed for a wide range of robotic
 projects, from inspection to agriculture and construction. Built to integrate
 with custom payloads and operate in diverse environments, it's perfect for both
 indoor and outdoor applications. (Note: Beta version is limited to indoor use
@@ -33,8 +33,8 @@ experience with your new rover.
 
 <ImageZoom
   loading="eager"
-  src="/img/robots/rapha/rapha-rover.webp"
-  alt="Render of beta version of Rapha Rover"
+  src="/img/robots/raph/raph-rover.webp"
+  alt="Render of beta version of Raph Rover"
   width="2000"
   height="1500"
   figStyle={{
@@ -46,8 +46,8 @@ experience with your new rover.
 
 What's in the box:
 
-- 1 x Rapha Rover
-- 1 x Rapha Rover battery dock
+- 1 x Raph Rover
+- 1 x Raph Rover battery dock
 - 1 x 24V Li-Ion charger
 - 2 x 24V battery pack
 - 1 x Additional mounting plate
@@ -57,7 +57,7 @@ What's in the box:
 
 ## Connecting the battery
 
-Each Rapha Rover is equipped with two dedicated 24V Li-Ion battery packs.
+Each Raph Rover is equipped with two dedicated 24V Li-Ion battery packs.
 
 :::warning
 
@@ -76,13 +76,13 @@ within the slot.
 To verify proper battery insertion, refer to the image below:
 
 <ThemedImageZoom
-  alt="Rapha's battery removed and inserted"
+  alt="Raph's battery removed and inserted"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/getting-started/battery-insertion-light.webp',
+      '/img/robots/raph/getting-started/battery-insertion-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/getting-started/battery-insertion-dark.webp',
+      '/img/robots/raph/getting-started/battery-insertion-dark.webp',
     ),
   }}
   width="1500"
@@ -90,7 +90,7 @@ To verify proper battery insertion, refer to the image below:
   figStyle={{
     width: 800,
   }}
-  caption="Rapha's battery outside (left) and inside (right) the slot"
+  caption="Raph's battery outside (left) and inside (right) the slot"
 />
 
 To verify proper battery insertion, press the power button once. If the
@@ -110,10 +110,10 @@ The rover's power-on state will be indicated by a single green breath pulse of
 all LED strips.
 
 <ThemedImageZoom
-  alt="Diagram with arrows pointing to the buttons of Rapha Rover, showing power and multifunctional buttons"
+  alt="Diagram with arrows pointing to the buttons of Raph Rover, showing power and multifunctional buttons"
   sources={{
-    light: useBaseUrl('/img/robots/rapha/getting-started/buttons-light.webp'),
-    dark: useBaseUrl('/img/robots/rapha/getting-started/buttons-dark.webp'),
+    light: useBaseUrl('/img/robots/raph/getting-started/buttons-light.webp'),
+    dark: useBaseUrl('/img/robots/raph/getting-started/buttons-dark.webp'),
   }}
   width="750"
   height="575"
@@ -138,12 +138,12 @@ Configuration settings will be updated for production-ready rovers.
 
 :::
 
-To connect to Rapha Rover's computer via SSH, you must first establish a
+To connect to Raph Rover's computer via SSH, you must first establish a
 connection with the on-board Wi-Fi network. The default credentials for the
 access points are as follows:
 
-- **SSID 2.4 GHz:** `Rapha-XXXX-2G`
-- **SSID 5 GHz:** `Rapha-XXXX-5G`
+- **SSID 2.4 GHz:** `Raph-XXXX-2G`
+- **SSID 5 GHz:** `Raph-XXXX-5G`
 - **Password:** `fictionlab`
 
 :::note
@@ -156,14 +156,14 @@ Once connected to the network, you can access the on-board devices using the
 following IP addresses and default credentials:
 
 - **Router (RUTX10) :** `10.10.0.1`
-- **Controller (RaphaCore):** `10.10.0.2`
+- **Controller (RaphCore):** `10.10.0.2`
 - **On-board computer (UpBoard 7000):** `10.10.0.3`
 
 To connect to the UpBoard via SSH, use your preferred SSH client and the
 following credentials:
 
-- **user:** `rapha`
-- **password:** `rapha`
+- **user:** `raph`
+- **password:** `raph`
 
 To connect with the router, go to http://10.10.0.1 and login using credentials
 below:
@@ -173,13 +173,15 @@ below:
 
 ## Battery charging
 
-By default Rapha Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
-battery pack in about 2,5 hours. Rapha Rover has 2 options for charging
+By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
+battery pack in about 2,5 hours. Raph Rover has 2 options for charging
 batteries:
 
 - Outside the rover, by plugging battery into charger
 - Inside the rover, by plugging charger directly into rear charging slot of the
   rover
+
+{/* TODO: change the photos below to not say "rapha" */}
 
 <FlexTable
   style={{
@@ -192,13 +194,13 @@ batteries:
     }}
   >
     <ThemedImageZoom
-      alt="Rapha Rover battery dock with battery pack hovering above it"
+      alt="Raph Rover battery dock with battery pack hovering above it"
       sources={{
         light: useBaseUrl(
-          '/img/robots/rapha/getting-started/charger-out-light.webp',
+          '/img/robots/raph/getting-started/charger-out-light.webp',
         ),
         dark: useBaseUrl(
-          '/img/robots/rapha/getting-started/charger-out-dark.webp',
+          '/img/robots/raph/getting-started/charger-out-dark.webp',
         ),
       }}
       width="1440"
@@ -214,13 +216,13 @@ batteries:
     }}
   >
     <ThemedImageZoom
-      alt="Rapha Rover battery dock with battery pack inside it"
+      alt="Raph Rover battery dock with battery pack inside it"
       sources={{
         light: useBaseUrl(
-          '/img/robots/rapha/getting-started/charger-in-light.webp',
+          '/img/robots/raph/getting-started/charger-in-light.webp',
         ),
         dark: useBaseUrl(
-          '/img/robots/rapha/getting-started/charger-in-dark.webp',
+          '/img/robots/raph/getting-started/charger-in-dark.webp',
         ),
       }}
       width="1440"
@@ -250,7 +252,7 @@ charging process.
 
 ## Turning wheels calibration
 
-After each power-off, Rapha Rover loses the position of its turning wheels,
+After each power-off, Raph Rover loses the position of its turning wheels,
 requiring calibration. This process is initiated using the multifunctional
 button adjacent to the power button.
 
@@ -260,13 +262,13 @@ locate the induction sensor. Subsequently, the motors will continue rotating to
 calibrate their positions relative to the bumpers.
 
 <ThemedImageZoom
-  alt="Top down view of the Rapha Rover, with arrows next to the turning motors, showcasing movement during calibration"
+  alt="Top down view of the Raph Rover, with arrows next to the turning motors, showcasing movement during calibration"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/getting-started/wheel-calibration-light.webp',
+      '/img/robots/raph/getting-started/wheel-calibration-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/getting-started/wheel-calibration-dark.webp',
+      '/img/robots/raph/getting-started/wheel-calibration-dark.webp',
     ),
   }}
   width="1920"
