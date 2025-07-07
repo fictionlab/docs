@@ -15,17 +15,11 @@ description: >-
 image: /img/robots/leo/integrations/gazebo-zed2/leo-rover-gazebo.webp
 ---
 
-This repository provides a Gazebo simulation of the Navigation and Science Task
-for the ERC Remote competition.
+In this tutorial you will learn how to launch a Gazebo simulation with the Leo
+Rover robot model.
 
 ## Prerequisites
 
-<LinkButton
-  to="/leo-rover/1.8/guides/install-ros-on-usb"
-  title="Install ROS on a bootable USB drive"
-  description="Learn how to create a bootable USB drive with Ubuntu and ROS preinstalled for
-  easy setup and testing."
-/>
 <LinkButton
   to="/leo-rover/1.8/advanced-guides/install-ros-on-your-computer"
   title="Install ROS on your computer"
@@ -33,39 +27,20 @@ for the ERC Remote competition.
   Step-by-step guide for beginners."
 />
 
-> Copied from the official repository of the European Rover Challenge Remote
-> Edition GitHub:
-> https://github.com/EuropeanRoverChallenge/ERC-Remote-Navigation-Sim
-
-This repository provides a Gazebo simulation of the Navigation and Science Task
-for the ERC Remote competition.
-
 The simulation requires `ROS` (Robot Operating System) and was mainly developed
-and tested with these distributions:
+and tested with
+[ROS Jazzy Jalisco](https://control.ros.org/jazzy/doc/getting_started/getting_started.html#installation)
+distribution on [Ubuntu 24.04 Noble Numbat](https://releases.ubuntu.com/24.04/)
 
-- [ROS Melodic Morenia](http://wiki.ros.org/melodic/Installation/) on
-  [Ubuntu 18.04 Bionic Beaver](https://releases.ubuntu.com/18.04/)
-- [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/) on
-  [Ubuntu 20.04 Focal Fossa](https://releases.ubuntu.com/20.04/)
-
-Other distributions might not work properly so it is recommended to use one of
-these two setups.
+Other distributions might not work properly so it is recommended to use the same
+setup.
 
 :::note
 
-The guide will refer to the distribution of your choice (for example melodic or
-noetic) as `<distro>`.
+The guide will refer to the distribution of your choice (for example humble or
+jazzy) as `<distro>`.
 
 :::
-
-The rest of the tools used in this guide can be installed with `apt`:
-
-```bash
-# if using ROS Melodic
-sudo apt install python-rosdep python-catkin-tools
-# if using ROS Noetic
-sudo apt install python3-rosdep python3-catkin-tools
-```
 
 <ImageZoom
   loading="eager"
@@ -75,109 +50,79 @@ sudo apt install python3-rosdep python3-catkin-tools
   height="740"
 />
 
-## Building
+## Installing the packages
 
-This repository uses `git submodules` to link external repositories that contain
-the ROS packages.
-
-When cloning this repository, add the `--recurse-submodules` flag to recursively
-pull the submodules:
+You can easily install required packages from binaries with this command:
 
 ```bash
-git clone --recurse-submodules https://github.com/EuropeanRoverChallenge/ERC-Remote-Navigation-Sim.git
+sudo apt install ros-${ROS_DISTRO}-leo-simulator
 ```
 
-Or if you have already cloned the repository without this option, clone the
-submodules using:
-
-```bash
-git submodule update --init
-```
-
-Use the `rosdep` tool to install any missing dependencies. If you are running
-`rosdep` for the first time, you might have to first run:
-
-```bash
-sudo rosdep init
-```
-
-Then, to install the dependencies, type:
-
-```bash
-rosdep update
-sudo apt update
-rosdep install --rosdistro ${ROS_DISTRO} --from-paths src -iy
-```
-
-Now, use the `catkin` tool to build the workspace:
-
-```bash
-catkin config --extend /opt/ros/${ROS_DISTRO}
-catkin build
-```
-
-## Updating
-
-To pull the newest commits and recursively update the submodules, simply type:
-
-```bash
-git pull --recurse-submodules
-```
-
-If you have already pulled the new commits without the `--recurse-submodules`
-flag, you can simply update the submodules:
-
-```bash
-git submodule update --init
-```
-
-Run the rosdep install command again. The new versions of the packages may have
-pulled some additional dependencies, so you need to install them.
-
-```bash
-rosdep install --rosdistro ${ROS_DISTRO} --from-paths src -iy
-```
-
-And rebuild the workspace:
-
-```bash
-catkin build
-```
+Alternatively [here](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy)
+are instructions how to build the packages from source.
 
 ## Launching
 
-Make sure you source the `devel` space on each terminal session you want to use
-the simulation on:
+Make sure you source the `install` space on each terminal session you want to
+use the simulation on (execute the command in your ROS workspace):
 
 ```bash
-source devel/setup.bash
+source install/setup.bash
 ```
 
-o start the simulation and `gazebo GUI`, type:
+To start the simulation and `gazebo GUI`, type:
 
 ```bash
-roslaunch leo_erc_gazebo leo_marsyard.launch
+ros2 launch leo_gz_bringup leo_gz.launch.py
 ```
 
-To visualize the model in Rviz, type on another terminal session:
+You can use launch arguments to specify the ROS namespace that the simulated
+robot will be in and the world that is going to launch (to see available choices
+refer to
+[leo_gz_worlds](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy/leo_gz_worlds)
+package). For example you can launch simulation of an ERC 2021 competition
+terrain and put the robot inside some namspace like this:
 
 ```bash
-roslaunch leo_erc_viz rviz.launch
+ros2 launch leo_gz_bringup leo_gz.launch.py sim_world:=marsyard2021.sdf robot_ns:=leo_sim1
 ```
 
-Turn on the Image panel in `Rviz` to show the simulated camera images.
-
-To test teleoperation with a keyboard, you can run the `key_teleop` node:
+If you want to simulate multiple rovers, you can add another robot to an already
+running gazebo world:
 
 ```bash
-rosrun leo_erc_teleop key_teleop
+ros2 launch leo_gz_bringup spawn_robot.launch.py robot_ns:=leo_sim2
 ```
 
-To control the Rover using a joystick, type:
+Now you can operate the simulated robots in the same way as the real one. You
+can use `ros2 topic echo` command to get info from the robots, and
+`ros2 topic pub` to operate it. For example with such command robot will start
+driving forward:
 
 ```bash
-roslaunch leo_erc_teleop joy_teleop.launch
+ros2 topic pub /leo_sim1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2}}" -r 10
 ```
+
+You can also control the rover using joystick. To do so you need `leo-teleop`
+package:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-teleop
+```
+
+To operate the rover with joystick, you need to connect a controller to your
+computer and run:
+
+```bash
+ros2 launch leo_teleop joy_teleop.launch.xml cmd_vel_out:=/leo_sim1/cmd_vel
+```
+
+:::tip
+
+You can choose which rover to operate with the joystick by providing correct
+namespace for the argument `cmd_vel_out`. In the example it's `leo_sim1`.
+
+:::
 
 The command mapping was set for the Xbox 360 controller and looks like this:
 
@@ -186,6 +131,3 @@ The command mapping was set for the Xbox 360 controller and looks like this:
 | RB                     | button enable - hold it to send commands |
 | Left joystick Up/Down  | linear velocity                          |
 | Right joystick Up/Down | angular velocity                         |
-
-To modify it, you can edit the **joy_mapping.yaml** file inside the
-`leo_erc_teleop` package.
