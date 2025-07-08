@@ -1,18 +1,18 @@
 ---
-title: Rapha Rover specification
+title: Raph Rover specification
 sidebar_label: Specification
 sidebar_position: 2
 keywords:
-  - rapha
+  - raph
   - rover
   - mobile
   - robot
   - specification
 description: >-
-  Rapha Rover is a research-ready platform designed to streamline development of
+  Raph Rover is a research-ready platform designed to streamline development of
   various robotic projects, including inspection, agriculture, construction, and
   more.
-image: /img/robots/rapha/rapha-rover.webp
+image: /img/robots/raph/raph-rover.webp
 toc_max_heading_level: 4
 ---
 
@@ -22,20 +22,20 @@ import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 
 :::warning
 
-Rapha Rover is currently in development; therefore, the specifications are
+Raph Rover is currently in development; therefore, the specifications are
 subject to change.
 
 :::
 
 <ThemedImageZoom
   loading="eager"
-  alt="Rapha Rover logo"
+  alt="Raph Rover logo"
   sources={{
-    light: useBaseUrl('/img/robots/rapha/rapha-logo-light.webp'),
-    dark: useBaseUrl('/img/robots/rapha/rapha-logo-dark.webp'),
+    light: useBaseUrl('/img/robots/raph/raph-logo-light.webp'),
+    dark: useBaseUrl('/img/robots/raph/raph-logo-dark.webp'),
   }}
-  width="2000"
-  height="521"
+  width="2851"
+  height="1035"
   figStyle={{
     width: 600,
   }}
@@ -53,8 +53,8 @@ subject to change.
 
 <ImageZoom
   loading="eager"
-  src="/img/robots/rapha/rapha-rover.webp"
-  alt="Render of beta version of Rapha Rover"
+  src="/img/robots/raph/raph-rover.webp"
+  alt="Render of beta version of Raph Rover"
   width="2000"
   height="1500"
   figStyle={{
@@ -63,7 +63,7 @@ subject to change.
   }}
 />
 
-Rapha Rover is a research-ready platform designed to streamline development of
+Raph Rover is a research-ready platform designed to streamline development of
 various robotic projects, including inspection, agriculture, construction, and
 more. It is built to seamlessly integrate with custom payloads and operate in
 diverse environments, catering to both indoor and outdoor applications (please
@@ -71,11 +71,11 @@ note that the beta version is currently limited to indoor use only).
 
 ---
 
-## Rapha Rover introduction
+## Raph Rover introduction
 
 ### What's included
 
-- 1 x Beta version of Rapha Rover
+- 1 x Beta version of Raph Rover
 - 1 x Battery charger
 - 2 x 24V battery pack
 - 1 x Additional mounting plate
@@ -115,21 +115,19 @@ note that the beta version is currently limited to indoor use only).
 ### Rover overview
 
 <ThemedImageZoom
-  alt="Overview of main features of Rapha Rover"
+  alt="Overview of main features of Raph Rover"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-overview-light.webp',
+      '/img/robots/raph/specification/raph-overview-light.webp',
     ),
-    dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-overview-dark.webp',
-    ),
+    dark: useBaseUrl('/img/robots/raph/specification/raph-overview-dark.webp'),
   }}
   width="2000"
   height="2200"
   figStyle={{
     width: 800,
   }}
-  caption="Rapha Rover overview"
+  caption="Raph Rover overview"
 />
 
 ## Hardware specification
@@ -137,18 +135,18 @@ note that the beta version is currently limited to indoor use only).
 ### Rover dimensions
 
 <ThemedImageZoom
-  alt="Main dimensions of Rapha Rover"
+  alt="Main dimensions of Raph Rover"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-dimensions-light.webp',
+      '/img/robots/raph/specification/raph-dimensions-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-dimensions-dark.webp',
+      '/img/robots/raph/specification/raph-dimensions-dark.webp',
     ),
   }}
   width="2000"
   height="2600"
-  caption="Rapha Rover dimensions"
+  caption="Raph Rover dimensions"
 />
 
 ### Components
@@ -160,32 +158,32 @@ note that the beta version is currently limited to indoor use only).
 |             Antenna |    2     | Dual-band (2.4 GHz / 5 GHz) placed on the rear of the robot.                                                                                                                                                                                                                                                                                                                                                    |
 | Stereoscopic camera |    1     | Luxonis OAK-D Pro W is a wide-angle camera with active stereo depth and high-resolution color capabilities. It includes on-device neural network inference, computer vision features, and night vision for low-light environments.                                                                                                                                                                              |
 |               Lidar |    1     | RPLidar S3 - 360-degree waterproof 2D Lidar scanner with a 40-meter range. It ensures stable performance in diverse conditions, making it suitable for both indoor and outdoor use. Operating at 10Hz, it guarantees a sample rate of 32KHz.                                                                                                                                                                    |
-|         BLDC motors |    6     | M0601C-111 BLDC motors from Direct Drive Tech. Connected to RaphaCore board via RS 485 bus.                                                                                                                                                                                                                                                                                                                     |
+|         BLDC motors |    6     | M0601C-111 BLDC motors from Direct Drive Tech. Connected to RaphCore board via RS 485 bus.                                                                                                                                                                                                                                                                                                                      |
 |           LED strip |    4     | 108 RGBW Individually addressable LEDs. <br /> 3535 form factor; 144/m, 23W/m. <br /> They serve as the rovers status indicator, but can be programmed for any custom behavior e.g. to work as a flashlight.                                                                                                                                                                                                    |
 
 ### Block diagram
 
 <ThemedImageZoom
-  alt="Hardware diagram of Rapha Rover"
+  alt="Hardware diagram of Raph Rover"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-hardware-diagram-light.webp',
+      '/img/robots/raph/specification/raph-hardware-diagram-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-hardware-diagram-dark.webp',
+      '/img/robots/raph/specification/raph-hardware-diagram-dark.webp',
     ),
   }}
   width="2000"
   height="1629"
-  caption="Block diagram of Rapha Rovers hardware"
+  caption="Block diagram of Raph Rovers hardware"
 />
 
-### RaphaCore controller
+### RaphCore controller
 
-RaphaCore serves as the primary control board for Rapha Rover, featuring a
-robust STM32H5 series microcontroller. The board leverages FreeRTOS to
-efficiently handle various low-level tasks integral to the functioning of Rapha
-Rover. These tasks include:
+RaphCore serves as the primary control board for Raph Rover, featuring a robust
+STM32H5 series microcontroller. The board leverages FreeRTOS to efficiently
+handle various low-level tasks integral to the functioning of Raph Rover. These
+tasks include:
 
 - Drivetrain control
 - Power system management
@@ -194,23 +192,23 @@ Rover. These tasks include:
 - Odometry tracking
 
 <ThemedImageZoom
-  alt="External connections of RaphaCore"
+  alt="External connections of RaphCore"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/raphaCore-diagram-light.webp',
+      '/img/robots/raph/specification/raphCore-diagram-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/raphaCore-diagram-dark.webp',
+      '/img/robots/raph/specification/raphCore-diagram-dark.webp',
     ),
   }}
   width="2000"
   height="1375"
-  caption="RaphaCore PCB connectors"
+  caption="RaphCore PCB connectors"
 />
 
 ### Drivetrain
 
-The standard configuration of the Rapha Rover features a drivetrain comprising
+The standard configuration of the Raph Rover features a drivetrain comprising
 two fixed wheels at the front and two rotary wheels at the rear. This design
 enhances the mobility of the Rover, enabling it to execute precise maneuvers
 such as:
@@ -224,7 +222,7 @@ capabilities, ensuring adaptability in various operational scenarios.
 
 #### Motors
 
-The Rapha Rover is equipped with 6 DirectDriveTech M0601C-111 direct-drive BLDC
+The Raph Rover is equipped with 6 DirectDriveTech M0601C-111 direct-drive BLDC
 motors, serving both the drive and turn functions. These motors enable the rover
 to attain a speed of approximately 1.8 m/s when equipped with standard diameter
 tires. Each motor is outfitted with an integrated incremental encoder with a
@@ -237,8 +235,8 @@ rover is restarted, ensuring consistent and reliable performance.
 
 #### Wheels
 
-As standard, Rapha Rover comes with rubber tires with a diameter of about 170
-mm. Whole drive assembly has following characteristics:
+As standard, Raph Rover comes with rubber tires with a diameter of about 170 mm.
+Whole drive assembly has following characteristics:
 
 |                        Parameter |           Value           |
 | -------------------------------: | :-----------------------: |
@@ -249,7 +247,7 @@ mm. Whole drive assembly has following characteristics:
 
 ### Battery & charging
 
-Rapha Rover boasts an advanced battery management system, a feature enabling the
+Raph Rover boasts an advanced battery management system, a feature enabling the
 simultaneous utilization of two battery packs. This innovative system empowers
 the rover to seamlessly operate for approximately four continuous hours under
 decent conditions (e.g. relatively flat terrain). The dual-battery configuration
@@ -277,10 +275,10 @@ Each battery pack has following characteristics:
 
 #### Battery charging
 
-By default Rapha Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
+By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
 battery pack in about 2,5 hours.
 
-Rapha Rover has 2 options for charging batteries:
+Raph Rover has 2 options for charging batteries:
 
 - Outside the Rover, by plugging battery into charger
 - Inside the Rover, by plugging charger directly into rear charging slot of the
@@ -302,7 +300,7 @@ charging process.
 
 ### Payload specification
 
-Rapha Rover is designed to be used with custom payloads. Main mounting plate is
+Raph Rover is designed to be used with custom payloads. Main mounting plate is
 located at the top of the rover and has following characteristics:
 
 |                                  Parameter |                                                  Value                                                   |
@@ -316,13 +314,13 @@ located at the top of the rover and has following characteristics:
 the plate and buttons at the rear.
 
 <ThemedImageZoom
-  alt="Rapha Rover's mounting plate dimensions"
+  alt="Raph Rover's mounting plate dimensions"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-top-cover-dimensions-light.webp',
+      '/img/robots/raph/specification/raph-top-cover-dimensions-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-top-cover-dimensions-dark.webp',
+      '/img/robots/raph/specification/raph-top-cover-dimensions-dark.webp',
     ),
   }}
   width="1500"
@@ -334,11 +332,11 @@ the plate and buttons at the rear.
 />
 
 Apart from the mounting plate, it is possible to mount payloads directly to
-v-slot extrusions of the Rapha Rover.
+v-slot extrusions of the Raph Rover.
 
 #### Rover's external ports
 
-Rapha Rover has a special rear compartment provided as easy access to connect
+Raph Rover has a special rear compartment provided as easy access to connect
 many payloads. As default provided are following interfaces:
 
 | Interface  |                        Notes                         |
@@ -349,7 +347,7 @@ many payloads. As default provided are following interfaces:
 
 In addition, the rear compartment also includes a power panel with 3 sections,
 each with different voltage levels. Each section can be individually controlled
-by RaphaCore. Voltages available on power panel are:
+by RaphCore. Voltages available on power panel are:
 
 |    Voltage    |  Max power  |                                                                               Connector                                                                               |
 | :-----------: | :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -358,13 +356,13 @@ by RaphaCore. Voltages available on power panel are:
 | BAT (20-25 V) | 5 A (120 W) |       Phoenix Contact MSTB 2,5/ 2-ST-5,08 <br /> [example](https://www.tme.eu/en/details/mstb2.5_2-st-5.08/pluggable-terminal-blocks/phoenix-contact/1757019/)        |
 
 <ThemedImageZoom
-  alt="Rapha Rover's rear compartment overview"
+  alt="Raph Rover's rear compartment overview"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-rear-compartment-light.webp',
+      '/img/robots/raph/specification/raph-rear-compartment-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-rear-compartment-dark.webp',
+      '/img/robots/raph/specification/raph-rear-compartment-dark.webp',
     ),
   }}
   width="2000"
@@ -372,24 +370,24 @@ by RaphaCore. Voltages available on power panel are:
   caption="Rear compartment overview"
 />
 
-To ensure weather-tightness while accommodating additional payloads, the Rapha
+To ensure weather-tightness while accommodating additional payloads, the Raph
 Rover is equipped with specialized cable seals. To insert additional cables, it
 is necessary to dismantle the entire panel by loosening two thumb screws. Once
 the panel is disassembled, individual seals can be removed from the frame,
 allowing for the insertion of new cables.
 
-Rapha Rover comes with different seals, labeled as QT [Z]/[X] or QT [X], where Z
+Raph Rover comes with different seals, labeled as QT [Z]/[X] or QT [X], where Z
 indicates the number of holes in the seal and X indicates the diameter of the
 cable in millimeters.
 
 <ThemedImageZoom
-  alt="Rapha Rover's payload cable seals"
+  alt="Raph Rover's payload cable seals"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-cable-seals-light.webp',
+      '/img/robots/raph/specification/raph-cable-seals-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-cable-seals-dark.webp',
+      '/img/robots/raph/specification/raph-cable-seals-dark.webp',
     ),
   }}
   width="2000"
@@ -402,7 +400,7 @@ cable in millimeters.
 
 #### Additional mounting plates
 
-Beyond the primary mounting plate, the Rapha Rover offers the capability for
+Beyond the primary mounting plate, the Raph Rover offers the capability for
 integration with supplementary mounting plates as needed. These additional
 plates are colloquially known as "sandwich plates" due to their placement above
 the main mounting plate. This design ensures that a payload affixed to the Rover
@@ -430,13 +428,13 @@ mounting plate.
 | Mounting hole dimensions                                  | 5.4 mm, compatible with: <br /> M5 screws <br /> CLS-M4-1 press-in nuts [example](https://mou.sr/3VyUg39) |
 
 <ThemedImageZoom
-  alt="Rapha Rover's additional mounting plates dimensions"
+  alt="Raph Rover's additional mounting plates dimensions"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/mounting-plates-dimensions-light.webp',
+      '/img/robots/raph/specification/mounting-plates-dimensions-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/mounting-plates-dimensions-dark.webp',
+      '/img/robots/raph/specification/mounting-plates-dimensions-dark.webp',
     ),
   }}
   width="2000"
@@ -448,7 +446,7 @@ mounting plate.
 
 ### Overview
 
-Rapha Rover's software heavily relies on The
+Raph Rover's software heavily relies on The
 [Robot Operating System (ROS)](https://ros.org/) which offers the robot the
 following functionalities:
 
@@ -486,14 +484,12 @@ There are two important software components which don't run as native ROS nodes:
   communication with the ROS nodes.
 
 <ThemedImageZoom
-  alt="Overview of Rapha Rover's software components"
+  alt="Overview of Raph Rover's software components"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-software-light.webp',
+      '/img/robots/raph/specification/raph-software-light.webp',
     ),
-    dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-software-dark.webp',
-    ),
+    dark: useBaseUrl('/img/robots/raph/specification/raph-software-dark.webp'),
   }}
   width="2000"
   height="819"
@@ -518,7 +514,7 @@ There are two important software components which don't run as native ROS nodes:
         System and many more. Additionally, it publishes relevant information,
         including:
 
-        - State of the dynamic joints controlled by RaphaCore.
+        - State of the dynamic joints controlled by RaphCore.
         - Data retrieved from the onboard IMU sensor.
         - Power system status, comprising:
           - Battery voltages.
@@ -546,7 +542,7 @@ There are two important software components which don't run as native ROS nodes:
       <td>Camera Driver</td>
       <td>
         Publishes the data provided by the stereoscopic camera. In the default
-        configuration used in Rapha Rover, it includes:
+        configuration used in Raph Rover, it includes:
 
         - Images captured by the left, right and RGB (center) camera image sensors.
         - Calibration parameters for each image sensor.
@@ -577,18 +573,16 @@ There are two important software components which don't run as native ROS nodes:
 </table>
 
 <ThemedImageZoom
-  alt="Simplified graph of core ROS nodes running on Rapha Rover"
+  alt="Simplified graph of core ROS nodes running on Raph Rover"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-ros-nodes-light.webp',
+      '/img/robots/raph/specification/raph-ros-nodes-light.webp',
     ),
-    dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-ros-nodes-dark.webp',
-    ),
+    dark: useBaseUrl('/img/robots/raph/specification/raph-ros-nodes-dark.webp'),
   }}
   width="2000"
   height="856"
-  caption="Simplified graph of core ROS nodes running on Rapha Rover"
+  caption="Simplified graph of core ROS nodes running on Raph Rover"
 />
 
 Different robot applications will require running different sets of additional
@@ -606,10 +600,10 @@ solution can be simplified to 2 nodes:
   alt="ROS computation graph of an example autonomous navigation software"
   sources={{
     light: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-example-autonomous-navigation-light.webp',
+      '/img/robots/raph/specification/raph-example-autonomous-navigation-light.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/rapha/specification/rapha-example-autonomous-navigation-dark.webp',
+      '/img/robots/raph/specification/raph-example-autonomous-navigation-dark.webp',
     ),
   }}
   width="2000"
@@ -732,7 +726,7 @@ flexibility for different use cases:
 
 ### Web User Interface
 
-The beta version of the Rapha rover does not feature a User Interface (UI). The
+The beta version of the Raph rover does not feature a User Interface (UI). The
 software is fully operational in terms of functionality; however, the absence of
 a UI necessitates interaction through Command Line Interface (CLI) or other
 programming methods.

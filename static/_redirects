@@ -4,6 +4,8 @@
 /leo-rover/getting-started /leo-rover/documentation/getting-started 301
 /leo-rover/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
 /leo-rover/1.8/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
+/rapha-rover /raph-rover 301
+/rapha-rover/* /raph-rover/:splat 301
 
 # manuals redirects
 /leo-rover/manuals/wheels-to-meb /leo-rover/manuals/combining-subassemblies 301

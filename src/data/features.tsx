@@ -30,12 +30,12 @@ const FEATURES: FeatureItem[] = [
     ),
   },
   {
-    name: 'Rapha Rover',
+    name: 'Raph Rover',
     image: {
-      src: '/img/robots/rapha/rapha-rover.webp',
+      src: '/img/robots/raph/raph-rover.webp',
       width: 2000,
       height: 1500,
-      hyperlink: 'rapha-rover',
+      hyperlink: 'raph-rover',
       style: { width: 'auto', height: 300, paddingBottom: 20 },
     },
     text: (
