@@ -90,11 +90,11 @@ field of view by other parts of the Rover.
 
 We developed 3D printable models of mechanical interfaces that allow you to
 mount the aforementioned sensor to the mounting plate of the rover. Locating the
-sensor the top of the robot provides a wide field of view with not many
+sensor at the top of the robot provides a wide field of view with not many
 obstacles for the laser beam to get caught on. Get the files from here:
 [Addon Adapters](../addon-adapters).
 
-- With 2x M3x6 Allen screws connect the sensor to the printed interface plate.
+- With 2x M3x6 Allen screws, connect the sensor to the printed interface plate.
 - Use 4x M5x10 Allen screws to fasten the sensor to the Leo Rover.
 
 ## Wiring and electronics connection
@@ -109,7 +109,7 @@ might come in handy.
 
 <Product />
 
-With everything connected Leo Rover looks like this:
+With everything connected, Leo Rover looks like this:
 
 <ImageZoom
   src="/img/robots/leo/integrations/hokuyo-lidar/leo-with-hokuyo-lidar.webp"
@@ -292,6 +292,21 @@ topic. Choose the **LaserScan** display and click **Ok**.
   width="1362"
   height="727"
 />
+
+:::info
+
+Sometimes the scan data might not be visible as it will melt with the background.
+To fix this you need to change the color of the displayed laser.
+To do so, use the drop down arrow option from added **LaserScan** and set **Color Transformer** to **FlatColor**.
+As you do so, there will appear **Color** option which you can use to change the displayed laser.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/hokuyo-lidar/rviz-laser-color.webp"
+  width="1362"
+  height="727"
+/>
+
+:::
 
 You should now be able to see the data from the sensor visualized as points in
 3D space.
