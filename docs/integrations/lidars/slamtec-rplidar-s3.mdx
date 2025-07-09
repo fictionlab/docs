@@ -310,6 +310,22 @@ topic. Choose the **LaserScan** display and click **Ok**.
   height="727"
 />
 
+:::info
+
+Sometimes the scan data might not be visible as it will melt with the
+background. To fix this you need to change the color of the displayed laser. To
+do so, use the drop down arrow option from added **LaserScan** and set **Color
+Transformer** to **FlatColor**. As you do so, there will appear **Color** option
+which you can use to change the displayed laser.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/hokuyo-lidar/rviz-laser-color.webp"
+  width="1362"
+  height="727"
+/>
+
+:::
+
 You should now be able to see the data from the sensor visualized as points in
 3D space.
 
@@ -322,8 +338,7 @@ display.
   height="730"
 />
 
-Be sure to check `compressed` as the Transport Hint and `/camera/image_raw` as
-the Image Topic.
+Be sure to select `/camera/image_color` as the Image Topic.
 
 <ImageZoom
   src="/img/robots/leo/integrations/hokuyo-lidar/rviz-camera-topic.webp"
