@@ -1,0 +1,265 @@
+---
+title: Intel RealSense
+sidebar_label: Intel RealSense
+keywords:
+  - intel
+  - realsense
+  - rgb-d
+  - stereo
+  - camera
+  - integration
+  - autonomy
+  - leo
+  - example
+description: >-
+  Learn how to connect an Intel RealSense camera to your Leo Rover and integrate
+  it with the system using ROS.
+image: /img/robots/leo/integrations/intel-realsense/intel-realsense.webp
+---
+
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import LinkButton from '@site/src/components/LinkButton';
+
+In this tutorial we will present the process of connecting a RealSense camera to
+your Leo Rover and integrating it with the system on Intel RealSense D435i
+example.
+
+Intel RealSense stereo camera is a type of camera capable of capturing image
+from two points at the same time. Using stereo disparity - the difference in
+object location as seen by the left and right lenses - cameras like Intel
+RealSense are capable of distinguishing the distance of objects from the camera.
+This data can then be used to in a wide array of cases. In robotics, stereo
+cameras are commonly used for mapping the environment, object recognition, 3D
+scanning and in many other.
+
+## What to expect?
+
+Having finished the tutorial you will possess basic knowledge about the use of
+stereo cameras with ROS.
+
+<div className="video-container">
+  <LiteYouTubeEmbed
+    id="HBuKScxo90Q"
+    params="autoplay=0&autohide=1&showinfo=0&rel=0"
+    poster="hqdefault"
+    title="Leo Rover Unboxing and Getting Started"
+    webp
+  />
+</div>
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+
+## Mechanical integration
+
+RealSense cameras provide two mounting mechanisms:
+
+- One 1/4-20 UNC thread mounting point.
+- Two M3 thread mounting points.
+
+You can use those mechanisms, or print a special plate, and attach camera to it,
+and then mount the plate to the Rover.
+
+## Wiring and electronics connection
+
+For connecting the camera to your Rover you can use USB-C cable, as RealSense
+has USB-C 3.1 Gen 1 connector. You need to remove special plate on the back side
+of the camera, which covers the USB port, and you are ready to connect the
+camera through the USB port on the Rover.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/intel-realsense/intel-realsense.webp"
+  width="800"
+  height="800"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+## Software integration
+
+### Installing the packages
+
+As ROS `realsense2_camera` package is available as a debian package, we will
+install it using `apt`. To do so, connect to the rover via ssh, and type:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-realsense2-camera
+```
+
+We want also the description package, which includes 3D models of the device
+(those are required for some nodes). To install them type in the terminal:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-realsense2-description
+```
+
+:::info
+
+The version of librealsense2 is almost always behind the one available in
+RealSense™ official repository, but this way is much easier to install. If you
+want to install the newest version, you can follow
+[this tutorial](https://github.com/IntelRealSense/realsense-ros/blob/ros2-master/README.md#installation-on-ubuntu).
+
+:::
+
+### Adding camera model
+
+As we would like to have the robot aware of where the camera is, we need to
+create an URDF file with the RealSense included. On
+[this](https://github.com/IntelRealSense/realsense-ros/tree/ros2-master/realsense2_description/urdf)
+site you can see which urdf camera models are available in the
+`realsense2_description` package. Each of the files there has a `xacro macro`
+with a lot of properties. We need to include the correct macro to make the
+camera visible with the robot's model.
+
+```xml title="/etc/ros/urdf/realsense.urdf.xacro"
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+
+  <xacro:sensor_d435i parent="base_link" name="d435i_camera">
+    <origin xyz="0.132 0 0.0102" rpy="0 0.0872 0"/>
+  </xacro:sensor_d435i>
+
+</robot>
+```
+
+You can specify `name` property to anything you want. We just need to change it,
+so we don't have conflicts on `camera_link` tf frame. `origin` property is for
+specifying the position of the camera regarding the link specified in parent
+property. So if the `parent` property is set to "base_link", the position in
+`origin` property is regarding the origin of the Rover.
+
+:::warning
+
+If you are not using our mounting adapter you might have to change the values in
+`origin` property.
+
+:::
+
+Now we have to include our camera model in `robot.urdf.xacro` file - the
+description that is uploaded at boot. Add this line somewhere before the closing
+`</robot>` tag.
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+<xacro:include filename="/etc/ros/urdf/realsense.urdf.xacro"/>
+```
+
+### Launching camera nodes on system startup
+
+To get the image from camera, you need to launch the camera nodes. You can
+simply do it by typing in terminal those commands
+
+```bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
+ros2 launch realsense2_camera rs_launch.py camera_name:=d435i_camera camera_namespace:=/
+```
+
+You need to specify the `camera_name` argument because of the tf frame
+conflicts. You have to put the same value as in the `urdf` file. We set here the
+`camera_namespace` argument for convenience - default value for it is "camera",
+which is the same as the robot's default camera. Therefore setting the argument
+to empty string will automatically put the node's topics into global namespace.
+
+We can create a launch file that would start the node with a fitting
+configuration.
+
+```xml title="/etc/ros/realsense.launch.xml"
+<launch>
+  <include file="$(find-pkg-share realsense2_camera)/launch/rs_launch.py">
+    <arg name="camera_namespace" value=""/>
+    <arg name="camera_name" value="d435i_camera"/>
+  </include>
+</launch>
+```
+
+:::warning
+
+Make sure to specify the `camera_name` argument to the right value. You need
+that for working camera model in visualization.
+
+:::
+
+:::info
+
+You can check what other options you can specify directly in the file by running
+in terminal
+
+```bash
+ros2 launch realsense2_camera rs_launch.py -s
+```
+
+:::
+
+Include the launch file in the `robot.launch.xml` file somewhere before the
+closing `</launch>` tag, so that the node starts at boot.
+
+```xml title="/etc/ros/robot.launch.xml"
+<include file="/etc/ros/realsense.launch.xml"/>
+```
+
+Now, the realsense camera node will be launched with every system startup. You
+can also force this start right now with
+
+```bash
+ros-nodes-restart
+```
+
+## Examples
+
+### Reading and visualizing the data
+
+The topics from camera node should be now visible. You can check them with
+`ros2 topic` tool - topics from your node will have prefix and namespace
+specified by you in the `camera` and `camera_namespace` ROS arguments.
+
+If you have ROS installed on your computer, you can get the camera image with
+`rqt`, and see the robot model with camera attached using `rviz2`.
+
+In `rqt` go to **plugins** -> **visualization** choose **image view** and then
+choose your topic.
+
+:::note
+
+Don't worry if the quality is low, and the image is lagging. It is due to
+transfer of the data through your rover and computer.
+
+:::
+
+You can also start RViz, and add **robot model** in the **display** view. Choose
+also `base_link` as **fixed frame**, and you should see the rover model with
+camera attached.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/intel-realsense/rviz-realsense.webp"
+  width="1362"
+  height="729"
+/>
+
+You can also display `tf tree` in rqt, to see if everything is configured
+correctly (**plugins** -> **visualization** -> **TF Tree**)
+
+<ImageZoom
+  src="/img/robots/leo/integrations/intel-realsense/realsense-tf-tree.webp"
+  width="1274"
+  height="532"
+/>
+
+## What next?
+
+Stereo cameras are commonly used in projects involving
+[autonomous navigation](/leo-rover/1.8/advanced-guides/autonomous-navigation),
+you might be interested in a tutorial about it.
+
+They are however, not the only way of teaching a Leo Rover how to move on it's
+own. Check out our [line follower](/leo-rover/1.8/leo-examples/line-follower)
+tutorial if you want to learn more. You can also check our
+[Integrations page](/integrations) for more instructions.
