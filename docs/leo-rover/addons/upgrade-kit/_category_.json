@@ -1,0 +1,7 @@
+{
+  "label": "Upgrade Kit",
+  "position": 2,
+  "collapsible": true,
+  "collapsed": true,
+  "link": { "type": "doc", "id": "upgrade-kit" }
+}
