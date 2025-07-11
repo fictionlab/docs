@@ -147,21 +147,22 @@ sudo apt install ros-${ROS_DISTRO}-urg-node
 Now, create a launch file that would start the node with a fitting
 configuration.
 
-```xml title="/etc/ros/laser.launch"
+```xml title="/etc/ros/laser.launch.xml"
 <launch>
-  <node name="urg_node" pkg="urg_node" type="urg_node" output="log">
-    <param name="port" value="/dev/lidar"/>
-    <param name="frame_id" value="laser_frame"/>
+  <node pkg="urg_node" exec="urg_node_driver" output="log">
+    <param name="serial_port" value="/dev/lidar"/>
+    <param name="serial_baud" value="115200"/>
+    <param name="laser_frame_id" value="laser_frame"/>
     <param name="calibrate_time" value="true"/>
   </node>
 </launch>
 ```
 
-Include your launch file in the `robot.launch` file, so that your node will
+Include your launch file in the `robot.launch.xml` file, so that your node will
 start at boot.
 
-```xml title="/etc/ros/robot.launch"
-<include file="/etc/ros/laser.launch"/>
+```xml title="/etc/ros/robot.launch.xml"
+<include file="/etc/ros/laser.launch.xml"/>
 ```
 
 Your robot should be aware of where the scanner is located and what space it
@@ -178,7 +179,7 @@ occupies. You can ensure it does that by creating a URDF model of the sensor.
         <box size="0.079 0.05 0.006"/>
       </geometry>
       <material name="support">
-        <color rgba="0.5 0.5 0.5 1.0"/>
+        <color rgba="1.0 0.0 0.0 0.7"/>
       </material>
     </visual>
     <visual>
@@ -235,10 +236,10 @@ STL or COLLADA format.
 
 :::
 
-The last step is to either reboot the robot or restart the leo service.
+The last step is to either reboot the robot or restart the nodes.
 
 ```bash
-sudo systemctl restart leo
+ros-nodes-restart
 ```
 
 ## Examples
@@ -246,11 +247,11 @@ sudo systemctl restart leo
 ### Reading and visualizing the data of the Hokuyo laser scanner
 
 The robot should now publish the
-[LaserScan messages](http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html)
+[LaserScan messages](https://docs.ros2.org/latest/api/sensor_msgs/msg/LaserScan.html)
 on the `/scan` topic. You can check the raw data that it sends by typing:
 
 ```bash
-rostopic echo /scan
+ros2 topic echo /scan
 ```
 
 If you have ROS installed on your computer, you can get a more graphical
@@ -264,33 +265,49 @@ guide:
   Step-by-step guide for beginners."
 />
 
-Before starting RViz, make sure you completed the **Connecting another computer
-to ROS network** section of **ROS Development** tutorial:
-
-<LinkButton
-  to="/leo-rover/1.8/advanced-guides/ros-development"
-  title="ROS Development"
-  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
-  additional functionalities, building ROS packages and more."
-/>
-
-Now, open RViz by typing `rviz` in the terminal, or, if you have the `leo_viz`
+Now, open RViz by typing `rviz2` in the terminal, or, if you have the `leo_viz`
 package installed, type:
 
 ```bash
-roslaunch leo_viz rviz.launch
+ros2 launch leo_viz rviz.launch.xml
 ```
 
 This will start RViz with visualization of the current robot model.
+
+:::info
+
+You can easily install the `leo_viz` package with this command
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-desktop
+```
+
+:::
 
 On the Displays panel click **Add** -> **By topic** and search for the `/scan`
 topic. Choose the **LaserScan** display and click **Ok**.
 
 <ImageZoom
-  src="/img/robots/leo/1.8/integrations/hokuyo-lidar/rviz-laser-scan.webp"
+  src="/img/robots/leo/integrations/hokuyo-lidar/rviz-laser-scan.webp"
   width="1362"
   height="727"
 />
+
+:::info
+
+Sometimes the scan data might not be visible as it will melt with the
+background. To fix this you need to change the color of the displayed laser. To
+do so, use the drop down arrow option from added **LaserScan** and set **Color
+Transformer** to **FlatColor**. As you do so, there will appear **Color** option
+which you can use to change the displayed laser.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/hokuyo-lidar/rviz-laser-color.webp"
+  width="1362"
+  height="727"
+/>
+
+:::
 
 You should now be able to see the data from the sensor visualized as points in
 3D space.
@@ -299,16 +316,15 @@ To put the points into the camera image, you can also add the **Camera**
 display.
 
 <ImageZoom
-  src="/img/robots/leo/1.8/integrations/hokuyo-lidar/rviz-add-camera.webp"
+  src="/img/robots/leo/integrations/hokuyo-lidar/rviz-add-camera.webp"
   width="1364"
   height="730"
 />
 
-Be sure to check `compressed` as the Transport Hint and `/camera/image_raw` as
-the Image Topic.
+Be sure to select `/camera/image_color` as the Image Topic.
 
 <ImageZoom
-  src="/img/robots/leo/1.8/integrations/hokuyo-lidar/rviz-camera-topic.webp"
+  src="/img/robots/leo/integrations/hokuyo-lidar/rviz-camera-topic.webp"
   width="1365"
   height="729"
 />
