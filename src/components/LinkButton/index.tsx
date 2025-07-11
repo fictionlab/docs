@@ -10,6 +10,7 @@ import type {
   PropSidebarItemLink,
   PropVersionDoc,
 } from '@docusaurus/plugin-content-docs';
+import Link from '@docusaurus/Link';
 
 export interface LinkButtonProps {
   to?: string;
@@ -100,7 +101,7 @@ export default function LinkButton(props: LinkButtonProps) {
   }
 
   return (
-    <a href={link} className={styles.ButtonContainer}>
+    <Link to={link} className={styles.ButtonContainer}>
       <div className={styles.TitleContainer}>
         <span className={styles.IconContainer}>{icon}</span>
         <span>{title}</span>
@@ -113,6 +114,6 @@ export default function LinkButton(props: LinkButtonProps) {
       <div className={styles.ArrowContainer}>
         <i className={styles.Arrow}> </i>
       </div>
-    </a>
+    </Link>
   );
 }

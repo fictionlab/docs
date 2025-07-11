@@ -1,10 +1,14 @@
-/docs/leo-rover /leo-rover 301
-/docs/leo-rover/* /leo-rover/:splat 301
+/docs/* /:splat 301
 /leo-rover/integrations /integrations 301
 /leo-rover/integrations/* /integrations/:splat 301
-/category/assembly-manuals /leo-rover/manuals 301
-/leo-rover/manuals/wheels-to-meb /leo-rover/manuals/combining-subassemblies 301
 /leo-rover/getting-started /leo-rover/documentation/getting-started 301
+/leo-rover/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
+/leo-rover/1.8/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
+/rapha-rover /raph-rover 301
+/rapha-rover/* /raph-rover/:splat 301
+
+# manuals redirects
+/leo-rover/manuals/wheels-to-meb /leo-rover/manuals/combining-subassemblies 301
 /leo-rover/manuals/tools /leo-rover/manuals/setup 301
 /leo-rover/manuals/battery /leo-rover/manuals/back-front-covers 301
 /leo-rover/manuals/additional-quarter-and-front-cover /leo-rover/manuals/back-front-covers 301
@@ -12,7 +16,9 @@
 /leo-rover/manuals/software /leo-rover/manuals/boot-and-firmware 301
 /leo-rover/manuals/final-touches /leo-rover/manuals/combining-subassemblies 301
 
+# category redirects
 /category/rover-documentation /leo-rover/documentation 301
+/category/assembly-manuals /leo-rover/manuals 301
 /category/rover-manuals /leo-rover/manuals 301
 /category/leo-examples /leo-rover/leo-examples 301
 /category/addons /leo-rover/addons 301
@@ -26,3 +32,25 @@
 /category/guides /leo-rover/guides 301
 /category/advanced-guides /leo-rover/advanced-guides 301
 /category/archive /leo-rover/archive 301
+
+# temp redirects for leo examples and avanced guides (REMOVE after adding new examples)
+/leo-rover/leo-examples /leo-rover/1.8/leo-examples 302
+/leo-rover/leo-examples/* /leo-rover/1.8/leo-examples/:splat 302
+/leo-rover/advanced-guides /leo-rover/1.8/advanced-guides 302
+/leo-rover/advanced-guides/* /leo-rover/1.8/advanced-guides/:splat 302
+
+# integrations redirects REMOVE after adding new integrations
+/integrations/lidars /integrations/noetic/lidars 302
+/integrations/lidars/* /integrations/noetic/lidars/:splat 302
+/integrations/cameras /integrations/noetic/cameras 302
+/integrations/cameras/* /integrations/noetic/cameras/:splat 302
+/integrations/computing-devices /integrations/noetic/computing-devices 302
+/integrations/computing-devices/* /integrations/noetic/computing-devices/:splat 302
+/integrations/legacy /integrations/noetic/legacy 302
+/integrations/legacy/* /integrations/noetic/legacy/:splat 302
+/integrations/software /integrations/noetic/software 302
+/integrations/software/* /integrations/noetic/software/:splat 302
+/integrations/positioning-systems /integrations/noetic/positioning-systems 302
+/integrations/positioning-systems/* /integrations/noetic/positioning-systems/:splat 302
+/integrations/robotic-arms /integrations/noetic/robotic-arms 302
+/integrations/robotic-arms/* /integrations/noetic/robotic-arms/:splat 302
