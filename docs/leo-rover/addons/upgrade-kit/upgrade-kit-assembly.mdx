@@ -13,127 +13,802 @@ description: >-
 image: '/img/robots/leo/documentation/upgrade-kit/upgrade-kit001.webp'
 ---
 
+import FlexTable from '@site/src/components/FlexTable';
+import FlexTableItem from '@site/src/components/FlexTableItem';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Product from '@site/src/products/upgrade-kit.mdx';
-
-<ImageZoom
-  loading="eager"
-  src="/img/robots/leo/documentation/upgrade-kit/upgrade-kit001.webp"
-  width="4000"
-  height="3000"
-/>
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 
 ## Referenced products
 
 <Product />
 
-## Preparation
+## Prerequisites
 
-### Assembly time
+- Assembled Leo Rover 1.8
 
-5 minutes
+## Tools needed
 
-### Prerequisites
+- Torx t20 screwdriver
+- Torx t06 screwdriver
+- 3mm hex key
+- 2.5mm hex key
+- 2.0mm hex key
+- Phillips ph1 screwdriver
 
-- assembled Leo Rover 1.8 (not included)
+## Leo Rover 1.8 disassembly
 
-### Tools needed
+<span style={{ color: '#bf7b2c', fontSize: '200%' }}>
+  **Time ≈ 30 minutes**
+</span>
 
-- 3mm hex key (metric)
+### Step 1
 
-<ImageZoom
-  loading="eager"
-  src="/img/robots/leo/documentation/charging-station/charging-station-1.webp"
-  width="1400"
-  height="933"
+<ThemedImageZoom
+  alt="Remove battery and battery cable"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_battery_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_battery_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Remove battery and battery cable"
 />
 
-## Step 1: Charging station assembly
+---
 
-**Prepare:**
+### Step 2
 
-- Charging station
-- ArUco tag board
-- 3A Charger
-
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-2.webp"
-  width="1200"
-  height="800"
+<ThemedImageZoom
+  alt="Remove MEB cover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_cover_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_cover_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Remove MEB cover"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-3.webp"
-  width="1200"
-  height="800"
-  caption="Unscrew knurled screw from the station"
+---
+
+### Step 3
+
+<ThemedImageZoom
+  alt="Remove welcome plate"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_modem_adapter_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_modem_adapter_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Remove welcome plate"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-4.webp"
-  width="1200"
-  height="1800"
-  caption="Insert ArUco tag board into slot on the station and secure the tag using the knurled screw."
+---
+
+### Step 4
+
+<ThemedImageZoom
+  alt="Detach cables from MEB"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_cables_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_cables_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Remove all cable clips, zip ties. Detach all cables from the electronics."
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-5.webp"
-  width="1200"
-  height="800"
-  caption="Plug the charger into the weipu socket at the back of the charging station."
+---
+
+### Step 5
+
+<ThemedImageZoom
+  alt="Detaching MEB box"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_MEB_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_MEB_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Detach MEB box from the frame by removing all screwsholding it in place."
 />
 
-## Step 2: Replacement of MEB cover
+---
 
-**Prepare**:
+### Step 6
 
-- assembled Leo Rover 1.8 (not included with Charging station)
-- 3mm hex key (metric)
-- modified MEB cover with charging pads
-- 4x M4x12 ISO 4762 screws
-
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-6.webp"
-  width="1200"
-  height="900"
+<ThemedImageZoom
+  alt="Detaching electronics"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_electronics_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_electronics_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Detach all internal electronics"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-7.webp"
-  width="1200"
-  height="800"
-  caption="Remove stock MEB cover from the rover using 3mm hex key"
+---
+
+### Step 7
+
+<ThemedImageZoom
+  alt="Sliding SD card into the RPi"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/meb/A_rpi_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/meb/A_rpi_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Remove SD card from the Raspberry Pi"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-8.webp"
-  width="1200"
-  height="800"
+:::warning
+
+Flashing new operating system, during one of the next steps, will erase all data
+it contains.<br /> If you do not want to loose ALL DATA on the SD card, use a
+different SD card for the new Raspberry Pi.
+
+:::
+
+---
+
+<ThemedImageZoom
+  alt="Detaching antenna"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_antenna_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_antenna_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Detach antenna and antenna cable"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-9.webp"
-  width="1200"
-  height="800"
-  caption="Unplug barrel-jack cable from LeoCore"
+---
+
+### Step 8:
+
+<ThemedImageZoom
+  alt="Detaching wheels"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_Wheels_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_Wheels_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Detach wheels"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-10.webp"
-  width="1200"
-  height="800"
-  caption="Connect the male plug disconnected in previous step into modified MEB cover.
-    Plug the other end of the wire back into LeoCore."
+---
+
+### Step 9:
+
+<ThemedImageZoom
+  alt="Detaching motor mounts"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_motor_mount_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_motor_mount_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Detach motor mount from all 4 wheels"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-11.webp"
-  width="1200"
-  height="800"
+---
+
+### Step 10
+
+<ThemedImageZoom
+  alt="Detaching side rails"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_side_beams_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/R_side_beams_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Detach side rails from the frame"
 />
 
-<ImageZoom
-  src="/img/robots/leo/documentation/charging-station/charging-station-12.webp"
-  width="1200"
-  height="800"
-  caption="Use the same screws you've removed in the first step to fasten new cover in place."
+---
+
+## Leo Rover 1.9 Re-assembly
+
+<span style={{ color: '#bf7b2c', fontSize: '200%' }}>
+  **Time ≈ 60 minutes**
+</span>
+
+### Step 1
+
+<ThemedImageZoom
+  alt="MEB Leo Rover 1.9"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/MEB_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/MEB_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Follow the tutorial below to assemble the new MEB for Leo Rover 1.9"
 />
+<LinkButton docId="manuals/main-electronics-box-meb" />
+
+### Step 2
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="2x V-slot rocker beam"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/manuals/frame/V-slot_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/frame/V-slot_white.webp'),
+            }}
+            width="1500"
+            height="1500"
+            caption='2x V-slot rocker beam'
+          />
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="2x Right rocker arm"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/frame/Right_rocker_arm_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/frame/Right_rocker_arm_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="2x Right rocker arm"
+  />
+</FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="2x Left rocker arm"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/frame/Left_rocker_arm_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/frame/Left_rocker_arm_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="2x Left rocker arm"
+  />
+</FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="16x M5x8 FBHCS"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/manuals/frame/16xM5x8_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/frame/16xM5x8_white.webp'),
+    }}
+    width="1500"
+    height="1500"
+    caption="16x M5x8 FBHCS"
+  />
+</FlexTableItem>
+
+     <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '30%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="16x T-nut M5"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/manuals/frame/16xM5_tnut_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/frame/16xM5_tnut_white.webp'),
+            }}
+            width="1500"
+            height="1500"
+            caption='16x T-nut M5'
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Assembly rocker arms"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/frame/A_rockers_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/frame/A_rockers_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Assemble the rocker arms using provided parts."
+/>
+
+:::info
+
+Source the screws and t-nuts from the dissassembled side beams. <br /> Repeat
+the process until you have 2 side beams with rocker arms attached.
+
+:::
+
+<ThemedImageZoom
+  alt="Assembled rocker arms"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/frame/rocker_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/frame/rocker_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+---
+
+### Step 3
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="Step 2 assembly"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/documentation/upgrade-kit/Half_assembled_leo_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/documentation/upgrade-kit/Half_assembled_leo_white.webp'),
+            }}
+            width="2300"
+            height="2400"
+            caption='Half assembled Leo Rover'
+          />
+  </FlexTableItem>
+
+    <FlexTableItem
+    style={{
+      width: '30%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+            alt="4x Nut M5"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/manuals/frame/4xM5_nut_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/frame/4xM5_nut_white.webp'),
+            }}
+            width="2300"
+            height="2400"
+            caption="4x Nut M5"
+          />
+
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="4x M5x45 CHCS"
+    sources={{
+      light: useBaseUrl('/img/robots/leo/manuals/frame/4xM5x45_black.webp'),
+      dark: useBaseUrl('/img/robots/leo/manuals/frame/4xM5x45_white.webp'),
+    }}
+    width="2300"
+    height="2400"
+    caption="4x M5x45 CHCS"
+  />
+</FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Assembly side beams"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_sides_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_sides_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Attach rockers to the sides of the rover."
+/>
+
+---
+
+### Step 4
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Battery"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/battery_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/battery_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="Battery"
+  />
+  </FlexTableItem>
+  
+  <FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+  >
+  <ThemedImageZoom
+    alt="MEB - Battery cable"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/MEB_battery_cable_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/MEB_battery_cable_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="MEB - Battery cable"
+  />
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Attaching MEB box"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_MEB_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_MEB_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Attach the main electronics box (MEB) to the frame."
+/>
+
+---
+
+### Step 5
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Battery"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/battery_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/battery_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="Battery"
+  />
+  </FlexTableItem>
+  
+  <FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+  >
+  <ThemedImageZoom
+    alt="MEB - Battery cable"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/MEB_battery_cable_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/full-assembly/MEB_battery_cable_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="MEB - Battery cable"
+  />
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Attaching new motor mounts"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_battery_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_battery_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Attach MEB - battery cable and the battery."
+/>
+
+---
+
+### Step 6
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    alt="Motor"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/documentation/upgrade-kit/motor_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/documentation/upgrade-kit/motor_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="Motor"
+  />
+  </FlexTableItem>
+  
+  <FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '30%',
+  }}
+  mobileColumns={2}
+  >
+  <ThemedImageZoom
+    alt="Motor mount"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/manuals/wheel/mount_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/manuals/wheel/mount_white.webp',
+      ),
+    }}
+    width="1500"
+    height="1500"
+    caption="Motor mount"
+  />
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Attaching new motor mounts"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_motor_mount_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_motor_mount_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Attach new motor mounts to the wheels"
+/>
+
+---
+
+### Step 7
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '30%'
+    }}mobileColumns={2}>
+      <ThemedImageZoom
+            alt="2x M4x20 SHCS"
+            sources={{
+              light: useBaseUrl('/img/robots/leo/manuals/wheel/M4x20_black.webp'),
+              dark: useBaseUrl('/img/robots/leo/manuals/wheel/M4x20_white.webp'),
+            }}
+            width="1500"
+            height="1500"
+            caption='2x M4x20 SHCS'
+          />
+
+  </FlexTableItem>
+</FlexTable>
+
+<ThemedImageZoom
+  alt="Attaching new motor mounts"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_motor_mount_2_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/documentation/upgrade-kit/A_motor_mount_2_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Push the mount all the way to the bearing and tighten the screws."
+/>
+
+:::note
+
+Repeat steps 6 and 7 for all 4 wheels.
+
+:::
+
+### Step 8
+
+<ThemedImageZoom
+  alt="rover"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/manuals/tools/note_1.9_black.webp'),
+    dark: useBaseUrl('/img/robots/leo/manuals/tools/note_1.9_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  caption="Follow steps 6 through 13 from the tutorial below to finish the assembly."
+/>
+
+<LinkButton docId="manuals/combining-subassemblies" />
+
+:::success
+
+Mechanically that's it. Good job!
+
+:::
