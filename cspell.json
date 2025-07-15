@@ -136,6 +136,7 @@
         "ublox",
         "UEFI",
         "URDF",
+        "uros",
         "velodyne",
         "WEIPU",
         "widowx",
@@ -168,5 +169,6 @@
     ],
     "numSuggestions": 8,
     "caseSensitive": false,
-    "allowCompoundWords": true
+    "allowCompoundWords": true,
+    "enabled": true
 }
