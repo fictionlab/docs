@@ -152,8 +152,8 @@ const config: Config = {
               to: '/leo-rover',
             },
             {
-              label: 'Rapha Rover',
-              to: '/rapha-rover',
+              label: 'Raph Rover',
+              to: '/raph-rover',
             },
           ],
         },
@@ -278,10 +278,10 @@ const config: Config = {
     [
       'content-docs',
       {
-        id: 'rapha-rover',
-        path: 'docs/rapha-rover',
-        routeBasePath: 'rapha-rover',
-        sidebarPath: './sidebars/RaphaSidebars.ts',
+        id: 'raph-rover',
+        path: 'docs/raph-rover',
+        routeBasePath: 'raph-rover',
+        sidebarPath: './sidebars/RaphSidebars.ts',
         editUrl: 'https://github.com/fictionlab/docs/edit/development/',
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],

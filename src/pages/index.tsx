@@ -107,7 +107,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`Fictionlab documentation`}
-      description="Fictionlab documentation, tutorials & manuals for Leo, Rapha and Turtle Rovers. "
+      description="Fictionlab documentation, tutorials & manuals for Leo, Raph and Turtle Rovers. "
     >
       <HomepageHeader />
       <FeaturesContainer />
