@@ -34,11 +34,11 @@ Firstly, you will have to connect to the Rover's network:
   Step-by-step guide for beginners."
 />
 
-For the purpose of autonomous navigation, we prepared the leo_navigation package which makes use of many other packages available 
+For the purpose of autonomous navigation, we prepared the `leo_nav` package which makes use of many other packages available 
 in ROS to provide autonomous capabilities. You won't have to write a single line of code, but some configuration 
 may need to be tweaked to work best in your environment.
 
-To complete this tutorial, yow will need one on the following 2D LiDAR sensors:
+To complete this tutorial, you will need one on the following 2D LiDAR sensors:
 
 <LinkButton
   to="/integrations/lidars/hokuyo-ug-04lx-ug01"
@@ -100,7 +100,7 @@ There are a few things you will need to prepare on Leo Rover and on your compute
 in order to use the software for autonomous navigation.
 
 ### On Leo Rover
-You will need to build the `leo_navigation` package first. To do this, start by accessing
+You will need to build the `leo_nav` package first. To do this, start by accessing
 a remote terminal session on Leo Rover by logging in via SSH:
 
 <LinkButton
@@ -120,7 +120,7 @@ cd ~/ros_ws/src
 Clone the `leo_nav` package from the Leo Rover GitHub repository:
 
 ```bash
-git clone -b ros2 https://github.com/LeoRover/leo_navigation.git
+git clone -b ros2 https://github.com/LeoRover/leo_navigation_tutorial.git
 ```
 
 Use `rosdep` to install the dependencies:
@@ -185,14 +185,24 @@ After verifying transforms, sensor data and remapping the topics, you can launch
 Navigation software consists of two main parts: SLAM Toolbox and Navigation (Nav2) Stack. We recommend checking
 the SLAM Toolbox functionality first before proceeding with the Nav2 Stack and launching full navigation.
 
+Here's the diagram of the simplified system architecture:
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Simplified system architecture"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/system-architecture-light.webp'),
+    dark: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/system-architecture-dark.webp'),
+  }}
+  width="661"
+  height="489"
+/>
+
 ## SLAM Toolbox
 
-SLAM (Simultaneous Localization and Mapping) is a problem of constructing a map of the environment while simultaneously 
-keeping track of the robot within it. It is hard because a map is needed for localization and a good pose estimate is 
-needed for mapping, so this appears to be chicken-and-egg problem. 
-
-In `leo_nav` package SLAM Toolbox is used to provide SLAM capabilities. It uses the LiDAR data to create a map 
-of the environment and publish `map -> odom` transformation, which is used by the Nav2 Stack for localization.
+In `leo_nav` package SLAM Toolbox is used to provide [Simultaneous Localization and Mapping](https://www.mathworks.com/discovery/slam.html) 
+capabilities. It uses the LiDAR data to create a map of the environment and publish `map -> odom` transformation, 
+which is used by the Nav2 Stack for localization.
 
 To launch the SLAM Toolbox on your Leo Rover you can use the provided launch file:
 
@@ -282,6 +292,19 @@ Nav2 stack in `leo_nav` package consists of:
 - [Waypoint Follower](https://docs.nav2.org/configuration/packages/configuring-waypoint-follower.html): responsible for following the waypoints in the planned path.
 - [Lifecycle Manager](https://docs.nav2.org/configuration/packages/configuring-lifecycle.html): responsible for managing the lifecycle of the navigation components.
 
+The architecture of the Nav2 Stack is shown in the diagram below:
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Nav2 Stack architecture"
+  sources={{
+    light: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/nav2-architecture-light.webp'),
+    dark: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/nav2-architecture-dark.webp'),
+  }}
+  width="678"
+  height="472"
+/>
+
 These components work together to provide autonomous navigation capabilities for the Leo Rover.
 
 To launch the Nav2 Stack in its default configuration, you can use the provided launch file:
@@ -355,9 +378,36 @@ ros2 launch leo_nav navigation.launch.xml use_stereo_camera:=true
 ```
 
 ## AMCL localization
-AMCL (Adaptive Monte Carlo Localization) is a probabilistic localization system for a robot moving in 2D.
-It uses a particle filter to track the pose of the robot against a known map. AMCL is used in the `leo_nav` package to provide 
-localization capabilities when the robot is already mapped. It replaces the SLAM Toolbox in the navigation process
-when the `localization` argument is set to true in the `navigation.launch.xml` file.
+[AMCL](https://robots.stanford.edu/papers/fox.aaai99.pdf) is used in the `leo_nav` package to provide localization capabilities when the robot is already mapped.
+It replaces the SLAM Toolbox in the navigation process when the `localization` argument is set to true in
+the `navigation.launch.xml` file. Its configuration can be found in the `config/amcl.yaml`. To get more 
+information about the parameters, visit the [AMCL documentation](https://docs.nav2.org/configuration/packages/configuring-amcl.html).
 
-//TODO finish AMCL section
+To launch the navigation system with AMCL localization, use the following command:
+
+```bash
+ros2 launch leo_nav navigation.launch.xml localization:=true map_file:=/path/to/your/map.yaml
+```
+
+This will replace the SLAM Toolbox with AMCL and use the provided map file for localization. The map can be obtained for example
+by running the SLAM Toolbox in mapping mode and saving the map using the built in `map_saver` wrapper:
+
+```bash
+ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'map_name'}}"
+```
+
+For AMCL to start working, you need to specify the estimated position of the robot in the map. You can do this
+by setting the initial pose in RViz2 using the 2D Pose Estimate tool (highlighted in the image below) located at the top of the RViz2 window.
+
+//TODO image of RViz2 2D Pose Estimate tool
+
+After setting the initial pose, you can send navigation goals as before, and the robot should be able to localize itself
+and navigate to the goal using the provided map.
+
+:::note
+
+Don't worry if you have minor inaccuracies in the initial pose, AMCL will correct them over time as it receives more sensor data when the robot moves.
+
+:::
+
+// TODO AMCL screenshots
