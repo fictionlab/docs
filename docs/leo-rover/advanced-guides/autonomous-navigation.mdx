@@ -10,13 +10,14 @@ description: >-
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 
-In this tutorial, you will learn how to set up autonomous navigation for your Leo Rover. 
-This guide covers the necessary steps and configurations to enable autonomous movement. 
-Autonomous navigation can be setup with any 2D LiDAR compatible with Leo Rover
-and an optional stereo camera - here Oak-D stereo camera is used.
+In this tutorial, you will learn how to set up autonomous navigation for your
+Leo Rover. This guide covers the necessary steps and configurations to enable
+autonomous movement. Autonomous navigation can be setup with any 2D LiDAR
+compatible with Leo Rover and an optional stereo camera - here Oak-D stereo
+camera is used.
 
-This will allow your Leo Rover to navigate autonomously in an unknown environment
-or navigate on a pre-made map.
+This will allow your Leo Rover to navigate autonomously in an unknown
+environment or navigate on a pre-made map.
 
 ## Prerequisites
 
@@ -30,6 +31,7 @@ Firstly, you will have to connect to the Rover's network:
 />
 
 {/* Change to 1.9 version when it is created */}
+
 <LinkButton
   to="/leo-rover/1.8/advanced-guides/install-ros-on-your-computer"
   title="Install ROS on your computer"
@@ -37,12 +39,13 @@ Firstly, you will have to connect to the Rover's network:
   Step-by-step guide for beginners."
 />
 
-For the purpose of autonomous navigation, we prepared the `leo_nav` package which makes use of many other packages available 
-in ROS to provide autonomous capabilities. You won't have to write a single line of code, but some configuration 
-may need to be tweaked to work best in your environment.
+For the purpose of autonomous navigation, we prepared the `leo_nav` package
+which makes use of many other packages available in ROS to provide autonomous
+capabilities. You won't have to write a single line of code, but some
+configuration may need to be tweaked to work best in your environment.
 
-To complete this tutorial, you will need a 2D LiDAR sensor compatible with Leo Rover.
-You can find the list of compatible sensors here:
+To complete this tutorial, you will need a 2D LiDAR sensor compatible with Leo
+Rover. You can find the list of compatible sensors here:
 
 <LinkButton
   to="/integrations/lidars"
@@ -50,8 +53,8 @@ You can find the list of compatible sensors here:
   description="List of LiDAR sensors compatible with Leo Rover."
 />
 
-And optionally, you can use a compatible stereo camera for better navigation capabilities.
-The examples of stereo cameras compatible with Leo Rover are:
+And optionally, you can use a compatible stereo camera for better navigation
+capabilities. The examples of stereo cameras compatible with Leo Rover are:
 
 <LinkButton
   to="/integrations/cameras"
@@ -67,33 +70,36 @@ The examples of stereo cameras compatible with Leo Rover are:
   depth perception and obstacle avoidance."
 />
 
-Make sure you are operating on the latest LeoOS image for the Raspberry Pi and you
-are up-to-date with the packages and have the newest firmware flashed.
+Make sure you are operating on the latest LeoOS image for the Raspberry Pi and
+you are up-to-date with the packages and have the newest firmware flashed.
 
 You will also need to have ROS installed on your computer and some previous
 experience with ROS is recommended.
 
-## Veryfing sensor data
+## Verifying sensor data
 
-Before you start configuring the navigation, it's a good idea to verify that your 
-sensors are working correctly and publishing data. LiDAR sensors should be publishing
-scan data on the ROS topic (autonomous package uses `/scan` as default), and the stereo
-camera (if used) should be publishing either depth data (`/oak/stereo/image_raw` by default) or
-pointcloud data (`/oak/points` by default). If there is no data being published,
-you should check the sensor connections and integration. If the data is being published
-on a different topic, you will need to remap the topics later.
+Before you start configuring the navigation, it's a good idea to verify that
+your sensors are working correctly and publishing data. LiDAR sensors should be
+publishing scan data on the ROS topic (autonomous package uses `/scan` as
+default), and the stereo camera (if used) should be publishing either depth data
+(`/oak/stereo/image_raw` by default) or pointcloud data (`/oak/points` by
+default). If there is no data being published, you should check the sensor
+connections and integration. If the data is being published on a different
+topic, you will need to remap the topics later.
 
-Remember to also verify if the `tf` transformations exist for sensors. For the system to
-work correctly, the `base_footprint` needs to have a transformation to the sensor data frames.
+Remember to also verify if the `tf` transformations exist for sensors. For the
+system to work correctly, the `base_footprint` needs to have a transformation to
+the sensor data frames.
 
 ## Preparing the environment
 
-There are a few things you will need to prepare on Leo Rover and on your computer, 
-in order to use the software for autonomous navigation.
+There are a few things you will need to prepare on Leo Rover and on your
+computer, in order to use the software for autonomous navigation.
 
 ### On Leo Rover
-You will need to build the `leo_nav` package first. To do this, start by accessing
-a remote terminal session on Leo Rover by logging in via SSH:
+
+You will need to build the `leo_nav` package first. To do this, start by
+accessing a remote terminal session on Leo Rover by logging in via SSH:
 
 <LinkButton
   to="/leo-rover/guides/ssh"
@@ -137,17 +143,17 @@ source ~/ros_ws/install/setup.bash
 
 :::info
 
-You will have to source the workspace on every terminal session you want to
-use the package on. If you want to do it automatically upon logging into a session,
+You will have to source the workspace on every terminal session you want to use
+the package on. If you want to do it automatically upon logging into a session,
 add the above line to the `~/.bashrc` file.
 
 :::
 
 ### On your computer
 
-In this guide, your computer will be used for visualizing the data processed on the rover
-and for sending navigation goals. For this purpose, you will need to have the `leo_description`
-package installed on your computer. 
+In this guide, your computer will be used for visualizing the data processed on
+the rover and for sending navigation goals. For this purpose, you will need to
+have the `leo_description` package installed on your computer.
 
 You can install the prebuilt package from the ROS repository:
 
@@ -156,10 +162,12 @@ sudo apt install ros-${ROS_DISTRO}-leo-description
 ```
 
 ## Remapping topics
-If your sensors don't operate on the default topics, you will need to remap them when using the navigation software.
-All the sensor topics can be remapped by passing appropriate [arguments to the launch file](#configuration-1).
-This can be done when launching the navigation software from CLI or by creating a custom launch file, which
-can be similar to the one below:
+
+If your sensors don't operate on the default topics, you will need to remap them
+when using the navigation software. All the sensor topics can be remapped by
+passing appropriate [arguments to the launch file](#configuration-1). This can
+be done when launching the navigation software from CLI or by creating a custom
+launch file, which can be similar to the one below:
 
 ```xml title="~/ros_ws/src/leo_navigation_tutorial/launch/custom_navigation.launch.xml"
 <launch>
@@ -171,11 +179,14 @@ can be similar to the one below:
   </include>
 </launch>
 ```
+
 ## Launching the software
 
-After verifying transforms, sensor data and remapping the topics, you can launch the navigation software.
-Navigation software consists of two main parts: SLAM Toolbox and Navigation (Nav2) Stack. We recommend checking
-the SLAM Toolbox functionality first before proceeding with the Nav2 Stack and launching full navigation.
+After verifying transforms, sensor data and remapping the topics, you can launch
+the navigation software. Navigation software consists of two main parts: SLAM
+Toolbox and Navigation (Nav2) Stack. We recommend checking the SLAM Toolbox
+functionality first before proceeding with the Nav2 Stack and launching full
+navigation.
 
 Here's the diagram of the simplified system architecture:
 
@@ -183,8 +194,12 @@ Here's the diagram of the simplified system architecture:
   loading="eager"
   alt="Simplified system architecture"
   sources={{
-    light: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/system-architecture-light.webp'),
-    dark: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/system-architecture-dark.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/advanced-guides/autonomous-navigation/system-architecture-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/advanced-guides/autonomous-navigation/system-architecture-dark.webp',
+    ),
   }}
   width="661"
   height="489"
@@ -192,44 +207,55 @@ Here's the diagram of the simplified system architecture:
 
 ## SLAM Toolbox
 
-In `leo_nav` package SLAM Toolbox is used to provide [Simultaneous Localization and Mapping](https://www.mathworks.com/discovery/slam.html) 
-capabilities. It uses the LiDAR data to create a map of the environment and publish `map -> odom` transformation, 
-which is used by the Nav2 Stack for localization.
+In `leo_nav` package SLAM Toolbox is used to provide
+[Simultaneous Localization and Mapping](https://www.mathworks.com/discovery/slam.html)
+capabilities. It uses the LiDAR data to create a map of the environment and
+publish `map -> odom` transformation, which is used by the Nav2 Stack for
+localization.
 
-To launch the SLAM Toolbox on your Leo Rover you can use the provided launch file:
+To launch the SLAM Toolbox on your Leo Rover you can use the provided launch
+file:
 
 ```bash
 ros2 launch leo_nav slam_toolbox.launch.py
 ```
 
-If you have LiDAR scans on a different topic than `/scan`, you will need to remap it When launching SLAM Toolbox:
+If you have LiDAR scans on a different topic than `/scan`, you will need to
+remap it When launching SLAM Toolbox:
 
 ```bash
 ros2 launch leo_nav slam_toolbox.launch.py scan_topic:=/your_lidar_topic
 ```
 
 The SLAM Toolbox node takes as the input:
+
 - laser scan data from the LiDAR sensor (default topic: `/scan`),
-- position of the laser reference frame (`base_footprint -> laser_frame` transform),
-- current position of the robot from the odometry (`odom -> base_footprint` transform).
+- position of the laser reference frame (`base_footprint -> laser_frame`
+  transform),
+- current position of the robot from the odometry (`odom -> base_footprint`
+  transform).
 
 As the output, it publishes:
-- a map of the environment in form of an occupancy grid (`/map` and `/map_metadata` topics),
-- current odometry drift based on the estimated position of the robot within the map (`map->odom` transform).
+
+- a map of the environment in form of an occupancy grid (`/map` and
+  `/map_metadata` topics),
+- current odometry drift based on the estimated position of the robot within the
+  map (`map->odom` transform).
 
 :::note
 
-When the SLAM Toolbox node tries to correct robot's position within the map,
-it does not broadcast the position as the `map -> base_footprint` transform, because
-that would make 2 root coordinate frames (`map` and `odom`). Instead, it
+When the SLAM Toolbox node tries to correct robot's position within the map, it
+does not broadcast the position as the `map -> base_footprint` transform,
+because that would make 2 root coordinate frames (`map` and `odom`). Instead, it
 provides the `map -> odom` transform which marks the difference between the
 odometry position and the actual position of the robot within the map (the
 odometry drift).
 
 :::
 
-You can now visualize the SLAM process in RViz2. This step needs to be done from your computer. 
-To do this, first source ROS and then launch RViz2 with the following command:
+You can now visualize the SLAM process in RViz2. This step needs to be done from
+your computer. To do this, first source ROS and then launch RViz2 with the
+following command:
 
 ```bash
 source /opt/ros/<your_ros_distro>/setup.bash
@@ -237,18 +263,21 @@ rviz2
 ```
 
 In RViz2, you can add the following displays to visualize the SLAM process:
+
 - **Map**: Displays the map created by SLAM Toolbox.
 - **LaserScan**: Displays the LiDAR scans being used for mapping.
 - **RobotModel**: Displays the robot model.
 
 :::note
 
-Remember to choose the correct fixed frame in RViz2, which should be set to `map` for SLAM Toolbox.
-Also don't forget to set the correct topics for the displays.
+Remember to choose the correct fixed frame in RViz2, which should be set to
+`map` for SLAM Toolbox. Also don't forget to set the correct topics for the
+displays.
 
 :::
 
 The view in RViz2 should look similar to this:
+
 <ImageZoom
   src="/img/robots/leo/advanced-guides/autonomous-navigation/slam-toolbox-rviz.webp"
   alt="Slam Toolbox RViz view"
@@ -256,12 +285,14 @@ The view in RViz2 should look similar to this:
   height="987"
 />
 
-If you see both the map and the LiDAR scans, it means that SLAM Toolbox is working correctly.
+If you see both the map and the LiDAR scans, it means that SLAM Toolbox is
+working correctly.
 
 ### Configuration
 
-The configuration for the SLAM Toolbox node is loaded from the `config/slam_toolbox.yaml` file.
-For description of each parameter visit the [SLAM Toolbox GitHub repository](https://github.com/SteveMacenski/slam_toolbox)
+The configuration for the SLAM Toolbox node is loaded from the
+`config/slam_toolbox.yaml` file. For description of each parameter visit the
+[SLAM Toolbox GitHub repository](https://github.com/SteveMacenski/slam_toolbox)
 
 :::warning
 
@@ -273,15 +304,23 @@ algorithms perform even worse.
 
 ## Navigation (Nav2 Stack)
 
-After you have verified that SLAM Toolbox is working correctly, you can proceed to launch the Nav2 Stack.
-You can find information about Nav2 Stack in the official [documentation](https://docs.nav2.org/).
+After you have verified that SLAM Toolbox is working correctly, you can proceed
+to launch the Nav2 Stack. You can find information about Nav2 Stack in the
+official [documentation](https://docs.nav2.org/).
 
 Nav2 stack in `leo_nav` package consists of:
-- [Planner Server](https://docs.nav2.org/configuration/packages/configuring-planner-server.html): responsible for planning the path to the goal.
-- [Controller Server](https://docs.nav2.org/configuration/packages/configuring-controller-server.html): responsible for controlling the robot to follow the planned path.
-- [Behavior Tree Navigator](https://docs.nav2.org/configuration/packages/configuring-bt-navigator.html): responsible for managing the navigation process and executing the navigation tasks.
-- [Waypoint Follower](https://docs.nav2.org/configuration/packages/configuring-waypoint-follower.html): responsible for following the waypoints in the planned path.
-- [Lifecycle Manager](https://docs.nav2.org/configuration/packages/configuring-lifecycle.html): responsible for managing the lifecycle of the navigation components.
+
+- [Planner Server](https://docs.nav2.org/configuration/packages/configuring-planner-server.html):
+  responsible for planning the path to the goal.
+- [Controller Server](https://docs.nav2.org/configuration/packages/configuring-controller-server.html):
+  responsible for controlling the robot to follow the planned path.
+- [Behavior Tree Navigator](https://docs.nav2.org/configuration/packages/configuring-bt-navigator.html):
+  responsible for managing the navigation process and executing the navigation
+  tasks.
+- [Waypoint Follower](https://docs.nav2.org/configuration/packages/configuring-waypoint-follower.html):
+  responsible for following the waypoints in the planned path.
+- [Lifecycle Manager](https://docs.nav2.org/configuration/packages/configuring-lifecycle.html):
+  responsible for managing the lifecycle of the navigation components.
 
 The architecture of the Nav2 Stack is shown in the diagram below:
 
@@ -289,27 +328,37 @@ The architecture of the Nav2 Stack is shown in the diagram below:
   loading="eager"
   alt="Nav2 Stack architecture"
   sources={{
-    light: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/nav2-architecture-light.webp'),
-    dark: useBaseUrl('/img/robots/leo/advanced-guides/autonomous-navigation/nav2-architecture-dark.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/advanced-guides/autonomous-navigation/nav2-architecture-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/advanced-guides/autonomous-navigation/nav2-architecture-dark.webp',
+    ),
   }}
   width="678"
   height="472"
 />
 
-These components work together to provide autonomous navigation capabilities for the Leo Rover.
+These components work together to provide autonomous navigation capabilities for
+the Leo Rover.
 
-To launch the Nav2 Stack in its default configuration, you can use the provided launch file:
+To launch the Nav2 Stack in its default configuration, you can use the provided
+launch file:
 
 ```bash
 ros2 launch leo_nav navigation.launch.xml
 ```
 
-Now, on your computer, you can launch RViz2 again and add the following displays to visualize the navigation process:
-- **Map** on topic `/global_costmap/costmap` : Displays the global map created by Nav2.
-For better clarity, change the color scheme to `costmap`.
-- **LaserScan** on your scan topic (`/scan` by default): Displays the LiDAR scans being used for navigation.
+Now, on your computer, you can launch RViz2 again and add the following displays
+to visualize the navigation process:
+
+- **Map** on topic `/global_costmap/costmap` : Displays the global map created
+  by Nav2. For better clarity, change the color scheme to `costmap`.
+- **LaserScan** on your scan topic (`/scan` by default): Displays the LiDAR
+  scans being used for navigation.
 - **RobotModel**: Displays the robot model.
-- **Path** on topic `/received_global_plan`: Displays the planned path to the goal.
+- **Path** on topic `/received_global_plan`: Displays the planned path to the
+  goal.
 
 After setting fixed frame to `map`, your RViz2 view should look similar to this:
 
@@ -320,8 +369,10 @@ After setting fixed frame to `map`, your RViz2 view should look similar to this:
   height="987"
 />
 
-Now, to send a navigation goal from RViz, select the 2D Goal Pose tool from the toolbar (highlighted in the image below) located at the top, 
-then click somewhere on the map to set position or click and drag to set position and orientation.
+Now, to send a navigation goal from RViz, select the 2D Goal Pose tool from the
+toolbar (highlighted in the image below) located at the top, then click
+somewhere on the map to set position or click and drag to set position and
+orientation.
 
 <ImageZoom
   src="/img/robots/leo/advanced-guides/autonomous-navigation/rviz-goal-tool.webp"
@@ -330,8 +381,9 @@ then click somewhere on the map to set position or click and drag to set positio
   height="987"
 />
 
-Provided you clicked on a valid position, the robot should start moving towards the goal. The path should now be visible in RViz2, 
-and the robot should follow it. 
+Provided you clicked on a valid position, the robot should start moving towards
+the goal. The path should now be visible in RViz2, and the robot should follow
+it.
 
 <ImageZoom
   src="/img/robots/leo/advanced-guides/autonomous-navigation/nav2-rviz-goal.webp"
@@ -340,56 +392,78 @@ and the robot should follow it.
   height="987"
 />
 
-Congratulations! You can now control your Leo Rover using the Nav2 Stack and send navigation goals from RViz2.
+Congratulations! You can now control your Leo Rover using the Nav2 Stack and
+send navigation goals from RViz2.
 
 ### Configuration
-Nav2 configuration can be found in the `config/navigation.yaml` file.
-You can change the parameters to better suit your needs, but consult every change with the official
-[Nav2 configuration guide](https://docs.nav2.org/configuration/index.html) first.
 
-The `navigation.launch.xml` file contains different arguments that can be used to customize the navigation system.
-Available launch arguments are:
-- `localization`: Whether to use SLAM Toolbox in mapping mode or [AMCL](#amcl-localization) for localization only (default: false).
-- `slam_params_file`: Path to the SLAM parameters file (used if localization is false, default: `/config/slam_toolbox.yaml`).
-- `amcl_params_file`: Path to the AMCL parameters file (used if localization is true, default: `/config/amcl.yaml`).
-- `map_file`: Path to the map file (required for AMCL - when localization is true, default: `/maps/empty_map.yaml`). It has to be a valid map file in YAML format
-with a corresponding PGM image file.
-- `use_stereo_camera`: Whether to enable stereo camera nodes and configurations (default: false).
-- `navigation_params_file`: Path to the navigation parameters file (default: `/config/navigation.yaml` for standard navigation,
-or `/config/navigation_stereo_camera.yaml` for stereo camera based navigation).
+Nav2 configuration can be found in the `config/navigation.yaml` file. You can
+change the parameters to better suit your needs, but consult every change with
+the official
+[Nav2 configuration guide](https://docs.nav2.org/configuration/index.html)
+first.
+
+The `navigation.launch.xml` file contains different arguments that can be used
+to customize the navigation system. Available launch arguments are:
+
+- `localization`: Whether to use SLAM Toolbox in mapping mode or
+  [AMCL](#amcl-localization) for localization only (default: false).
+- `slam_params_file`: Path to the SLAM parameters file (used if localization is
+  false, default: `/config/slam_toolbox.yaml`).
+- `amcl_params_file`: Path to the AMCL parameters file (used if localization is
+  true, default: `/config/amcl.yaml`).
+- `map_file`: Path to the map file (required for AMCL - when localization is
+  true, default: `/maps/empty_map.yaml`). It has to be a valid map file in YAML
+  format with a corresponding PGM image file.
+- `use_stereo_camera`: Whether to enable stereo camera nodes and configurations
+  (default: false).
+- `navigation_params_file`: Path to the navigation parameters file (default:
+  `/config/navigation.yaml` for standard navigation, or
+  `/config/navigation_stereo_camera.yaml` for stereo camera based navigation).
 - `scan_topic`: Topic for laser scan data (default: `/scan`).
 - `pointcloud_topic`: Topic for point cloud data (default: `/oak/points`).
-- `depth_image_topic`: Topic for depth image data (default: `/oak/stereo/image_raw`).
-- `depth_camera_info_topic`: Topic for depth camera info data (default: `/oak/stereo/camera_info`).
+- `depth_image_topic`: Topic for depth image data (default:
+  `/oak/stereo/image_raw`).
+- `depth_camera_info_topic`: Topic for depth camera info data (default:
+  `/oak/stereo/camera_info`).
 
-To launch the navigation with changed arguments, use syntax `<arg_name>:=<value>`. For example, in order to use a stereo camera use:
+To launch the navigation with changed arguments, use syntax
+`<arg_name>:=<value>`. For example, in order to use a stereo camera use:
 
 ```bash
 ros2 launch leo_nav navigation.launch.xml use_stereo_camera:=true
 ```
 
 ## AMCL localization
-[AMCL](https://robots.stanford.edu/papers/fox.aaai99.pdf) is used in the `leo_nav` package to provide localization capabilities when the robot is already mapped.
-It replaces the SLAM Toolbox in the navigation process when the `localization` argument is set to true in
-the `navigation.launch.xml` file. Its configuration can be found in the `config/amcl.yaml`. To get more 
-information about the parameters, visit the [AMCL documentation](https://docs.nav2.org/configuration/packages/configuring-amcl.html).
 
-To launch the navigation system with AMCL localization, use the following command:
+[AMCL](https://robots.stanford.edu/papers/fox.aaai99.pdf) is used in the
+`leo_nav` package to provide localization capabilities when the robot is already
+mapped. It replaces the SLAM Toolbox in the navigation process when the
+`localization` argument is set to true in the `navigation.launch.xml` file. Its
+configuration can be found in the `config/amcl.yaml`. To get more information
+about the parameters, visit the
+[AMCL documentation](https://docs.nav2.org/configuration/packages/configuring-amcl.html).
+
+To launch the navigation system with AMCL localization, use the following
+command:
 
 ```bash
 ros2 launch leo_nav navigation.launch.xml localization:=true map_file:=/path/to/your/map.yaml
 ```
 
-This will replace the SLAM Toolbox with AMCL and use the provided map file for localization. The map can be obtained for example
-by running the SLAM Toolbox in mapping mode and saving the map using the built in `map_saver` wrapper:
+This will replace the SLAM Toolbox with AMCL and use the provided map file for
+localization. The map can be obtained for example by running the SLAM Toolbox in
+mapping mode and saving the map using the built in `map_saver` wrapper:
 
 ```bash
 ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'map_name'}}"
 ```
 
-For AMCL to start working, you need to specify the estimated position of the robot in the map. You can do this
-by setting the initial pose in RViz2 using the 2D Pose Estimate tool (highlighted in the image below) located at the top of the RViz2 window.
-Remember to change the fixed frame to `map` before setting the initial pose.
+For AMCL to start working, you need to specify the estimated position of the
+robot in the map. You can do this by setting the initial pose in RViz2 using the
+2D Pose Estimate tool (highlighted in the image below) located at the top of the
+RViz2 window. Remember to change the fixed frame to `map` before setting the
+initial pose.
 
 <ImageZoom
   src="/img/robots/leo/advanced-guides/autonomous-navigation/amcl-rviz.webp"
@@ -400,19 +474,25 @@ Remember to change the fixed frame to `map` before setting the initial pose.
 
 :::info
 
-The initial pose can also be set by publishing a `geometry_msgs/PoseWithCovarianceStamped` message on the `/initialpose` topic or by
-setting the `set_initial_pose` parameter to `true` and `initial_pose` to the desired pose in the AMCL configuration file.
-It is also possible to set the pose multiple times, AMCL will update the initial pose each time you set it.
+The initial pose can also be set by publishing a
+`geometry_msgs/PoseWithCovarianceStamped` message on the `/initialpose` topic or
+by setting the `set_initial_pose` parameter to `true` and `initial_pose` to the
+desired pose in the AMCL configuration file. It is also possible to set the pose
+multiple times, AMCL will update the initial pose each time you set it.
 
 :::
 
-After setting the initial pose, AMCL should start publishing the `map->base_footprint` transform and the errors visible in RViz2 should disappear.
-If that is the case, you can send navigation goals as before, and the robot should be able to
-localize itself and navigate to the goal using the provided map.
+After setting the initial pose, AMCL should start publishing the
+`map->base_footprint` transform and the errors visible in RViz2 should
+disappear. If that is the case, you can send navigation goals as before, and the
+robot should be able to localize itself and navigate to the goal using the
+provided map.
 
 :::note
 
-Don't worry if you have minor inaccuracies in the initial pose, AMCL will correct them over time as it receives more sensor data when the robot moves.
-However, the better the initial pose, the more accurate the localization will be from the start.
+Don't worry if you have minor inaccuracies in the initial pose, AMCL will
+correct them over time as it receives more sensor data when the robot moves.
+However, the better the initial pose, the more accurate the localization will be
+from the start.
 
 :::
