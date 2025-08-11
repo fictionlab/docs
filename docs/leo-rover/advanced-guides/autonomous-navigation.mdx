@@ -7,12 +7,15 @@ description: >-
   covers the necessary steps and configurations to enable autonomous movement.
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+
 In this tutorial, you will learn how to set up autonomous navigation for your Leo Rover. 
 This guide covers the necessary steps and configurations to enable autonomous movement. 
 Autonomous navigation can be setup with any 2D LiDAR compatible with Leo Rover
 and an optional stereo camera - here Oak-D stereo camera is used.
 
-This will allow your Leo Rover to allow autonomous navigation in an unknown environment
+This will allow your Leo Rover to navigate autonomously in an unknown environment
 or navigate on a pre-made map.
 
 ## Prerequisites
@@ -38,31 +41,20 @@ For the purpose of autonomous navigation, we prepared the `leo_nav` package whic
 in ROS to provide autonomous capabilities. You won't have to write a single line of code, but some configuration 
 may need to be tweaked to work best in your environment.
 
-To complete this tutorial, you will need one on the following 2D LiDAR sensors:
+To complete this tutorial, you will need a 2D LiDAR sensor compatible with Leo Rover.
+You can find the list of compatible sensors here:
 
 <LinkButton
-  to="/integrations/lidars/hokuyo-ug-04lx-ug01"
-  title="Hokuyo URG-04LX-UG01"
-  description="Learn how to connect a Hokuyo LiDAR sensor to your Leo Rover for mapping,
-  object detection, and SLAM applications."
-/>
-<LinkButton
-  to="/integrations/lidars/slamtec-rplidar-a2"
-  title="SLAMTEC RPLidar A2"
-  description="Learn how to connect an RPLiDAR A2 sensor to your Leo Rover for 2D
-  mapping and more. Detailed tutorial mechanical and software integration."
-/>
-<LinkButton
-  to="/integrations/lidars/slamtec-rplidar-s3"
-  title="SLAMTEC RPLidar S3"
-  description="Learn how to connect an RPLiDAR S3 sensor to your Leo Rover for 2D mapping and
-  more. Detailed tutorial mechanical and software integration."
+  to="/integrations/lidars"
+  title="Leo Rover LiDAR Integrations"
+  description="List of LiDAR sensors compatible with Leo Rover."
 />
 
-And optionally, you can use a stereo camera for better navigation capabilities:
+And optionally, you can use a compatible stereo camera for better navigation capabilities.
+The examples of stereo cameras compatible with Leo Rover are:
 
 <LinkButton
-  to="/integrations/cameras/luxonis-oak-d"
+  to="/integrations/cameras"
   title="Oak-D Stereo Camera"
   description="Learn how to connect an Oak-D stereo camera to your Leo Rover for enhanced
   depth perception and obstacle avoidance."
@@ -83,7 +75,7 @@ experience with ROS is recommended.
 
 ## Veryfing sensor data
 
-Before you start configuring the navigation, it is a good idea to verify that your 
+Before you start configuring the navigation, it's a good idea to verify that your 
 sensors are working correctly and publishing data. LiDAR sensors should be publishing
 scan data on the ROS topic (autonomous package uses `/scan` as default), and the stereo
 camera (if used) should be publishing either depth data (`/oak/stereo/image_raw` by default) or
@@ -228,9 +220,9 @@ As the output, it publishes:
 :::note
 
 When the SLAM Toolbox node tries to correct robot's position within the map,
-it does not broadcast the position as the `map->base_footprint` transform, because
+it does not broadcast the position as the `map -> base_footprint` transform, because
 that would make 2 root coordinate frames (`map` and `odom`). Instead, it
-provides the `map->odom` transform which marks the difference between the
+provides the `map -> odom` transform which marks the difference between the
 odometry position and the actual position of the robot within the map (the
 odometry drift).
 
@@ -240,7 +232,7 @@ You can now visualize the SLAM process in RViz2. This step needs to be done from
 To do this, first source ROS and then launch RViz2 with the following command:
 
 ```bash
-source /opt/ros/${ROS_DISTRO}/setup.bash
+source /opt/ros/<your_ros_distro>/setup.bash
 rviz2
 ```
 
@@ -257,7 +249,6 @@ Also don't forget to set the correct topics for the displays.
 :::
 
 The view in RViz2 should look similar to this:
-/home/jh/docs/static/img/robots/leo/advanced-guides/autonomous-naviagtion/slam-toolbox-rviz.webp
 <ImageZoom
   src="/img/robots/leo/advanced-guides/autonomous-navigation/slam-toolbox-rviz.webp"
   alt="Slam Toolbox RViz view"
@@ -313,7 +304,7 @@ To launch the Nav2 Stack in its default configuration, you can use the provided 
 ros2 launch leo_nav navigation.launch.xml
 ```
 
-Now on your computer, you can launch RViz2 again and add the following displays to visualize the navigation process:
+Now, on your computer, you can launch RViz2 again and add the following displays to visualize the navigation process:
 - **Map** on topic `/global_costmap/costmap` : Displays the global map created by Nav2.
 For better clarity, change the color scheme to `costmap`.
 - **LaserScan** on your scan topic (`/scan` by default): Displays the LiDAR scans being used for navigation.
@@ -398,16 +389,30 @@ ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data:
 
 For AMCL to start working, you need to specify the estimated position of the robot in the map. You can do this
 by setting the initial pose in RViz2 using the 2D Pose Estimate tool (highlighted in the image below) located at the top of the RViz2 window.
+Remember to change the fixed frame to `map` before setting the initial pose.
 
-//TODO image of RViz2 2D Pose Estimate tool
+<ImageZoom
+  src="/img/robots/leo/advanced-guides/autonomous-navigation/amcl-rviz.webp"
+  alt="RViz2 2D Pose Estimate tool"
+  width="1253"
+  height="914"
+/>
 
-After setting the initial pose, you can send navigation goals as before, and the robot should be able to localize itself
-and navigate to the goal using the provided map.
+:::info
+
+The initial pose can also be set by publishing a `geometry_msgs/PoseWithCovarianceStamped` message on the `/initialpose` topic or by
+setting the `set_initial_pose` parameter to `true` and `initial_pose` to the desired pose in the AMCL configuration file.
+It is also possible to set the pose multiple times, AMCL will update the initial pose each time you set it.
+
+:::
+
+After setting the initial pose, AMCL should start publishing the `map->base_footprint` transform and the errors visible in RViz2 should disappear.
+If that is the case, you can send navigation goals as before, and the robot should be able to
+localize itself and navigate to the goal using the provided map.
 
 :::note
 
 Don't worry if you have minor inaccuracies in the initial pose, AMCL will correct them over time as it receives more sensor data when the robot moves.
+However, the better the initial pose, the more accurate the localization will be from the start.
 
 :::
-
-// TODO AMCL screenshots
