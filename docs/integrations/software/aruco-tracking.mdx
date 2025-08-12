@@ -40,7 +40,7 @@ we will relay all the processing to the Raspberry Pi.
 
 ## What to expect?
 
-If all goes well, you should end up with something like this:
+After this tutorial is completed, you should end up with something like this:
 
 <div className="video-container">
   <LiteYouTubeEmbed
@@ -128,9 +128,8 @@ means you can change them as the node is working using `rqt` (in
 `dynamic reconfigure` plugin). You can play with their values and then add
 chosen parameters to the `yaml` file.
 
-You can check
-[here](https://docs.opencv.org/4.2.0/d5/dae/tutorial_aruco_detection.html)
-description of each parameter in the `aruco` namespace.
+You can find a detailed description of each parameter in the `aruco` namespace
+[here](https://docs.opencv.org/4.2.0/d5/dae/tutorial_aruco_detection.html).
 
 :::
 
@@ -148,15 +147,15 @@ configuration with the tracker node.
 Now you can run the tracker with this command:
 
 ```bash
-ros2 run /etc/ros/tracker.launch.xml
+ros2 launch /etc/ros/tracker.launch.xml
 ```
 
 or you can include your launch file in the `robot.launch.xml` file, so that the
 node will start at boot. To do so, put this line somewhere before the closing
-`</robot>` tag.
+`</launch>` tag.
 
 ```xml title="/etc/ros/robot.launch.xml"
-<include file="/etc/ros/tracker.laumch.xml"/>
+<include file="/etc/ros/tracker.launch.xml"/>
 ```
 
 Now you need to reboot the rover, or restart the ros nodes
