@@ -63,8 +63,14 @@ are instructions how to build the packages from source.
 
 ## Launching
 
-Make sure you source the `install` space on each terminal session you want to
-use the simulation on (execute the command in your ROS workspace):
+Make sure you source ROS
+
+```bash
+source /opt/ros/<distro>/setup.bash
+```
+
+and the `install` space (if you have a ROS workspace) on each terminal session
+you want to use the simulation on (execute the command in your ROS workspace):
 
 ```bash
 source install/setup.bash
@@ -75,6 +81,12 @@ To start the simulation and `gazebo GUI`, type:
 ```bash
 ros2 launch leo_gz_bringup leo_gz.launch.py
 ```
+
+:::info
+
+This command will start an empty world with a rover in global namespace.
+
+:::
 
 You can use launch arguments to specify the ROS namespace that the simulated
 robot will be in and the world that is going to launch (to see available choices
@@ -88,7 +100,7 @@ ros2 launch leo_gz_bringup leo_gz.launch.py sim_world:=marsyard2021.sdf robot_ns
 ```
 
 If you want to simulate multiple rovers, you can add another robot to an already
-running gazebo world:
+running gazebo world. In another terminal where ROS has been sourced type:
 
 ```bash
 ros2 launch leo_gz_bringup spawn_robot.launch.py robot_ns:=leo_sim2
@@ -100,7 +112,7 @@ can use `ros2 topic echo` command to get info from the robots, and
 driving forward:
 
 ```bash
-ros2 topic pub /leo_sim1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2}}" -r 10
+ros2 topic pub /leo_sim1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"" -r 20
 ```
 
 You can also control the rover using joystick. To do so you need `leo-teleop`
@@ -120,7 +132,8 @@ ros2 launch leo_teleop joy_teleop.launch.xml cmd_vel_out:=/leo_sim1/cmd_vel
 :::tip
 
 You can choose which rover to operate with the joystick by providing correct
-namespace for the argument `cmd_vel_out`. In the example it's `leo_sim1`.
+namespace for the argument `cmd_vel_out`. In the example it's `leo_sim1`. If no
+value provided, the node will use the default namespace and topic - `/cmd_vel`.
 
 :::
 
