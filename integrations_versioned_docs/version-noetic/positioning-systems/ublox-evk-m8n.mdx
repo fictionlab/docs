@@ -39,7 +39,7 @@ get it published on ROS topics.
 
 <ImageZoom
   loading="eager"
-  src="/img/robots/leo/integrations/ublox-gps/ech-ublox-gps-node.webp"
+  src="/img/robots/leo/1.8/integrations/ublox-gps/ech-ublox-gps-node.webp"
   width="1019"
   height="317"
 />
@@ -226,7 +226,7 @@ You should see a lot of data flowing through the topic. Stop the data
 acquisition with **Ctrl+C** and have a look on a usual data frame.
 
 <ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/ech-ublox-gps-node.webp"
+  src="/img/robots/leo/1.8/integrations/ublox-gps/ech-ublox-gps-node.webp"
   width="1019"
   height="317"
 />
@@ -254,63 +254,6 @@ module thinks it is.
   src="/img/robots/leo/integrations/ublox-gps/google-maps.webp"
   width="1127"
   height="570"
-/>
-
-### Data visualization with Mapviz
-
-Using [Mapviz](http://wiki.ros.org/mapviz) - a package similar to RViz, yet
-focused on visualization of 2D data - you can easily visualize the data gathered
-by the GPS module. Installing the package boils down to using this command:
-
-```bash
-sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
-```
-
-Since Mapviz is a program using GUI you may want to connect to the Leo Rover via
-remote desktop. Follow this tutorial if you want to learn how:
-
-<LinkButton
-  to="/leo-rover/1.8/guides/remote-desktop"
-  title="Connect via remote desktop"
-  description="Learn how to remotely access your Leo Rover's desktop environment using RDP
-  and popular remote desktop clients."
-/>
-
-Launch Mapviz with:
-
-```bash
-roslaunch mapviz mapviz.launch
-```
-
-You'll be greeted by a blank screen with configuration window on the left. Using
-the **Add** button on the bottom of this window add **tile_map** and **navsat**
-plugins. Change the source of **tile_map** to `Stamen (terrain)` (Or any other
-available option) and the topic of **navsat** to the topic your GPS module is
-publishing data to (for us it's `/ublox_gps_node/fix`).
-
-<ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/mapviz-navsat.webp"
-  width="330"
-  height="903"
-  figStyle={{
-    width: 350,
-  }}
-/>
-
-:::warning
-
-Make sure the tile_map plugin is listed first and navsat second. Otherwise,
-points created by navsat will be hidden behind the map tiles.
-
-:::
-
-From now on, a dot will appear on the map every time your GPS module publishes
-data at the topic you chose.
-
-<ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/mapviz-map-view.webp"
-  width="924"
-  height="614"
 />
 
 ## What next?
