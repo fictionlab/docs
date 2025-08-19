@@ -143,16 +143,18 @@ in the software running on the robot.
 
 ### Visualize Robot Model
 
-If you have ROS installed on your computer, you can see the robot model with the
+If you have ROS 2 installed on your computer, you can visualize the robot model with the
 mecanum wheels attached in RViz.
 
-Before making any further steps, make sure you completed the Connecting another
-computer to ROS network section of ROS Development tutorial:
+:::warning
 
-<LinkButton
-  to="/leo-rover/1.8/advanced-guides/ros-development#connecting-another-computer-to-ros-network"
-  title="ROS Development - Connecting another computer to ROS network"
-/>
+Make sure you have the `leo_description` package installed on your computer.
+To install it, run:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-description
+```
+:::
 
 To see the model, start `rviz`, and add **robot model** in the **display** view.
 Chose also `base_footprint` as **fixed frame**, and you should see the rover
