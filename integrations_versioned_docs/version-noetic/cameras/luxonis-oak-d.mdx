@@ -138,7 +138,7 @@ To include the Oak camera macro add following lines to
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
 <xacro:include filename="$(find depthai_descriptions)/urdf/include/depthai_macro.urdf.xacro"/>
 
-<!-- TODO add correct cam position-->
+<!-- Add correct cam position-->
 <xacro:depthai_camera camera_name="oak"
                       camera_model="OAK-D-PRO"
                       base_frame="oak-d_frame"
@@ -173,7 +173,7 @@ In the end, your `robot.urdf.xacro` file should look like this:
 
 	<xacro:include filename="$(find depthai_descriptions)/urdf/include/depthai_macro.urdf.xacro"/>
 
-  <!-- TODO add correct cam position-->
+  <!-- Add correct cam position-->
   <xacro:depthai_camera camera_name="oak"
                         camera_model="OAK-D-PRO"
                         base_frame="oak-d_frame"
