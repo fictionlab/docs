@@ -59,12 +59,12 @@ command line.
 ## Prerequisites
 
 <LinkButton
-  to="/leo-rover/guides/connect-to-rover-ap"
+  to="/leo-rover/1.8/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
   description="Learn how to connect to your Leo Rover via WiFi."
 />
 <LinkButton
-  to="/leo-rover/guides/ssh"
+  to="/leo-rover/1.8/guides/ssh"
   title="Connect via SSH"
   description="Learn how to establish an SSH connection with your Leo Rover and access its
   terminal using Putty or OpenSSH."
@@ -117,7 +117,7 @@ the rover.
   }}
 />
 
-If you want to print it on your own, you can find the SLT file
+If you want to print it on your own, you can find the STL file
 [here](../addon-adapters). After printing, it you'll need to press 4x M3 heat
 set inserts into the holes shown below.
 
@@ -158,8 +158,8 @@ Connect U2D2 and the power distribution board with the short Dynamixel cable.
 Connect the U2D2 to the rover using an USB cable
 
 The last step is to stick connect the barrel jack cable to the battery power
-supply ([Powerbox addon](/leo-rover/addons/powerbox) might be useful here) and
-plug into the other end into power distribution board.
+supply ([Powerbox addon](/leo-rover/1.8/addons/powerbox) might be useful here)
+and plug into the other end into power distribution board.
 
 With everything connected it should look like this:
 
@@ -312,7 +312,7 @@ sudo systemctl restart leo
 Now that you have the driver running, you should see the new ROS topics and
 services under the `/mobile_px100` namespace. For a full description of the ROS
 API, visit the
-[ROS controllers configuration README page](https://www.trossenrobotics.com/docs/interbotix_xsarms/ros_packages/ros_control.html).
+[ROS controllers configuration README page](https://docs.trossenrobotics.com/interbotix_xsarms_docs/ros1_packages/arm_control.html).
 You can test some of the features with the `rostopic` and `rosservice`
 command-line tools:
 
@@ -539,7 +539,7 @@ roslaunch interbotix_xsarm_joy xsarm_joy.launch launch_driver:=false robot_model
 :::info
 
 For operating instructions see the
-[Joystick Control README](https://www.trossenrobotics.com/docs/interbotix_xsarms/ros_packages/joystick_control.html)
+[Joystick Control README](https://docs.trossenrobotics.com/interbotix_xsarms_docs/ros1_packages/joystick_control.html)
 page.
 
 :::
@@ -589,4 +589,4 @@ a look at
 ## What next?
 
 If you found this tutorial interesting, make sure to check out other tutorials
-we provide on our [Integrations](/integrations) site.
+we provide on our [Integrations](/integrations/noetic) site.

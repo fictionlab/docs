@@ -266,9 +266,7 @@ const config: Config = {
     },
     announcementBar: {
       id: 'announcementBar_work-in-progress',
-      content: `Leo Rover 1.9 is out! 🎉 Check out the <a href="/leo-rover/documentation/changelog">release notes</a>!
-      <br />Get yours: <a href="https://www.leorover.tech/shop/leo-rover-developer-kit">Developer kit</a> | 
-      <a href="https://www.leorover.tech/shop/leo-rover-assembled">Assembled</a>`,
+      content: `Leo Rover 1.9 is out! 🎉 Check out the <a href="/leo-rover/documentation/changelog">release notes</a>! Get yours: <a href="https://www.leorover.tech/shop/leo-rover-developer-kit">Developer kit</a> | <a href="https://www.leorover.tech/shop/leo-rover-assembled">Assembled</a>`,
       backgroundColor: '#c57b2c',
       textColor: '#ffffff',
       isCloseable: true,

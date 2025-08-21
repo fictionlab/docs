@@ -84,3 +84,7 @@ div[class^='announcementBar_'] {
 [data-theme='dark'] .themedSvg {
   fill: white;
 }
+
+.hide-tab-labels .tabs__item {
+  display: none;
+}
