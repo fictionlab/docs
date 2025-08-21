@@ -1,4 +1,4 @@
-import {JSX} from 'react';
+import { JSX } from 'react';
 import Tabs, { type Props as TabsProps } from '@theme/Tabs';
 
 const HiddenTabs = (props: TabsProps): JSX.Element => {

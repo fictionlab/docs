@@ -1,4 +1,4 @@
-import React, {type ComponentType, type ReactNode} from 'react';
+import React, { type ComponentType, type ReactNode } from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Link from '@docusaurus/Link';
@@ -8,12 +8,12 @@ import {
   useDocVersionSuggestions,
   type GlobalVersion,
 } from '@docusaurus/plugin-content-docs/client';
-import {ThemeClassNames} from '@docusaurus/theme-common';
+import { ThemeClassNames } from '@docusaurus/theme-common';
 import {
   useDocsPreferredVersion,
   useDocsVersion,
 } from '@docusaurus/plugin-content-docs/client';
-import type {Props} from '@theme/DocVersionBanner';
+import type { Props } from '@theme/DocVersionBanner';
 import type {
   VersionBanner,
   PropVersionMetadata,
@@ -35,7 +35,8 @@ function UnreleasedVersionLabel({
       values={{
         siteTitle,
         versionLabel: <b>{versionMetadata.label}</b>,
-      }}>
+      }}
+    >
       {
         'This is unreleased documentation for {siteTitle} {versionLabel} version.'
       }
@@ -53,7 +54,8 @@ function UnmaintainedVersionLabel({
       description="The label used to tell the user that he's browsing an unmaintained doc version"
       values={{
         versionLabel: <b>{versionMetadata.label}</b>,
-      }}>
+      }}
+    >
       {
         'This is documentation for {versionLabel}, which is no longer actively maintained.'
       }
@@ -94,13 +96,15 @@ function LatestVersionSuggestionLabel({
             <Link to={to} onClick={onClick}>
               <Translate
                 id="theme.docs.versions.latestVersionLinkLabel"
-                description="The label used for the latest version suggestion link label">
+                description="The label used for the latest version suggestion link label"
+              >
                 latest version
               </Translate>
             </Link>
           </b>
         ),
-      }}>
+      }}
+    >
       {
         'For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).'
       }
@@ -115,16 +119,16 @@ function DocVersionBannerEnabled({
   versionMetadata: PropVersionMetadata;
 }): ReactNode {
   const {
-    siteConfig: {title: siteTitle},
+    siteConfig: { title: siteTitle },
   } = useDocusaurusContext();
-  const {pluginId} = useActivePlugin({failfast: true})!;
+  const { pluginId } = useActivePlugin({ failfast: true })!;
 
   const getVersionMainDoc = (version: GlobalVersion) =>
     version.docs.find((doc) => doc.id === version.mainDocId)!;
 
-  const {savePreferredVersionName} = useDocsPreferredVersion(pluginId);
+  const { savePreferredVersionName } = useDocsPreferredVersion(pluginId);
 
-  const {latestDocSuggestion, latestVersionSuggestion} =
+  const { latestDocSuggestion, latestVersionSuggestion } =
     useDocVersionSuggestions(pluginId);
 
   // Try to link to same doc in latest version (not always possible), falling
@@ -139,7 +143,8 @@ function DocVersionBannerEnabled({
         ThemeClassNames.docs.docVersionBanner,
         'alert alert--warning margin-bottom--md',
       )}
-      role="alert">
+      role="alert"
+    >
       <div>
         <BannerLabel siteTitle={siteTitle} versionMetadata={versionMetadata} />
       </div>
@@ -154,7 +159,7 @@ function DocVersionBannerEnabled({
   );
 }
 
-export default function DocVersionBanner({className}: Props): ReactNode {
+export default function DocVersionBanner({ className }: Props): ReactNode {
   const versionMetadata = useDocsVersion();
   if (versionMetadata.banner) {
     return (
