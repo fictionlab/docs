@@ -146,6 +146,21 @@ in the software running on the robot.
 If you have ROS 2 installed on your computer, you can visualize the robot model
 with the mecanum wheels attached in RViz.
 
+{/* TODO: change to a ROS2 developement guides when ready */} If you are not yet
+familiar with ROS 2, you can check out the guides below:
+
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Step-by-step guide on how to install ROS on your computer, including prerequisites and troubleshooting tips."
+/>
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+
 :::warning
 
 Make sure you have the `leo_description` package installed on your computer. To
@@ -157,9 +172,9 @@ sudo apt install ros-${ROS_DISTRO}-leo-description
 
 :::
 
-To see the model, start `rviz`, and add **robot model** in the **display** view.
-Chose also `base_footprint` as **fixed frame**, and you should see the rover
-model with mecanum wheels attached.
+To see the model, start `rviz2`, and add **robot model** in the **display**
+view. Chose also `base_footprint` as **fixed frame**, and you should see the
+rover model with mecanum wheels attached.
 
 <ImageZoom
   src="/img/robots/leo/integrations/mecanum/rviz-leo-mecanum.webp"
