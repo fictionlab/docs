@@ -13,7 +13,7 @@ description: >-
 image: /img/robots/leo/integrations/ublox-gps/ublox-evk-m8n-shop.webp
 ---
 
-import ProductPreview from '@site/src/components/ProductPreview';
+import Product from '@site/src/products/ublox-evk-m8n.mdx';
 
 This tutorial will guide you through the process of connecting a UBlox GPS
 module to your Leo Rover.
@@ -61,16 +61,7 @@ get it published on ROS topics.
 
 ## Referenced products
 
-<ProductPreview
-  shopUrl="https://www.leorover.tech/shop/gps-module"
-  imageSrc="/img/robots/leo/integrations/ublox-gps/ublox-evk-m8n-shop.webp"
-  width={1200}
-  height={802}
-  title="UBlox EVK-M8N GPS module"
-  description="Enhance Leo Rover's capabilities with the UBlox EVK-M8N GPS module.
-    Experience precise navigation and versatile connectivity with multi-GNSS support,
-    ensuring high-performance and reliability."
-/>
+<Product />
 
 ## List of components
 
@@ -92,12 +83,13 @@ the USB sign on the module, and you need to plug in the USB cable there.
 ## Software integration
 
 The first thing you can do is to make sure your device has the correct
-permissions and is available at the fixed path on your system. To do this, you
-can add the following rule to the `udev` service. We will need `idVendor` and
-`idProduct`, to make the rules for the correct device. To get that information,
-you need to connect to the rover via `ssh`, and then, you can use the `lsusb`
-command. It will list all connected usb devices. In the output, you should look
-for something named like **U-Blox AG [u-blox 8]**:
+permissions and is available at the fixed path on your system.
+
+We will need USB Vendor and Product IDs to make the rules for the correct
+device. To get that information, you need to connect to the rover via `ssh`, and
+then, you can use the `lsusb` command. It will list all connected usb devices.
+In the output, you should look for something named like **U-Blox AG [u-blox
+8]**:
 
 <ImageZoom
   src="/img/robots/leo/integrations/ublox-gps/terminal-lsusb.webp"
@@ -105,30 +97,13 @@ for something named like **U-Blox AG [u-blox 8]**:
   height="112"
 />
 
-Now, our `idVendor` and `idProduct` are the two strings after "ID" divided by
-colon. In our case, `idVendor` is `1546` and `idProduct` is `01a8`.
-
-After getting those two, the only thing that is left is the port that the device
-connects to. You can get it by running in the terminal the command:
-
-```bash
-dmesg -w
-```
-
-and then connecting the module to the rover. You should see that the new device
-is registered, and on what port (with this command, you can also get the
-`idVendor` and `idProduct` values).
-
-<ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/terminal-ttyacm0.webp"
-  width="867"
-  height="112"
-/>
+Now, our Vendor and Product IDs are the two strings after "ID" divided by colon.
+In our case, `idVendor` is `1546` and `idProduct` is `01a8`.
 
 Now, you need to make a `udev` rules file.
 
 ```xml title="/etc/udev/rules.d/ublox.rules"
-KERNEL=="ttyACM*", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="01a8", MODE="0666", GROUP="dialout", SYMLINK+="ublox_gps"
+ATTRS{idVendor}=="1546", ATTRS{idProduct}=="01a8", MODE="0666", GROUP="dialout", SYMLINK+="ublox_gps"
 ```
 
 Paste these lines to `/etc/udev/rules.d/ublox.rules` file and reload `udev`
