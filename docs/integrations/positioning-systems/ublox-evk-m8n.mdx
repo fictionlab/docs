@@ -39,19 +39,18 @@ get it published on ROS topics.
 
 <ImageZoom
   loading="eager"
-  src="/img/robots/leo/1.8/integrations/ublox-gps/ech-ublox-gps-node.webp"
-  width="1019"
-  height="317"
+  src="/img/robots/leo/integrations/ublox-gps/ech-ublox-gps-node.webp"
+  width="294"
+  height="431"
+  figStyle={{
+    width: 400,
+  }}
 />
 
 ## Prerequisites
 
-<LinkButton
-  to="/leo-rover/1.8/guides/ssh"
-  title="Connect via SSH"
-  description="Learn how to establish an SSH connection with your Leo Rover and access its
-  terminal using Putty or OpenSSH."
-/>
+{/* TODO update links once the advanced guides are ported to ROS2 */}
+
 <LinkButton
   to="/leo-rover/1.8/advanced-guides/ros-development"
   title="ROS Development"
@@ -126,32 +125,30 @@ sudo apt install ros-${ROS_DISTRO}-ublox
 Now, create a launch file that would start the node with a fitting
 configuration.
 
-```xml title="/etc/ros/gps.launch"
+```xml title="/etc/ros/gps.launch.xml"
 <launch>
-  <node name="ublox_gps_node" pkg="ublox_gps" type="ublox_gps" clear_params="true" output="screen">
-    <rosparam command="load" file="$(find ublox_gps)/config/nmea.yaml"/>
+  <node pkg="ublox_gps" exec="ublox_gps_node" output="screen">
+    <param from="$(find-pkg-share ublox_gps)/config/c94_m8p_rover.yaml" />
     <param name="device" value="/dev/ublox_gps"/>
     <param name="frame_id" value="ublox_frame"/>
   </node>
 </launch>
 ```
 
-Include your launch file in the `robot.launch` file (somewhere between
-`<launch>` tags), so that your node will start at boot.
+In `/etc/ros/robot.launch.xml` add this line somewhere before the closing
+`</launch>` tag, so that your node will start at boot.
 
-In `/etc/ros/robot.launch`:
-
-```xml
-<include file="/etc/ros/gps.launch"/>
+```xml title="/etc/ros/robot.launch.xml"
+<include file="/etc/ros/gps.launch.xml"/>
 ```
 
 Your robot should be aware of where the module is located and what space it
 occupies. You can ensure it does that by creating a URDF model of the module.
 
-```xml title="/etc/ros/urdf/ublox.urdf.xacro"
+```xml title="/etc/ros/urdf/ublox.urdf"
 <?xml version="1.0"?>
 <robot>
-	<link name="ublox_frame"/>
+  <link name="ublox_frame"/>
 
   <joint name="ublox_joint" type="fixed">
     <origin xyz="-0.05 0 0"/>
@@ -164,27 +161,22 @@ occupies. You can ensure it does that by creating a URDF model of the module.
 
 :::warning
 
-Make sure that "frame_id" param in the launch file and "link name" in
-ublox.urdf.xacro file have the same value.
+Make sure that `frame_id` param in the launch file and link `name` in
+`ublox.urdf` file have the same value.
 
 :::
 
-And including it in the description that is uploaded at boot.
+And including it in the description that is uploaded at boot. Add this line
+somewhere before the closing `</robot>` tag.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
-<xacro:include filename="/etc/ros/urdf/ublox.urdf.xacro"/>
+<xacro:include filename="/etc/ros/urdf/ublox.urdf"/>
 ```
 
-The last step is to either reboot the robot
+The last step is to restart the nodes
 
 ```bash
-reboot
-```
-
-or restart the `leo` service
-
-```bash
-sudo systemctl restart leo
+ros-nodes-restart
 ```
 
 ## Examples
@@ -194,16 +186,19 @@ sudo systemctl restart leo
 Type this command into the console to check the data sent by GPS module:
 
 ```bash
-rostopic echo /ublox_gps_node/fix
+ros2 topic echo /fix
 ```
 
 You should see a lot of data flowing through the topic. Stop the data
 acquisition with **Ctrl+C** and have a look on a usual data frame.
 
 <ImageZoom
-  src="/img/robots/leo/1.8/integrations/ublox-gps/ech-ublox-gps-node.webp"
-  width="1019"
-  height="317"
+  src="/img/robots/leo/integrations/ublox-gps/ech-ublox-gps-node.webp"
+  width="294"
+  height="431"
+  figStyle={{
+    width: 400,
+  }}
 />
 
 Using Google Maps you can easily evaluate the precision of your GPS module. Find
@@ -239,5 +234,5 @@ tutorial on indoor
 [autonomous navigation](/leo-rover/1.8/advanced-guides/autonomous-navigation)
 you might be something you'll be interested in.
 
-You can also check our [Integrations page](/integrations/noetic) for other
+You can also check our [Integrations page](/integrations) for other
 instructions.
