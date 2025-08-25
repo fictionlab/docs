@@ -207,6 +207,7 @@ possible addons.
 | LED      | green                         |
 
 ## Software structure
+
 <Tabs groupId='leoOS-version'>
 <TabItem value='leoOS1' label='LeoOS 1.x'>
 <ThemedImageZoom
@@ -279,13 +280,9 @@ There are two important software components that don't run as native ROS nodes:
 
 ### Operating system
 
-<HiddenTabs groupId='leoOS-version'>
-<TabItem value='leoOS1'>
-Ubuntu 20.04 + ROS Noetic
-</TabItem>
-<TabItem value='leoOS2'>
-Ubuntu 24.04 + ROS2 Jazzy
-</TabItem>
+<HiddenTabs groupId="leoOS-version" defaultValue="leoOS1">
+  <TabItem value="leoOS1">Ubuntu 20.04 + ROS Noetic</TabItem>
+  <TabItem value="leoOS2">Ubuntu 24.04 + ROS2 Jazzy</TabItem>
 </HiddenTabs>
 
 :::info
@@ -295,6 +292,7 @@ Ready-to-go UI located under `10.0.0.1` when using standard Leo Software Image.
 :::
 
 ### Firmware
+
 <HiddenTabs groupId='leoOS-version'>
 <TabItem value='leoOS1'>
 This is the program that runs directly on the processor of the LeoCore board. It
@@ -322,6 +320,7 @@ computer via the Micro XRCE-DDS protocol and exposes functionalities such as:
 - wheel states (position, velocity, torque, PWM duty) feedback,
 - odometry feedback (calculated from wheel encoders),
 - feedback from the IMU sensor.
+
 </TabItem>
 </HiddenTabs>
 
@@ -345,8 +344,10 @@ mainly consist of:
   stream of a ROS image transport topic that can be accessed via HTTP
 - [Leo system](https://github.com/LeoRover/leo_robot/blob/master/leo_bringup/scripts/leo_system)
   node - provides system shutdown and reboot via ROS topics.
+
 </TabItem>
 <TabItem value='leoOS2'>
+
 <table>
   <thead>
     <tr>
@@ -457,6 +458,7 @@ mainly consist of:
 The names of nodes, topics, services are simplified for clarity.
 
 :::
+
 </TabItem>
 </HiddenTabs>
 
