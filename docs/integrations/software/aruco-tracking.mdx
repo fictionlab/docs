@@ -1,6 +1,6 @@
 ---
-title: ArUco-Tag tracking with OpenCV
-sidebar_label: ArUcoTag tracking with OpenCV module
+title: ArUco Marker tracking
+sidebar_label: ArUco Marker tracking
 keywords:
   - aruco
   - tracking
@@ -188,6 +188,18 @@ And run the `create_marker` script:
 ```bash
 ros2 run aruco_opencv create_marker 0
 ```
+
+:::tip
+
+You can also run
+
+```bash
+ros2 run aruco_opencv create_marker --help
+```
+
+to see the help message with desctription of all available options.
+
+:::
 
 This will create $0.2$x$0.2$m marker with id 0 and save it to `markers.pdf`
 file. The script will also print some information looking like this
