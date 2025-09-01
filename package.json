@@ -15,7 +15,8 @@
     "typecheck": "tsc",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx,css}\"",
     "formatcheck": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx,css}\"",
-    "spellcheck": "cspell"
+    "spellcheck": "cspell",
+    "check:redirects": "node scripts/redirects-check.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.8.1",

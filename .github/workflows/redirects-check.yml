@@ -1,0 +1,30 @@
+name: Docs redirects check
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'static/_redirects'
+
+jobs:
+  check-redirects:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 24
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run redirects check
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          node scripts/check-docs-redirects.js origin/${{ github.base_ref }}
