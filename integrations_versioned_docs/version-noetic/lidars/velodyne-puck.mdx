@@ -39,13 +39,13 @@ sensor.
 ## Prerequisites
 
 <LinkButton
-  to="/leo-rover/guides/ssh"
+  to="/leo-rover/1.8/guides/ssh"
   title="Connect via SSH"
   description="Learn how to establish an SSH connection with your Leo Rover and access its
   terminal using Putty or OpenSSH."
 />
 <LinkButton
-  to="/leo-rover/guides/connect-to-network"
+  to="/leo-rover/1.8/guides/connect-to-network"
   title="Connect to a local network and the Internet"
   description="Learn how to connect your Leo Rover to a local network and the internet to
   download files and forward internet to your computer."
@@ -71,7 +71,7 @@ to the reflection of the laser beam from the robot's elements.
 
 The easiest solution for attaching the Velodyne Puck above the mounting plate of
 a Leo Rover would be using our
-[Universal Camera Mast](/leo-rover/addons/universal-camera-mast).
+[Universal Camera Mast](/leo-rover/1.8/addons/universal-camera-mast).
 
 <CameraMast />
 
@@ -101,9 +101,9 @@ wire straight through the newly created hole. This solution, combined with the
 use of a cable gland, keeps the MEB box waterproof.
 
 Second common solution involves printing a new cover for the MEB box. Dev cover
-found [here](/leo-rover/addons/additional-meb-covers), provides a wide opening
-for running wires straight into the MEB. This solution can be extremely useful
-in projects that don't need to be waterproof.
+found [here](/leo-rover/1.8/addons/additional-meb-covers), provides a wide
+opening for running wires straight into the MEB. This solution can be extremely
+useful in projects that don't need to be waterproof.
 
 <ImageZoom
   src="/img/robots/leo/addons/meb-covers/00188-dev-meb-cover.webp"
@@ -115,7 +115,7 @@ in projects that don't need to be waterproof.
 />
 
 If the camera isn't the only thing connected to the rover you might need to
-provide an external power connection. [Powerbox](/leo-rover/addons/powerbox)
+provide an external power connection. [Powerbox](/leo-rover/1.8/addons/powerbox)
 might come in handy in such situations.
 
 <Powerbox />
@@ -331,7 +331,7 @@ sensor in `/etc/ros/urdf` directory.
     </link>
 
     <joint name="velodyne_base_mount_joint" type="fixed">
-      <origin xyz="0.0775 0 0"/> <!-- TODO after sensor is mounted -->
+      <origin xyz="0.0775 0 0"/> <!-- Add correct translation -->
       <parent link="base_link"/>
       <child link="velodyne_base_link"/>
     </joint>
@@ -639,4 +639,4 @@ you might be interested in a tutorial about it.
 They are however, not the only way of teaching a Leo Rover how to move on it's
 own. Check out our [line follower](/leo-rover/1.8/leo-examples/line-follower)
 tutorial if you want to learn more. You can also check our
-[Integrations page](/integrations) for more instructions.
+[Integrations page](/integrations/noetic) for more instructions.
