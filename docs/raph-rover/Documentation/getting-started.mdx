@@ -17,30 +17,12 @@ import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 
-<font color="red">
-TODO:
-    - Remove overview text
-    - Write something more getting-started specific (like "how to get started with
-      your new rover, shit's easy yo:")
-    - Replace images with ones with ones made with "assembly manual template"
-    - remove all text that is found in overview
-    - center all tables
-    </font>
-
-Raph Rover is a versatile platform designed for a wide range of robotic
-projects, from inspection to agriculture and construction. Built to integrate
-with custom payloads and operate in diverse environments, it's perfect for both
-indoor and outdoor applications. (Note: Beta version is limited to indoor use
-only.) This guide will help you get started with everything you need to know,
-including setup, charging, internet connectivity, and SSH access for a seamless
-experience with your new rover.
-
 <ImageZoom
   loading="eager"
-  src="/img/robots/raph/raph-rover.webp"
-  alt="Render of beta version of Raph Rover"
-  width="2000"
-  height="1500"
+  src="/img/robots/raph/raph_iso.webp"
+  alt="Raph Rover isometric render"
+  width="3000"
+  height="2250"
   figStyle={{
     width: 500,
   }}
@@ -48,20 +30,58 @@ experience with your new rover.
 
 ## Unboxing
 
-What's in the box:
+<center>
 
-- 1 x Raph Rover
-- 1 x Raph Rover battery dock
-- 1 x 24V Li-Ion charger
-- 2 x 24V battery pack
-- 1 x Additional mounting plate
-- 1 x Extended additional mounting plate
-- 8 x M5 x 40 distances for mounting plates
-- a little surprise
+|            Item            | Count |
+| :------------------------: | :---: |
+|         Raph Rover         |   1   |
+|  Raph Rover battery pack   |   2   |
+| Raph Rover battery charger |   1   |
+|    Li-Ion charger 6S 4A    |   1   |
+|           tools            |   1   |
 
-## Connecting the battery
+</center>
 
-Each Raph Rover is equipped with two dedicated 24V Li-Ion battery packs.
+## Two buttons?
+
+<ThemedImageZoom
+  alt="Diagram with arrows pointing to the buttons of Raph Rover, showing power and multifunctional buttons"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_buttons_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_buttons_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<center>
+
+| Condition |                                     Button                                      |        Function         |  Action   |
+| :-------: | :-----------------------------------------------------------------------------: | :---------------------: | :-------: |
+|    any    |                     <font color="2c71bf"> **LEFT** </font>                      |  check battery charge   |   click   |
+| rover off |                     <font color="2c71bf"> **LEFT** </font>                      |         turn on         | hold - 3s |
+| rover on  |                     <font color="2c71bf"> **LEFT** </font>                      |        turn off         | hold - 5s |
+| rover on  |                     <font color="c07b2c"> **BACK** </font>                      | toggle maintenance mode |   click   |
+|    any    | <font color="2c71bf"> **LEFT** </font> + <font color="c07b2c"> **BACK** </font> |     enter XYZ mode      |    ???    |
+
+</center>
+
+## Connecting batteries
+
+Each Raph Rover is equipped with two dedicated 24V Li-Ion battery packs. As long
+as at least one charged battery is plugged into the rover all of the
+functionality is available. It is allowed to hot-swap batteries (replace
+discharged ones with new ones without turning the rover off for the process).
+
+To power the rover, insert at leas one battery pack into its designated slot
+located on either side of the rover.
 
 :::warning
 
@@ -69,69 +89,97 @@ Make sure that there is no debris inside the slots or in the battery connectors!
 
 :::
 
-To power the rover, insert these battery packs into their designated slots
-located on either side of the rover. Ensure proper alignment and secure the
-batteries in place to guarantee uninterrupted power supply.
-
 The batteries are secured by ball catches, which provide slight resistance
 during insertion and removal. A properly inserted battery should be fully nested
 within the slot.
 
-To verify proper battery insertion, refer to the image below:
+:::info
 
-<ThemedImageZoom
-  alt="Raph's battery removed and inserted"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/getting-started/battery-insertion-light.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/getting-started/battery-insertion-dark.webp',
-    ),
+You should hear a **click** when the batteries are fully inserted.
+
+:::
+
+<FlexTable
+  style={{
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   }}
-  width="1500"
-  height="777"
+>
+  <FlexTableItem
+    style={{
+      width: '40%',
+    }}
+  >
+    <ThemedImageZoom
+      alt="Raph's battery removed"
+      sources={{
+        light: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_out_black.webp',
+        ),
+        dark: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_out_white.webp',
+        ),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 800,
+      }}
+      caption="Battery prepared"
+    />
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '40%',
+    }}
+  >
+    <ThemedImageZoom
+      alt="Raph's battery inserted"
+      sources={{
+        light: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_in_black.webp',
+        ),
+        dark: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_in_white.webp',
+        ),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 800,
+      }}
+      caption="Battery inside the slot"
+    />
+  </FlexTableItem>
+</FlexTable>
+
+To verify proper battery insertion, press the power button once.
+
+If the batteries are properly connected (and have any charge left) the LEDs on
+the sides of the rover will display current battery charge level.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/raph/getting-started/half_charge.webp"
+  alt="LED strips on the sides of Raph Rover showing half battery charge"
+  width="3000"
+  height="2250"
   figStyle={{
-    width: 800,
+    width: 500,
   }}
-  caption="Raph's battery outside (left) and inside (right) the slot"
 />
 
-To verify proper battery insertion, press the power button once. If the
-batteries have remaining charge, the LEDs on the sides of the device will
-illuminate to display the current battery charge level. The charge level is
-indicated by an LED bar that shows the percentage of battery capacity remaining.
+<font color="red">
 
-## How to turn on the rover
+TODO:
 
-After inserting the battery, the rover is ready to be powered on. To power on
-the rover, press and hold the power button located at the rear of the rover.
-While holding the button, a green bar will appear on the rear LED strip. This
-bar will progressively fill the rear LED strip. Once the bar fully fills the
-strip, the rover will power on.
+- Replace images with ones with ones made with "assembly manual template"
+- remove all text that is found in overview
+- center all tables
+- shorten texts
 
-The rover's power-on state will be indicated by a single green breath pulse of
-all LED strips.
-
-<ThemedImageZoom
-  alt="Diagram with arrows pointing to the buttons of Raph Rover, showing power and multifunctional buttons"
-  sources={{
-    light: useBaseUrl('/img/robots/raph/getting-started/buttons-light.webp'),
-    dark: useBaseUrl('/img/robots/raph/getting-started/buttons-dark.webp'),
-  }}
-  width="750"
-  height="575"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-### Turning the rover off
-
-To power off the rover, follow the same procedure as for powering it on. The
-main difference is that the rear LED bar will be red instead of green. The
-rover's power-off state will be indicated by a single red breath pulse of all
-LED strips.
+</font>
 
 ### Connecting via SSH
 
