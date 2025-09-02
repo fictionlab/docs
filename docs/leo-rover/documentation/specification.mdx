@@ -499,9 +499,39 @@ It uses Ubuntu and Fictionlab package archives and comes with:
 
 #### Network configuration
 
-{/* TODO */}
+LeoOS configures the network to provide connectivity to Leo Rover. The system
+sets up a bridge interface (`br0`) that combines the Ethernet and Wi-Fi
+interfaces into a single subnet. DHCP and DNS services are provided via
+`dnsmasq`, while `hostapd` manages the wireless access point.
 
-_Work in progress_
+##### Interfaces
+
+- **`eth0`** – Wired Ethernet interface, added to the bridge `br0`.
+- **`wlan_ext`** – External USB Wi-Fi interface, used as an Access Point (AP)
+  and bridged into `br0`.
+- **`wlan_int`** – Internal Wi-Fi interface (onboard chip), can be used for
+  connecting to existing networks.
+- **`br0`** – Bridge interface combining Ethernet and AP Wi-Fi interfaces,
+  assigned static IP `10.0.0.1/24`.
+
+The bridge means that all devices connected to either the Ethernet or the Wi-Fi
+network can communicate with each other as if they were on the same physical
+network. Once a device connects to the Wi-Fi access point, it receives an IP
+address in the `10.0.0.x` range and can communicate with the rover.
+
+You can learn how to change the access point settings in this guide:
+
+<LinkButton docId="guides/ap-settings" />
+
+LeoOS also supports connecting to existing Wi-Fi networks using the internal
+Wi-Fi interface. This can be useful for connecting the rover to a network with
+internet access. You can learn how to set it up in this guide:
+
+<LinkButton docId="guides/connect-to-network" />
+
+Once connected to the internet, the rover will also serve as a gateway for
+devices connected to its access point, allowing them to access the internet as
+well.
 
 #### ROS Startup
 
