@@ -9,298 +9,306 @@ sidebar_position: 1
 description: >-
   A quick set of informations regarding Raph Rover
 image: /img/robots/raph/raph-rover.webp
+hide_title: true
 ---
 
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import FusionEmbed from '@site/src/components/FusionEmbed';
 
-<font color="red">
-  TODO: - write better overview text - change images to reflect real rover, not
-  render - update box contents - remove all getting-stated stuff - center all
-  tables
-</font>
+{/* Replace with Raph Rover sites */}
 
-Raph Rover is a versatile platform designed for a wide range of robotic
-projects, from inspection to agriculture and construction. Built to integrate
-with custom payloads and operate in diverse environments, it's perfect for both
-indoor and outdoor applications. (Note: Beta version is limited to indoor use
-only.) This guide will help you get started with everything you need to know,
-including setup, charging, internet connectivity, and SSH access for a seamless
-experience with your new rover.
+import LeoRoverAssembled from '@site/src/products/leo-rover-assembled.mdx';
 
-<ImageZoom
+{/* Replace the icons with ones related to Raph, preferably ones from Roksana */}
+
+import Rpi from '@site/static/img/robots/leo/icons/raspberry-pi.svg';
+import Battery from '@site/static/img/robots/leo/icons/battery.svg';
+import Chip from '@site/static/img/robots/leo/icons/chip.svg';
+import Camera from '@site/static/img/robots/leo/icons/camera.svg';
+import Water from '@site/static/img/robots/leo/icons/water-droplet.svg';
+import Wifi from '@site/static/img/robots/leo/icons/wifi.svg';
+import Puzzle from '@site/static/img/robots/leo/icons/puzzle.svg';
+import Weight from '@site/static/img/robots/leo/icons/weight.svg';
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}>
+
+<ThemedImageZoom
   loading="eager"
-  src="/img/robots/raph/raph-rover.webp"
-  alt="Render of beta version of Raph Rover"
-  width="2000"
-  height="1500"
-  figStyle={{
-    width: 500,
+  alt="Raph Rover contour"
+  sources={{
+    light: useBaseUrl('/img/robots/raph/overview/raph-half-contour-black.webp'),
+    dark: useBaseUrl('/img/robots/raph/overview/raph-half-contour-white.webp'),
   }}
+  width="2400"
+  height="2600"
 />
 
-## Unboxing
-
-| Item                         |             Count              |
-| :--------------------------- | :----------------------------: |
-| Raph Rover                   |               1                |
-| Weight                       |             ~15 kg             |
-| Maximum payload              |            ~10 kg\*            |
-| Maximum linear speed         |            ~1.8 m/s            |
-| Maximum angular speed        |           ~4.7 Rad/s           |
-| Estimated max. obstacle size |             ~100 m             |
-| IP protection rating         |      IP 54 (not in beta)       |
-| Operating temperature        |        -10 °C to +40 °C        |
-| Run time                     | up to 4 hours with 2 batteries |
-| Connection range             |          Up to 100 m           |
-
-\* - on flat terrain
-
-What's in the box:
-
-- 1 x Raph Rover
-- 1 x Raph Rover battery dock
-- 1 x 24V Li-Ion charger
-- 2 x 24V battery pack
-- 1 x Additional mounting plate
-- 1 x Extended additional mounting plate
-- 8 x M5 x 40 distances for mounting plates
-- a little surprise
-
-## Connecting the battery
-
-Each Raph Rover is equipped with two dedicated 24V Li-Ion battery packs.
-
-:::warning
-
-Make sure that there is no debris inside the slots or in the battery connectors!
-
-:::
-
-To power the rover, insert these battery packs into their designated slots
-located on either side of the rover. Ensure proper alignment and secure the
-batteries in place to guarantee uninterrupted power supply.
-
-The batteries are secured by ball catches, which provide slight resistance
-during insertion and removal. A properly inserted battery should be fully nested
-within the slot.
-
-To verify proper battery insertion, refer to the image below:
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      textAlign: 'center',
+      width: '40%'
+    }}>
 
 <ThemedImageZoom
-  alt="Raph's battery removed and inserted"
+  loading="eager"
+  alt="Raph Rover logo"
   sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/getting-started/battery-insertion-light.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/getting-started/battery-insertion-dark.webp',
-    ),
+    dark: useBaseUrl('/img/robots/raph/logotype_white.svg'),
+    light: useBaseUrl('/img/robots/raph/logotype_grey.svg'),
   }}
-  width="1500"
-  height="777"
-  figStyle={{
-    width: 800,
-  }}
-  caption="Raph's battery outside (left) and inside (right) the slot"
+  width="2964"
+  height="724"
 />
 
-To verify proper battery insertion, press the power button once. If the
-batteries have remaining charge, the LEDs on the sides of the device will
-illuminate to display the current battery charge level. The charge level is
-indicated by an LED bar that shows the percentage of battery capacity remaining.
+<font color="red"> **It has RGB LEDs \<3** </font>
 
-## How to turn on the rover
+  </FlexTableItem>
+</FlexTable>
 
-After inserting the battery, the rover is ready to be powered on. To power on
-the rover, press and hold the power button located at the rear of the rover.
-While holding the button, a green bar will appear on the rear LED strip. This
-bar will progressively fill the rear LED strip. Once the bar fully fills the
-strip, the rover will power on.
+<LeoRoverAssembled />
 
-The rover's power-on state will be indicated by a single green breath pulse of
-all LED strips.
+---
+
+## Main features <font color="red">[TODO: replace with new icons]</font>
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'center', textAlign: 'center'}}>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Rpi
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Raspberry Pi
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Battery
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Up to 4 hours of continuous driving
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Chip
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Open-source and ROS2-based
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Camera
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Stereo cameras and live streaming
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Water
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Watertight, sturdy construction
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Wifi
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Dual band Wi-Fi
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Puzzle
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Fun to assemble
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Up to 10 kg of nominal payload capacity
+
+  </FlexTableItem>
+
+</FlexTable>
+
+---
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}>
+      <ImageZoom
+        src="/img/robots/raph/overview/raph_street.webp"
+        alt="Raph rover on the street - AI Background"
+        width="1200"
+        height="876"
+        caption="*Render + AI background"
+      />
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '50%'
+    }}>
+
+#### Raph Rover is a versatile and robust robotic platform.
+
+Designed for a wide range of robotic projects, from inspection to agriculture
+and construction. Built to integrate with custom payloads and operate in diverse
+environments, it's perfect for both indoor and outdoor applications.
+
+  </FlexTableItem>
+</FlexTable>
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
+  <FlexTableItem
+    style={{
+      width: '50%'
+    }}>
+
+#### Fully configurable and open source 4x4 mobile robot.
+
+ROS-based mobile robot platform for researchers. Easy to customize and maintain.
+Whether used as a platform for carrying equipment or as an integrated
+laboratory, Raph Rover offers you a powerful platform for your scientific
+project.
+
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '40%'
+    }}>
+      <ImageZoom
+        src="/img/robots/raph/overview/raph_agro.webp"
+        alt="Raph rover agro - AI Background"
+        width="1200"
+        height="876"
+        caption="*Render + AI background"
+      />
+  </FlexTableItem>
+</FlexTable>
+
+---
+
+## Main parameters
 
 <ThemedImageZoom
-  alt="Diagram with arrows pointing to the buttons of Raph Rover, showing power and multifunctional buttons"
+  loading="eager"
+  alt="Raph Rover dimensions"
   sources={{
-    light: useBaseUrl('/img/robots/raph/getting-started/buttons-light.webp'),
-    dark: useBaseUrl('/img/robots/raph/getting-started/buttons-dark.webp'),
+    light: useBaseUrl('/img/robots/raph/specification/raph_dimensions_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/specification/raph_dimensions_white.webp'),
   }}
-  width="750"
-  height="575"
+  width="3000"
+  height="4997"
   figStyle={{
     width: 600,
   }}
 />
 
-### Turning the rover off
+### Specification highlits
 
-To power off the rover, follow the same procedure as for powering it on. The
-main difference is that the rear LED bar will be red instead of green. The
-rover's power-off state will be indicated by a single red breath pulse of all
-LED strips.
+<center>
 
-### Connecting via SSH
+|             Item             |             Count              |
+| :--------------------------: | :----------------------------: |
+|      Dimensions (LxWxH)      |    559 mm x 474 mm x 236(320) mm    |
+|            Weight            |             ~15 kg             |
+|       Maximum payload        |            ~10 kg            |
+|     Maximum linear speed     |            ~1.8 m/s            |
+|    Maximum angular speed     |           ~4.7 Rad/s           |
+| Estimated max. obstacle size |             ~100 mm             |
+|     IP protection rating     |      IP 54      |
+|    Operating temperature     |        -10 °C to +40 °C        |
+|           Run time           | ~4 hours (infinite with hot swapping batteries)|
+|       Connection range       |          Up to 100 m           |
 
-:::note
+</center>
 
-The following names and passwords are intended solely for beta users.
-Configuration settings will be updated for production-ready rovers.
+#### Check the full specification for more details:
 
-:::
+<LinkButton docId="Documentation/specification" />
 
-To connect to Raph Rover's computer via SSH, you must first establish a
-connection with the on-board Wi-Fi network. The default credentials for the
-access points are as follows:
+### 3D model
 
-- **SSID 2.4 GHz:** `Raph-XXXX-2G`
-- **SSID 5 GHz:** `Raph-XXXX-5G`
-- **Password:** `fictionlab`
+<font color="red">[TODO: update the model and image, now shipping prototype is being used]</font>
 
-:::note
+<FusionEmbed
+  url="https://a360.co/4mSF78b"
+  embedTitle="Raph Rover 3D model"
+  img="/img/robots/raph/overview/raph_cad.png"
+  img_width={1920}
+  img_height={1080}
+/>
+---
 
-`XXXX` is the rover's serial number
+## Shop links
 
-:::
-
-Once connected to the network, you can access the on-board devices using the
-following IP addresses and default credentials:
-
-- **Router (RUTX10) :** `10.10.0.1`
-- **Controller (RaphCore):** `10.10.0.2`
-- **On-board computer (UpBoard 7000):** `10.10.0.3`
-
-To connect to the UpBoard via SSH, use your preferred SSH client and the
-following credentials:
-
-- **user:** `raph`
-- **password:** `raph`
-
-To connect with the router, go to http://10.10.0.1 and login using credentials
-below:
-
-- **user:** `admin`
-- **password:** `Fictionlab1`
-
-## Battery charging
-
-By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
-battery pack in about 2,5 hours. Raph Rover has 2 options for charging
-batteries:
-
-- Outside the rover, by plugging battery into charger
-- Inside the rover, by plugging charger directly into rear charging slot of the
-  rover
-
-<FlexTable
-  style={{
-    justifyContent: 'space-around',
-  }}
->
-  <FlexTableItem
-    style={{
-      width: '40%',
-    }}
-  >
-    <ThemedImageZoom
-      alt="Raph Rover battery dock with battery pack hovering above it"
-      sources={{
-        light: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-out-light.webp',
-        ),
-        dark: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-out-dark.webp',
-        ),
-      }}
-      width="1440"
-      height="1080"
-      figStyle={{
-        width: 400,
-      }}
-    />
-  </FlexTableItem>
-  <FlexTableItem
-    style={{
-      width: '40%',
-    }}
-  >
-    <ThemedImageZoom
-      alt="Raph Rover battery dock with battery pack inside it"
-      sources={{
-        light: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-in-light.webp',
-        ),
-        dark: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-in-dark.webp',
-        ),
-      }}
-      width="1440"
-      height="1080"
-      figStyle={{
-        width: 400,
-      }}
-    />
-  </FlexTableItem>
-</FlexTable>
-
-The charger (not the dock) is outfitted with an LED status indicator designed to
-provide information about the charging status of the battery. A green LED
-signifies that the battery has reached full charge, while a red LED indicates
-that the battery is currently in the charging process.
-
-:::note
-
-When charging the batteries with the rover powered on, the LED indicator will
-not transition to green during the charging cycle. This is due to the fact that
-the charger will be used to sustain the operational state of the rover after the
-charging process.
-
-:::
-
-{/* ## Connecting rover to the internet */}
-
-## Turning wheels calibration
-
-After each power-off, Raph Rover loses the position of its turning wheels,
-requiring calibration. This process is initiated using the multifunctional
-button adjacent to the power button.
-
-To calibrate the wheels, press and hold the multifunctional button until the LED
-strips illuminate in blue. The turning wheels will begin rotating inwards to
-locate the induction sensor. Subsequently, the motors will continue rotating to
-calibrate their positions relative to the bumpers.
-
-<ThemedImageZoom
-  alt="Top down view of the Raph Rover, with arrows next to the turning motors, showcasing movement during calibration"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/getting-started/wheel-calibration-light.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/getting-started/wheel-calibration-dark.webp',
-    ),
-  }}
-  width="1920"
-  height="1080"
+<font color="red"> Fix shop links </font>
+<LinkButton
+  title="Visit our shop"
+  url="https://www.leorover.tech/shop"
+  description="Explore our products and find the right rover for your needs."
 />
 
-This 2-step process ensures that the wheels are calibrated without obstruction.
-
-{/* ## Pad controller connection */}
-
-{/* TODO later */}
-
-{/* ### Controller key mapping */}
-
-{/* TODO later */}
-
-{/* ## Camera view */}
-
-{/* TODO later */}
-
-{/* ## How to add custom LED animations */}
-
-{/* TODO later */}
+<LinkButton
+  title="Get a quote"
+  url="https://www.leorover.tech/shop#quote"
+  description="Tell us what you need, when and where you need it and how we can help you."
+/>
