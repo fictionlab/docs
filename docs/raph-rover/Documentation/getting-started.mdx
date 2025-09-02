@@ -177,17 +177,6 @@ the sides of the rover will display current battery charge level.
   }}
 />
 
-<font color="red">
-
-TODO:
-
-- Replace images with ones with ones made with "assembly manual template"
-- remove all text that is found in overview
-- center all tables
-- shorten texts
-
-</font>
-
 ## Turning wheels calibration
 
 After each power-off, Raph Rover loses the position of its turning wheels,
@@ -213,49 +202,51 @@ This 2-step process ensures that the wheels are calibrated without obstruction.
   height="2121"
 />
 
-### Connecting via SSH
+<font color="red">
 
-:::note
+TODO:
 
-The following names and passwords are intended solely for beta users.
-Configuration settings will be updated for production-ready rovers.
+- Replace images with ones with ones made with "assembly manual template"
+- remove all text that is found in overview
+- center all tables
+- shorten texts
 
-:::
+</font>
 
-To connect to Raph Rover's computer via SSH, you must first establish a
-connection with the on-board Wi-Fi network. The default credentials for the
-access points are as follows:
+
+## Credentials
+
+<font color="red"> Czy warto w ogóle opisywać ludziom, że " connect via your prefered SSH client "? </font>
+
+### Wi-Fi access points
 
 - **SSID 2.4 GHz:** `Raph-XXXX-2G`
 - **SSID 5 GHz:** `Raph-XXXX-5G`
 - **Password:** `fictionlab`
 
-:::note
-
-`XXXX` is the rover's serial number
-
-:::
-
-Once connected to the network, you can access the on-board devices using the
-following IP addresses and default credentials:
-
-- **Router (RUTX10) :** `10.10.0.1`
-- **Controller (RaphCore):** `10.10.0.2`
-- **On-board computer (UpBoard 7000):** `10.10.0.3`
+### On-board computer (UpBoard 7000)
 
 To connect to the UpBoard via SSH, use your preferred SSH client and the
 following credentials:
 
+- **IP:** `10.10.0.3`
 - **user:** `raph`
 - **password:** `raph`
+
+### Router (RUTX10)
 
 To connect with the router, go to http://10.10.0.1 and login using credentials
 below:
 
+- **IP :** `10.10.0.1`
 - **user:** `admin`
 - **password:** `Fictionlab1`
 
-## Battery charging
+### Controller (RaphCore)
+
+- **IP:** `10.10.0.2`
+
+## Charging batteries
 
 By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
 battery pack in about 2,5 hours. Raph Rover has 2 options for charging
