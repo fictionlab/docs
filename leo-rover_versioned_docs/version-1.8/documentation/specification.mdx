@@ -228,7 +228,7 @@ possible addons.
 />
 </TabItem>
 <TabItem value='leoOS2' label='LeoOS 2.x'>
-Leo Rover's software heavily relies on the [Robot Operating System (ROS)][ros],
+Leo Rover's software heavily relies on the [Robot Operating System (ROS)](https://ros.org/),
 which offers the robot the following functionalities:
 
 - Abstraction layer facilitating communication between software components.
@@ -236,9 +236,10 @@ which offers the robot the following functionalities:
 - A collection of standard message interfaces.
 - Tools for introspection.
 
-The primary segment of the software stack consists of several [ROS
-Nodes][ros-nodes], which are computational units, each performing a single
-logical function. The nodes interact via:
+The primary segment of the software stack consists of several
+[ROS Nodes](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Nodes.html),
+which are computational units, each performing a single logical function. The
+nodes interact via:
 
 - **Topics** - Named buses enabling message exchange between nodes. They are
   strongly typed and employ anonymous publish/subscribe semantics.
@@ -256,9 +257,10 @@ logical function. The nodes interact via:
 There are two important software components that don't run as native ROS nodes:
 
 - **Controller firmware** - The firmware itself acts as a ROS node, but uses
-  eProsima's [Micro XRCE-DDS][micro-xrce-dds] as its middleware. Therefore, it
-  requires the presence of the Micro-ROS Agent on the built-in computer to
-  communicate with other ROS nodes.
+  eProsima's
+  [Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/) as its
+  middleware. Therefore, it requires the presence of the Micro-ROS Agent on the
+  built-in computer to communicate with other ROS nodes.
 - **Web User Interface** - The WebUI establishes a connection with the Rosbridge
   Server via the WebSocket transport layer and employs the Rosbridge protocol
   for communication with ROS nodes.
