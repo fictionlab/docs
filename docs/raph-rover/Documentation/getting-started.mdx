@@ -61,6 +61,12 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
   }}
 />
 
+<font color="red">
+  {' '}
+  Explain what each button does, name them something like "POWER" and "CONTROL"
+  od "MAINTENANCE" or "FN"{' '}
+</font>
+
 <center>
 
 | Condition |                                     Button                                      |        Function         |  Action   |
@@ -69,6 +75,7 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 | rover off |                     <font color="2c71bf"> **LEFT** </font>                      |         turn on         | hold - 3s |
 | rover on  |                     <font color="2c71bf"> **LEFT** </font>                      |        turn off         | hold - 5s |
 | rover on  |                     <font color="c07b2c"> **BACK** </font>                      | toggle maintenance mode |   click   |
+| rover on  |                     <font color="c07b2c"> **BACK** </font>                      |    calibrate servos     | hold - 3s |
 |    any    | <font color="2c71bf"> **LEFT** </font> + <font color="c07b2c"> **BACK** </font> |     enter XYZ mode      |    ???    |
 
 </center>
@@ -180,6 +187,31 @@ TODO:
 - shorten texts
 
 </font>
+
+## Turning wheels calibration
+
+After each power-off, Raph Rover loses the position of its turning wheels,
+requiring calibration. This process is initiated using the  <font color="c07b2c"> **BACK** </font>  button
+positioned at the back of the rover. Hold it for 3 seconds until the LED strips
+shines blue. 
+
+Wheels will begin to rotate inwards to locate the 
+induction sensor, then bump into the frame to set zero position. 
+This 2-step process ensures that the wheels are calibrated without obstruction.
+
+<ThemedImageZoom
+  alt="Top down view of the Raph Rover, with arrows next to the turning motors, showcasing movement during calibration"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_calibration_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_calibration_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+/>
 
 ### Connecting via SSH
 
@@ -298,34 +330,9 @@ charging process.
 
 :::
 
+{/* ## Connecting to UI */}
+
 {/* ## Connecting rover to the internet */}
-
-## Turning wheels calibration
-
-After each power-off, Raph Rover loses the position of its turning wheels,
-requiring calibration. This process is initiated using the multifunctional
-button adjacent to the power button.
-
-To calibrate the wheels, press and hold the multifunctional button until the LED
-strips illuminate in blue. The turning wheels will begin rotating inwards to
-locate the induction sensor. Subsequently, the motors will continue rotating to
-calibrate their positions relative to the bumpers.
-
-<ThemedImageZoom
-  alt="Top down view of the Raph Rover, with arrows next to the turning motors, showcasing movement during calibration"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/getting-started/wheel-calibration-light.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/getting-started/wheel-calibration-dark.webp',
-    ),
-  }}
-  width="1920"
-  height="1080"
-/>
-
-This 2-step process ensures that the wheels are calibrated without obstruction.
 
 {/* ## Pad controller connection */}
 
