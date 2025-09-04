@@ -177,31 +177,6 @@ the sides of the rover will display current battery charge level.
   }}
 />
 
-## Turning wheels calibration
-
-After each power-off, Raph Rover loses the position of its turning wheels,
-requiring calibration. This process is initiated using the <font color="c07b2c">
-**BACK** </font> button positioned at the back of the rover. Hold it for 3
-seconds until the LED strips shines blue.
-
-Wheels will begin to rotate inwards to locate the induction sensor, then bump
-into the frame to set zero position. This 2-step process ensures that the wheels
-are calibrated without obstruction.
-
-<ThemedImageZoom
-  alt="Top down view of the Raph Rover, with arrows next to the turning motors, showcasing movement during calibration"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/getting-started/raph_calibration_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/getting-started/raph_calibration_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-/>
-
 ## Charging batteries
 
 Raph Rover comes with a 4A 25,2V Li-Ion charger. It can charge 1 battery pack in
@@ -259,19 +234,56 @@ batteries are fully charged, press the power button once.
 
 :::
 
-## Credentials
+## Calibration
 
-<font color="red">
-  {' '}
-  Is "connect via your preferred SSH client" even necessary? Should this stuff
-  be placed in a guide like for Leo?{' '}
-</font>
+After each power-off, Raph Rover loses the position of its turning wheels,
+requiring calibration. This process is initiated using the <font color="c07b2c">
+**BACK** </font> button positioned at the back of the rover. Hold it for 3
+seconds until the LED strips shines blue.
 
-### Wi-Fi access points
+Wheels will begin to rotate inwards to locate the induction sensor, then bump
+into the frame to set zero position. This 2-step process ensures that the wheels
+are calibrated without obstruction.
+
+<ThemedImageZoom
+  alt="Top down view of the Raph Rover, with arrows next to the turning motors, showcasing movement during calibration"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_calibration_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_calibration_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+/>
+
+## Web interface & first ride
+
+Connect to the rover's Wi-Fi network to access its web interface using the credentials provided below:
 
 - **SSID 2.4 GHz:** `Raph-XXXX-2G`
 - **SSID 5 GHz:** `Raph-XXXX-5G`
 - **Password:** `fictionlab`
+
+Open your web browser and navigate to http://10.10.0.2 <font color="red"> Good IP? </font> to access the rover's control panel.
+
+From here, you can control the rover, access the camera feed, and configure various settings.
+You can control the rover using the on-screen joystick <font color ="red"> or by connecting a gamepad. </font>
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/raph/getting-started/raph_UI.jpg"
+  alt="LED strips on the sides of Raph Rover showing half battery charge"
+  width="3000"
+  height="2250"
+  figStyle={{
+    width: 800,
+  }}
+/>
+
+
 
 ### On-board computer (UpBoard 7000)
 
@@ -294,17 +306,6 @@ below:
 ### Controller (RaphCore)
 
 - **IP:** `10.10.0.2`
-
-<font color="red">
-
-TODO:
-
-- Replace images with ones with ones made with "assembly manual template"
-- remove all text that is found in overview
-- center all tables
-- shorten texts
-
-</font>
 
 {/* ## Connecting to UI */}
 
