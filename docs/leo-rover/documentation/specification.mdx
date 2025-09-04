@@ -12,6 +12,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Admonition from '@theme/Admonition';
+import CenterContent from '@site/src/components/CenterContent';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
@@ -42,8 +43,10 @@ obstacle detection, and remote monitoring.
 
 ### Main parameters
 
+<CenterContent>
+
 | Parameter                    |                Value                |
-| :--------------------------- | :---------------------------------: |
+| ---------------------------- | :---------------------------------: |
 | Dimensions (LxWxH)           |      424 mm x 445 mm x 303 mm       |
 | Weight                       |           $\approx$ 7 kg            |
 | Maximum payload              |          $\approx$ 5 kg\*           |
@@ -52,15 +55,19 @@ obstacle detection, and remote monitoring.
 | Estimated max. obstacle size |           $\approx$ 70 mm           |
 | IP protection rating         |                IP 55                |
 | Operating temperature        |          -10 °C to +40 °C           |
-| Run time                     | up to 4 hours with standard battery |
+| Run time                     | Up to 4 hours with standard battery |
 | Connection range             |             Up to 100 m             |
+
+</CenterContent>
 
 \* - on standard tires
 
 #### Traction parameters
 
+<CenterContent>
+
 | Parameter                    |    Value    |
-| :--------------------------- | :---------: |
+| ---------------------------- | :---------: |
 | Track Width                  |   354 mm    |
 | Wheelbase length             |   295 mm    |
 | Ground clearance             |   108 mm    |
@@ -69,6 +76,8 @@ obstacle detection, and remote monitoring.
 | Hill grade traversal         | 45° (100 %) |
 | Nominal torque               |    4 Nm     |
 | Maximum torque               |   5.6 Nm    |
+
+</CenterContent>
 
 ### Rover overview
 
@@ -114,13 +123,17 @@ obstacle detection, and remote monitoring.
 
 ### Components
 
-|              Name | Quantity | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ----------------: | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+<CenterContent>
+
+| Name              | Quantity | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Built-in computer |    1     | Raspberry Pi 5 - A single-board computer developed by Raspberry Pi Ltd.<br /> <br /> Key features: <ul><li>Processor: Broadcom BCM2712, 2.4GHz quad-core 64-bit Arm Cortex-A76 CPU with cryptography extensions. </li><li> Memory: 4GB LPDDR4X-4267 SDRAM.</li><li>Storage: Micro SD card slot with support for high-speed SDR104 mode; PCIe 2.0 x1 interface for fast peripherals (requires separate M.2 HAT or adapter).</li><li>Connectivity:<ul><li>Gigabit Ethernet (supports PoE+ with separate PoE+ HAT)</li><li>Dual-band 802.11ac Wi-Fi</li><li> Bluetooth 5.0 / Bluetooth Low Energy (BLE)</li><li>2 x USB 3.0 ports supporting simultaneous 5Gbps operation</li><li> 2 x USB 2.0 5 ports</li><li> 2 x micro-HDMI ports supporting resolutions up to 4kp60 with HDR support</li><li>2 x 4-lane MIPI camera/display transceivers</li><li>standard 40-pin GPIO header</li></ul></li></ul> |
-|     Wi-Fi adapter |    1     | Alfa AWUS036ACS: USB 2.0 Wi-Fi adapter (Realtek RTL8811AU). Dual-band 802.11ac (AC600: 150 Mbps 2.4GHz + 433 Mbps 5GHz).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-|           Antenna |    1     | Dual-band (2.4 GHz / 5 GHz) placed on the top of the robot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|      Front camera |    1     | Arducam 12.3MP 477M HQ Camera Module for Raspberry Pi with 158°(D) M12 Wide Angle Lens.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-|         DC motors |    4     | Bühler Motors 1.61.077.414 connected to LeoCore.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Wi-Fi adapter     |    1     | Alfa AWUS036ACS: USB 2.0 Wi-Fi adapter (Realtek RTL8811AU). Dual-band 802.11ac (AC600: 150 Mbps 2.4GHz + 433 Mbps 5GHz).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Antenna           |    1     | Dual-band (2.4 GHz / 5 GHz) placed on the top of the robot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Front camera      |    1     | Arducam 12.3MP 477M HQ Camera Module for Raspberry Pi with 158°(D) M12 Wide Angle Lens.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| DC motors         |    4     | Bühler Motors 1.61.077.414 connected to LeoCore.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+
+</CenterContent>
 
 ### Block diagram
 
@@ -150,13 +163,17 @@ functionalities.
 To make it easier, we listed all the interfaces used by Leo Rover as default.
 Just to make sure you don't interfere with them when developing.
 
+<CenterContent>
+
 | Port                                    | Functionality                                                     |
 | --------------------------------------- | ----------------------------------------------------------------- |
-| Power input                             | to power the board                                                |
-| RPi port                                | to power and RPi serial communication                             |
-| LED output                              | to control the battery LED (to show system readiness)             |
-| Motor output A, B, C & D (PWM H-bridge) | to power the rover motors and encodes                             |
-| 5-pin debug port                        | used to flash firmware to the board using ST-link/V2 (optionally) |
+| Power input                             | To power the board                                                |
+| RPi port                                | To power and RPi serial communication                             |
+| LED output                              | To control the battery LED (to show system readiness)             |
+| Motor output A, B, C & D (PWM H-bridge) | To power the rover motors and encodes                             |
+| 5-pin debug port                        | Used to flash firmware to the board using ST-link/V2 (optionally) |
+
+</CenterContent>
 
 ### Drivetrain
 
@@ -184,12 +201,16 @@ position and speed, allowing for accurate control of the Rover's movement.
 As standard, Leo Rover comes with rubber tires with a diameter of about 130 mm.
 Whole drive assembly has following characteristics:
 
-|                        Parameter |               Value                |
-| -------------------------------: | :--------------------------------: |
+<CenterContent>
+
+| Parameter                        |               Value                |
+| -------------------------------- | :--------------------------------: |
 | Tire size (diameter x thickness) | $\approx$ 125 mm x $\approx$ 70 mm |
-|                   Tire lock type |            non beadlock            |
-|                      Tire insert |     soft foam (non pneumatic)      |
-|               Wheel rim diameter |               98 mm                |
+| Tire lock type                   |            Non beadlock            |
+| Tire insert                      |     Soft foam (non pneumatic)      |
+| Wheel rim diameter               |               98 mm                |
+
+</CenterContent>
 
 ### Battery & charging
 
@@ -201,15 +222,19 @@ during extended use.
 
 Each battery pack has following characteristics:
 
-|            Parameter |                  Value                   |
-| -------------------: | :--------------------------------------: |
-|              Voltage |             11.1 V (nominal)             |
-|         Battery type |                  Li-Ion                  |
-|         Battery cell |       18650 (Samsung INR18650-35E)       |
-|             Capacity |       7 Ah (77,7 Wh - flight safe)       |
-|    Battery pack type |                   3S2P                   |
+<CenterContent>
+
+| Parameter            |                  Value                   |
+| -------------------- | :--------------------------------------: |
+| Voltage              |             11.1 V (nominal)             |
+| Battery type         |                  Li-Ion                  |
+| Battery cell         |       18650 (Samsung INR18650-35E)       |
+| Capacity             |       7 Ah (77,7 Wh - flight safe)       |
+| Battery pack type    |                   3S2P                   |
 | Maximum output power |             $\approx$ 120 W              |
-|       Safety systems | Overcurrent, Reverse polarity protection |
+| Safety systems       | Overcurrent, Reverse polarity protection |
+
+</CenterContent>
 
 #### Connectors
 
@@ -221,10 +246,10 @@ possible addons.
   <FlexTableItem>
 
 | Pin name | Cable color                   |
-| -------- | ----------------------------- |
-| DC-      | black                         |
-| DC+      | red / black with white stripe |
-| LED      | green                         |
+| :------: | ----------------------------- |
+|   DC-    | Black                         |
+|   DC+    | Red / black with white stripe |
+|   LED    | Green                         |
 
   </FlexTableItem>
   <FlexTableItem style={{padding: '0 0.5rem 0 0.5rem'}}>
@@ -248,13 +273,17 @@ information about the charging status of the battery. A green LED signifies that
 the battery has reached full charge, while a red LED indicates that the battery
 is currently in the charging process.
 
-|       Parameter |              Value              |
-| --------------: | :-----------------------------: |
-|         Voltage |             12.6 V              |
-|         Current |            2 A (max)            |
-|    Charger type |             Li-Ion              |
-|    Charger plug | DC 5.5/2.1 mm (center positive) |
+<CenterContent>
+
+| Parameter       |              Value              |
+| --------------- | :-----------------------------: |
+| Voltage         |             12.6 V              |
+| Current         |            2 A (max)            |
+| Charger type    |             Li-Ion              |
+| Charger plug    | DC 5.5/2.1 mm (center positive) |
 | Charger adapter |  Weipu SP13-3 - DC 5.5/2.1 mm   |
+
+</CenterContent>
 
 To connect the charger to the battery, a Weipu SP13-3 - DC 5.5/2.1 mm adapter is
 included with each Rover. This adapter allows for easy and secure connection
@@ -274,12 +303,17 @@ platform on the top, which can accommodate different payloads and accessories.
 The payload capacity of the Rover is approximately 5 kg, making it suitable for
 a wide range of applications, including research, education, and development.
 
-|                                  Parameter |                    Value                     |
-| -----------------------------------------: | :------------------------------------------: |
-|                           Payload capacity |                $\approx$ 5 kg                |
-|                          Hole grid spacing |                18 mm x 15 mm                 |
-|                   Mounting hole dimensions | 7 mm, equipped with T-KFS-M4-1 press-in nuts |
-| Main mounting plate dimensions (L x W x D) |            299 mm x 183 mm x 2 mm            |
+<CenterContent>
+
+| Parameter                |                    Value                     |
+| ------------------------ | :------------------------------------------: |
+| Payload capacity         |                $\approx$ 5 kg                |
+| Hole grid spacing        |                18 mm x 15 mm                 |
+| Mounting hole dimensions | 7 mm, equipped with T-KFS-M4-1 press-in nuts |
+
+</CenterContent>
+
+| Main mounting plate dimensions (L x W x D) | 299 mm x 183 mm x 2 mm |
 
 Apart from the mounting plate, it is possible to mount payloads directly to
 v-slot extrusions of the Leo Rover.
@@ -343,11 +377,13 @@ There are two important software components that don't run as native ROS nodes:
 
 ### ROS nodes
 
+<CenterContent>
+
 <table>
   <thead>
     <tr>
-      <th style={{ textAlign: 'left' }}>ROS Node</th>
-      <th style={{ textAlign: 'left' }}>Description</th>
+      <th style={{ textAlign: 'center' }}>ROS Node</th>
+      <th style={{ textAlign: 'center' }}>Description</th>
     </tr>
   </thead>
   <tbody>
@@ -432,6 +468,8 @@ There are two important software components that don't run as native ROS nodes:
 
   </tbody>
 </table>
+
+</CenterContent>
 
 <ThemedImageZoom
   alt="Simplified graph of core ROS nodes running on Leo Rover"
