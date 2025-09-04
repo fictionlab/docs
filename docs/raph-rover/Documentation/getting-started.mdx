@@ -32,8 +32,8 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 
 <center>
 
-| <center>Item</center>      | Count |
-| :------------------------- | :---: |
+| Item                       | Count |
+| -------------------------- | :---: |
 | Raph Rover                 |   1   |
 | Raph Rover battery pack    |   2   |
 | Raph Rover battery charger |   1   |
@@ -70,13 +70,13 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 <center>
 
 | Condition |                                     Button                                      |        Function         |  Action   |
-| :-------: | :-----------------------------------------------------------------------------: | :---------------------: | :-------: |
-|    Any    |                     <font color="2c71bf"> **LEFT** </font>                      |  Check battery charge   |   Click   |
+| --------- | :-----------------------------------------------------------------------------: | :---------------------: | :-------: |
+| Any       |                     <font color="2c71bf"> **LEFT** </font>                      |  Check battery charge   |   Click   |
 | Rover off |                     <font color="2c71bf"> **LEFT** </font>                      |         Turn on         | Hold - 3s |
 | Rover on  |                     <font color="2c71bf"> **LEFT** </font>                      |        Turn off         | Hold - 5s |
 | Rover on  |                     <font color="c07b2c"> **BACK** </font>                      | Toggle maintenance mode |   Click   |
 | Rover on  |                     <font color="c07b2c"> **BACK** </font>                      |    Calibrate servos     | Hold - 3s |
-|    Any    | <font color="2c71bf"> **LEFT** </font> + <font color="c07b2c"> **BACK** </font> |     Enter XYZ mode      |    ???    |
+| Any       | <font color="2c71bf"> **LEFT** </font> + <font color="c07b2c"> **BACK** </font> |     Enter XYZ mode      |    ???    |
 
 </center>
 
@@ -202,22 +202,69 @@ are calibrated without obstruction.
   height="2121"
 />
 
-<font color="red">
+## Charging batteries
 
-TODO:
+Raph Rover comes with a 4A 25,2V Li-Ion charger. It can charge 1 battery pack in
+about 1.5 hour via the dedicated charging slot.
 
-- Replace images with ones with ones made with "assembly manual template"
-- remove all text that is found in overview
-- center all tables
-- shorten texts
+<ThemedImageZoom
+  alt="Raph Rover battery dock"
+  sources={{
+    light: useBaseUrl('/img/robots/raph/getting-started/Charging_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/getting-started/Charging_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
-</font>
+The charger (not the dock) is outfitted with an LED status indicator designed to
+provide information about the charging status of the battery. A green LED
+signifies that the battery has reached full charge, while a red LED indicates
+that the battery is currently in the charging process.
+
+As an alternative, the batteries can be charged via the rover, by leaving them
+inside the battery ports and connecting the charger to the rover's power input
+located at the back.
+
+<ThemedImageZoom
+  alt="Raph Rover with power adapter"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/Charging_rover_white.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/Charging_rover_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+This way it's possible to charge both batteries at the same time, however the
+charging current will be split between them, resulting in a longer charging time
+of around 2.5h Rover does not need to be powered off for this process.
+
+:::note
+
+When working on the rover while charging the batteries the LED indicator of
+power adapter will not transition to green when charging is complete. Power draw
+of the rover will keep the charger in active (red) state. To verify that the
+batteries are fully charged, press the power button once.
+
+:::
 
 ## Credentials
 
 <font color="red">
   {' '}
-  Is "connect via your preferred SSH client" even necessary?{' '}
+  Is "connect via your preferred SSH client" even necessary? Should this stuff
+  be placed in a guide like for Leo?{' '}
 </font>
 
 ### Wi-Fi access points
@@ -248,80 +295,16 @@ below:
 
 - **IP:** `10.10.0.2`
 
-## Charging batteries
+<font color="red">
 
-By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
-battery pack in about 2,5 hours. Raph Rover has 2 options for charging
-batteries:
+TODO:
 
-- Outside the rover, by plugging battery into charger
-- Inside the rover, by plugging charger directly into rear charging slot of the
-  rover
+- Replace images with ones with ones made with "assembly manual template"
+- remove all text that is found in overview
+- center all tables
+- shorten texts
 
-<FlexTable
-  style={{
-    justifyContent: 'space-around',
-  }}
->
-  <FlexTableItem
-    style={{
-      width: '40%',
-    }}
-  >
-    <ThemedImageZoom
-      alt="Raph Rover battery dock with battery pack hovering above it"
-      sources={{
-        light: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-out-light.webp',
-        ),
-        dark: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-out-dark.webp',
-        ),
-      }}
-      width="1440"
-      height="1080"
-      figStyle={{
-        width: 400,
-      }}
-    />
-  </FlexTableItem>
-  <FlexTableItem
-    style={{
-      width: '40%',
-    }}
-  >
-    <ThemedImageZoom
-      alt="Raph Rover battery dock with battery pack inside it"
-      sources={{
-        light: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-in-light.webp',
-        ),
-        dark: useBaseUrl(
-          '/img/robots/raph/getting-started/charger-in-dark.webp',
-        ),
-      }}
-      width="1440"
-      height="1080"
-      figStyle={{
-        width: 400,
-      }}
-    />
-  </FlexTableItem>
-</FlexTable>
-
-The charger (not the dock) is outfitted with an LED status indicator designed to
-provide information about the charging status of the battery. A green LED
-signifies that the battery has reached full charge, while a red LED indicates
-that the battery is currently in the charging process.
-
-:::note
-
-When charging the batteries with the rover powered on, the LED indicator will
-not transition to green during the charging cycle. This is due to the fact that
-the charger will be used to sustain the operational state of the rover after the
-charging process.
-
-:::
+</font>
 
 {/* ## Connecting to UI */}
 
