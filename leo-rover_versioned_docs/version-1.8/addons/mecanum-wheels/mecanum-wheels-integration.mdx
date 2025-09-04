@@ -18,6 +18,9 @@ description: >-
 # image: TODO
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Mecanum wheels are a common way of giving mobile robots holonomic motion
 abilities. While not flawless e.g., difficult terrain traversal with mecanum
 wheels is much more difficult, mounting mecanum wheels to Leo Rover comes with
@@ -146,6 +149,8 @@ in the software running on the robot.
 If you have ROS installed on your computer, you can see the robot model with the
 mecanum wheels attached in RViz.
 
+<Tabs groupId='ros-version' defaultValue='ros1'>
+<TabItem value='ros1' label='ROS 1'>
 Before making any further steps, make sure you completed the Connecting another
 computer to ROS network section of ROS Development tutorial:
 
@@ -157,6 +162,38 @@ computer to ROS network section of ROS Development tutorial:
 To see the model, start `rviz`, and add **robot model** in the **display** view.
 Chose also `base_footprint` as **fixed frame**, and you should see the rover
 model with mecanum wheels attached.
+
+</TabItem>
+<TabItem value='ros2' label='ROS 2'>
+If you are not yet
+familiar with ROS 2, you can check out the guides below:
+
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Step-by-step guide on how to install ROS on your computer, including prerequisites and troubleshooting tips."
+/>
+<LinkButton
+  to="/leo-rover/1.8/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+To see the model, start `rviz2`, and add **robot model** in the **display**
+view. Chose also `base_footprint` as **fixed frame**, and you should see the
+rover model with mecanum wheels attached.
+</TabItem>
+</Tabs>
+:::warning
+
+Make sure you have the `leo_description` package installed on your computer. To
+install it, run:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-description
+```
+
+:::
 
 <ImageZoom
   src="/img/robots/leo/integrations/mecanum/rviz-leo-mecanum.webp"
