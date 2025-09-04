@@ -174,7 +174,7 @@ const config: Config = {
         },
         {
           href: 'https://www.leorover.tech/shop',
-          label: 'Online Store',
+          label: 'Online Shop',
           position: 'right',
         },
         {
@@ -209,7 +209,7 @@ const config: Config = {
               href: 'https://www.leorover.tech/developers',
             },
             {
-              label: 'Online store',
+              label: 'Online shop',
               href: 'https://www.leorover.tech/shop',
             },
             {

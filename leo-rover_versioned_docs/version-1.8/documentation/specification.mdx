@@ -11,6 +11,9 @@ description: >-
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import LinkButton from '@site/src/components/LinkButton';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import HiddenTabs from '@site/src/components/HiddenTabs';
 
 <ImageZoom
   loading="eager"
@@ -205,6 +208,8 @@ possible addons.
 
 ## Software structure
 
+<Tabs groupId='leoOS-version'>
+<TabItem value='leoOS1' label='LeoOS 1.x'>
 <ThemedImageZoom
   alt="Leo Rover 1.8 software diagram"
   sources={{
@@ -221,13 +226,66 @@ possible addons.
     width: 800,
   }}
 />
+</TabItem>
+<TabItem value='leoOS2' label='LeoOS 2.x'>
+Leo Rover's software heavily relies on the [Robot Operating System (ROS)](https://ros.org/),
+which offers the robot the following functionalities:
+
+- Abstraction layer facilitating communication between software components.
+- Open-source software components, maintained by the community.
+- A collection of standard message interfaces.
+- Tools for introspection.
+
+The primary segment of the software stack consists of several
+[ROS Nodes](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Nodes.html),
+which are computational units, each performing a single logical function. The
+nodes interact via:
+
+- **Topics** - Named buses enabling message exchange between nodes. They are
+  strongly typed and employ anonymous publish/subscribe semantics.
+- **Services** - A client/server mechanism for remote procedure calls between
+  nodes. The service server accepts remote procedure requests identified by name
+  and type, which must be known to the service client beforehand.
+- **Parameters** - Sets of key/value pairs maintained separately by each node,
+  utilized for node configuration during startup and runtime without
+  necessitating code modifications.
+- **TF transforms** - A single transform describes the relationship between two
+  coordinate frames at a specific point in time. TF transforms are distributed
+  between nodes using topics, but, for the sake of clarity, we will refer to
+  them as separate entities.
+
+There are two important software components that don't run as native ROS nodes:
+
+- **Controller firmware** - The firmware itself acts as a ROS node, but uses
+  eProsima's
+  [Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/) as its
+  middleware. Therefore, it requires the presence of the Micro-ROS Agent on the
+  built-in computer to communicate with other ROS nodes.
+- **Web User Interface** - The WebUI establishes a connection with the Rosbridge
+  Server via the WebSocket transport layer and employs the Rosbridge protocol
+  for communication with ROS nodes.
+
+<ThemedImageZoom
+  alt="Overview of Leo Rover's software components"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/raph-software-light.webp',
+    ),
+    dark: useBaseUrl('/img/robots/raph/specification/raph-software-dark.webp'),
+  }}
+  width="2000"
+  height="819"
+  caption="Overview of the software components"
+/>
+</TabItem>
+</Tabs>
 
 ### Operating system
 
-Ubuntu 20.04 + ROS Noetic
-
-Alternatively: \
-Ubuntu 22.04 + ROS2 Humble
+<HiddenTabs groupId="leoOS-version" defaultValue="leoOS1">
+  <TabItem value="leoOS1">Ubuntu 20.04 + ROS Noetic</TabItem>
+  <TabItem value="leoOS2">Ubuntu 24.04 + ROS2 Jazzy</TabItem>
+</HiddenTabs>
 
 :::info
 
@@ -237,23 +295,41 @@ Ready-to-go UI located under `10.0.0.1` when using standard Leo Software Image.
 
 ### Firmware
 
+<HiddenTabs groupId='leoOS-version'>
+<TabItem value='leoOS1'>
 This is the program that runs directly on the processor of the LeoCore board. It
 provides different functionalities to the Raspberry Pi through serial bus. The
 main features of the default
 [leocore_firmware](https://github.com/LeoRover/leocore_firmware) are:
-
 - differential drive controller
-  ([cmd_vel](https://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/Twist.html)
+  ([cmd_vel](https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)
   interface)
 - wheel states monitoring
-  ([joint_states](https://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/JointState.html)
+  ([joint_states](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/JointState.html)
   interface)
 - battery voltage monitoring
 - wheel odometry calculation
 - IMU support
+</TabItem>
+<TabItem value='leoOS2'>
+The "Firmware" refers to the low-level [software](https://github.com/LeoRover/leocore_firmware_ros2) running on the LeoCore
+controller. It utilizes [Micro-ROS](https://micro.ros.org) to communicate with the built-in
+computer via the Micro XRCE-DDS protocol and exposes functionalities such as:
+
+- velocity commands for the robot,
+- velocity and PWM commands for individual wheels,
+- battery voltage feedback,
+- wheel states (position, velocity, torque, PWM duty) feedback,
+- odometry feedback (calculated from wheel encoders),
+- feedback from the IMU sensor.
+
+</TabItem>
+</HiddenTabs>
 
 ### ROS nodes
 
+<HiddenTabs groupId='leoOS-version'>
+<TabItem value='leoOS1'>
 When the Raspberry Pi boots, a set of ROS nodes is started. These nodes allow
 different features to be accessed via ROS topics and services. They are defined
 in [leo_bringup](https://github.com/fictionlab-archive/leo_bringup) package and
@@ -270,6 +346,123 @@ mainly consist of:
   stream of a ROS image transport topic that can be accessed via HTTP
 - [Leo system](https://github.com/LeoRover/leo_robot/blob/master/leo_bringup/scripts/leo_system)
   node - provides system shutdown and reboot via ROS topics.
+
+</TabItem>
+<TabItem value='leoOS2'>
+
+<table>
+  <thead>
+    <tr>
+      <th style={{ textAlign: 'left' }}>ROS Node</th>
+      <th style={{ textAlign: 'left' }}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Firmware Node</td>
+      <td>
+        The node spawned by the LeoCore controller firmware. Allows control of the robot's wheels
+        via topics. Additionally, it publishes relevant information, including:
+
+        - State of the dynamic joints controlled by LeoCore.
+        - Data retrieved from the onboard IMU sensor.
+        - Battery voltage.
+        - Computed odometry.
+      </td>
+    </tr>
+    <tr>
+      <td>Robot State Publisher</td>
+      <td>
+        Parses the kinematic tree model of the robot in URDF format and broadcasts the
+        robot state using TF transforms. Here's how it operates:
+
+        - Fixed joints, like sensor positions, are published as static transforms.
+        - Movable joints, such as wheel states, are published as dynamic transforms,
+          based on the current joint states published by the Firmware Node.
+
+        It also publishes the robot URDF description on a designated topic, making it
+        easily accessible to other nodes.
+      </td>
+    </tr>
+    <tr>
+      <td>Camera Driver</td>
+      <td>
+        Publishes camera information and various camera images, including:
+
+        - Color image.
+        - Monochrome image.
+        - Rectified images in color and monochrome.
+
+        All images are published at 15 FPS, both in their original resolution and in compressed versions.
+      </td>
+    </tr>
+    <tr>
+      <td>Firmware Message Converter</td>
+      <td>
+        Converts messages from the Firmware Node to standard ROS messages.
+      </td>
+    </tr>
+    <tr>
+      <td>IMU Filter</td>
+      <td>
+        Processes raw IMU data using a complementary filter which:
+
+        - Combines accelerometer and gyroscope data to estimate orientation.
+        - Computes roll, pitch, and yaw (RPY) angles.
+        - Automatically adjusts gyroscope bias when it detects steady state
+          (no movement) of the rover.
+
+        The gyroscope bias is periodically saved to persistent storage and loaded on startup.
+        The node also enables calibration reset via a service.
+      </td>
+    </tr>
+    <tr>
+      <td>Odometry Filter</td>
+      <td>
+        Fuses wheel odometry and filtered IMU data to compute the robot's pose and velocity, and publishes this information.
+        It can optionally broadcast an odometry TF transform and supports resetting the odometry via a service.
+      </td>
+    </tr>
+    <tr>
+      <td>Web Video Server</td>
+      <td>
+        Provides HTTP video streaming of ROS image topics to the Web User Interface.
+      </td>
+    </tr>
+    <tr>
+      <td>Rosbridge Server</td>
+      <td>
+        Provides a WebSocket interface to the ROS system, allowing the Web User Interface
+        to communicate with ROS nodes.
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<ThemedImageZoom
+  alt="Simplified graph of core ROS nodes running on Leo Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9-ros-diagram-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/specification/leo-1.9-ros-diagram-dark.webp',
+    ),
+  }}
+  width="2000"
+  height="819"
+  caption="Simplified graph of core ROS nodes running on Leo Rover"
+/>
+
+:::note
+
+The names of nodes, topics, services are simplified for clarity.
+
+:::
+
+</TabItem>
+</HiddenTabs>
 
 ### Web user interface (UI)
 
