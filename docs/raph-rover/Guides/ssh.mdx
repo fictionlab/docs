@@ -1,0 +1,49 @@
+---
+title: Connect via SSH
+sidebar_label: Connect via SSH
+sidebar_position: 2
+description: >-
+  Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH.
+---
+
+<font color="red" size="+10">
+  {' '} Replace text with what Raph should have{' '}
+</font>
+
+First connect to the Rover's network:
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+
+If you are using Linux or Mac OS, you most likely have an SSH client already
+installed. On Windows 10, you can use
+[this](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui&pivots=windows-10)
+guide to install OpenSSH.
+
+:::tip
+
+On newer Windows versions the OpenSSH is automatically installed.
+
+:::
+
+To connect to your Rover, open a terminal session and type:
+
+```bash
+ssh pi@10.0.0.1
+```
+
+If you log in for the first time, you might see a similar message:
+
+<ImageZoom
+  src="/img/robots/leo/guides/ssh/linux-terminal.webp"
+  alt="Terminal screen on the Linux"
+  width="786"
+  height="100"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+Type `yes` and press enter to continue.
+
+When prompted for password, type: `raspberry`

@@ -1,0 +1,144 @@
+---
+title: Software update
+sidebar_label: Software update
+sidebar_position: 7
+description: >-
+  Detailed guide on updating the software of Leo Rover, covering steps to access
+  the microSD card, download and flash the latest LeoOS image.
+---
+
+<font color="red" size="+10">
+  {' '} Replace text with what Raph should have{' '}
+</font>
+
+## Flashing a new Raspberry Pi image
+
+### Access microSD charged
+
+To access microSD card from your Leo Rover, open the main electronics box by
+unscrewing the 4 socket-headed screws and extract the card from the SD card slot
+on the Raspberry Pi.
+
+Put the microSD card in the adapter and then connect it to your computer.
+
+### Download the newest LeoOS image
+
+:::info
+
+As it might be a bit confusing which LeoOS version you should install on your
+rover, here's a breakdown of the possible combinations depending on your robot
+hardware version and the associated ROS version.
+
+<table>
+  <tr>
+    <th>Robot Version</th>
+    <th>LeoOS version</th>
+    <th>ROS Version</th>
+  </tr>
+  <tr>
+    <td rowspan="2">Leo 1.8</td>
+    <td>1.x.x</td>
+    <td>ROS 1</td>
+  </tr>
+  <tr>
+    <td>2.x.x</td>
+    <td>ROS 2</td>
+  </tr>
+  <tr>
+    <td>Leo 1.9</td>
+    <td> 2.x.x</td>
+    <td>ROS 2</td>
+  </tr>
+</table>
+
+For access to Leo Rover 1.8 documentation specific to ROS 1, navigate to the
+page's upper right corner and utilize the version selector to choose the Leo
+Rover 1.8 documentation set.
+
+:::
+
+You can find all releases of LeoOS
+[here](https://github.com/LeoRover/leo_os/releases). Choose the newest one and
+download the image (.img.xz file) you want. We recommend the `full` version. The
+`lite` version comes without a desktop environment, so it is an alternative if
+you don't need all the extra packages.
+
+### Flash image to microSD card
+
+#### Using Etcher
+
+Open [Etcher](https://www.balena.io/etcher/) and point it to your new SD card
+image location (.img or .img.xz file) via Select image.
+
+:::info
+
+Recent versions of Balena Etcher may not support flashing compressed .img.xz
+files reliably. To ensure compatibility, please extract the .img file before
+flashing (eg. using WinRAR/7zip).
+
+:::
+
+Click Select drive option and choose your card, then click Flash!
+
+<ImageZoom
+  src="/img/robots/leo/guides/software-update/etcher.webp"
+  alt="Balena Etcher window"
+  width="1024"
+  height="529"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+After the flashing completes, disconnect the card and put it back into the
+rover.
+
+#### Using command-line tools
+
+If you are using Linux or Mac, you can use `xz` and `dd` tools to copy
+compressed image file into your card like this:
+
+```bash
+xz -d -c [IMAGE_FILE] | sudo dd of=[SD_CARD_DEVICE] bs=4M status=progress && sync
+```
+
+example usage:
+
+```bash
+xz -d -c LeoOS-0.1-2020-06-29-full.img.xz | sudo dd of=/dev/mmcblk0 bs=4M status=progress && sync
+```
+
+:::danger
+
+`dd` can be dangerous to your system as it can wipe your data if used
+incorrectly.
+
+If you are not sure your `[SD_CARD_DEVICE]` is correct, we suggest using Etcher
+instead.
+
+If you persist on using `dd`, then remember to choose whole disk as your
+`[SD_CARD_DEVICE]`, not a partition from this disk. For example, chose
+`/dev/sdb`, not `/dev/sdb1`.
+
+:::
+
+## Updating software
+
+To download newest versions of system packages and ROS packages connect to Leo
+Rover via SSH:
+
+<LinkButton docId="guides/ssh" />
+
+Make sure you are connected to the Internet:
+
+<LinkButton docId="guides/connect-to-network" />
+
+And type the following commands:
+
+```bash
+sudo apt update
+```
+
+```bash
+sudo apt upgrade
+```
