@@ -52,29 +52,32 @@ jazzy) as `<distro>`.
 
 ## Installing the packages
 
-You can easily install required packages from binaries with this command:
+You can easily install the required packages with this command:
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-leo-simulator
 ```
 
-Alternatively [here](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy)
+Alternatively, [here](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy)
 are instructions how to build the packages from source.
 
 ## Launching
 
-Make sure you source ROS
+Make sure your ROS environment is properly sourced. Source either the global
+workspace:
 
 ```bash
 source /opt/ros/<distro>/setup.bash
 ```
 
-and the `install` space (if you have a ROS workspace) on each terminal session
-you want to use the simulation on (execute the command in your ROS workspace):
+or your local workspace if you have one:
 
 ```bash
 source install/setup.bash
 ```
+
+and make sure it's sourced on each terminal session you want to use the
+simulation on.
 
 To start the simulation and `gazebo GUI`, type:
 
@@ -139,8 +142,8 @@ value provided, the node will use the default namespace and topic - `/cmd_vel`.
 
 The command mapping was set for the Xbox 360 controller and looks like this:
 
-| Xbox 360Controller     | Command                                  |
-| ---------------------- | ---------------------------------------- |
-| RB                     | button enable - hold it to send commands |
-| Left joystick Up/Down  | linear velocity                          |
-| Right joystick Up/Down | angular velocity                         |
+| Xbox 360Controller        | Command                                  |
+| ------------------------- | ---------------------------------------- |
+| RB                        | button enable - hold it to send commands |
+| Left joystick Up/Down     | linear velocity                          |
+| Right joystick Left/Right | angular velocity                         |
