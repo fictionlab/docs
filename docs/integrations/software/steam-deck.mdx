@@ -44,12 +44,12 @@ applied it to our use case as an example.
 ## Prerequisites
 
 <LinkButton
-  to="/leo-rover/1.8/guides/connect-to-rover-ap"
+  to="/leo-rover/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
   description="Learn how to connect to your Leo Rover via WiFi."
 />
 <LinkButton
-  to="/leo-rover/1.8/guides/connect-to-network"
+  to="/leo-rover/guides/connect-to-network"
   title="Connect to a local network and the Internet"
   description="Learn how to connect your Leo Rover to a local network and the internet to
   download files and forward internet to your computer."
@@ -68,7 +68,7 @@ applied it to our use case as an example.
 In this part we are assuming you have your Steam Deck connected to the internet,
 with all possible system updates installed (as for the time of writing this
 tutorial the OS version is `3.7.13`). You also have to operate in the desktop
-mode (instructions how to enter the desktop can be found
+mode (instructions on how to enter the desktop can be found
 [here](https://www.trustedreviews.com/how-to/how-to-get-to-desktop-mode-on-steam-deck-4296327)).
 
 As you will need to write some commands in the console on the Steam Deck, we
@@ -129,7 +129,7 @@ Once this is done you are ready to create the container. Simply type this in
 console on Steam Deck:
 
 ```bash
-distrobox create -n ros-noetic -i osrf/ros:noetic-desktop
+distrobox create -n ros-jazzy -i osrf/ros:jazzy-desktop
 ```
 
 :::tip
@@ -139,15 +139,15 @@ your desired name for the container.
 
 :::
 
-With this command we at once create a container named `ros-noetic` and try to
-pull a docker image for ROS noetic with desktop software from OSRF (Open Source
+With this command we at once create a container named `ros-jazzy` and try to
+pull a docker image for ROS jazzy with desktop software from OSRF (Open Source
 Robotics Foundation). As the image is surely not installed, you will be asked if
 you want to download it now. Just press enter to start the download and
 container setup. When the process finishes you can enter the container with this
 command:
 
 ```bash
-distrobox enter ros-noetic
+distrobox enter ros-jazzy
 ```
 
 :::info
@@ -161,7 +161,7 @@ therefore don't worry if you have to wait a bit.
 
 :::
 
-Inside the container you will have Ubuntu 20.04 with ROS noetic installed, which
+Inside the container you will have Ubuntu 24.04 with ROS jazzy installed, which
 you can use as normal system.
 
 Having completed the installation, you are ready to try our examples!
@@ -189,10 +189,6 @@ needed to perform our use-cases of the Steam Deck with Leo Rover.
 Clone [this](https://github.com/LeoRover/leo_SteamDeck) repository into your
 Steam Deck:
 
-```bash
-git clone https://github.com/LeoRover/leo_SteamDeck.git -b noetic
-```
-
 :::note
 
 You don't have to do the cloning from the created container. If you clone the
@@ -200,6 +196,10 @@ repository from the SteamOS, you will be able to access the files from distrobox
 container.
 
 :::
+
+```bash
+git clone https://github.com/LeoRover/leo_SteamDeck.git -b jazzy
+```
 
 Once you clone the repository, all you have to do is to enter the directory with
 the files and run the `setup.sh` script:

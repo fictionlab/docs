@@ -44,17 +44,18 @@
 /leo-rover/advanced-guides/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 302
 
 # integrations redirects REMOVE after adding new integrations
-/integrations/lidars /integrations/noetic/lidars 302
-/integrations/lidars/* /integrations/noetic/lidars/:splat 302
-/integrations/cameras /integrations/noetic/cameras 302
-/integrations/cameras/* /integrations/noetic/cameras/:splat 302
+/integrations/cameras/stereolabs-zed /integrations/noetic/cameras/stereolabs-zed 302
+/integrations/cameras/unispectral-monarch-pro /integrations/noetic/cameras/unispectral-monarch-pro 302
 /integrations/computing-devices /integrations/noetic/computing-devices 302
 /integrations/computing-devices/* /integrations/noetic/computing-devices/:splat 302
 /integrations/legacy /integrations/noetic/legacy 302
 /integrations/legacy/* /integrations/noetic/legacy/:splat 302
-/integrations/software /integrations/noetic/software 302
-/integrations/software/* /integrations/noetic/software/:splat 302
-/integrations/positioning-systems /integrations/noetic/positioning-systems 302
-/integrations/positioning-systems/* /integrations/noetic/positioning-systems/:splat 302
+/integrations/lidars/ouster-os0 /integrations/noetic/lidars/ouster-os0 302
+/integrations/lidars/velodyne-puck /integrations/noetic/lidars/velodyne-puck 302
+/integrations/positioning-systems/fixposition-vision-rtk-2 /integrations/noetic/positioning-systems/fixposition-vision-rtk-2 302
+/integrations/positioning-systems/marvelmind-rtls /integrations/noetic/positioning-systems/marvelmind-rtls 302
 /integrations/robotic-arms /integrations/noetic/robotic-arms 302
 /integrations/robotic-arms/* /integrations/noetic/robotic-arms/:splat 302
+/integrations/software/artag-tracking-with-alvar /integrations/software/aruco-tracking 302
+/integrations/software/freedom-robotics /integrations/noetic/software/freedom-robotics 302
+/integrations/software/scratch /integrations/noetic/software/scratch 302
