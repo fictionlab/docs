@@ -49,124 +49,159 @@ import CenterContent from '@site/src/components/CenterContent';
 
 <font color="red">
 
-  TODO: 
-  - Remove all "overview" text
-  - Either remove or update " what's included" section
-  - Check all parameters one more time
-  - Replace Traction parameters with an image, things that cannot be shown on image can be in table
-  - Should rover overview be removed/moved to the "Overview" file? 
-  - Rover dimensions in "Hardware specification" is repeating data in "Main parameters" - remove one of them
-  - Components -  we can add an image of each component like in overview - where each electronic component is shown
-  - Check all components one more time - update eg. led Count
-  - Block diagram - add HDMI to external data ports
-  - RaphCore - replace image of the board with isometric one, preferably with colors
-  - Drivetrain - add image of the drivetrain showing "middle point between frontal wheels" and "turning around specific frontal wheel"
-  - Replace all long ass text with something that will not bore everyone to death. Raw data is better than an essay
-  - "### wheels" is better than "### wheels - As standard, Raph Rover comes with [...]"
-  - Battery & charging: essay -> raw data, review specs, battery charging -> replace with what overview has
-  - Payload - replace images, shorten essay
-  - Software specs - ask **Blazej/Janek/Olek** to review and add a TODO list. Shorten essay, review images
-  - Firmware - remove "work in progress". Preferably actually finish the section before we start selling the rover \<3
-  - LED controller - specification is meant to provide all the information that will make someone buy the rover. Decide if knowing that blue leds mead that the rover need to calibrate is a knowledge necessary to decide on buying the rover
-  - if last point != TRUE : move LED status table to a separate file in Documentation
-  - WEB interface - show it
-  - Network - remove "work in progress". Preferably actually finish the section before we start selling the rover \<3
+TODO:
+
+- Remove all "overview" text
+- Either remove or update " what's included" section
+- Check all parameters one more time
+- Replace Traction parameters with an image, things that cannot be shown on
+  image can be in table
+- Should rover overview be removed/moved to the "Overview" file?
+- Rover dimensions in "Hardware specification" is repeating data in "Main
+  parameters" - remove one of them
+- Components - we can add an image of each component like in overview - where
+  each electronic component is shown
+- Check all components one more time - update eg. led Count
+- Block diagram - add HDMI to external data ports
+- RaphCore - replace image of the board with isometric one, preferably with
+  colors
+- Drivetrain - add image of the drivetrain showing "middle point between frontal
+  wheels" and "turning around specific frontal wheel"
+- Replace all long ass text with something that will not bore everyone to death.
+  Raw data is better than an essay
+- "### wheels" is better than "### wheels - As standard, Raph Rover comes with
+  [...]"
+- Battery & charging: essay -> raw data, review specs, battery charging ->
+  replace with what overview has
+- Payload - replace images, shorten essay
+- Software specs - ask **Blazej/Janek/Olek** to review and add a TODO list.
+  Shorten essay, review images
+- Firmware - remove "work in progress". Preferably actually finish the section
+  before we start selling the rover \<3
+- LED controller - specification is meant to provide all the information that
+  will make someone buy the rover. Decide if knowing that blue leds mead that
+  the rover need to calibrate is a knowledge necessary to decide on buying the
+  rover
+- if last point != TRUE : move LED status table to a separate file in
+  Documentation
+- WEB interface - show it
+- Network - remove "work in progress". Preferably actually finish the section
+  before we start selling the rover \<3
 
 </font>
-
-Raph Rover is a research-ready platform designed to streamline development of
-various robotic projects, including inspection, agriculture, construction, and
-more. It is built to seamlessly integrate with custom payloads and operate in
-diverse environments, catering to both indoor and outdoor applications (please
-note that the beta version is currently limited to indoor use only).
-
----
 
 ## Raph Rover introduction
 
 ### What's included
 
-- 1 x Beta version of Raph Rover
-- 1 x Battery charger
-- 2 x 24V battery pack
-- 1 x Additional mounting plate
-- 1 x Extended additional mounting plate
-
-### Main parameters
+<font color="red" size="+2">
+  {' '}
+  Wywalić tą sekcję - zostawić to na pudełku albo stronie sklepu{' '}
+</font>
 
 <CenterContent>
 
-| Parameter                    |             Value              |
-| ---------------------------- | :----------------------------: |
-| Dimensions (LxWxH)           |    556 mm x 472 mm x 282 mm    |
-| Weight                       |             ~15 kg             |
-| Maximum payload              |            ~10 kg\*            |
-| Maximum linear speed         |            ~1.8 m/s            |
-| Maximum angular speed        |           ~4.7 Rad/s           |
-| Estimated max. obstacle size |             ~100 m             |
-| IP protection rating         |      IP 54 (not in beta)       |
-| Operating temperature        |        -10 °C to +40 °C        |
-| Run time                     | Up to 4 hours with 2 batteries |
-| Connection range             |          Up to 100 m           |
-
-</CenterContent>
-
-\* - on flat terrain
-
-#### Traction parameters
-
-<CenterContent>
-
-| Parameter                     |    Value    |
-| ----------------------------- | :---------: |
-| Track Width                   |   385 mm    |
-| Wheelbase length              |   379 mm    |
-| Ground clearance              |   105 mm    |
-| Climb grade (no payload)      | 30° ( ~58%) |
-| Climb grade with 5kg payload  | 20° ( ~36%) |
-| Climb grade with 10kg payload | 10° ( ~18%) |
-| Hill grade traversal          | 30° ( ~58%) |
-| Nominal torque                |    4 Nm     |
-| Maximum torque                |    8 Nm     |
+| Item                       | Count |
+| -------------------------- | :---: |
+| Raph Rover                 |   1   |
+| Raph Rover battery pack    |   2   |
+| Raph Rover battery charger |   1   |
+| Li-Ion charger 6S 4A       |   1   |
+| Tools                      |   1   |
 
 </CenterContent>
 
 ### Rover overview
 
 <ThemedImageZoom
-  alt="Overview of main features of Raph Rover"
+  alt="Overview of Raph Rover - front"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/specification/raph-overview-light.webp',
+      '/img/robots/raph/specification/Overview_front_black.webp',
     ),
-    dark: useBaseUrl('/img/robots/raph/specification/raph-overview-dark.webp'),
+    dark: useBaseUrl('/img/robots/raph/specification/Overview_front_white.webp'),
   }}
-  width="2000"
-  height="2200"
+  width="3000"
+  height="2121"
   figStyle={{
     width: 800,
   }}
-  caption="Raph Rover overview"
 />
 
-## Hardware specification
+<ThemedImageZoom
+  alt="Overview of Raph Rover - front"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/Overview_back_black.webp',
+    ),
+    dark: useBaseUrl('/img/robots/raph/specification/Overview_back_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 800,
+  }}
+/>
 
-### Rover dimensions
+
+<ThemedImageZoom
+  alt="Overview of Raph Rover - electronics"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/Overview_electronics_black.webp',
+    ),
+    dark: useBaseUrl('/img/robots/raph/specification/Overview_electronics_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 800,
+  }}
+/>
+
+<font color="red"> Please decide if last image is necessary - remove if not </font>
+
+
+## Hardware specification
 
 <ThemedImageZoom
   alt="Main dimensions of Raph Rover"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/specification/raph-dimensions-light.webp',
+      '/img/robots/raph/specification/raph_dimensions_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/raph/specification/raph-dimensions-dark.webp',
+      '/img/robots/raph/specification/raph_dimensions_white.webp',
     ),
   }}
-  width="2000"
-  height="2600"
-  caption="Raph Rover dimensions"
+  width="3000"
+  height="4997"
 />
+
+### Main parameters
+
+<CenterContent>
+
+| Parameter                    |             Value             |
+| ---------------------------- | :---------------------------: |
+| Dimensions (LxWxH)           | 559 mm x 474 mm x 255(320) mm |
+| Weight                       |            ~15 kg             |
+| Maximum payload              |           ~10 kg\*            |
+| Maximum linear speed         |           ~1.8 m/s            |
+| Maximum angular speed        |          ~4.7 Rad/s           |
+| Estimated max. obstacle size |            ~100 m             |
+| IP protection rating         |           IP 54\*\*           |
+| Operating temperature        |       -10 °C to +40 °C        |
+| Run time                     |           6h\*\*\*            |
+| Connection range             |          Up to 100 m          |
+
+</CenterContent>
+
+\* - on flat terrain
+
+\*\* - <font color="red"> probably, not like we tested it or something </font>
+
+\*\*\* - infinite with hot swappable batteries
 
 ### Components
 
@@ -218,14 +253,14 @@ tasks include:
   alt="External connections of RaphCore"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/specification/raphCore-diagram-light.webp',
+      '/img/robots/raph/specification/RaphCore_overview_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/raph/specification/raphCore-diagram-dark.webp',
+      '/img/robots/raph/specification/RaphCore_overview_white.webp',
     ),
   }}
-  width="2000"
-  height="1375"
+  width="3000"
+  height="2121"
   caption="RaphCore PCB connectors"
 />
 
@@ -242,6 +277,24 @@ such as:
 
 This versatile drivetrain configuration optimizes the Rover's navigational
 capabilities, ensuring adaptability in various operational scenarios.
+
+#### Traction parameters
+
+<CenterContent>
+
+| Parameter                     |    Value    |
+| ----------------------------- | :---------: |
+| Track Width                   |   385 mm    |
+| Wheelbase length              |   379 mm    |
+| Ground clearance              |   105 mm    |
+| Climb grade (no payload)      | 30° ( ~58%) |
+| Climb grade with 5kg payload  | 20° ( ~36%) |
+| Climb grade with 10kg payload | 10° ( ~18%) |
+| Hill grade traversal          | 30° ( ~58%) |
+| Nominal torque                |    4 Nm     |
+| Maximum torque                |    8 Nm     |
+
+</CenterContent>
 
 #### Motors
 
@@ -352,16 +405,16 @@ the plate and buttons at the rear.
   alt="Raph Rover's mounting plate dimensions"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/specification/raph-top-cover-dimensions-light.webp',
+      '/img/robots/raph/specification/Top_plate_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/raph/specification/raph-top-cover-dimensions-dark.webp',
+      '/img/robots/raph/specification/Top_plate_white.webp',
     ),
   }}
-  width="1500"
-  height="2000"
+  width="3000"
+  height="2121"
   figStyle={{
-    width: 600,
+    width: 800,
   }}
   caption="Main mounting plate dimensions"
 />
@@ -402,14 +455,14 @@ by RaphCore. Voltages available on power panel are:
   alt="Raph Rover's rear compartment overview"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/specification/raph-rear-compartment-light.webp',
+      '/img/robots/raph/specification/Interface_panels_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/raph/specification/raph-rear-compartment-dark.webp',
+      '/img/robots/raph/specification/Interface_panels_white.webp',
     ),
   }}
-  width="2000"
-  height="1825"
+  width="3000"
+  height="2121"
   caption="Rear compartment overview"
 />
 
@@ -427,21 +480,23 @@ cable in millimeters.
   alt="Raph Rover's payload cable seals"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/specification/raph-cable-seals-light.webp',
+      '/img/robots/raph/specification/Back_seals_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/raph/specification/raph-cable-seals-dark.webp',
+      '/img/robots/raph/specification/Back_seals_white.webp',
     ),
   }}
-  width="2000"
-  height="2000"
+  width="3000"
+  height="1428"
   figStyle={{
-    width: 500,
+    width: 600,
   }}
   caption="Payload cable seal"
 />
 
 #### Additional mounting plates
+
+<font color="red" size="+2"> Do we still use them? </font>
 
 Beyond the primary mounting plate, the Raph Rover offers the capability for
 integration with supplementary mounting plates as needed. These additional
