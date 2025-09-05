@@ -7,6 +7,8 @@ description: >-
   payload capacity, and more. Ideal for developers and enthusiasts.
 ---
 
+import CenterContent from '@site/src/components/CenterContent';
+
 ## Wheel motors
 
 ### Bühler Motors 1.61.077.414
@@ -40,14 +42,18 @@ access the motors specifications.
 
 Connection:
 
-| Encoder PIN | Mating Connection                                            |
-| ----------- | ------------------------------------------------------------ |
-| M1          | negative (-) pole of the motor & OUT A of Core2ROS / LeoCore |
-| M2          | positive (+) pole of the motor & OUT B of Core2ROS / LeoCore |
-| VCC         | +5V PIN of Core2ROS / LeoCore                                |
-| OUT A       | ENC A on Core2ROS / LeoCore                                  |
-| OUT B       | ENC B on Core2ROS / LeoCore                                  |
-| GND         | GND PIN of Core2ROS / LeoCore                                |
+<CenterContent>
+
+| Encoder PIN | Mating Connection                                 |
+| :---------: | ------------------------------------------------- |
+|     M1      | Negative (-) pole of the motor & OUT A of LeoCore |
+|     M2      | Positive (+) pole of the motor & OUT B of LeoCore |
+|     VCC     | +5V PIN of LeoCore                                |
+|    OUT A    | ENC A on LeoCore                                  |
+|    OUT B    | ENC B on LeoCore                                  |
+|     GND     | GND PIN of LeoCore                                |
+
+</CenterContent>
 
 ### Dimension drawings
 
@@ -109,11 +115,3 @@ $$
 $$
 \text{Rover Force [N]} = \frac{4 * \text{motor torque [Nm]}}{\text{wheel diameter[m]}}
 $$
-
-### Useful links
-
-Stock tires of Leo Rover are similar to these:
-[Aliexpress](https://www.aliexpress.com/i/32735892787.html)
-
-For example, you can look for tires to switch to here:
-[RCplanet](https://www.rcplanet.com/1-10-monster-truck-tires/)
