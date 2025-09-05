@@ -21,12 +21,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import CenterContent from '@site/src/components/CenterContent';
 
-<font color="red">
-  TODO: - review specs one more time, update if needed - update all images to
-  reflect V1 of the rover - add HDMI to External Data Ports panel - center all
-  tables
-</font>
-
 <ThemedImageZoom
   loading="eager"
   alt="Raph Rover logo"
@@ -41,16 +35,6 @@ import CenterContent from '@site/src/components/CenterContent';
   }}
 />
 
-<div style={{
-    width: '100%',
-    textAlign: 'center',
-    paddingBottom: 20
-}}>
-
-# Beta specification
-
-</div>
-
 <ImageZoom
   loading="eager"
   src="/img/robots/raph/raph-rover.webp"
@@ -62,6 +46,33 @@ import CenterContent from '@site/src/components/CenterContent';
     paddingBottom: 100,
   }}
 />
+
+<font color="red">
+
+  TODO: 
+  - Remove all "overview" text
+  - Either remove or update " what's included" section
+  - Check all parameters one more time
+  - Replace Traction parameters with an image, things that cannot be shown on image can be in table
+  - Should rover overview be removed/moved to the "Overview" file? 
+  - Rover dimensions in "Hardware specification" is repeating data in "Main parameters" - remove one of them
+  - Components -  we can add an image of each component like in overview - where each electronic component is shown
+  - Check all components one more time - update eg. led Count
+  - Block diagram - add HDMI to external data ports
+  - RaphCore - replace image of the board with isometric one, preferably with colors
+  - Drivetrain - add image of the drivetrain showing "middle point between frontal wheels" and "turning around specific frontal wheel"
+  - Replace all long ass text with something that will not bore everyone to death. Raw data is better than an essay
+  - "### wheels" is better than "### wheels - As standard, Raph Rover comes with [...]"
+  - Battery & charging: essay -> raw data, review specs, battery charging -> replace with what overview has
+  - Payload - replace images, shorten essay
+  - Software specs - ask **Blazej/Janek/Olek** to review and add a TODO list. Shorten essay, review images
+  - Firmware - remove "work in progress". Preferably actually finish the section before we start selling the rover \<3
+  - LED controller - specification is meant to provide all the information that will make someone buy the rover. Decide if knowing that blue leds mead that the rover need to calibrate is a knowledge necessary to decide on buying the rover
+  - if last point != TRUE : move LED status table to a separate file in Documentation
+  - WEB interface - show it
+  - Network - remove "work in progress". Preferably actually finish the section before we start selling the rover \<3
+
+</font>
 
 Raph Rover is a research-ready platform designed to streamline development of
 various robotic projects, including inspection, agriculture, construction, and

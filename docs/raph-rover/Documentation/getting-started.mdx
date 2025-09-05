@@ -31,6 +31,11 @@ import CenterContent from '@site/src/components/CenterContent';
 
 ## Unboxing
 
+<font color="red" size="+2">
+  {' '}
+  Wywalić tą sekcję - zostawić to na pudełku albo stronie sklepu{' '}
+</font>
+
 <CenterContent>
 
 | Item                       | Count |
@@ -62,22 +67,30 @@ import CenterContent from '@site/src/components/CenterContent';
   }}
 />
 
-<font color="red">
+<font color="red" size="+2">
   {' '}
-  Explain what each button does, name them something like "POWER" and "CONTROL"
-  od "MAINTENANCE" or "FN"{' '}
+  Wybrać sobie nazwę "Control" / "CTRL" / "Maintenance" / "FN"{' '}
 </font>
+
+<CenterContent>
+
+| Button                                                        | Placement |
+| ------------------------------------------------------------- | :-------: |
+| <font color="2c71bf"> **POWER** </font>                       | **Left**  |
+| <font color="c07b2c"> **CONTROL/CTRL/MAINTENANCE/FN** </font> | **Back**  |
+
+</CenterContent>
 
 <CenterContent>
 
 | Condition |                                     Button                                      |        Function         |  Action   |
 | --------- | :-----------------------------------------------------------------------------: | :---------------------: | :-------: |
-| Any       |                     <font color="2c71bf"> **LEFT** </font>                      |  Check battery charge   |   Click   |
-| Rover off |                     <font color="2c71bf"> **LEFT** </font>                      |         Turn on         | Hold - 3s |
-| Rover on  |                     <font color="2c71bf"> **LEFT** </font>                      |        Turn off         | Hold - 5s |
-| Rover on  |                     <font color="c07b2c"> **BACK** </font>                      | Toggle maintenance mode |   Click   |
-| Rover on  |                     <font color="c07b2c"> **BACK** </font>                      |    Calibrate servos     | Hold - 3s |
-| Any       | <font color="2c71bf"> **LEFT** </font> + <font color="c07b2c"> **BACK** </font> |     Enter XYZ mode      |    ???    |
+| Any       |                     <font color="2c71bf"> **POWER** </font>                      |  Check battery charge   |   Click   |
+| Rover off |                     <font color="2c71bf"> **POWER** </font>                      |         Turn on         | Hold - 3s |
+| Rover on  |                     <font color="2c71bf"> **POWER** </font>                      |        Turn off         | Hold - 5s |
+| Rover on  |                     <font color="c07b2c"> **CONTROL/CTRL/MAINTENANCE/FN** </font>                      | Toggle maintenance mode |   Click   |
+| Rover on  |                     <font color="c07b2c"> **CONTROL/CTRL/MAINTENANCE/FN** </font>                      |    Calibrate servos     | Hold - 3s |
+| Any       | <font color="2c71bf"> **POWER** </font> + <font color="c07b2c"> **CONTROL/CTRL/MAINTENANCE/FN** </font> |     Enter XYZ mode      |    ???    |
 
 </CenterContent>
 
@@ -262,16 +275,20 @@ are calibrated without obstruction.
 
 ## Web interface & first ride
 
-Connect to the rover's Wi-Fi network to access its web interface using the credentials provided below:
+Connect to the rover's Wi-Fi network to access its web interface using the
+credentials provided below:
 
 - **SSID 2.4 GHz:** `Raph-XXXX-2G`
 - **SSID 5 GHz:** `Raph-XXXX-5G`
 - **Password:** `fictionlab`
 
-Open your web browser and navigate to http://10.10.0.2 <font color="red"> Good IP? </font> to access the rover's control panel.
+Open your web browser and navigate to http://10.10.0.2 <font color="red"> Good
+IP? </font> to access the rover's control panel.
 
-From here, you can control the rover, access the camera feed, and configure various settings.
-You can control the rover using the on-screen joystick <font color ="red"> or by connecting a gamepad. </font>
+From here, you can control the rover, access the camera feed, and configure
+various settings. You can control the rover using the on-screen joystick
+
+<font color="red"> or by connecting a gamepad. </font>
 
 <ImageZoom
   loading="eager"
@@ -283,3 +300,7 @@ You can control the rover using the on-screen joystick <font color ="red"> or by
     width: 800,
   }}
 />
+
+<font color="red" size="+2">
+  Może warto to rozpisać bardziej? Przynajmniej pokazać gdzie jest joystick?
+</font>
