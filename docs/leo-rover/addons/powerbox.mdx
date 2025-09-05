@@ -19,6 +19,7 @@ import Product from '@site/src/products/powerbox.mdx';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FusionEmbed from '@site/src/components/FusionEmbed';
+import CenterContent from '@site/src/components/CenterContent';
 
 <ImageZoom
   loading="eager"
@@ -52,8 +53,10 @@ hot-swaps, ensuring continuous operation of the rover.
 
 ### Main parameters
 
+<CenterContent>
+
 | Parameter                   |         Value          |
-| :-------------------------- | :--------------------: |
+| --------------------------- | :--------------------: |
 | Dimensions (LxWxH)          | 164 mm x 71 mm x 87 mm |
 | Weight                      |          TBD           |
 | Main materials              |     PLA, aluminum      |
@@ -63,6 +66,8 @@ hot-swaps, ensuring continuous operation of the rover.
 | 5V outputs                  |           4            |
 | 5V outputs max power        |    60 W (9 A) total    |
 | External battery connectors |           1            |
+
+</CenterContent>
 
 ## Hardware specification
 
@@ -101,14 +106,18 @@ hot-swaps, ensuring continuous operation of the rover.
 
 ### Components
 
-|                               Name | Quantity | Description                                                                                                                                                                           |                                                             Link                                                             |
-| ---------------------------------: | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------: |
+<CenterContent>
+
+| Name                               | Quantity | Description                                                                                                                                                                           |                                                             Link                                                             |
+| ---------------------------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: |
 | 12V-5V step-down voltage regulator |    1     | **Pololu D24V90F5** synchronous switching step-down regulator. Takes an input voltage of up to 38 V and efficiently reduces it to 5 V with an available output current of around 9 A. |                                      [pololu.com](https://www.pololu.com/product/2866)                                       |
-|                       5V connector |    4     | Phoenix Contact MSTB 2,5/ 2-ST-5,08                                                                                                                                                   | [phoenixcontact.com](https://www.phoenixcontact.com/en-pc/products/printed-circuit-board-connector-mstb-25-2-st-508-1757019) |
-|                BAT (12V) connector |    4     | Phoenix Contact MSTB 2,5/ 2-ST-5,08                                                                                                                                                   | [phoenixcontact.com](https://www.phoenixcontact.com/en-pc/products/printed-circuit-board-connector-mstb-25-2-st-508-1757019) |
-|         External battery connector |    1     | Weipu SP1312-S3                                                                                                                                                                       |                                  [weipu.com](https://www.weipuconnector.com/products/sp13/)                                  |
-|             Powerbox-MEB connector |    1     | Weipu SP1312-S3                                                                                                                                                                       |                                  [weipu.com](https://www.weipuconnector.com/products/sp13/)                                  |
-|         Powerbox-battery connector |    1     | Weipu SP1312-P3                                                                                                                                                                       |                                  [weipu.com](https://www.weipuconnector.com/products/sp13/)                                  |
+| 5V connector                       |    4     | Phoenix Contact MSTB 2,5/ 2-ST-5,08                                                                                                                                                   | [phoenixcontact.com](https://www.phoenixcontact.com/en-pc/products/printed-circuit-board-connector-mstb-25-2-st-508-1757019) |
+| BAT (12V) connector                |    4     | Phoenix Contact MSTB 2,5/ 2-ST-5,08                                                                                                                                                   | [phoenixcontact.com](https://www.phoenixcontact.com/en-pc/products/printed-circuit-board-connector-mstb-25-2-st-508-1757019) |
+| External battery connector         |    1     | Weipu SP1312-S3                                                                                                                                                                       |                                  [weipu.com](https://www.weipuconnector.com/products/sp13/)                                  |
+| Powerbox-MEB connector             |    1     | Weipu SP1312-S3                                                                                                                                                                       |                                  [weipu.com](https://www.weipuconnector.com/products/sp13/)                                  |
+| Powerbox-battery connector         |    1     | Weipu SP1312-P3                                                                                                                                                                       |                                  [weipu.com](https://www.weipuconnector.com/products/sp13/)                                  |
+
+</CenterContent>
 
 ## Possible applications
 

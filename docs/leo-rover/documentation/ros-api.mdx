@@ -187,29 +187,30 @@ description: >-
 
 #### /camera
 
-- `role` (type: `string`, read-only)
+- `role` (type: `string`, read-only, default: `video`)
 
   Which [StreamRole] to use. (possible choices: `raw`, `still`, `video`,
   `viewfinder`)
 
-- `format` (type: `string`, read-only)
+- `format` (type: `string`, read-only, default: `BGR888`)
 
   The pixel format of the camera stream. For possible values, check [picamera2
   documentation (Appendix A)].
 
-- `width`, `height` (type: `int`, read-only)
+- `width`, `height` (type: `int`, read-only, default: `1024`, `768`)
 
   The width and height of the camera stream in pixels.
 
-- `sensor_mode` (type: `sting`, read-only)
+- `sensor_mode` (type: `string`, read-only, default: `''`)
 
-  The desired raw sensor format resolution (format: `width:height`)
+  The desired raw sensor format resolution (format: `width:height`). If empty,
+  the default resolution will be used.
 
-- `orientation` (type: `int`, read-only)
+- `orientation` (type: `int`, read-only, default: `0`)
 
   The orientation of the camera in degrees. Possible values: 0, 90, 180, 270.
 
-- `frame_id` (type: `string`, read-only)
+- `frame_id` (type: `string`, read-only, default: `camera_optical_frame`)
 
   The TF frame associated with the camera stream.
 
@@ -223,24 +224,24 @@ documented in [picamera2 documentation (Appendix C)].
 
 #### /camera/debayer
 
-- `.image_color.compressed.jpeg_quality` (type: `int`)
+- `.image_color.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the color image. Range: 0-100.
 
-- `.image_mono.compressed.jpeg_quality` (type: `int`)
+- `.image_mono.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the monochrome image. Range: 0-100.
 
 #### /camera/rectify_mono
 
-- `.image_rect_color.compressed.jpeg_quality` (type: `int`)
+- `.image_rect_color.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the rectified color image. Range:
   0-100.
 
 #### /camera/rectify_color
 
-- `.image_rect.compressed.jpeg_quality` (type: `int`)
+- `.image_rect.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the rectified monochrome image. Range:
   0-100.
@@ -254,60 +255,60 @@ The parameters for `/firmware` node can be overridden by modifying the
 
 :::
 
-- `wheels/encoder_resolution` (type: `float`)
+- `wheels/encoder_resolution` (type: `float`, default: `878.4`)
 
   The resolution of the wheel encoder in counts per rotation.
 
-- `wheels/torque_constant` (type: `float`)
+- `wheels/torque_constant` (type: `float`, default: `1.17647`)
 
-  The torque (in newton-meters) produced by the wheel per 1 Ampere of windind
+  The torque (in newton-meters) produced by the wheel per 1 Ampere of winding
   current.
 
-- `wheels/pid/p` (type: `float`)
+- `wheels/pid/p` (type: `float`, default: `0.0`)
 
   The P constant of the PID regulator.
 
-- `wheels/pid/i` (type: `float`)
+- `wheels/pid/i` (type: `float`, default: `0.005`)
 
   The I constant of the PID regulator.
 
-- `wheels/pid/d` (type: `float`)
+- `wheels/pid/d` (type: `float`, default: `0.0`)
 
   The D constant of the PID regulator.
 
-- `wheels/pwm_duty_limit`
+- `wheels/pwm_duty_limit` (type: `float`, default: `100.0`)
 
   The limit of the PWM duty applied to the motor in percent.
 
-- `controller/wheel_radius` (type: `float`)
+- `controller/wheel_radius` (type: `float`, default: `0.0625`)
 
   The radius of the wheel in meters.
 
-- `controller/wheel_separation` (type: `float`)
+- `controller/wheel_separation` (type: `float`, default: `0.358`)
 
   The distance (in meters) between the centers of the left and right wheels.
 
-- `controller/wheel_base` (type: `float`)
+- `controller/wheel_base` (type: `float`, default: `0.3052`)
 
   The distance (in meters) between the centers of the rear and front wheels.
 
-- `controller/angular_velocity_multiplier` (type: `float`)
+- `controller/angular_velocity_multiplier` (type: `float`, default: `1.76`)
 
   The angular velocity in `cmd_vel` command is multiplied by this parameter and
   the calculated odometry has its angular velocity divided by this parameter.
 
-- `controller/input_timeout` (type: `int`)
+- `controller/input_timeout` (type: `int`, default: `500`)
 
   The timeout (in milliseconds) for the `cmd_vel` commands. The controller will
   be disabled if it does not receive a command within the specified time. If set
   to 0, the timeout is disabled.
 
-- `battery_min_voltage` (type: `float`)
+- `battery_min_voltage` (type: `float`, default: `10.0`)
 
   The voltage (in Volts) below which the battery is considered low. If the
   battery goes below this voltage, the LED indicator will start blinking fast.
 
-- `mecanum_wheels` (type: `bool`)
+- `mecanum_wheels` (type: `bool`, default: `false`)
 
   Enables mecanum wheel functionality. When set to `true`, the robot switches to
   mecanum wheel kinematics, enabling omnidirectional movement including lateral
@@ -316,46 +317,51 @@ The parameters for `/firmware` node can be overridden by modifying the
 
 #### /firmware_message_converter
 
-- `robot_frame_id` (type: `string`, read-only)
+- `robot_frame_id` (type: `string`, read-only, default: `base_footprint`)
 
   The TF frame associated with the robot.
 
-- `odom_frame_id` (type: `string`, read-only)
+- `odom_frame_id` (type: `string`, read-only, default: `odom`)
 
   The TF frame associated with the odometry readings.
 
-- `imu_frame_id` (type: `string`, read-only)
+- `imu_frame_id` (type: `string`, read-only, default: `imu_frame`)
 
   The TF frame associated with the IMU readings.
 
-- `tf_frame_prefix` (type: `string`, read-only)
+- `tf_frame_prefix` (type: `string`, read-only, default: `''`)
 
   The prefix added to the published TF frames.
 
-- `wheel_joint_names` (type: `string[]`, read-only)
+- `wheel_joint_names` (type: `string[]`, read-only, default:
+  `['wheel_FL_joint', 'wheel_RL_joint', 'wheel_FR_joint', 'wheel_RR_joint']`)
 
   The names of the wheel joints used in the `joint_states` topic. The order of
   the names is: front left, rear left, front right, rear right.
 
-- `wheel_odom_twist_covariance_diagonal` (type: `float[]`, read-only)
+- `wheel_odom_twist_covariance_diagonal` (type: `float[]`, read-only, default:
+  `[0.0001, 0.0001, 0, 0, 0, 0.001]`)
 
   The diagonal of the covariance matrix for the standard wheel odometry twist
   readings. The size of the array must be 6, representing the variances for the
   linear x, linear y, linear z, angular x, angular y and angular z axes.
 
-- `wheel_odom_mecanum_twist_covariance_diagonal` (type: `float[]`, read-only)
+- `wheel_odom_mecanum_twist_covariance_diagonal` (type: `float[]`, read-only,
+  default: `[0.0001, 0, 0, 0, 0, 0.001]`)
 
   The diagonal of the covariance matrix for the mecanum wheel odometry twist
   readings. The size of the array must be 6, representing the variances for the
   linear x, linear y, linear z, angular x, angular y and angular z axes.
 
-- `imu_angular_velocity_covariance_diagonal` (type: `float[]`, read-only)
+- `imu_angular_velocity_covariance_diagonal` (type: `float[]`, read-only,
+  default: `[1.0e-06, 1.0e-06, 1.0e-05]`)
 
   The diagonal of the covariance matrix for the IMU angular velocity readings.
   The size of the array must be 3, representing the variances for the x, y and z
   axes.
 
-- `imu_linear_acceleration_covariance_diagonal` (type: `float[]`, read-only)
+- `imu_linear_acceleration_covariance_diagonal` (type: `float[]`, read-only,
+  default: `[0.001, 0.001, 0.001]`)
 
   The diagonal of the covariance matrix for the IMU linear acceleration
   readings. The size of the array must be 3, representing the variances for the
@@ -363,36 +369,36 @@ The parameters for `/firmware` node can be overridden by modifying the
 
 #### /imu_filter
 
-- `gain_acc` (type: `float`)
+- `gain_acc` (type: `float`, default: `0.01`)
 
   Gain for the complementary filter for orientation estimation. The value must
   be in the range (0, 1).
 
-- `do_adaptive_gain` (type: `bool`)
+- `do_adaptive_gain` (type: `bool`, default: `true`)
 
   Whether to use adaptive gain for the complementary filter. If set to `true`,
   the gain will be adjusted based on the accelerometer readings.
 
-- `bias_alpha` (type: `float`)
+- `bias_alpha` (type: `float`, default: `0.01`)
 
   The gyroscope bias estimation gain. The value must be in the range (0, 1).
 
-- `do_bias_estimation` (type: `bool`)
+- `do_bias_estimation` (type: `bool`, default: `true`)
 
   Whether to do bias estimation of the angular velocity (gyroscope readings). If
   set to `false`, the gyroscope readings will not be filtered and will be
   published as is.
 
-- `do_save_bias` (type: `bool`, read-only)
+- `do_save_bias` (type: `bool`, read-only, default: `true`)
 
   Whether to periodically store the gyroscope bias on the disk and load it upon
   startup.
 
-- `bias_save_period` (type: `int`, read-only)
+- `bias_save_period` (type: `int`, read-only, default: `120`)
 
   Time interval between current imu bias save (in seconds).
 
-- `orientation_variance` (type: `float`)
+- `orientation_variance` (type: `float`, default: `0.001`)
 
   The variance of the orientation estimation. Will be used to fill the diagonal
   of the covariance matrix of the IMU orientation readings. The value must be
@@ -400,7 +406,7 @@ The parameters for `/firmware` node can be overridden by modifying the
 
 #### /odom_filter
 
-- `publish_tf` (type: `bool`)
+- `publish_tf` (type: `bool`, default: `true`)
 
   Whether to publish the TF frame for the odometry.
 

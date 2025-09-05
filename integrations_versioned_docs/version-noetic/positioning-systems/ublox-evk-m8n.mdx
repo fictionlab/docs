@@ -13,7 +13,7 @@ description: >-
 image: /img/robots/leo/integrations/ublox-gps/ublox-evk-m8n-shop.webp
 ---
 
-import ProductPreview from '@site/src/components/ProductPreview';
+import Product from '@site/src/products/ublox-evk-m8n.mdx';
 
 This tutorial will guide you through the process of connecting a UBlox GPS
 module to your Leo Rover.
@@ -39,7 +39,7 @@ get it published on ROS topics.
 
 <ImageZoom
   loading="eager"
-  src="/img/robots/leo/integrations/ublox-gps/ech-ublox-gps-node.webp"
+  src="/img/robots/leo/1.8/integrations/ublox-gps/ech-ublox-gps-node.webp"
   width="1019"
   height="317"
 />
@@ -47,7 +47,7 @@ get it published on ROS topics.
 ## Prerequisites
 
 <LinkButton
-  to="/leo-rover/guides/ssh"
+  to="/leo-rover/1.8/guides/ssh"
   title="Connect via SSH"
   description="Learn how to establish an SSH connection with your Leo Rover and access its
   terminal using Putty or OpenSSH."
@@ -61,16 +61,7 @@ get it published on ROS topics.
 
 ## Referenced products
 
-<ProductPreview
-  shopUrl="https://www.leorover.tech/shop/gps-module"
-  imageSrc="/img/robots/leo/integrations/ublox-gps/ublox-evk-m8n-shop.webp"
-  width={1200}
-  height={802}
-  title="UBlox EVK-M8N GPS module"
-  description="Enhance Leo Rover's capabilities with the UBlox EVK-M8N GPS module.
-    Experience precise navigation and versatile connectivity with multi-GNSS support,
-    ensuring high-performance and reliability."
-/>
+<Product />
 
 ## List of components
 
@@ -92,12 +83,13 @@ the USB sign on the module, and you need to plug in the USB cable there.
 ## Software integration
 
 The first thing you can do is to make sure your device has the correct
-permissions and is available at the fixed path on your system. To do this, you
-can add the following rule to the `udev` service. We will need `idVendor` and
-`idProduct`, to make the rules for the correct device. To get that information,
-you need to connect to the rover via `ssh`, and then, you can use the `lsusb`
-command. It will list all connected usb devices. In the output, you should look
-for something named like **U-Blox AG [u-blox 8]**:
+permissions and is available at the fixed path on your system.
+
+We will need USB Vendor and Product IDs to make the rules for the correct
+device. To get that information, you need to connect to the rover via `ssh`, and
+then, you can use the `lsusb` command. It will list all connected usb devices.
+In the output, you should look for something named like **U-Blox AG [u-blox
+8]**:
 
 <ImageZoom
   src="/img/robots/leo/integrations/ublox-gps/terminal-lsusb.webp"
@@ -105,30 +97,13 @@ for something named like **U-Blox AG [u-blox 8]**:
   height="112"
 />
 
-Now, our `idVendor` and `idProduct` are the two strings after "ID" divided by
-colon. In our case, `idVendor` is `1546` and `idProduct` is `01a8`.
-
-After getting those two, the only thing that is left is the port that the device
-connects to. You can get it by running in the terminal the command:
-
-```bash
-dmesg -w
-```
-
-and then connecting the module to the rover. You should see that the new device
-is registered, and on what port (with this command, you can also get the
-`idVendor` and `idProduct` values).
-
-<ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/terminal-ttyacm0.webp"
-  width="867"
-  height="112"
-/>
+Now, our Vendor and Product IDs are the two strings after "ID" divided by colon.
+In our case, `idVendor` is `1546` and `idProduct` is `01a8`.
 
 Now, you need to make a `udev` rules file.
 
 ```xml title="/etc/udev/rules.d/ublox.rules"
-KERNEL=="ttyACM*", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="01a8", MODE="0666", GROUP="dialout", SYMLINK+="ublox_gps"
+ATTRS{idVendor}=="1546", ATTRS{idProduct}=="01a8", MODE="0666", GROUP="dialout", SYMLINK+="ublox_gps"
 ```
 
 Paste these lines to `/etc/udev/rules.d/ublox.rules` file and reload `udev`
@@ -226,7 +201,7 @@ You should see a lot of data flowing through the topic. Stop the data
 acquisition with **Ctrl+C** and have a look on a usual data frame.
 
 <ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/ech-ublox-gps-node.webp"
+  src="/img/robots/leo/1.8/integrations/ublox-gps/ech-ublox-gps-node.webp"
   width="1019"
   height="317"
 />
@@ -256,63 +231,6 @@ module thinks it is.
   height="570"
 />
 
-### Data visualization with Mapviz
-
-Using [Mapviz](http://wiki.ros.org/mapviz) - a package similar to RViz, yet
-focused on visualization of 2D data - you can easily visualize the data gathered
-by the GPS module. Installing the package boils down to using this command:
-
-```bash
-sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
-```
-
-Since Mapviz is a program using GUI you may want to connect to the Leo Rover via
-remote desktop. Follow this tutorial if you want to learn how:
-
-<LinkButton
-  to="/leo-rover/guides/remote-desktop"
-  title="Connect via remote desktop"
-  description="Learn how to remotely access your Leo Rover's desktop environment using RDP
-  and popular remote desktop clients."
-/>
-
-Launch Mapviz with:
-
-```bash
-roslaunch mapviz mapviz.launch
-```
-
-You'll be greeted by a blank screen with configuration window on the left. Using
-the **Add** button on the bottom of this window add **tile_map** and **navsat**
-plugins. Change the source of **tile_map** to `Stamen (terrain)` (Or any other
-available option) and the topic of **navsat** to the topic your GPS module is
-publishing data to (for us it's `/ublox_gps_node/fix`).
-
-<ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/mapviz-navsat.webp"
-  width="330"
-  height="903"
-  figStyle={{
-    width: 350,
-  }}
-/>
-
-:::warning
-
-Make sure the tile_map plugin is listed first and navsat second. Otherwise,
-points created by navsat will be hidden behind the map tiles.
-
-:::
-
-From now on, a dot will appear on the map every time your GPS module publishes
-data at the topic you chose.
-
-<ImageZoom
-  src="/img/robots/leo/integrations/ublox-gps/mapviz-map-view.webp"
-  width="924"
-  height="614"
-/>
-
 ## What next?
 
 GPS modules are commonly used in projects involving outside autonomous
@@ -321,5 +239,5 @@ tutorial on indoor
 [autonomous navigation](/leo-rover/1.8/advanced-guides/autonomous-navigation)
 you might be something you'll be interested in.
 
-You can also check our [Integrations page](/integrations) for other
+You can also check our [Integrations page](/integrations/noetic) for other
 instructions.

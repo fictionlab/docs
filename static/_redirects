@@ -36,8 +36,13 @@
 # temp redirects for leo examples and avanced guides (REMOVE after adding new examples)
 /leo-rover/leo-examples /leo-rover/1.8/leo-examples 302
 /leo-rover/leo-examples/* /leo-rover/1.8/leo-examples/:splat 302
-/leo-rover/advanced-guides /leo-rover/1.8/advanced-guides 302
-/leo-rover/advanced-guides/* /leo-rover/1.8/advanced-guides/:splat 302
+/leo-rover/advanced-guides/install-ros-on-your-computer /leo-rover/1.8/advanced-guides/install-ros-on-your-computer 302
+/leo-rover/advanced-guides/ros-development /leo-rover/1.8/advanced-guides/ros-development 302
+/leo-rover/advanced-guides/ros-graph-in-rqt /leo-rover/1.8/advanced-guides/ros-graph-in-rqt 302
+/leo-rover/advanced-guides/rviz /leo-rover/1.8/advanced-guides/rviz 302
+/leo-rover/advanced-guides/joystick /leo-rover/1.8/advanced-guides/joystick 302
+/leo-rover/advanced-guides/connecting-many-rovers-together /leo-rover/1.8/advanced-guides/connecting-many-rovers-together 302
+/leo-rover/advanced-guides/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 302
 
 # integrations redirects REMOVE after adding new integrations
 /integrations/lidars /integrations/noetic/lidars 302
