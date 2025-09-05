@@ -119,7 +119,9 @@ TODO:
     light: useBaseUrl(
       '/img/robots/raph/specification/Overview_front_black.webp',
     ),
-    dark: useBaseUrl('/img/robots/raph/specification/Overview_front_white.webp'),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/Overview_front_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -143,14 +145,15 @@ TODO:
   }}
 />
 
-
 <ThemedImageZoom
   alt="Overview of Raph Rover - electronics"
   sources={{
     light: useBaseUrl(
       '/img/robots/raph/specification/Overview_electronics_black.webp',
     ),
-    dark: useBaseUrl('/img/robots/raph/specification/Overview_electronics_white.webp'),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/Overview_electronics_white.webp',
+    ),
   }}
   width="3000"
   height="2121"
@@ -159,8 +162,10 @@ TODO:
   }}
 />
 
-<font color="red"> Please decide if last image is necessary - remove if not </font>
-
+<font color="red">
+  {' '}
+  Please decide if last image is necessary - remove if not{' '}
+</font>
 
 ## Hardware specification
 
@@ -215,11 +220,16 @@ TODO:
 | Stereoscopic camera |    1     | Luxonis OAK-D Pro W is a wide-angle camera with active stereo depth and high-resolution color capabilities. It includes on-device neural network inference, computer vision features, and night vision for low-light environments.                                                                                                                                                                              |
 | Lidar               |    1     | RPLidar S3 - 360-degree waterproof 2D Lidar scanner with a 40-meter range. It ensures stable performance in diverse conditions, making it suitable for both indoor and outdoor use. Operating at 10Hz, it guarantees a sample rate of 32KHz.                                                                                                                                                                    |
 | BLDC motors         |    6     | M0601C-111 BLDC motors from Direct Drive Tech. Connected to RaphCore board via RS 485 bus.                                                                                                                                                                                                                                                                                                                      |
-| LED strip           |    4     | 108 RGBW Individually addressable LEDs. <br /> 3535 form factor; 144/m, 23W/m. <br /> They serve as the rovers status indicator, but can be programmed for any custom behavior e.g. to work as a flashlight.                                                                                                                                                                                                    |
+| LED strip           |    4     | 143 RGBW Individually addressable LEDs. <br /> 3535 form factor; 144/m, 23W, 6000-6500K. <br /> Luminance R: 46; G: 156; B: 34; W:409lm <br /> They serve as the rovers status indicator, but can be programmed for any custom behavior e.g. to work as a flashlight.                                                                                                                                           |
 
 </CenterContent>
 
 ### Block diagram
+
+<font color="red" size="+2">
+  {' '}
+  Add HDMI to external data ports{' '}
+</font>
 
 <ThemedImageZoom
   alt="Hardware diagram of Raph Rover"
@@ -238,17 +248,6 @@ TODO:
 
 ### RaphCore controller
 
-RaphCore serves as the primary control board for Raph Rover, featuring a robust
-STM32H5 series microcontroller. The board leverages FreeRTOS to efficiently
-handle various low-level tasks integral to the functioning of Raph Rover. These
-tasks include:
-
-- Drivetrain control
-- Power system management
-- LED control
-- IMU operation
-- Odometry tracking
-
 <ThemedImageZoom
   alt="External connections of RaphCore"
   sources={{
@@ -264,7 +263,31 @@ tasks include:
   caption="RaphCore PCB connectors"
 />
 
+<CenterContent>
+
+| Component       |  Model   | Description |
+| --------------- | :------------: |:------------: |
+| Microcontroller | STM32H5 series | 123465 Ghz |
+| IMU             |    IMU XYZ     | 1254 bit |
+
+</CenterContent>
+
+<font color="red" size="+3"> No one cares about what its tasks are</font>
+
+RaphCore serves as the primary control board for Raph Rover, featuring a robust
+STM32H5 series microcontroller. The board leverages FreeRTOS to efficiently
+handle various low-level tasks integral to the functioning of Raph Rover. These
+tasks include:
+
+- Drivetrain control
+- Power system management
+- LED control
+- IMU operation
+- Odometry tracking
+
 ### Drivetrain
+
+<font color="red" size="+2"> An image is worth a 1000 words - remove text, replace with image showing the movement</font>
 
 The standard configuration of the Raph Rover features a drivetrain comprising
 two fixed wheels at the front and two rotary wheels at the rear. This design
@@ -298,6 +321,8 @@ capabilities, ensuring adaptability in various operational scenarios.
 
 #### Motors
 
+<font color="red" size="+3"> No one cares. 4 wheels, (size), (material), each with a motor, bldc outrunner, (motor power), motor torque. </font>
+
 The Raph Rover is equipped with 6 DirectDriveTech M0601C-111 direct-drive BLDC
 motors, serving both the drive and turn functions. These motors enable the rover
 to attain a speed of approximately 1.8 m/s when equipped with standard diameter
@@ -326,6 +351,9 @@ Whole drive assembly has following characteristics:
 </CenterContent>
 
 ### Battery & charging
+
+
+<font color="red" size="+3"> No one cares! w batteries inside the rover, hotswap ability, dedicated charger, ability to charge through rover, work time, volatge, max power draw, safety, Capacity (info that it's flight safe)</font>
 
 Raph Rover boasts an advanced battery management system, a feature enabling the
 simultaneous utilization of two battery packs. This innovative system empowers
@@ -359,6 +387,9 @@ Each battery pack has following characteristics:
 
 #### Battery charging
 
+
+<font color="red" size="+3"> No one will buy the rover because charging batteries is easy. Throw section out. + It's already in getting started</font>
+
 By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
 battery pack in about 2,5 hours.
 
@@ -384,6 +415,9 @@ charging process.
 
 ### Payload specification
 
+
+<font color="red" size="+3"> Move way higher than it is right now - you buy the rover TO ATTACH PAYLOAD, This section is more important than wheel diameter</font>
+
 Raph Rover is designed to be used with custom payloads. Main mounting plate is
 located at the top of the rover and has following characteristics:
 
@@ -404,12 +438,8 @@ the plate and buttons at the rear.
 <ThemedImageZoom
   alt="Raph Rover's mounting plate dimensions"
   sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/specification/Top_plate_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/specification/Top_plate_white.webp',
-    ),
+    light: useBaseUrl('/img/robots/raph/specification/Top_plate_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/specification/Top_plate_white.webp'),
   }}
   width="3000"
   height="2121"
@@ -420,9 +450,26 @@ the plate and buttons at the rear.
 />
 
 Apart from the mounting plate, it is possible to mount payloads directly to
-v-slot extrusions of the Raph Rover.
+v-slot extrusions of the Raph Rover. <font color="red" size=""> Effectively giving you (400)mm by (400)mm working area </font>
+
 
 #### Rover's external ports
+
+<ThemedImageZoom
+  alt="Raph Rover's rear compartment overview"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/Interface_panels_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/Interface_panels_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+/>
+
+<font color="red" size="+2"> Skip the talk, straight to the table with ports </font>
 
 Raph Rover has a special rear compartment provided as easy access to connect
 many payloads. As default provided are following interfaces:
@@ -451,20 +498,7 @@ by RaphCore. Voltages available on power panel are:
 
 </CenterContent>
 
-<ThemedImageZoom
-  alt="Raph Rover's rear compartment overview"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/specification/Interface_panels_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/specification/Interface_panels_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  caption="Rear compartment overview"
-/>
+
 
 To ensure weather-tightness while accommodating additional payloads, the Raph
 Rover is equipped with specialized cable seals. To insert additional cables, it
@@ -479,12 +513,8 @@ cable in millimeters.
 <ThemedImageZoom
   alt="Raph Rover's payload cable seals"
   sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/specification/Back_seals_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/specification/Back_seals_white.webp',
-    ),
+    light: useBaseUrl('/img/robots/raph/specification/Back_seals_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/specification/Back_seals_white.webp'),
   }}
   width="3000"
   height="1428"
@@ -496,7 +526,10 @@ cable in millimeters.
 
 #### Additional mounting plates
 
-<font color="red" size="+2"> Do we still use them? </font>
+<font color="red" size="+2">
+  {' '}
+  Throw this section away (preferably into an Addon section){' '}
+</font>
 
 Beyond the primary mounting plate, the Raph Rover offers the capability for
 integration with supplementary mounting plates as needed. These additional
@@ -546,6 +579,10 @@ mounting plate.
 
 ## Software specification
 
+<font color="red" size="+2"> That section is super long. Point out the best parts - throw the rest into guides / separate docs </font>
+<br/>
+<font color="red" size="+5"> DO NOT TALK ABOUT HOW ROS WORKS PLZ </font>
+
 ### Overview
 
 Raph Rover's software heavily relies on The
@@ -584,7 +621,7 @@ There are two important software components which don't run as native ROS nodes:
 - **Web User Interface** - The WebUI establishes a connection with the Rosbridge
   Server via WebSocket transport layer and employs the rosbridge protocol for
   communication with the ROS nodes.
-
+ 
 <ThemedImageZoom
   alt="Overview of Raph Rover's software components"
   sources={{
@@ -674,6 +711,8 @@ There are two important software components which don't run as native ROS nodes:
   </tbody>
 </table>
 
+<font color="red" size="+2"> The moment you see this graph as a non technical guy trying to buy this rover your brain will fry </font>
+
 <ThemedImageZoom
   alt="Simplified graph of core ROS nodes running on Raph Rover"
   sources={{
@@ -723,6 +762,16 @@ robot with autonomous navigation capabilities.
 _Work in progress_
 
 #### LED controller
+
+<font color="red" size="+2">
+  {' '}
+  Throw this section away - into a separate documentation file. **Only mention
+  it has LEDS (143 leds. 144/m, 23W in total, controller type)**
+
+You know what - just throw it away. It's already mentioned in the components
+section{' '}
+
+</font>
 
 The built-in LED controller manages the LED states of the robot by processing
 user-defined states and animations, integrating them with ongoing animations,
