@@ -19,14 +19,13 @@ toc_max_heading_level: 4
 import styles from './styles.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import CenterContent from '@site/src/components/CenterContent';
 
 <font color="red">
-TODO:
-    - review specs one more time, update if needed 
-    - update all images to reflect V1 of the rover
-    - add HDMI to External Data Ports panel
-    - center all tables
-    </font>
+  TODO: - review specs one more time, update if needed - update all images to
+  reflect V1 of the rover - add HDMI to External Data Ports panel - center all
+  tables
+</font>
 
 <ThemedImageZoom
   loading="eager"
@@ -84,8 +83,10 @@ note that the beta version is currently limited to indoor use only).
 
 ### Main parameters
 
+<CenterContent>
+
 | Parameter                    |             Value              |
-| :--------------------------- | :----------------------------: |
+| ---------------------------- | :----------------------------: |
 | Dimensions (LxWxH)           |    556 mm x 472 mm x 282 mm    |
 | Weight                       |             ~15 kg             |
 | Maximum payload              |            ~10 kg\*            |
@@ -94,15 +95,19 @@ note that the beta version is currently limited to indoor use only).
 | Estimated max. obstacle size |             ~100 m             |
 | IP protection rating         |      IP 54 (not in beta)       |
 | Operating temperature        |        -10 °C to +40 °C        |
-| Run time                     | up to 4 hours with 2 batteries |
+| Run time                     | Up to 4 hours with 2 batteries |
 | Connection range             |          Up to 100 m           |
+
+</CenterContent>
 
 \* - on flat terrain
 
 #### Traction parameters
 
+<CenterContent>
+
 | Parameter                     |    Value    |
-| :---------------------------- | :---------: |
+| ----------------------------- | :---------: |
 | Track Width                   |   385 mm    |
 | Wheelbase length              |   379 mm    |
 | Ground clearance              |   105 mm    |
@@ -112,6 +117,8 @@ note that the beta version is currently limited to indoor use only).
 | Hill grade traversal          | 30° ( ~58%) |
 | Nominal torque                |    4 Nm     |
 | Maximum torque                |    8 Nm     |
+
+</CenterContent>
 
 ### Rover overview
 
@@ -152,15 +159,19 @@ note that the beta version is currently limited to indoor use only).
 
 ### Components
 
-|                Name | Quantity | Description                                                                                                                                                                                                                                                                                                                                                                                                     |
-| ------------------: | :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   Built-in computer |    1     | UPBoard 7000 - third-generation credit card-sized developer board in the UP Board series.- Processor: Intel® N100 quad-core processor. <br /> <br /> Key features: <br /> - Processor: Intel® N100 quad-core processor. <br /> - Memory: 8GB LPDDR5 system memory. <br /> - Storage: 64GB eMMC storage. <br /> - Connectivity: 1 Gigabit LAN, HDMI 1.4b, 3 USB 3.2 Gen 2, 2 USB 2.0/UART, 40-pin GPIO header. |
-|              Router |    1     | Teltonika RUTX10 (With RUTX11 as option after beta). Router that combines the best of wired and wireless routing functionalities with Gigabit Ethernet, Bluetooth LE, and AC Wi-Fi.                                                                                                                                                                                                                             |
-|             Antenna |    2     | Dual-band (2.4 GHz / 5 GHz) placed on the rear of the robot.                                                                                                                                                                                                                                                                                                                                                    |
+<CenterContent>
+
+| Name                | Quantity | Description                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Built-in computer   |    1     | UPBoard 7000 - third-generation credit card-sized developer board in the UP Board series.- Processor: Intel® N100 quad-core processor. <br /> <br /> Key features: <br /> - Processor: Intel® N100 quad-core processor. <br /> - Memory: 8GB LPDDR5 system memory. <br /> - Storage: 64GB eMMC storage. <br /> - Connectivity: 1 Gigabit LAN, HDMI 1.4b, 3 USB 3.2 Gen 2, 2 USB 2.0/UART, 40-pin GPIO header. |
+| Router              |    1     | Teltonika RUTX10 (With RUTX11 as option after beta). Router that combines the best of wired and wireless routing functionalities with Gigabit Ethernet, Bluetooth LE, and AC Wi-Fi.                                                                                                                                                                                                                             |
+| Antenna             |    2     | Dual-band (2.4 GHz / 5 GHz) placed on the rear of the robot.                                                                                                                                                                                                                                                                                                                                                    |
 | Stereoscopic camera |    1     | Luxonis OAK-D Pro W is a wide-angle camera with active stereo depth and high-resolution color capabilities. It includes on-device neural network inference, computer vision features, and night vision for low-light environments.                                                                                                                                                                              |
-|               Lidar |    1     | RPLidar S3 - 360-degree waterproof 2D Lidar scanner with a 40-meter range. It ensures stable performance in diverse conditions, making it suitable for both indoor and outdoor use. Operating at 10Hz, it guarantees a sample rate of 32KHz.                                                                                                                                                                    |
-|         BLDC motors |    6     | M0601C-111 BLDC motors from Direct Drive Tech. Connected to RaphCore board via RS 485 bus.                                                                                                                                                                                                                                                                                                                      |
-|           LED strip |    4     | 108 RGBW Individually addressable LEDs. <br /> 3535 form factor; 144/m, 23W/m. <br /> They serve as the rovers status indicator, but can be programmed for any custom behavior e.g. to work as a flashlight.                                                                                                                                                                                                    |
+| Lidar               |    1     | RPLidar S3 - 360-degree waterproof 2D Lidar scanner with a 40-meter range. It ensures stable performance in diverse conditions, making it suitable for both indoor and outdoor use. Operating at 10Hz, it guarantees a sample rate of 32KHz.                                                                                                                                                                    |
+| BLDC motors         |    6     | M0601C-111 BLDC motors from Direct Drive Tech. Connected to RaphCore board via RS 485 bus.                                                                                                                                                                                                                                                                                                                      |
+| LED strip           |    4     | 108 RGBW Individually addressable LEDs. <br /> 3535 form factor; 144/m, 23W/m. <br /> They serve as the rovers status indicator, but can be programmed for any custom behavior e.g. to work as a flashlight.                                                                                                                                                                                                    |
+
+</CenterContent>
 
 ### Block diagram
 
@@ -239,12 +250,16 @@ rover is restarted, ensuring consistent and reliable performance.
 As standard, Raph Rover comes with rubber tires with a diameter of about 170 mm.
 Whole drive assembly has following characteristics:
 
-|                        Parameter |           Value           |
-| -------------------------------: | :-----------------------: |
-| Tire size (diameter x thickness) |    ~ 170 mm x ~ 80 mm     |
-|                   Tire lock type |         Beadlock          |
-|                      Tire insert | hard foam (non pneumatic) |
-|               Wheel rim diameter |          120 mm           |
+<CenterContent>
+
+| Parameter                        |       Value        |
+| -------------------------------- | :----------------: |
+| Tire size (diameter x thickness) | ~ 170 mm x ~ 80 mm |
+| Tire lock type                   |      Beadlock      |
+| Tire insert                      |     Hard foam      |
+| Wheel rim diameter               |       120 mm       |
+
+</CenterContent>
 
 ### Battery & charging
 
@@ -265,14 +280,18 @@ and productivity of the robotic platform.
 
 Each battery pack has following characteristics:
 
-|            Parameter |                  Value                   |
-| -------------------: | :--------------------------------------: |
-|              Voltage |             22.2 V (nominal)             |
-|         Battery type |                  Li-Ion                  |
-|             Capacity |        4 Ah (96 Wh - flight safe)        |
-|    Battery pack type |                   6S1P                   |
+<CenterContent>
+
+| Parameter            |                  Value                   |
+| -------------------- | :--------------------------------------: |
+| Voltage              |             22.2 V (nominal)             |
+| Battery type         |                  Li-Ion                  |
+| Capacity             |        4 Ah (96 Wh - flight safe)        |
+| Battery pack type    |                   6S1P                   |
 | Maximum output power |                  ~650 W                  |
-|       Safety systems | Overcurrent, Reverse polarity protection |
+| Safety systems       | Overcurrent, Reverse polarity protection |
+
+</CenterContent>
 
 #### Battery charging
 
@@ -304,12 +323,16 @@ charging process.
 Raph Rover is designed to be used with custom payloads. Main mounting plate is
 located at the top of the rover and has following characteristics:
 
-|                                  Parameter |                                                  Value                                                   |
-| -----------------------------------------: | :------------------------------------------------------------------------------------------------------: |
-|                           Payload capacity |                                                  ~10 kg                                                  |
-|                          Hole grid spacing |                                              25 mm x 25 mm                                               |
-|                   Mounting hole dimensions | 5.4 mm, compatible with: <br /> M5 screws <br/> CLS-M4-1 press-in nuts [example](https://mou.sr/3VyUg39) |
+<CenterContent>
+
+| Parameter                                  |                                                  Value                                                   |
+| ------------------------------------------ | :------------------------------------------------------------------------------------------------------: |
+| Payload capacity                           |                                                  ~10 kg                                                  |
+| Hole grid spacing                          |                                              25 mm x 25 mm                                               |
+| Mounting hole dimensions                   | 5.4 mm, compatible with: <br /> M5 screws <br/> CLS-M4-1 press-in nuts [example](https://mou.sr/3VyUg39) |
 | Main mounting plate dimensions (L x W x D) |                                         330 mm x 198 mm x 2 mm\*                                         |
+
+</CenterContent>
 
 \* - actual maximum payload length is lower due to Lidar mounted at the front of
 the plate and buttons at the rear.
@@ -340,21 +363,29 @@ v-slot extrusions of the Raph Rover.
 Raph Rover has a special rear compartment provided as easy access to connect
 many payloads. As default provided are following interfaces:
 
+<CenterContent>
+
 | Interface  |                        Notes                         |
-| :--------: | :--------------------------------------------------: |
+| ---------- | :--------------------------------------------------: |
 | USB type A | USB 3.2 Gen 2x1 (10 Gb/s), connected to UPBoard 7000 |
 | USB type C | USB 3.2 Gen 2x1 (10 Gb/s), connected to UPBoard 7000 |
-|   RJ-45    |   10/100/1000 Mbps, connected to Teltonika RUTX10    |
+| RJ-45      |   10/100/1000 Mbps, connected to Teltonika RUTX10    |
+
+</CenterContent>
 
 In addition, the rear compartment also includes a power panel with 3 sections,
 each with different voltage levels. Each section can be individually controlled
 by RaphCore. Voltages available on power panel are:
+
+<CenterContent>
 
 |    Voltage    |  Max power  |                                                                               Connector                                                                               |
 | :-----------: | :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |      5 V      | 2 A (10 W)  |  Phoenix Contact MC 1,5/ 2-ST-3,5 <br /> [example](https://www.tme.eu/en/details/mc1.5_2-st-3.5/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-5-1840366/)   |
 |     12 V      | 2 A (24 W)  | Phoenix Contact MC 1,5/ 2-ST-3,81 <br /> [example](https://www.tme.eu/en/details/mc1.5_2-st-3.81/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-81-1803578/) |
 | BAT (20-25 V) | 5 A (120 W) |       Phoenix Contact MSTB 2,5/ 2-ST-5,08 <br /> [example](https://www.tme.eu/en/details/mstb2.5_2-st-5.08/pluggable-terminal-blocks/phoenix-contact/1757019/)        |
+
+</CenterContent>
 
 <ThemedImageZoom
   alt="Raph Rover's rear compartment overview"
@@ -421,12 +452,16 @@ mounting plate.
 
 :::
 
+<CenterContent>
+
 | Parameter                                                 |                                                   Value                                                   |
-| :-------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------: |
+| --------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------: |
 | Additional mounting plate dimensions (L x W x D)          |                                         300.8 mm x 230 mm x 2 mm                                          |
 | Additional extended mounting plate dimensions (L x W x D) |                                         350.8 mm x 380 mm x 2 mm                                          |
 | Hole grid spacing                                         |                                               25 mm x 25 mm                                               |
 | Mounting hole dimensions                                  | 5.4 mm, compatible with: <br /> M5 screws <br /> CLS-M4-1 press-in nuts [example](https://mou.sr/3VyUg39) |
+
+</CenterContent>
 
 <ThemedImageZoom
   alt="Raph Rover's additional mounting plates dimensions"
@@ -645,85 +680,35 @@ flexibility for different use cases:
 
 ##### Normal states
 
-{/* prettier-ignore */}
-<table>
-  <thead>
-    <tr>
-      <th style={{ textAlign: 'center' }}>LED</th>
-      <th style={{ textAlign: 'center' }}>LED description</th>
-      <th style={{ textAlign: 'left' }}>State description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.flashWhite}/></td>
-      <td style={{ textAlign: 'center' }}>White, flashing</td>
-      <td style={{ textAlign: 'left' }}>Robot booting up*</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.breathWhite}/></td>
-      <td style={{ textAlign: 'center' }}>White, breathing</td>
-      <td style={{ textAlign: 'left' }}>Idle, rover on, motors relaxed*</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.white}/></td>
-      <td style={{ textAlign: 'center' }}>White, constant</td>
-      <td style={{ textAlign: 'left' }}>Rover on, motors relaxed*</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.breathBlue}/></td>
-      <td style={{ textAlign: 'center' }}>Blue, breathing</td>
-      <td style={{ textAlign: 'left' }}>Turning wheels not calibrated*</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.blue}/></td>
-      <td style={{ textAlign: 'center' }}>Blue, constant</td>
-      <td style={{ textAlign: 'left' }}>Turning wheels calibration</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.yellow}/></td>
-      <td style={{ textAlign: 'center' }}>Yellow, constant</td>
-      <td style={{ textAlign: 'left' }}>Maintenance mode</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.green}/></td>
-      <td style={{ textAlign: 'center' }}>Green, constant - side panels</td>
-      <td style={{ textAlign: 'left' }}>Battery charge indicator</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.breathGreen}/></td>
-      <td style={{ textAlign: 'center' }}>Green, breathing - side panels</td>
-      <td style={{ textAlign: 'left' }}>Battery charging indicator, turns solid when fully charged*</td>
-    </tr>
-  </tbody>
-</table>
+<CenterContent>
+
+|                            LED                            |        LED description         |                      State description                       |
+| :-------------------------------------------------------: | :----------------------------: | :----------------------------------------------------------: |
+| <span className={styles.circle} id={styles.flashWhite}/>  |        White, flashing         |                      Robot booting up\*                      |
+| <span className={styles.circle} id={styles.breathWhite}/> |        White, breathing        |               Idle, rover on, motors relaxed\*               |
+|    <span className={styles.circle} id={styles.white}/>    |        White, constant         |                  Rover on, motors relaxed\*                  |
+| <span className={styles.circle} id={styles.breathBlue}/>  |        Blue, breathing         |               Turning wheels not calibrated\*                |
+|    <span className={styles.circle} id={styles.blue}/>     |         Blue, constant         |                  Turning wheels calibration                  |
+|   <span className={styles.circle} id={styles.yellow}/>    |        Yellow, constant        |                       Maintenance mode                       |
+|    <span className={styles.circle} id={styles.green}/>    | Green, constant - side panels  |                   Battery charge indicator                   |
+| <span className={styles.circle} id={styles.breathGreen}/> | Green, breathing - side panels | Battery charging indicator, turns solid when fully charged\* |
+
+</CenterContent>
+
+<font color="red"> \* - not implemented currently </font>
 
 ##### Fault states
 
-{/* prettier-ignore */}
-<table>
-  <thead>
-    <tr>
-      <th style={{ textAlign: 'center' }}>LED</th>
-      <th style={{ textAlign: 'center' }}>LED description</th>
-      <th style={{ textAlign: 'left' }}>State description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.flashRed}/></td>
-      <td style={{ textAlign: 'center' }}>Red, flashing</td>
-      <td style={{ textAlign: 'left' }}>Rover error detected*</td>
-    </tr>
-    <tr>
-      <td style={{ textAlign: 'center' }} className={styles.LEDcell}><span className={styles.circle} id={styles.flashRed3}/></td>
-      <td style={{ textAlign: 'center' }}>Red, 3 fast flashes</td>
-      <td style={{ textAlign: 'left' }}>Multiple errors detected*</td>
-    </tr>
-  </tbody>
-</table>
+<CenterContent>
 
-\* - not implemented currently
+|                           LED                           |   LED description   |     State description      |
+| :-----------------------------------------------------: | :-----------------: | :------------------------: |
+| <span className={styles.circle} id={styles.flashRed}/>  |    Red, flashing    |   Rover error detected\*   |
+| <span className={styles.circle} id={styles.flashRed3}/> | Red, 3 fast flashes | Multiple errors detected\* |
+
+</CenterContent>
+
+<font color="red"> \* - not implemented currently </font>
 
 ### Web User Interface
 
