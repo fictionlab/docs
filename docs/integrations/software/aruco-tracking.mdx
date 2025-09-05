@@ -91,11 +91,12 @@ sudo apt install ros-${ROS_DISTRO}-aruco-opencv
 
 ### Creating launch and configuration files
 
-To launch the tracker you can, create your own launch file, use the one from the
-`aruco-opencv` package or you can use the provided launch file which provides
-basic config for detecting single markres.
+To launch the tracker, you can use the launch file from the installed
+`aruco-opencv` package or you can create your own. In this guide, we will show
+you how to create a launch file which provides basic config for detecting single
+markers.
 
-In /etc/ros create a `yaml` configuration file. This simple example sets the
+In `/etc/ros`, create a `yaml` configuration file. This simple example sets the
 basic parameters for the node.
 
 ```yaml title="/etc/ros/tracker.yaml"
@@ -106,16 +107,13 @@ basic parameters for the node.
 
     marker_dict: 4X4_50
 
-    image_sub_qos:
-      reliability: 2
-      durability: 2
-      depth: 1
-
     publish_tf: true
-    marker_size: 0.0742
+    marker_size: 0.15
 
     aruco:
       adaptiveThreshWinSizeMin: 3
+      adaptiveThreshWinSizeMax: 23
+      adaptiveThreshWinSizeStep: 10
 ```
 
 :::info
@@ -129,12 +127,12 @@ means you can change them as the node is working using `rqt` (in
 chosen parameters to the `yaml` file.
 
 You can find a detailed description of each parameter in the `aruco` namespace
-[here](https://docs.opencv.org/4.2.0/d5/dae/tutorial_aruco_detection.html).
+[here](https://docs.opencv.org/4.6.0/d5/dae/tutorial_aruco_detection.html).
 
 :::
 
-Next, also in `/etc/ros` create a launch file that will use the previously added
-configuration with the tracker node.
+Next, also in `/etc/ros`, create a launch file that will use the previously
+added configuration with the tracker node.
 
 ```xml title="/etc/ros/tracker.launch.xml"
 <launch version="0.1.1">
@@ -150,7 +148,7 @@ Now you can run the tracker with this command:
 ros2 launch /etc/ros/tracker.launch.xml
 ```
 
-or you can include your launch file in the `robot.launch.xml` file, so that the
+or you can include your launch file in the `robot.launch.xml` file so that the
 node will start at boot. To do so, put this line somewhere before the closing
 `</launch>` tag.
 
