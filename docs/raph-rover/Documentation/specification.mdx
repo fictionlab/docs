@@ -248,6 +248,13 @@ TODO:
 
 ### RaphCore controller
 
+<font color="red">
+  {' '}
+  If we have a whole section just for the controller should we have the same
+  section just for the router? Or just for the UP 7000 SBC? No, we should not.
+  Throw this away. It's already mentioned in "components section"{' '}
+</font>
+
 <ThemedImageZoom
   alt="External connections of RaphCore"
   sources={{
@@ -265,14 +272,17 @@ TODO:
 
 <CenterContent>
 
-| Component       |  Model   | Description |
-| --------------- | :------------: |:------------: |
-| Microcontroller | STM32H5 series | 123465 Ghz |
-| IMU             |    IMU XYZ     | 1254 bit |
+| Component       |     Model      | Description |
+| --------------- | :------------: | :---------: |
+| Microcontroller | STM32H5 series | 123465 Ghz  |
+| IMU             |    IMU XYZ     |  1254 bit   |
 
 </CenterContent>
 
-<font color="red" size="+3"> No one cares about what its tasks are</font>
+<font color="red" size="+3">
+  {' '}
+  No one cares about what its tasks are
+</font>
 
 RaphCore serves as the primary control board for Raph Rover, featuring a robust
 STM32H5 series microcontroller. The board leverages FreeRTOS to efficiently
@@ -287,7 +297,11 @@ tasks include:
 
 ### Drivetrain
 
-<font color="red" size="+2"> An image is worth a 1000 words - remove text, replace with image showing the movement</font>
+<font color="red" size="+2">
+  {' '}
+  An image is worth a 1000 words - remove text, replace with image showing the
+  movement
+</font>
 
 The standard configuration of the Raph Rover features a drivetrain comprising
 two fixed wheels at the front and two rotary wheels at the rear. This design
@@ -321,7 +335,11 @@ capabilities, ensuring adaptability in various operational scenarios.
 
 #### Motors
 
-<font color="red" size="+3"> No one cares. 4 wheels, (size), (material), each with a motor, bldc outrunner, (motor power), motor torque. </font>
+<font color="red" size="+3">
+  {' '}
+  No one cares. 4 wheels, (size), (material), each with a motor, bldc outrunner,
+  (motor power), motor torque.{' '}
+</font>
 
 The Raph Rover is equipped with 6 DirectDriveTech M0601C-111 direct-drive BLDC
 motors, serving both the drive and turn functions. These motors enable the rover
@@ -352,8 +370,12 @@ Whole drive assembly has following characteristics:
 
 ### Battery & charging
 
-
-<font color="red" size="+3"> No one cares! w batteries inside the rover, hotswap ability, dedicated charger, ability to charge through rover, work time, volatge, max power draw, safety, Capacity (info that it's flight safe)</font>
+<font color="red" size="+3">
+  {' '}
+  No one cares! w batteries inside the rover, hotswap ability, dedicated
+  charger, ability to charge through rover, work time, volatge, max power draw,
+  safety, Capacity (info that it's flight safe)
+</font>
 
 Raph Rover boasts an advanced battery management system, a feature enabling the
 simultaneous utilization of two battery packs. This innovative system empowers
@@ -387,8 +409,11 @@ Each battery pack has following characteristics:
 
 #### Battery charging
 
-
-<font color="red" size="+3"> No one will buy the rover because charging batteries is easy. Throw section out. + It's already in getting started</font>
+<font color="red" size="+3">
+  {' '}
+  No one will buy the rover because charging batteries is easy. Throw section
+  out. + It's already in getting started
+</font>
 
 By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
 battery pack in about 2,5 hours.
@@ -413,10 +438,90 @@ charging process.
 
 :::
 
-### Payload specification
+## Payload
 
+<font color="red" size="+3">
+  {' '}
+  Move way higher than it is right now - you buy the rover TO ATTACH PAYLOAD,
+  This section is more important than wheel diameter
+</font>
 
-<font color="red" size="+3"> Move way higher than it is right now - you buy the rover TO ATTACH PAYLOAD, This section is more important than wheel diameter</font>
+### Data ports
+
+<ThemedImageZoom
+  alt="Raph Rover's rear compartment overview"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/Interface_panels_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/Interface_panels_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+/>
+
+<CenterContent>
+
+| Interface  |           Notes           |     Device connected      |
+| ---------- | :-----------------------: | :-----------------------: |
+| USB type A | USB 3.2 Gen 2x1 (10 Gb/s) | connected to UPBoard 7000 |
+| USB type C | USB 3.2 Gen 2x1 (10 Gb/s) | connected to UPBoard 7000 |
+| RJ-45      |     10/100/1000 Mbps      |     Teltonika RUTX10      |
+| RJ-45      |     10/100/1000 Mbps      |     Teltonika RUTX10      |
+
+</CenterContent>
+
+### Power panel
+
+<CenterContent>
+
+|    Voltage    |  Max power  |                                                                               Connector                                                                               |
+| :-----------: | :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|      5 V      | 2 A (10 W)  |  Phoenix Contact MC 1,5/ 2-ST-3,5 <br /> [example](https://www.tme.eu/en/details/mc1.5_2-st-3.5/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-5-1840366/)   |
+|     12 V      | 2 A (24 W)  | Phoenix Contact MC 1,5/ 2-ST-3,81 <br /> [example](https://www.tme.eu/en/details/mc1.5_2-st-3.81/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-81-1803578/) |
+| BAT (20-25 V) | 5 A (120 W) |       Phoenix Contact MSTB 2,5/ 2-ST-5,08 <br /> [example](https://www.tme.eu/en/details/mstb2.5_2-st-5.08/pluggable-terminal-blocks/phoenix-contact/1757019/)        |
+
+</CenterContent>
+
+### seals
+
+<font color="red" size="+2">
+  {' '}
+  This section should probably be moved to the Hardware section{' '}
+</font>
+
+<font color="red">
+  Both to keep the rover looking cleaner, and to provide extra weather and dust
+  resistance a system of seals around the rover can be used.
+</font>
+
+To ensure weather-tightness while accommodating additional payloads, the Raph
+Rover is equipped with specialized cable seals. To insert additional cables, it
+is necessary to dismantle the entire panel by loosening two thumb screws. Once
+the panel is disassembled, individual seals can be removed from the frame,
+allowing for the insertion of new cables.
+
+Raph Rover comes with different seals, labeled as QT [Z]/[X] or QT [X], where Z
+indicates the number of holes in the seal and X indicates the diameter of the
+cable in millimeters.
+
+<ThemedImageZoom
+  alt="Raph Rover's payload cable seals"
+  sources={{
+    light: useBaseUrl('/img/robots/raph/specification/Back_seals_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/specification/Back_seals_white.webp'),
+  }}
+  width="3000"
+  height="1428"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Payload cable seal"
+/>
+
+### Mechanical connections
 
 Raph Rover is designed to be used with custom payloads. Main mounting plate is
 located at the top of the rover and has following characteristics:
@@ -450,79 +555,8 @@ the plate and buttons at the rear.
 />
 
 Apart from the mounting plate, it is possible to mount payloads directly to
-v-slot extrusions of the Raph Rover. <font color="red" size=""> Effectively giving you (400)mm by (400)mm working area </font>
-
-
-#### Rover's external ports
-
-<ThemedImageZoom
-  alt="Raph Rover's rear compartment overview"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/specification/Interface_panels_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/specification/Interface_panels_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-/>
-
-<font color="red" size="+2"> Skip the talk, straight to the table with ports </font>
-
-Raph Rover has a special rear compartment provided as easy access to connect
-many payloads. As default provided are following interfaces:
-
-<CenterContent>
-
-| Interface  |                        Notes                         |
-| ---------- | :--------------------------------------------------: |
-| USB type A | USB 3.2 Gen 2x1 (10 Gb/s), connected to UPBoard 7000 |
-| USB type C | USB 3.2 Gen 2x1 (10 Gb/s), connected to UPBoard 7000 |
-| RJ-45      |   10/100/1000 Mbps, connected to Teltonika RUTX10    |
-
-</CenterContent>
-
-In addition, the rear compartment also includes a power panel with 3 sections,
-each with different voltage levels. Each section can be individually controlled
-by RaphCore. Voltages available on power panel are:
-
-<CenterContent>
-
-|    Voltage    |  Max power  |                                                                               Connector                                                                               |
-| :-----------: | :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|      5 V      | 2 A (10 W)  |  Phoenix Contact MC 1,5/ 2-ST-3,5 <br /> [example](https://www.tme.eu/en/details/mc1.5_2-st-3.5/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-5-1840366/)   |
-|     12 V      | 2 A (24 W)  | Phoenix Contact MC 1,5/ 2-ST-3,81 <br /> [example](https://www.tme.eu/en/details/mc1.5_2-st-3.81/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-81-1803578/) |
-| BAT (20-25 V) | 5 A (120 W) |       Phoenix Contact MSTB 2,5/ 2-ST-5,08 <br /> [example](https://www.tme.eu/en/details/mstb2.5_2-st-5.08/pluggable-terminal-blocks/phoenix-contact/1757019/)        |
-
-</CenterContent>
-
-
-
-To ensure weather-tightness while accommodating additional payloads, the Raph
-Rover is equipped with specialized cable seals. To insert additional cables, it
-is necessary to dismantle the entire panel by loosening two thumb screws. Once
-the panel is disassembled, individual seals can be removed from the frame,
-allowing for the insertion of new cables.
-
-Raph Rover comes with different seals, labeled as QT [Z]/[X] or QT [X], where Z
-indicates the number of holes in the seal and X indicates the diameter of the
-cable in millimeters.
-
-<ThemedImageZoom
-  alt="Raph Rover's payload cable seals"
-  sources={{
-    light: useBaseUrl('/img/robots/raph/specification/Back_seals_black.webp'),
-    dark: useBaseUrl('/img/robots/raph/specification/Back_seals_white.webp'),
-  }}
-  width="3000"
-  height="1428"
-  figStyle={{
-    width: 600,
-  }}
-  caption="Payload cable seal"
-/>
+v-slot extrusions of the Raph Rover. <font color="red" size=""> Effectively
+giving you (400)mm by (400)mm working area </font>
 
 #### Additional mounting plates
 
@@ -579,9 +613,16 @@ mounting plate.
 
 ## Software specification
 
-<font color="red" size="+2"> That section is super long. Point out the best parts - throw the rest into guides / separate docs </font>
-<br/>
-<font color="red" size="+5"> DO NOT TALK ABOUT HOW ROS WORKS PLZ </font>
+<font color="red" size="+2">
+  {' '}
+  That section is super long. Point out the best parts - throw the rest into
+  guides / separate docs{' '}
+</font>
+<br />
+<font color="red" size="+5">
+  {' '}
+  DO NOT TALK ABOUT HOW ROS WORKS PLZ{' '}
+</font>
 
 ### Overview
 
@@ -621,7 +662,7 @@ There are two important software components which don't run as native ROS nodes:
 - **Web User Interface** - The WebUI establishes a connection with the Rosbridge
   Server via WebSocket transport layer and employs the rosbridge protocol for
   communication with the ROS nodes.
- 
+
 <ThemedImageZoom
   alt="Overview of Raph Rover's software components"
   sources={{
@@ -711,7 +752,11 @@ There are two important software components which don't run as native ROS nodes:
   </tbody>
 </table>
 
-<font color="red" size="+2"> The moment you see this graph as a non technical guy trying to buy this rover your brain will fry </font>
+<font color="red" size="+2">
+  {' '}
+  The moment you see this graph as a non technical guy trying to buy this rover
+  your brain will fry{' '}
+</font>
 
 <ThemedImageZoom
   alt="Simplified graph of core ROS nodes running on Raph Rover"
@@ -826,6 +871,11 @@ flexibility for different use cases:
 <font color="red"> \* - not implemented currently </font>
 
 ### Web User Interface
+
+<font color="red" size="+2"> THIS MIGHT ACTUALLY MAKE SOMEONE WANT TO BUY THE ROVER. Why is it hidden at the bottom</font>
+<br/>
+<font color="red"> Especially if we mention that any camera connected to the rover can be easily streamed to the UI</font>
+
 
 The beta version of the Raph rover does not feature a User Interface (UI). The
 software is fully operational in terms of functionality; however, the absence of
