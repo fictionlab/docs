@@ -3,28 +3,11 @@ title: Connect via SSH
 sidebar_label: Connect via SSH
 sidebar_position: 2
 description: >-
-  Learn how to establish an SSH connection with your Leo Rover and access its
-  terminal using Putty or OpenSSH.
+  Learn how to establish an SSH connection with your Raph Rover and access its
+  terminal.
 ---
 
-### On-board computer (UpBoard 7000)
-
-To connect to the UpBoard via SSH, use your preferred SSH client and the
-following credentials:
-
-- **IP:** `10.10.0.3`
-- **user:** `raph`
-- **password:** `raph`
-
-### Controller (RaphCore)
-
-- **IP:** `10.10.0.2`
-
-<font color="red" size="+10">
-  {' '} Replace text with what Raph should have{' '}
-</font>
-
-First connect to the Rover's network:
+Make sure that you are connected to the Rover's network:
 
 <LinkButton docId="guides/connect-to-rover-ap" />
 
@@ -35,17 +18,18 @@ guide to install OpenSSH.
 
 :::tip
 
-On newer Windows versions the OpenSSH is automatically installed.
+Newer Windows versions come with OpenSSH automatically installed.
 
 :::
 
 To connect to your Rover, open a terminal session and type:
 
 ```bash
-ssh pi@10.0.0.1
+ssh raph@10.10.0.2
 ```
 
 If you log in for the first time, you might see a similar message:
+<font color="red"> Change photo for raph one </font>
 
 <ImageZoom
   src="/img/robots/leo/guides/ssh/linux-terminal.webp"
@@ -59,4 +43,4 @@ If you log in for the first time, you might see a similar message:
 
 Type `yes` and press enter to continue.
 
-When prompted for password, type: `raspberry`
+When prompted for password, type: `raph` and press enter.
