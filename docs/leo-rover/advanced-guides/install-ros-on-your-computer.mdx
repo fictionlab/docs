@@ -8,6 +8,7 @@ description: >-
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import ImageZoom from '@site/src/components/ImageZoom';
 
 Having ROS on your host machine has many advantages. First of all, it allows you
 to communicate with nodes running on your Leo Rover, so it is easier to
@@ -27,33 +28,68 @@ There is a couple of ROS installation options depending on your system:
 
     </TabItem>
     <TabItem value='wsl' label='Windows Subsystem for Linux'>
-        Ensure that Windows Subsystem for Linux feature is enabled by opening PowerShell as Administrator
-        and running:
+        To install Windows Subsystem for Linux (WSL), open PowerShell as Administrator and run:
 
         ```powershell
-        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+        wsl --install
         ```
 
-        Reboot when prompted.
+        :::tip
 
-        Install [Ubuntu 24.04](https://apps.microsoft.com/detail/9nz3klhxdjp5?ocid=webpdpshare)
-        from Microsoft Store and open the application.
+        To open PowerShell as Administrator, search for `PowerShell` in Start menu, right-click
+        `Windows PowerShell` and select `Run as administrator`.
 
-        You can now follow steps from [ROS 2 installation tutorial](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html)
-        on ROS wiki.
+        :::
 
-        To run graphical applications, you need to install X server on Windows. We recommend using
-        [VcXsrv](https://sourceforge.net/projects/vcxsrv/). Install it and run with default configuration except for
-        `Native OpenGL` which should be unchecked (otherwise, `rviz2` may fail to launch)
+        ROS 2 Jazzy requires Ubuntu 24.04, which is not the default distribution installed by WSL.
+        To install Ubuntu 24.04, you can use the following command in PowerShell:
 
-        In your ubuntu session, type:
+        ```powershell
+        wsl --install -d Ubuntu-24.04
+        ```
+
+        :::note
+
+        To see other available Linux distributions, run:
+
+        ```powershell
+        wsl --list --online
+        ```
+
+        :::
+
+        After installation is complete the system will ask you to provide user name and password.
+        When the credentials are set, Ubuntu will be opened in the terminal.
+
+        To launch a Ubuntu 24.04 WSL session in the future, run in PowerShell:
+
+        ```powershell
+        wsl -d Ubuntu-24.04
+        ```
+
+        Alternatively, installed WSL distributions should also be available from the Start menu:
+
+        <ImageZoom
+            src='/img/robots/leo/advanced-guides/install-ros-on-your-computer/ubuntu-start-menu.webp'
+            alt='Ubuntu 24.04 in Start menu'
+            width={471}
+            height={409}
+            figStyle={{
+                width: 400,
+            }}
+        />
+
+        Make sure that you are in the home directory before executing further commands:
 
         ```bash
-        echo "export DISPLAY=:0" >> ~/.bashrc
-        source ~/.bashrc
+        cd ~
         ```
 
-        Now, you should be able to run your ROS 2 nodes and use graphical tools such as `rviz2` and `rqt`.
+        You can now follow steps from [ROS 2 installation tutorial](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html)
+        on ROS wiki and install ROS 2 in WSL as you would on a native Linux system.
+
+        WSL 2 also supports graphical applications, so you can run RViz and other GUI tools
+        directly in WSL by default.
     </TabItem>
     <TabItem value='windows' label='Windows Native Installation'>
         ROS 2 can be installed on Windows by following instructions
