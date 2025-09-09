@@ -20,6 +20,7 @@ import Product from '@site/src/products/mecanum-wheels.mdx';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FusionEmbed from '@site/src/components/FusionEmbed';
+import CenterContent from '@site/src/components/CenterContent';
 
 <ImageZoom
   loading="eager"
@@ -41,11 +42,35 @@ well as rotation on the spot, providing unparalleled maneuverability.
 
 ## Main parameters
 
-{/* TODO */}
+<CenterContent>
+
+| Parameter         |     Value      |
+| ----------------- | :------------: |
+| Number of rollers |       12       |
+| Number of plates  |       2        |
+| Body material     | Aluminum alloy |
+| Roller material   |  Polyurethane  |
+| Net weight        |     500 g      |
+| Load capacity     |   15 kg each   |
+
+</CenterContent>
 
 ## Dimensions
 
-{/* TODO */}
+<ThemedImageZoom
+  alt="Mecanum wheels dimensions"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/addons/mecanum-wheels/mecanum-dimensions-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/addons/mecanum-wheels/mecanum-dimensions-dark.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  caption="Mecanum wheel dimensions"
+/>
 
 ### CAD model
 
@@ -63,5 +88,3 @@ well as rotation on the spot, providing unparalleled maneuverability.
   url="https://drive.google.com/drive/folders/1OCaoaNqdJ6t7VJH5UJfpXanuSAneFG7J?usp=drive_link"
   title="Omnidirectional wheels set - Google Drive"
 />
-
-## Additional information

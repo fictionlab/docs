@@ -1,0 +1,308 @@
+---
+title: ArUco Marker tracking
+sidebar_label: ArUco Marker tracking
+keywords:
+  - aruco
+  - tracking
+  - opencv
+  - marker
+  - leo
+  - integration
+  - example
+  - software
+description: >-
+  Learn how to use the ros_aruco_opencv ROS package to detect ArUco tags with
+  your Leo Rover and visualize them in RViz.
+image: /img/robots/leo/integrations/artag-tracking-alvar/leo-artag-erc.webp
+---
+
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+An ArUco tag is a type of fiducial marker widely used in robotics and computer
+vision to support tasks such as localization, mapping, and navigation. These
+visual markers provide a reliable, easily detectable point of reference that
+helps robots perceive and interpret their environment with precision.
+
+In this example, we will use
+[ros_aruco_opencv](https://github.com/fictionlab/ros_aruco_opencv/tree/jazzy)
+package for detecting individual markers.
+
+As sending raw images from the camera via wireless network may be insufficient,
+we will relay all the processing to the Raspberry Pi.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/artag-tracking-alvar/leo-artag-erc.webp"
+  alt="Leo Rover and ARTags at ERC"
+  width="1500"
+  height="635"
+/>
+
+## What to expect?
+
+After this tutorial is completed, you should end up with something like this:
+
+<div className="video-container">
+  <LiteYouTubeEmbed
+    id="QQpz7LU5eJ4"
+    params="autoplay=0&autohide=1&showinfo=0&rel=0"
+    poster="hqdefault"
+    title="Leo Rover Unboxing and Getting Started"
+    webp
+  />
+</div>
+
+The detected ArUco Tags are also published to `/aruco_detections` topic, so you
+could use the output in your custom nodes.
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+
+## Software integration
+
+### Installing the packages
+
+Start by logging in into your rover via SSH:
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+
+Install `aruco-opencv` package:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-aruco-opencv
+```
+
+### Creating launch and configuration files
+
+To launch the tracker, you can use the launch file from the installed
+`aruco-opencv` package or you can create your own. In this guide, we will show
+you how to create a launch file which provides basic config for detecting single
+markers.
+
+In `/etc/ros`, create a `yaml` configuration file. This simple example sets the
+basic parameters for the node.
+
+```yaml title="/etc/ros/tracker.yaml"
+/**:
+  ros__parameters:
+    cam_base_topic: camera/image_color
+    output_frame: 'base_link'
+
+    marker_dict: 4X4_50
+
+    publish_tf: true
+    marker_size: 0.15
+
+    aruco:
+      adaptiveThreshWinSizeMin: 3
+      adaptiveThreshWinSizeMax: 23
+      adaptiveThreshWinSizeStep: 10
+```
+
+:::info
+
+You will most likely need to change marker_size parameter depending on the
+actual size of your printed ArUco tag.
+
+The parameters in `aruco` namespace are dynamic reconfigure parameters - which
+means you can change them as the node is working using `rqt` (in
+`dynamic reconfigure` plugin). You can play with their values and then add
+chosen parameters to the `yaml` file.
+
+You can find a detailed description of each parameter in the `aruco` namespace
+[here](https://docs.opencv.org/4.6.0/d5/dae/tutorial_aruco_detection.html).
+
+:::
+
+Next, also in `/etc/ros`, create a launch file that will use the previously
+added configuration with the tracker node.
+
+```xml title="/etc/ros/tracker.launch.xml"
+<launch version="0.1.1">
+  <node pkg="aruco_opencv" exec="aruco_tracker_autostart">
+    <param from="/etc/ros/tracker.yaml" />
+  </node>
+</launch>
+```
+
+Now you can run the tracker with this command:
+
+```bash
+ros2 launch /etc/ros/tracker.launch.xml
+```
+
+or you can include your launch file in the `robot.launch.xml` file so that the
+node will start at boot. To do so, put this line somewhere before the closing
+`</launch>` tag.
+
+```xml title="/etc/ros/robot.launch.xml"
+<include file="/etc/ros/tracker.launch.xml"/>
+```
+
+Now you need to reboot the rover, or restart the ros nodes
+
+```bash
+ros-nodes-restart
+```
+
+## Generate ArUco markers
+
+Now, we need to create some markers, so go back to your computer.
+
+If you don't have ROS installed, you can follow this guide:
+
+<LinkButton
+  to="/leo-rover/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
+
+Install the `aruco_opencv` package:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-aruco-opencv
+```
+
+And run the `create_marker` script:
+
+```bash
+ros2 run aruco_opencv create_marker 0
+```
+
+:::tip
+
+You can also run
+
+```bash
+ros2 run aruco_opencv create_marker --help
+```
+
+to see the help message with desctription of all available options.
+
+:::
+
+This will create $0.2$x$0.2$m marker with id 0 and save it to `markers.pdf`
+file. The script will also print some information looking like this
+
+```
+ArUco dictionary: 4X4_50
+Inner marker bits: 4
+Marker border bits: 1
+Pixels per bit: 1
+Margin pixels: 1
+Marker side size: 0.1500 m - 6 pixels
+Output image side size: 0.200 m - 8 pixels
+Output DPI: 1.016
+Generating marker with ID 0...
+Converting images to pdf and writing to output file markers.pdf...
+```
+
+Please note the `Marker side size` value. It is the value that should be
+provided to `marker_size` parameter in the config `yaml` file.
+
+Make sure to print the marker in the original scale.
+
+:::warning
+
+Due to differences in printer setups, the actual size of the printed marker may
+be different. Make sure the `marker_size` parameter represents the actual size
+(in meters) of the ArUco tag.
+
+:::
+
+### Visualization
+
+The detected ArUco tags are published on `aruco_detections` topic. You can see
+their positions with
+
+```bash
+ros2 topic echo /aruco_detections
+```
+
+You can get a more graphical representation of the data with RViz as with our
+config, the marker poses are also publihsed as TF.
+
+Open RViz by typing `rviz2` in the terminal and set Fixed Frame to `base_link`.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/aruco-tracking/rviz-fixed-frame.webp"
+  alt="Setting base_link in RViz"
+  width="1365"
+  height="728"
+/>
+
+Now on the Displays panel click **Add** -> **By display type** and search for
+`TF` and click **Ok**.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/aruco-tracking/rviz-add-tf.webp"
+  width="1362"
+  height="727"
+/>
+
+As there are many TF frames for the rover itself, to make it easier to
+distinguish check the **Show Names** option and from the **Frames** dropdown
+uncheck **All Enabled** - we only want `base_link` and any frame named like
+`marker_x` where `x` is the id of the detected marker. Find those frames and
+check their boxes to make them appear in RViz.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/aruco-tracking/rviz-tf-instructions.webp"
+  width="1364"
+  height="730"
+/>
+
+:::tip
+
+If you can't find any `marker_x` frame it's due to no marker being detected.
+Make sure that the robot's camera can see your marker, and detects it.
+
+:::
+
+On `/aruco_tracker/debug` topic you can see the Camera images with the frame
+axes of detected markers drawn on top of it. To see those images you need to
+click on the Displays panel **Add** -> **By topic** and search for
+`aruco_tracker`. There you will have `debug` topic for which you will be able to
+choose `Image` display. Click it and confirm with **Ok**.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/aruco-tracking/rviz-aruco-image.webp"
+  width="1365"
+  height="729"
+/>
+
+Your final setup should look more or less like this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/aruco-tracking/rviz-setup-final.webp"
+  alt="Adding Marker topic to visualization marker in RViz"
+  width="1365"
+  height="729"
+/>
+
+## What next?
+
+With this tutorial completed you may be wondering what to do next. Our pick
+would be the [ARTag follower](/leo-rover/1.8/leo-examples/follow-artag).
+However, you can check out other examples from leo_examples repository (like
+[line follower](/leo-rover/1.8/leo-examples/line-follower) and
+[object detection](/leo-rover/1.8/leo-examples/object-detection)). You can also
+check out other integrations from our [Integrations site](/integrations).

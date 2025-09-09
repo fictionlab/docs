@@ -12,8 +12,8 @@ keywords:
   - example
 description: >-
   Unleash the potential of your Leo Rover with the Steam Deck. Learn how to
-  install Ubuntu, ROS, and additional packages to create a versatile control
-  setup for your rover.
+  adjust your handheld device to create a versatile control setup for your
+  rover.
 image: /img/robots/leo/integrations/steam-deck/steam-deck-leo.webp
 ---
 
@@ -44,12 +44,12 @@ applied it to our use case as an example.
 ## Prerequisites
 
 <LinkButton
-  to="/leo-rover/guides/connect-to-rover-ap"
+  to="/leo-rover/1.8/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
   description="Learn how to connect to your Leo Rover via WiFi."
 />
 <LinkButton
-  to="/leo-rover/guides/connect-to-network"
+  to="/leo-rover/1.8/guides/connect-to-network"
   title="Connect to a local network and the Internet"
   description="Learn how to connect your Leo Rover to a local network and the internet to
   download files and forward internet to your computer."
@@ -66,8 +66,10 @@ applied it to our use case as an example.
 :::info
 
 In this part we are assuming you have your Steam Deck connected to the internet,
-and you are operating in the desktop mode (instructions how to enter the desktop
-[here](https://www.trustedreviews.com/how-to/how-to-get-to-desktop-mode-on-steam-deck-4296327))
+with all possible system updates installed (as for the time of writing this
+tutorial the OS version is `3.7.13`). You also have to operate in the desktop
+mode (instructions how to enter the desktop can be found
+[here](https://www.trustedreviews.com/how-to/how-to-get-to-desktop-mode-on-steam-deck-4296327)).
 
 As you will need to write some commands in the console on the Steam Deck, we
 recommend, for your comfort, to connect a keyboard and mouse to the device. You
@@ -76,36 +78,91 @@ paste the instructions.
 
 :::
 
-To run ROS applications on the Steam Deck, we need to install ROS itself. But as
-it's not so simple to do on the SteamOS, first, you need to get another Linux
-distribution on your device.
+To run ROS applications on the Steam Deck, we need to have some ROS installation
+on it. But as it's not so simple to install on the SteamOS itself, we will use
+distrobox to setup a container with ROS already installed.
 
-In order to get Ubuntu 20.04 on your Steam Deck, you can follow the
-[install Ubuntu on distrobox tutorial](https://www.gamingonlinux.com/2022/09/distrobox-can-open-up-the-steam-deck-to-a-whole-new-world/)
-by Liam Dawe.
+As SteamOS `3.5` and later comes with distrobox and podman pre-installed, you
+won't have to do much to make the ROS running.
 
-:::note
-
-As the system installed in distrobox has only the basic packages, before next
-step you need to install some additional tools. Being in ubuntu 20.04 on your
-Steam Deck please perform this installation
+Let's start with making possible to instal and update any package on SteamOS
+from the desktop mode. Run Konsole (**Application Launcher** -> **System** ->
+**Konsole**) and type those commands:
 
 ```bash
-sudo apt install lsb-release
+sudo steamos-readonly disable
+sudo pacman-key --init
+sudo pacman-key --populate holo
 ```
 
+:::info
+
+The commands above used `sudo` privilege - if you don't have `sudo` password on
+your steam Steam Deck, you can easily set it up with
+
+```bash
+passwd
+```
+
+You will be asked to type in and repeat new password.
+
 :::
 
-Once you have completed the steps and can access Ubuntu 20.04 on your Steam
-Deck, you need to perform the ROS installation. You can follow
-[this](http://wiki.ros.org/noetic/Installation/Ubuntu) guide.
+As we will use Docker Hub for installing the ROS container, first we will
+configure the default docker image source so we won't have to use fully
+qualified names of the images. First, open Podman configuration file for
+editing:
 
-:::warning
+```bash
+sudo nano /etc/containers/registries.conf
+```
 
-Remember that you need to install ROS inside the distrobox environment (Ubuntu
-20.04), otherwise the installation will fail.
+And add Docker Hub to the list of unqualified search registries (the
+`unqualified-search-registries` option is already in the file, but commented -
+find it, uncomment, and swtich the default value to `"docker.io"`):
+
+```bash title="/etc/containers/registries.conf"
+unqualified-search-registries = ["docker.io"]
+```
+
+Once this is done you are ready to create the container. Simply type this in
+console on Steam Deck:
+
+```bash
+distrobox create -n ros-noetic -i osrf/ros:noetic-desktop
+```
+
+:::tip
+
+The `-n` option specifies the name of created container so you can change it to
+your desired name for the container.
 
 :::
+
+With this command we at once create a container named `ros-noetic` and try to
+pull a docker image for ROS noetic with desktop software from OSRF (Open Source
+Robotics Foundation). As the image is surely not installed, you will be asked if
+you want to download it now. Just press enter to start the download and
+container setup. When the process finishes you can enter the container with this
+command:
+
+```bash
+distrobox enter ros-noetic
+```
+
+:::info
+
+If you chose different name for the container, you will have to switch the name
+used in the command above for your container name.
+
+First time you enter the container, there will be automatic setup done
+(installing packages, setting up user account etc.) which will take some time -
+therefore don't worry if you have to wait a bit.
+
+:::
+
+Inside the container you will have Ubuntu 20.04 with ROS noetic installed, which
+you can use as normal system.
 
 Having completed the installation, you are ready to try our examples!
 
@@ -115,7 +172,8 @@ Having completed the installation, you are ready to try our examples!
 
 The examples described in this section were done for a rover configuration which
 has integrated lidar and realsense camera. You can follow those guides to get
-the same rover setup:
+the same rover setup (you can omit those steps, but some of the applications
+will not work propperly):
 
 <LinkButton docId="cameras/intel-realsense" />
 <LinkButton docId="lidars/slamtec-rplidar-a2" />
@@ -125,35 +183,21 @@ access point.
 
 :::
 
-We have provided a GitHub repository with additional files and setup script
+We have provided a GitHub repository with additional files and setup scripts
 needed to perform our use-cases of the Steam Deck with Leo Rover.
 
-But first, you need two `ROS` packages. Execute this command in distrobox image:
+Clone [this](https://github.com/LeoRover/leo_SteamDeck) repository into your
+Steam Deck:
 
 ```bash
-source /opt/ros/noetic/setup.bash
-sudo apt install ros-${ROS_DISTRO}-leo
-sudo apt install ros-${ROS_DISTRO}-realsense2-description
-```
-
-Having installed those packages, clone
-[this](https://github.com/LeoRover/leo_SteamDeck) repository into your Steam
-Deck:
-
-```bash
-git clone https://github.com/LeoRover/leo_SteamDeck.git
+git clone https://github.com/LeoRover/leo_SteamDeck.git -b noetic
 ```
 
 :::note
 
-You don't have to do the cloning from the ubuntu 20.04 image. If you clone the
-repository from the SteamOS, you will be able to access the files from ubuntu
-image. If you still want to clone the repo while being in the ubuntu, then you
-have to install git:
-
-```bash
-sudo apt install git
-```
+You don't have to do the cloning from the created container. If you clone the
+repository from the SteamOS, you will be able to access the files from distrobox
+container.
 
 :::
 
@@ -165,32 +209,37 @@ cd leo_SteamDeck
 ./setup.sh
 ```
 
-When the script finishes the setup, you will see four applications on the
-desktop:
+The script will automatically detect all the created distrobox containers and
+will ask you to choose the desired one to install required packages in and setup
+the applications.
+
+When the script finishes the setup, you will see three new icons on the desktop:
 
 - `Leo Movement` - example which allows you to operate the rover from your Steam
-  Deck and display camera image,
+  Deck and display camera image
+
+  :::info
+
+  This is the simplest application and doesn't require any additional camera or
+  LiDAR connected to the rover.
+
+  :::
+
 - `Leo Lidar` - example which allows you to operate the rover from the Steam
-  Deck and display LiDAR scan data in RViz,
+  Deck and display LiDAR scan data in RViz
 - `Leo Depth Camera` - example which allows you to operate the rover from the
-  SteamDeck and display depth data in RViz,
-- `Virtual Keyboard`- applications that run virtual keyboard - useful when you
-  don't have connected physical keyboard.
-
-:::tip
-
-To use the virtual keyboard, you need to install **inside the ubuntu 20.04
-image** florence app:
-
-```bash
-sudo apt install florence
-```
-
-:::
+  SteamDeck and display depth data in RViz
 
 To move the rover while the chosen app is running, use the `left joystick` while
 holding the `L1` button. Moving the joystick forward/backwards controls the
-rover's linear speed, and left/right controls the angular speed.
+rover's linear speed in `x` axis (forward / backward movement), and left/right
+controls the linear speed in `y` axis (left / right strafe movement - available
+only with mecanum wheels). To rotate the rover use `right joystick` (while still
+holding the `L1` button) moving it left or right.
+
+Closing the opened window (wether it is RViz or rqt) will also stop the ROS
+nodes and the rover - you won't be able to operate the robot until running one
+of the apps again.
 
 :::info
 

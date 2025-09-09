@@ -1,0 +1,149 @@
+---
+title: Gazebo simulation
+sidebar_label: Gazebo simulation
+keywords:
+  - gazebo
+  - ros
+  - simulation
+  - software
+  - leo
+  - integration
+  - example
+description: >-
+  Step-by-step guide to set up and run the simulation environment in Gazebo with
+  ROS.
+image: /img/robots/leo/integrations/gazebo-zed2/leo-rover-gazebo.webp
+---
+
+In this tutorial you will learn how to launch a Gazebo simulation with the Leo
+Rover robot model.
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/advanced-guides/install-ros-on-your-computer"
+  title="Install ROS on your computer"
+  description="Learn how to install the Robot Operating System (ROS) on your computer.
+  Step-by-step guide for beginners."
+/>
+
+The simulation requires `ROS` (Robot Operating System) and was mainly developed
+and tested with
+[ROS Jazzy Jalisco](https://control.ros.org/jazzy/doc/getting_started/getting_started.html#installation)
+distribution on [Ubuntu 24.04 Noble Numbat](https://releases.ubuntu.com/24.04/)
+
+Other distributions might not work properly so it is recommended to use the same
+setup.
+
+:::note
+
+The guide will refer to the distribution of your choice (for example humble or
+jazzy) as `<distro>`.
+
+:::
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/gazebo-zed2/leo-rover-gazebo.webp"
+  alt="Leo Rover model in Gazebo"
+  width="1024"
+  height="740"
+/>
+
+## Installing the packages
+
+You can easily install the required packages with this command:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-simulator
+```
+
+Alternatively, [here](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy)
+are instructions how to build the packages from source.
+
+## Launching
+
+Make sure your ROS environment is properly sourced. Source either the global
+workspace:
+
+```bash
+source /opt/ros/<distro>/setup.bash
+```
+
+or your local workspace if you have one:
+
+```bash
+source install/setup.bash
+```
+
+and make sure it's sourced on each terminal session you want to use the
+simulation on.
+
+To start the simulation and `gazebo GUI`, type:
+
+```bash
+ros2 launch leo_gz_bringup leo_gz.launch.py
+```
+
+:::info
+
+This command will start an empty world with a rover in global namespace.
+
+:::
+
+You can use launch arguments to specify the ROS namespace that the simulated
+robot will be in and the world that is going to launch (to see available choices
+refer to
+[leo_gz_worlds](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy/leo_gz_worlds)
+package). For example you can launch simulation of an ERC 2021 competition
+terrain and put the robot inside some namspace like this:
+
+```bash
+ros2 launch leo_gz_bringup leo_gz.launch.py sim_world:=marsyard2021.sdf robot_ns:=leo_sim1
+```
+
+If you want to simulate multiple rovers, you can add another robot to an already
+running gazebo world. In another terminal where ROS has been sourced type:
+
+```bash
+ros2 launch leo_gz_bringup spawn_robot.launch.py robot_ns:=leo_sim2
+```
+
+Now you can operate the simulated robots in the same way as the real one. You
+can use `ros2 topic echo` command to get info from the robots, and
+`ros2 topic pub` to operate it. For example with such command robot will start
+driving forward:
+
+```bash
+ros2 topic pub /leo_sim1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"" -r 20
+```
+
+You can also control the rover using joystick. To do so you need `leo-teleop`
+package:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-teleop
+```
+
+To operate the rover with joystick, you need to connect a controller to your
+computer and run:
+
+```bash
+ros2 launch leo_teleop joy_teleop.launch.xml cmd_vel_out:=/leo_sim1/cmd_vel
+```
+
+:::tip
+
+You can choose which rover to operate with the joystick by providing correct
+namespace for the argument `cmd_vel_out`. In the example it's `leo_sim1`. If no
+value provided, the node will use the default namespace and topic - `/cmd_vel`.
+
+:::
+
+The command mapping was set for the Xbox 360 controller and looks like this:
+
+| Xbox 360Controller        | Command                                  |
+| ------------------------- | ---------------------------------------- |
+| RB                        | button enable - hold it to send commands |
+| Left joystick Up/Down     | linear velocity                          |
+| Right joystick Left/Right | angular velocity                         |
