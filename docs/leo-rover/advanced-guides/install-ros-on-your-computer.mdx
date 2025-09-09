@@ -9,6 +9,7 @@ description: >-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import ImageZoom from '@site/src/components/ImageZoom';
+import LinkButton from '@site/src/components/LinkButton';
 
 Having ROS on your host machine has many advantages. First of all, it allows you
 to communicate with nodes running on your Leo Rover, so it is easier to
@@ -31,8 +32,9 @@ There is a couple of ROS installation options depending on your system:
         To install Windows Subsystem for Linux (WSL), open PowerShell as Administrator and run:
 
         ```powershell
-        wsl --install
+        wsl --install -d Ubuntu-24.04
         ```
+        This will install WSL with Ubuntu 24.04 distribution, which is required by ROS 2 Jazzy.
 
         :::tip
 
@@ -41,11 +43,10 @@ There is a couple of ROS installation options depending on your system:
 
         :::
 
-        ROS 2 Jazzy requires Ubuntu 24.04, which is not the default distribution installed by WSL.
-        To install Ubuntu 24.04, you can use the following command in PowerShell:
+        Make sure that your WSL is the latest version by running:
 
         ```powershell
-        wsl --install -d Ubuntu-24.04
+        wsl --update
         ```
 
         :::note
@@ -90,6 +91,35 @@ There is a couple of ROS installation options depending on your system:
 
         WSL 2 also supports graphical applications, so you can run RViz and other GUI tools
         directly in WSL by default.
+
+        In order to communicate with your Leo Rover from WSL,
+        you need to set up [mirrored mode networking](https://learn.microsoft.com/en-us/windows/wsl/networking#mirrored-mode-networking).
+
+        To enable mirrored mode networking, first make sure that you have closed all WSL instances and then,
+        from the Start menu, open `Windows Subsystem for Linux Settings`, navigate to `Networking` tab
+        and set `Networking mode` to `Mirrored`:
+
+        <ImageZoom
+            src='/img/robots/leo/advanced-guides/install-ros-on-your-computer/networking-mode.webp'
+            alt='WSL Mirrored Networking Settings'
+            width={1270}
+            height={260}
+        />
+
+        :::warning
+
+        Mirrored networking is not supported in Windows 10.
+
+        :::
+
+        Next, you need to change firewall settings to allow WSL to access the network.
+        Open `PowerShell` as Administrator and run:
+
+        ```powershell
+        Set-NetFirewallHyperVVMSetting -Name '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -DefaultInboundAction Allow
+        ```
+
+        Your WSL instance should now have ROS installed and have access to the network.
     </TabItem>
     <TabItem value='windows' label='Windows Native Installation'>
         ROS 2 can be installed on Windows by following instructions
@@ -100,3 +130,12 @@ There is a couple of ROS installation options depending on your system:
     </TabItem>
 
 </Tabs>
+
+:::note
+
+In order to be see nodes and topics running on your Leo Rover,
+make sure that your computer is connected to rover's access point.
+
+<LinkButton docId='guides/connect-to-rover-ap'/>
+
+:::
