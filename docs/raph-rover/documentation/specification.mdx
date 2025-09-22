@@ -40,34 +40,11 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
 TODO:
 
 - Check all parameters one more time
-- Replace Traction parameters with an image, things that cannot be shown on
-  image can be in table
 - Check all components one more time - update eg. led Count
 - Block diagram - add HDMI to external data ports
-- RaphCore - replace image of the board with isometric one, preferably with
-  colors
-- Drivetrain - add image of the drivetrain showing "middle point between frontal
-  wheels" and "turning around specific frontal wheel"
-- Replace all long ass text with something that will not bore everyone to death.
-  Raw data is better than an essay
-- "### wheels" is better than "### wheels - As standard, Raph Rover comes with
-  [...]"
-- Battery & charging: essay -> raw data, review specs, battery charging ->
-  replace with what overview has
-- Payload - replace images, shorten essay
 - Software specs - ask **Blazej/Janek/Olek** to review and add a TODO list.
   Shorten essay, review images
-- Firmware - remove "work in progress". Preferably actually finish the section
-  before we start selling the rover \<3
-- LED controller - specification is meant to provide all the information that
-  will make someone buy the rover. Decide if knowing that blue leds mead that
-  the rover need to calibrate is a knowledge necessary to decide on buying the
-  rover
-- if last point != TRUE : move LED status table to a separate file in
-  Documentation
 - WEB interface - show it
-- Network - remove "work in progress". Preferably actually finish the section
-  before we start selling the rover \<3
 
 </font>
 
@@ -151,10 +128,10 @@ TODO:
 
 ## Payload
 
-<font color="red" size="+3">
-  {' '}
-  Add something like - if its compatible with ROS2, weighs \<10kg and runs on \<24 volts it can most definatelly be integrated with the rover.
-</font>
+The Raph Rover is engineered for easy and versatile payload integration. If your
+sensor or hardware is ROS 2-compatible and falls within the rover's power (5V2A,
+12V2A, and 24V5A) and weight limits (<font color="red"> 10kg </font>), you can
+be confident in its compatibility.
 
 ### Data ports
 
@@ -218,12 +195,12 @@ TODO:
 
 <CenterContent>
 
-| Parameter                                  |                                              Value                                               |
-| ------------------------------------------ | :----------------------------------------------------------------------------------------------: |
-| Payload capacity                           |                                              10 kg                                               |
-| Hole grid spacing                          |                                          25 mm x 25 mm                                           |
-| Mounting hole dimensions                   | 5.4 mm, compatible with: <br /> M5 screws <br/> [CLS-M4-1 press-in nuts](https://mou.sr/3VyUg39) |
-| Main mounting plate dimensions (L x W x D) |                                      330 mm x 198 mm x 2 mm                                      |
+| Parameter                             |                                              Value                                               |
+| ------------------------------------- | :----------------------------------------------------------------------------------------------: |
+| Payload capacity                      |                                 <font color="red"> 10kg </font>                                  |
+| Hole grid spacing                     |                                          25 mm x 25 mm                                           |
+| Mounting hole dimensions              | 5.4 mm, compatible with: <br /> M5 screws <br/> [CLS-M4-1 press-in nuts](https://mou.sr/3VyUg39) |
+| Mounting plate dimensions (L x W x D) |                                      330 mm x 198 mm x 2 mm                                      |
 
 </CenterContent>
 
@@ -231,7 +208,7 @@ TODO:
 
 Apart from the mounting plate, it is possible to mount payloads directly to
 v-slot extrusions of the Raph Rover. <font color="red" size=""> Effectively
-giving you 380 mm by 380 mm working area </font>
+giving you 380 mm by 380 mm working area. Link to addons</font>
 
 :::
 
@@ -250,24 +227,25 @@ giving you 380 mm by 380 mm working area </font>
 />
 
 <font color="red">
-  {' '}
-  Maybe a short opening statement? STH like - built to be easy to use and
-  understand. Built around industry standard ROS 2 framework... Web based UI to
-  provide control from every machine... Open Source{' '}
-</font>
-
-<font color="red">
 
 TODO:
 
-- SCB running Ubuntu 22.04
-- built around ROS2, ready to use ROS 2 API
-- WEB based control panel
-- open source & customizable (just do what you want, it's yours to play with)
-- Simulation ready (if we have a Gazebo Simulation where people can test the
-  rover before buying it - nice)
-- WEB UI Screenshot
-- High LVL software diagram
+- Add UI image with functionalities listed
+- REVIEW
+
+<CenterContent>
+
+| Parameter        |                             Value                              |
+| ---------------- | :------------------------------------------------------------: |
+| Operating System |                        Ubuntu 22.04 LTS                        |
+| Core Framework   |                     ROS 2 Humble Hawksbill                     |
+| User Interface   |              Web-based GUI accessible over Wi-Fi               |
+| UI Features      | Real-time teleoperation, H.264 video stream, system monitoring |
+| API Access       | Full control via standard ROS 2 topics, services, and actions  |
+| Source Model     |                   Open Source (MIT License)                    |
+| Simulation       |            Gazebo Garden simulation model included             |
+
+</CenterContent>
 
 </font>
 
@@ -319,7 +297,7 @@ TODO:
     }}>
       <ThemedImageZoom
   loading="eager"
-  alt="Raph Rover dimensions"
+  alt="Raph Rover following a curve"
   sources={{
     light: useBaseUrl(
       '/img/robots/raph/overview/Driving_2_black.webp',
@@ -335,11 +313,9 @@ TODO:
   }}
 />
 
-<font color="red" size="+2">
-  {' '}
- Following a curve{' '}
-</font>
-
+<center>
+<font color="c07b2c" size="+1"> **Following a curve** </font>
+</center>
   </FlexTableItem>
 
   <FlexTableItem
@@ -348,7 +324,7 @@ TODO:
     }}>
       <ThemedImageZoom
   loading="eager"
-  alt="Raph Rover dimensions"
+  alt="Raph Rover rotating around middle"
   sources={{
     light: useBaseUrl(
       '/img/robots/raph/overview/Driving_1_black.webp',
@@ -363,11 +339,9 @@ TODO:
     width: 300,
   }}
 />
-
-<font color="red" size="+2">
-  {' '}
-  Rotate around the middle {' '}
-</font>
+<center>
+<font color="c07b2c" size="+1"> **Rotate around middle** </font>
+</center>
 
   </FlexTableItem>
 
@@ -377,7 +351,7 @@ TODO:
     }}>
       <ThemedImageZoom
   loading="eager"
-  alt="Raph Rover dimensions"
+  alt="Raph Rover rotating around front wheel"
   sources={{
     light: useBaseUrl(
       '/img/robots/raph/overview/Driving_3_black.webp',
@@ -393,10 +367,12 @@ TODO:
   }}
 />
 
-<font color="red" size="+2">
-  {' '}
-  Rotate around front wheel{' '}
-</font>
+<center>
+  <font color="c07b2c" size="+1">
+    {' '}
+    **Rotate around front wheel**{' '}
+  </font>
+</center>
 
   </FlexTableItem>
 </FlexTable>
@@ -434,7 +410,7 @@ TODO:
 | Router              |    1     | Teltonika RUTX10 (With RUTX11 as option after beta). Router that combines the best of wired and wireless routing functionalities with Gigabit Ethernet, Bluetooth LE, and AC Wi-Fi.                                                                                                                                                                                                                             |
 | Controller          |    1     | RaphCore, Custom controller purpose built for Raph Rover.                                                                                                                                                                                                                                                                                                                                                       |
 | Antenna             |    2     | Dual-band (2.4 GHz / 5 GHz) placed on the rear of the robot.                                                                                                                                                                                                                                                                                                                                                    |
-| Stereoscopic camera |    1     | Luxonis OAK-D Pro W is a wide-angle camera with active stereo depth and high-resolution color capabilities. It includes on-device neural network inference, computer vision features, and night vision for low-light environments.                                                                                                                                                                              |
+| Stereoscopic camera |    1     | Luxonis OAK-D Pro W <font color="red"> SENSOR</font> is a wide-angle camera with active stereo depth and high-resolution color capabilities. It includes on-device neural network inference, computer vision features, and night vision for low-light environments.                                                                                                                                             |
 | Lidar               |    1     | RPLidar S3 - 360-degree waterproof 2D Lidar scanner with a 40-meter range. It ensures stable performance in diverse conditions, making it suitable for both indoor and outdoor use. Operating at 10Hz, it guarantees a sample rate of 32KHz.                                                                                                                                                                    |
 | Battery             |    2     | <font color="red"> 6S Li-ion battery, 24V, 98Wh, flight safe, internal BMS provides protection from overcurrent, short, overheating </font>                                                                                                                                                                                                                                                                     |
 | BLDC motors         |    6     | M0601C-111 BLDC motors from Direct Drive Tech. Connected to RaphCore board via RS 485 bus.                                                                                                                                                                                                                                                                                                                      |

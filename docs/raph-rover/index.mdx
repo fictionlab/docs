@@ -271,62 +271,6 @@ laboratory, Raph Rover acts as a powerful platform for your project.
   }}
 />
 
-<font color="red"> Choose one image showing how the rover can be driven and remove the rest </font>
-
-<ThemedImageZoom
-  loading="eager"
-  alt="Raph Rover dimensions"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/overview/Driving_1_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/overview/Driving_1_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 1000,
-  }}
-/>
-
-<ThemedImageZoom
-  loading="eager"
-  alt="Raph Rover dimensions"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/overview/Driving_2_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/overview/Driving_2_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 1000,
-  }}
-/>
-
-<ThemedImageZoom
-  loading="eager"
-  alt="Raph Rover dimensions"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/overview/Driving_3_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/overview/Driving_3_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 1000,
-  }}
-/>
-
 <font color="red">
   Check the specification one more time, remove all ~ and (). Maybe get rid of
   "obstacle size"?
@@ -334,8 +278,8 @@ laboratory, Raph Rover acts as a powerful platform for your project.
 
 <CenterContent>
 
-| Parameter   |             Value             |
-| --------------------------- | :---------------------------: |
+| Parameter                    |             Value             |
+| ---------------------------- | :---------------------------: |
 | Dimensions (LxWxH)           | 559 mm x 474 mm x 255(320) mm |
 | Weight                       |            ~15 kg             |
 | Maximum payload              |            ~10 kg             |
@@ -348,6 +292,95 @@ laboratory, Raph Rover acts as a powerful platform for your project.
 | Connection range             |          Up to 100 m          |
 
 </CenterContent>
+
+### Drivetrain
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}>
+      <ThemedImageZoom
+  loading="eager"
+  alt="Raph Rover Following a curve"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/overview/Driving_2_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/overview/Driving_2_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 300,
+  }}
+/>
+
+<center>
+<font color="c07b2c" size="+1"> **Following a curve** </font>
+</center>
+  </FlexTableItem>
+
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}>
+      <ThemedImageZoom
+  loading="eager"
+  alt="Raph Rover rotating around middle"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/overview/Driving_1_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/overview/Driving_1_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 300,
+  }}
+/>
+<center>
+<font color="c07b2c" size="+1"> **Rotate around middle** </font>
+</center>
+
+  </FlexTableItem>
+
+  <FlexTableItem
+    style={{
+      width: '30%'
+    }}>
+      <ThemedImageZoom
+  loading="eager"
+  alt="Raph Rover rotating around front wheel"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/overview/Driving_3_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/overview/Driving_3_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 300,
+  }}
+/>
+
+<center>
+  <font color="c07b2c" size="+1">
+    {' '}
+    **Rotate around front wheel**{' '}
+  </font>
+</center>
+
+  </FlexTableItem>
+</FlexTable>
 
 #### Check the full specification for more details:
 
