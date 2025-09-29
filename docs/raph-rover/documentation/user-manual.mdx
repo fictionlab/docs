@@ -26,6 +26,8 @@ TODO:
 
 - Split this file into more smaller ones - User Manual and Developer Guides
 - Review data, text, shorten, make it sound less like Gepetto wrote it
+- Remove stuff thats copied from specification
+- Remove all circlejerk text
 
 </font>
 
@@ -98,16 +100,6 @@ cable in millimeters.
 
 ### RaphCore controller
 
-<font color="red">
-  {' '}
-  If we have a whole section just for the controller should we have the same
-  section just for the router? Or just for the UP 7000 SBC? No, we should not.
-  Throw this away. It's already mentioned in "components section"{' '}
-
-Use this image on a separate site telling people what RaphCore can do.
-
-</font>
-
 <ThemedImageZoom
   alt="External connections of RaphCore"
   sources={{
@@ -131,11 +123,6 @@ Use this image on a separate site telling people what RaphCore can do.
 | IMU             |    IMU XYZ     |  1254 bit   |
 
 </CenterContent>
-
-<font color="red" size="+3">
-  {' '}
-  No one cares about what its tasks are
-</font>
 
 RaphCore serves as the primary control board for Raph Rover, featuring a robust
 STM32H5 series microcontroller. The board leverages FreeRTOS to efficiently
@@ -210,8 +197,8 @@ capabilities, ensuring adaptability in various operational scenarios.
 
 <font color="red" size="+3">
   {' '}
-  No one cares. 4 wheels, (size), (material), each with a motor, bldc outrunner,
-  (motor power), motor torque.{' '}
+  Do ve really want to tell people that we are using chinese motors? Just say that
+  they are high quality, direct drive, brushless motors with integrated encoder and stop there.
 </font>
 
 The Raph Rover is equipped with 6 DirectDriveTech M0601C-111 direct-drive BLDC
@@ -244,10 +231,7 @@ Whole drive assembly has following characteristics:
 ### Battery & charging
 
 <font color="red" size="+3">
-  {' '}
-  No one cares! w batteries inside the rover, hotswap ability, dedicated
-  charger, ability to charge through rover, work time, volatge, max power draw,
-  safety, Capacity (info that it's flight safe)
+  Copy what Getting Started says about batteries here
 </font>
 
 Raph Rover boasts an advanced battery management system, a feature enabling the
@@ -284,8 +268,8 @@ Each battery pack has following characteristics:
 
 <font color="red" size="+3">
   {' '}
-  No one will buy the rover because charging batteries is easy. Throw section
-  out. + It's already in getting started
+  Battery and charging -> battery charging - do we really need a whole section
+  about this?
 </font>
 
 By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
@@ -314,15 +298,9 @@ charging process.
 ## Software specification
 
 <font color="red" size="+2">
-  {' '}
-  That section is super long. Point out the best parts - throw the rest into
-  guides / separate docs{' '}
+  Software specification - this section should be called "Software overview" and have its content reviewed.
 </font>
-<br />
-<font color="red" size="+5">
-  {' '}
-  DO NOT TALK ABOUT HOW ROS WORKS PLZ{' '}
-</font>
+
 
 ### Overview
 
@@ -377,6 +355,10 @@ There are two important software components which don't run as native ROS nodes:
 />
 
 ### ROS nodes
+
+<font color="red" size="+2">
+  Table to be formatted as all the other tables in the documentation  
+</font>
 
 <table>
   <thead>
@@ -452,12 +434,6 @@ There are two important software components which don't run as native ROS nodes:
   </tbody>
 </table>
 
-<font color="red" size="+2">
-  {' '}
-  The moment you see this graph as a non technical guy trying to buy this rover
-  your brain will fry{' '}
-</font>
-
 <ThemedImageZoom
   alt="Simplified graph of core ROS nodes running on Raph Rover"
   sources={{
@@ -502,6 +478,12 @@ robot with autonomous navigation capabilities.
 
 ### Firmware
 
+<font color="red" size="+2">
+  {' '}
+  Actually finish the section {' '}
+
+</font>
+
 {/* TODO */}
 
 _Work in progress_
@@ -509,13 +491,8 @@ _Work in progress_
 #### LED controller
 
 <font color="red" size="+2">
-  {' '}
-  Throw this section away - into a separate documentation file. **Only mention
-  it has LEDS (143 leds. 144/m, 23W in total, controller type)**
-
-You know what - just throw it away. It's already mentioned in the components
-section{' '}
-
+  Review - shorten stuff, make sure that all led states are described and ACTUALLY USED by the rover.
+  Decide if we should add priority levels to the states - if so, add a table with priorities.
 </font>
 
 The built-in LED controller manages the LED states of the robot by processing
@@ -557,6 +534,8 @@ flexibility for different use cases:
 
 <font color="red"> \* - not implemented currently </font>
 
+<font color="red"> \* - Use images to show battery charge indicator </font>
+
 ##### Fault states
 
 <CenterContent>
@@ -572,22 +551,9 @@ flexibility for different use cases:
 
 ### Web User Interface
 
-<font color="red" size="+2">
-  {' '}
-  THIS MIGHT ACTUALLY MAKE SOMEONE WANT TO BUY THE ROVER. Why is it hidden at
-  the bottom
-</font>
-<br />
 <font color="red">
-  {' '}
-  Especially if we mention that any camera connected to the rover can be easily
-  streamed to the UI
+  Mention that cameras connected to the rover can easily be viewed in the UI. 
 </font>
-
-The beta version of the Raph rover does not feature a User Interface (UI). The
-software is fully operational in terms of functionality; however, the absence of
-a UI necessitates interaction through Command Line Interface (CLI) or other
-programming methods.
 
 ### Network
 

@@ -52,25 +52,21 @@ TODO:
 
 <CenterContent>
 
-| Parameter             |             Value             |
-| --------------------- | :---------------------------: |
-| Dimensions (LxWxH)    | 559 mm x 474 mm x 255(320) mm |
-| Weight                |             11 kg             |
-| Maximum payload       |            10 kg\*            |
-| Maximum linear speed  |            1.8 m/s            |
-| Maximum angular speed |           4.7 Rad/s           |
-| IP protection rating  |           IP 54\*\*           |
-| Operating temperature |       -10 °C to +40 °C        |
-| Run time              |           6h\*\*\*            |
-| Connection range      |          Up to 100 m          |
+| Parameter             |          Value           |
+| --------------------- | :----------------------: |
+| Dimensions (LxWxH)    | 559 mm x 474 mm x 255 mm |
+| Weight                |         12.5 kg          |
+| Maximum payload       |          10 kg           |
+| Maximum linear speed  |         1.8 m/s          |
+| Maximum angular speed |        4.7 Rad/s         |
+| IP protection rating  |          IP 54           |
+| Operating temperature |     -10 °C to +40 °C     |
+| Run time              |           4h\*           |
+| Connection range      |       Up to 100 m        |
 
 </CenterContent>
 
-\* - on flat terrain
-
-\*\* - <font color="red"> probably, not like we tested it or something </font>
-
-\*\*\* - infinite with hot swappable batteries
+\* - infinite with hot swapping batteries
 
 <ThemedImageZoom
   alt="Overview of Raph Rover - front"
@@ -130,8 +126,8 @@ TODO:
 
 The Raph Rover is engineered for easy and versatile payload integration. If your
 sensor or hardware is ROS 2-compatible and falls within the rover's power (5V2A,
-12V2A, and 24V5A) and weight limits (<font color="red"> 10kg </font>), you can
-be confident in its compatibility.
+12V2A, and 24V5A) and weight limits ( 10kg ), you can be confident in its
+compatibility.
 
 ### Data ports
 
@@ -151,13 +147,13 @@ be confident in its compatibility.
 
 <CenterContent>
 
-| Interface  |                 Notes                 |       Device connected       |
-| ---------- | :-----------------------------------: | :--------------------------: |
-| USB type A |       USB 3.2 Gen 2x1 (10 Gb/s)       | UPBoard 7000 (Main computer) |
-| USB type C |       USB 3.2 Gen 2x1 (10 Gb/s)       | UPBoard 7000 (Main computer) |
-| HDMI       | <font color="red"> FILL BLANK </font> | UPBoard 7000 (Main computer) |
-| RJ-45      |           10/100/1000 Mbps            |  Teltonika RUTX10 (Router)   |
-| RJ-45      |           10/100/1000 Mbps            |  Teltonika RUTX10 (Router)   |
+| Interface  |           Notes           |       Device connected       |
+| ---------- | :-----------------------: | :--------------------------: |
+| USB type A | USB 3.2 Gen 2x1 (10 Gb/s) | UPBoard 7000 (Main computer) |
+| USB type C | USB 3.2 Gen 2x1 (10 Gb/s) | UPBoard 7000 (Main computer) |
+| HDMI       |         HDMI 1.4b         | UPBoard 7000 (Main computer) |
+| RJ-45      |     10/100/1000 Mbps      |  Teltonika RUTX10 (Router)   |
+| RJ-45      |     10/100/1000 Mbps      |  Teltonika RUTX10 (Router)   |
 
 </CenterContent>
 
@@ -188,16 +184,11 @@ be confident in its compatibility.
   }}
 />
 
-<font color="red" size="+2">
-  {' '}
-  Review specs{' '}
-</font>
-
 <CenterContent>
 
 | Parameter                             |                                              Value                                               |
 | ------------------------------------- | :----------------------------------------------------------------------------------------------: |
-| Payload capacity                      |                                 <font color="red"> 10kg </font>                                  |
+| Payload capacity                      |                                              10 kg                                               |
 | Hole grid spacing                     |                                          25 mm x 25 mm                                           |
 | Mounting hole dimensions              | 5.4 mm, compatible with: <br /> M5 screws <br/> [CLS-M4-1 press-in nuts](https://mou.sr/3VyUg39) |
 | Mounting plate dimensions (L x W x D) |                                      330 mm x 198 mm x 2 mm                                      |
@@ -207,8 +198,8 @@ be confident in its compatibility.
 :::info
 
 Apart from the mounting plate, it is possible to mount payloads directly to
-v-slot extrusions of the Raph Rover. <font color="red" size=""> Effectively
-giving you 380 mm by 380 mm working area. Link to addons</font>
+v-slot extrusions of the Raph Rover. Effectively providing a **360 mm by 430
+mm** working area.
 
 :::
 
@@ -243,7 +234,6 @@ TODO:
 | UI Features      | Real-time teleoperation, H.264 video stream, system monitoring |
 | API Access       | Full control via standard ROS 2 topics, services, and actions  |
 | Source Model     |                   Open Source (MIT License)                    |
-| Simulation       |            Gazebo Garden simulation model included             |
 
 </CenterContent>
 
@@ -267,26 +257,21 @@ TODO:
 
 <CenterContent>
 
-| Parameter             |                     Value                      |
-| --------------------- | :--------------------------------------------: |
-| Dimensions (LxWxH)    |         559 mm x 474 mm x 255(320) mm          |
-| Weight                |                     11 kg                      |
-| Maximum payload       |                    10 kg\*                     |
-| Maximum linear speed  |                    1.8 m/s                     |
-| Maximum angular speed |                   4.7 Rad/s                    |
-| IP protection rating  |       <font color="red">IP54</font>\*\*        |
-| Operating temperature |                -10 °C to +40 °C                |
-| Battery Capacity      |        <font color="red">XXX Wh</font>         |
-| Run time              | <font color="red">XXX h / battery\*\*\*</font> |
-| Hotswappable Battery  |          <font color="red">yes</font>          |
+| Parameter             |          Value           |
+| --------------------- | :----------------------: |
+| Dimensions (LxWxH)    | 559 mm x 474 mm x 255 mm |
+| Weight                |         12.5 kg          |
+| Maximum payload       |          10 kg           |
+| Maximum linear speed  |         1.8 m/s          |
+| Maximum angular speed |        4.7 Rad/s         |
+| IP protection rating  |           IP54           |
+| Operating temperature |     -10 °C to +40 °C     |
+| Battery Capacity      |          96 Wh           |
+| Run time              |          4 h\*           |
 
 </CenterContent>
 
-\* - on flat terrain
-
-\*\* - <font color="red"> probably, not like we tested it or something </font>
-
-\*\*\* - infinite with hot swappable batteries
+\* - infinite with hot swapping batteries
 
 ### Drivetrain
 
@@ -426,10 +411,9 @@ TODO:
 | -------------------- | :--------------------------------------: |
 | Voltage              |             22.2 V (nominal)             |
 | Battery type         |                  Li-Ion                  |
-| Capacity             |        4 Ah (96 Wh - flight safe)        |
+| Capacity             |                  96 Wh                   |
 | Battery pack type    |                   6S1P                   |
-| IP protection rating |    <font color="red">IP54</font>\*\*     |
 | Maximum output power |                  ~650 W                  |
-| Safety systems       | Overcurrent, Reverse polarity protection |
+| Safety systems       | Overcurrent, <br /> Reverse polarity,<br />  Overheat<br /> |
 
 </CenterContent>
