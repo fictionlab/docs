@@ -19,19 +19,12 @@ import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FusionEmbed from '@site/src/components/FusionEmbed';
 import CenterContent from '@site/src/components/CenterContent';
 
-{/* Replace with Raph Rover sites */}
+{/* Product */}
 
-import LeoRoverAssembled from '@site/src/products/leo-rover-assembled.mdx';
+import RaphRover from '@site/src/products/raph-rover.mdx';
 
-{/* Replace the icons with ones related to Raph, preferably ones from Roksana */}
+{/* Icons */}
 
-import Rpi from '@site/static/img/robots/leo/icons/raspberry-pi.svg';
-import Battery from '@site/static/img/robots/leo/icons/battery.svg';
-import Chip from '@site/static/img/robots/leo/icons/chip.svg';
-import Camera from '@site/static/img/robots/leo/icons/camera.svg';
-import Water from '@site/static/img/robots/leo/icons/water-droplet.svg';
-import Wifi from '@site/static/img/robots/leo/icons/wifi.svg';
-import Puzzle from '@site/static/img/robots/leo/icons/puzzle.svg';
 import Weight from '@site/static/img/robots/leo/icons/weight.svg';
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
@@ -69,109 +62,139 @@ import Weight from '@site/static/img/robots/leo/icons/weight.svg';
   height="724"
 />
 
-<font color="c07b2c"> **It has RGB LEDs \<3** </font>
+**Accelerate Your Robotics Research.<br />Focus on Innovation, Not
+Construction.**
+
+<br />
+Raph Rover is a reliable, ROS-ready mobile platform that eliminates common
+hardware challenges and shortens the time from idea to working prototype.
 
   </FlexTableItem>
 </FlexTable>
 
-<LeoRoverAssembled />
+## Quick links
+
+<LinkButton docId="documentation/getting-started" />
+<LinkButton docId="documentation/specification" />
+<RaphRover />
 
 ---
 
-## Main features <font color="red">[TODO: replace with new icons]</font>
+## From Idea to Prototype: Common Challenges in Robotics
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
+  <FlexTableItem
+    style={{
+      width: '35%'
+    }}>
+      <ImageZoom
+        src="/img/robots/raph/overview/raph_street.webp"
+        alt="Raph rover on the street - AI Background"
+        width="1200"
+        height="876"
+        caption="*Render + AI background"
+      />
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '55%'
+    }}>
+
+Building a platform from scratch takes months. Mechanical design, motor
+selection, and debugging electronics **pull you away from your primary goal**:
+developing innovative algorithms and software.
+
+Then comes the integration problem. Your advanced LiDAR and camera sit on a
+shelf because you **lack stable mounts and easy to use power connectors**. Every
+new component becomes a frustrating hardware battle.
+
+  </FlexTableItem>
+</FlexTable>
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
+  <FlexTableItem
+    style={{
+      width: '50%'
+    }}>
+
+Finally, there's software configuration - a steep learning curve and endless
+driver issues **instead of a quick start with ROS 2** and immediate programming.
+
+Beyond the initial build, there is the constant battle for reliability. Homemade
+platforms are plagued by inconsistent performance, from loose connections to
+motor failures that can ruin experiments and invalidate hours of data.
+
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '35%'
+    }}>
+      <ImageZoom
+        src="/img/robots/raph/overview/raph_agro.webp"
+        alt="Raph rover agro - AI Background"
+        width="1200"
+        height="876"
+        caption="*Render + AI background"
+      />
+  </FlexTableItem>
+</FlexTable>
+
+## Raph Rover: The Solution Engineered for You
 
 <br />
+
+<FlexTable>
+  <FlexTableItem style={{
+    width: '30%',
+  }}>
+
+**Ready to Go From Day One**
+
+Instead of building, you're testing. Raph Rover is a fully assembled,
+professional base with a 4x4 drivetrain and an 8-hour battery life. Save
+valuable time and focus on what matters most.
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '30%',
+  }}>
+
+**Seamless Hardware Integration**
+
+Forget makeshift solutions. The modular mounting plate (with an M4 grid) and
+dedicated power outputs (5V, 12V, Vin) make adding your sensors and devices fast
+and simple.
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '30%',
+  }}>
+
+**Native ROS 2 Environment**
+
+Power up the robot and start coding. Pre-installed Ubuntu with ROS 2 you can
+immediately leverage extensive documentation of ready-to-use packages by
+connecting to the rover via Wi-Fi.
+
+  </FlexTableItem>
+</FlexTable>
+
+## Main features
+
+{/* TODO: Add proper icons */}
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'center', textAlign: 'center'}}>
   <FlexTableItem style={{
     width: '24%',
   }}
   mobileColumns={2}>
-  <Rpi
+  <Weight
     className='themedSvg'
     style={{
       width:'100px',
       height: 'auto'
     }} />
-    Raspberry Pi
-
-  </FlexTableItem>
-  <FlexTableItem style={{
-    width: '24%',
-  }}
-  mobileColumns={2}>
-  <Battery
-    className='themedSvg'
-    style={{
-      width:'100px',
-      height: 'auto'
-    }} />
-    Up to 4 hours of continuous driving
-
-  </FlexTableItem>
-  <FlexTableItem style={{
-    width: '24%',
-  }}
-  mobileColumns={2}>
-  <Chip
-    className='themedSvg'
-    style={{
-      width:'100px',
-      height: 'auto'
-    }} />
-    Open-source and ROS2-based
-
-  </FlexTableItem>
-  <FlexTableItem style={{
-    width: '24%',
-  }}
-  mobileColumns={2}>
-  <Camera
-    className='themedSvg'
-    style={{
-      width:'100px',
-      height: 'auto'
-    }} />
-    Stereo cameras and live streaming
-
-  </FlexTableItem>
-  <FlexTableItem style={{
-    width: '24%',
-  }}
-  mobileColumns={2}>
-  <Water
-    className='themedSvg'
-    style={{
-      width:'100px',
-      height: 'auto'
-    }} />
-    Watertight, sturdy construction
-
-  </FlexTableItem>
-  <FlexTableItem style={{
-    width: '24%',
-  }}
-  mobileColumns={2}>
-  <Wifi
-    className='themedSvg'
-    style={{
-      width:'100px',
-      height: 'auto'
-    }} />
-    Dual band Wi-Fi
-
-  </FlexTableItem>
-  <FlexTableItem style={{
-    width: '24%',
-  }}
-  mobileColumns={2}>
-  <Puzzle
-    className='themedSvg'
-    style={{
-      width:'100px',
-      height: 'auto'
-    }} />
-    Fun to assemble
+    SBC architecture
 
   </FlexTableItem>
   <FlexTableItem style={{
@@ -184,74 +207,139 @@ import Weight from '@site/static/img/robots/leo/icons/weight.svg';
       width:'100px',
       height: 'auto'
     }} />
-    Up to 10 kg of nominal payload capacity
+    Open source
 
   </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Dual band Wi-Fi
 
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Dual battery
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Hot-swappable battery
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Stereo camera
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Lidar
+
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    ROS 2 supported
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    10 kg payload
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    All-terrain capable
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Autonomy ready
+  </FlexTableItem>
+  <FlexTableItem style={{
+    width: '24%',
+  }}
+  mobileColumns={2}>
+  <Weight
+    className='themedSvg'
+    style={{
+      width:'100px',
+      height: 'auto'
+    }} />
+    Silent
+  </FlexTableItem>
 </FlexTable>
 
-<font color="red">
-  {' '}
-  Replace the icons with ones related to Raph, preferably ones from Roksana
-</font>
+## Key Components and Specifications
 
----
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
-  <FlexTableItem
-    style={{
-      width: '40%'
-    }}>
-      <ImageZoom
-        src="/img/robots/raph/overview/raph_street.webp"
-        alt="Raph rover on the street - AI Background"
-        width="1200"
-        height="876"
-        caption="*Render + AI background"
-      />
-  </FlexTableItem>
-  <FlexTableItem
-    style={{
-      width: '50%'
-    }}>
-
-### Versatile and robust robotic platform.
-
-Designed for a wide range of robotic projects, from inspection to agriculture
-and construction. Built to integrate with custom payloads and operate in diverse
-environments, it's perfect for both indoor and outdoor applications.
-
-  </FlexTableItem>
-</FlexTable>
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
-  <FlexTableItem
-    style={{
-      width: '50%'
-    }}>
-
-### Fully configurable and open source
-
-ROS-based mobile robot platform for researchers. Easy to customize and maintain.
-Whether used as a platform for carrying equipment or as an integrated
-laboratory, Raph Rover acts as a powerful platform for your project.
-
-  </FlexTableItem>
-  <FlexTableItem
-    style={{
-      width: '40%'
-    }}>
-      <ImageZoom
-        src="/img/robots/raph/overview/raph_agro.webp"
-        alt="Raph rover agro - AI Background"
-        width="1200"
-        height="876"
-        caption="*Render + AI background"
-      />
-  </FlexTableItem>
-</FlexTable>
-
-## Main parameters
+### Dimensions
 
 <ThemedImageZoom
   loading="eager"
@@ -270,6 +358,12 @@ laboratory, Raph Rover acts as a powerful platform for your project.
     width: 600,
   }}
 />
+
+### Hardware structure
+
+{/* TODO: Add diagram */}
+
+### Main parameters
 
 <CenterContent>
 
@@ -383,10 +477,6 @@ laboratory, Raph Rover acts as a powerful platform for your project.
 
 ### 3D model
 
-<font color="red">
-  [TODO: update the model and image, now shipping prototype is being used]
-</font>
-
 <FusionEmbed
   url="https://a360.co/4mSF78b"
   embedTitle="Raph Rover 3D model"
@@ -395,9 +485,10 @@ laboratory, Raph Rover acts as a powerful platform for your project.
   img_height={1080}
 />
 
-## Shop links
+## Get Started with Raph Rover
 
-<font color="red"> Fix shop links </font>
+<LinkButton docId="documentation/getting-started" />
+
 <LinkButton
   title="Visit our shop"
   url="https://www.leorover.tech/shop"
