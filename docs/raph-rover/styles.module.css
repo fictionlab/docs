@@ -1,0 +1,23 @@
+.features {
+  width: 30%;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 15%);
+  background-color: var(--ifm-background-surface-color);
+}
+
+.hardwareStructure {
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 0.4rem;
+  box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 15%);
+  background-color: var(--ifm-background-surface-color);
+}
+
+.drivetrainLabel {
+  font-size: large;
+  font-weight: bold;
+}
