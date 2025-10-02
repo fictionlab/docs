@@ -1,4 +1,4 @@
-.features {
+.feature {
   width: 30%;
   border: 1px solid var(--ifm-color-emphasis-200);
   padding: 0.5rem;
@@ -7,7 +7,7 @@
   background-color: var(--ifm-background-surface-color);
 }
 
-.hardwareStructure {
+.dark_block {
   justify-content: space-around;
   align-items: center;
   padding: 1rem;
@@ -17,7 +17,8 @@
   background-color: var(--ifm-background-surface-color);
 }
 
-.drivetrainLabel {
+.subheading,
+.label_drivetrain {
   font-size: large;
   font-weight: bold;
 }
