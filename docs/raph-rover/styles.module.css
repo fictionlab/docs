@@ -22,3 +22,13 @@
   font-size: large;
   font-weight: bold;
 }
+
+.benefit {
+  font-weight: bold;
+  color: var(--ifm-color-primary);
+}
+
+.highlight {
+  font-weight: bold;
+  color: var(--ifm-color-primary);
+}
