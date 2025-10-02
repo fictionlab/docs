@@ -23,6 +23,8 @@ import CenterContent from '@site/src/components/CenterContent';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 
+import ParameterTable from '@site/docs/raph-rover/partial/_parameterTable.mdx'
+
 <ImageZoom
   loading="eager"
   src="/img/robots/raph/raph-rover.webp"
@@ -35,38 +37,9 @@ import FlexTableItem from '@site/src/components/FlexTableItem';
   }}
 />
 
-<font color="red">
-
-TODO:
-
-- Check all parameters one more time
-- Check all components one more time - update eg. led Count
-- Block diagram - add HDMI to external data ports
-- Software specs - ask **Blazej/Janek/Olek** to review and add a TODO list.
-  Shorten essay, review images
-- WEB interface - show it
-
-</font>
-
 ## Key parameters
 
-<CenterContent>
-
-| Parameter             |          Value           |
-| --------------------- | :----------------------: |
-| Dimensions (LxWxH)    | 559 mm x 474 mm x 255 mm |
-| Weight                |         12.5 kg          |
-| Maximum payload       |          10 kg           |
-| Maximum linear speed  |         1.8 m/s          |
-| Maximum angular speed |        4.7 Rad/s         |
-| IP protection rating  |          IP 54           |
-| Operating temperature |     -10 °C to +40 °C     |
-| Run time              |           4h\*           |
-| Connection range      |       Up to 100 m        |
-
-</CenterContent>
-
-\* - infinite with hot swapping batteries
+<ParameterTable />
 
 <ThemedImageZoom
   alt="Overview of Raph Rover - front"
@@ -117,16 +90,11 @@ TODO:
   }}
 />
 
-<font color="red">
-  {' '}
-  Please decide if last image is necessary - remove if not{' '}
-</font>
-
 ## Payload
 
 The Raph Rover is engineered for easy and versatile payload integration. If your
-sensor or hardware is ROS 2-compatible and falls within the rover's power (5V2A,
-12V2A, and 24V5A) and weight limits ( 10kg ), you can be confident in its
+sensor or hardware is ROS 2-compatible and falls within the rover's power (5V 2A,
+12V 2A, and 24V 4A) and weight limits (10kg), you can be confident in its
 compatibility.
 
 ### Data ports
@@ -165,7 +133,7 @@ compatibility.
 | :-----------: | :---------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
 |      5 V      | 2 A (10 W)  |  [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.tme.eu/en/details/mc1.5_2-st-3.5/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-5-1840366/)   |
 |     12 V      | 2 A (24 W)  | [Phoenix Contact MC 1,5/ 2-ST-3,81](https://www.tme.eu/en/details/mc1.5_2-st-3.81/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-81-1803578/) |
-| BAT (20-25 V) | 5 A (120 W) |       [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.tme.eu/en/details/mstb2.5_2-st-5.08/pluggable-terminal-blocks/phoenix-contact/1757019/)        |
+| BAT (20-25 V) | 4 A (120 W) |       [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.tme.eu/en/details/mstb2.5_2-st-5.08/pluggable-terminal-blocks/phoenix-contact/1757019/)        |
 
 </CenterContent>
 
