@@ -78,63 +78,6 @@ cable in millimeters.
 
 ### Block diagram
 
-<font color="red" size="+2">
-  {' '}
-  Add HDMI to external data ports{' '}
-</font>
-
-<ThemedImageZoom
-  alt="Hardware diagram of Raph Rover"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/specification/raph-hardware-diagram-light.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/specification/raph-hardware-diagram-dark.webp',
-    ),
-  }}
-  width="2000"
-  height="1629"
-  caption="Block diagram of Raph Rovers hardware"
-/>
-
-### RaphCore controller
-
-<ThemedImageZoom
-  alt="External connections of RaphCore"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/specification/RaphCore_overview_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/specification/RaphCore_overview_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  caption="RaphCore PCB connectors"
-/>
-
-<CenterContent>
-
-| Component       |     Model      | Description |
-| --------------- | :------------: | :---------: |
-| Microcontroller | STM32H5 series | 123465 Ghz  |
-| IMU             |    IMU XYZ     |  1254 bit   |
-
-</CenterContent>
-
-RaphCore serves as the primary control board for Raph Rover, featuring a robust
-STM32H5 series microcontroller. The board leverages FreeRTOS to efficiently
-handle various low-level tasks integral to the functioning of Raph Rover. These
-tasks include:
-
-- Drivetrain control
-- Power system management
-- LED control
-- IMU operation
-- Odometry tracking
-
 ### Drivetrain
 
 <font color="red" size="+2">

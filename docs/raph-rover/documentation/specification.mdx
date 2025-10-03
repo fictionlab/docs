@@ -22,6 +22,8 @@ import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import CenterContent from '@site/src/components/CenterContent';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 import ParameterTable from '@site/docs/raph-rover/partial/_parameterTable.mdx';
 
@@ -33,13 +35,19 @@ import ParameterTable from '@site/docs/raph-rover/partial/_parameterTable.mdx';
   height="1500"
   figStyle={{
     width: 500,
-    paddingBottom: 100,
+    paddingBottom: '2rem',
   }}
 />
+
+# Raph Rover Specification
+
+---
 
 ## Key parameters
 
 <ParameterTable />
+
+## Rover overview
 
 <ThemedImageZoom
   alt="Overview of Raph Rover - front"
@@ -90,14 +98,220 @@ import ParameterTable from '@site/docs/raph-rover/partial/_parameterTable.mdx';
   }}
 />
 
+## Hardware
+
+### Dimensions
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-between', alignItems: 'center' , paddingBottom: '1rem'}}>
+  <FlexTableItem style={{width:'auto', maxWidth: '40%'}}>
+
+| Parameter               |                       Value                       |
+| ----------------------- | :-----------------------------------------------: |
+| Length x Width x Height | 559&nbsp;mm x&nbsp;474&nbsp;mm x&nbsp;255&nbsp;mm |
+| Weight                  |                      12.5 kg                      |
+| Track Width             |                      385 mm                       |
+| Wheelbase length        |                      382 mm                       |
+| Ground clearance        |                       80 mm                       |
+| Wheel diameter          |                      170 mm                       |
+
+  </FlexTableItem>
+  <FlexTableItem style={{width:'55%'}}>
+
+<ThemedImageZoom
+  alt="Main dimensions of the Raph Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/raph_dimensions_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/raph_dimensions_white.webp',
+    ),
+  }}
+  width="3000"
+  height="4997"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+  </FlexTableItem>
+</FlexTable>
+
+### Speed and performance
+
+<CenterContent>
+
+| Parameter                     |    Value    |
+| ----------------------------- | :---------: |
+| Maximum linear speed          |   1.8 m/s   |
+| Maximum angular speed         |  4.7 Rad/s  |
+| Climb grade (no payload)      | 30° ( ~58%) |
+| Climb grade with 5kg payload  | 20° ( ~36%) |
+| Climb grade with 10kg payload | 10° ( ~18%) |
+| Hill grade traversal          | 30° ( ~58%) |
+| Nominal torque                |    4 Nm     |
+| Maximum torque                |    8 Nm     |
+
+</CenterContent>
+
+### Drivetrain
+
+Raph rover is equipped with 2, independent steering wheels on the rear of the
+robot. It enables great agility of the robot as well as precise manoeuvres such
+as:
+
+<Tabs
+  values={[
+    { label: 'Following a curve', value: 'curve' },
+    { label: 'Rotate around middle', value: 'middle' },
+    { label: 'Rotate around front wheel', value: 'front' },
+  ]}
+>
+  <TabItem value="curve">
+    <ThemedImageZoom
+      alt="Raph Rover following a curve"
+      sources={{
+        light: useBaseUrl('/img/robots/raph/overview/Driving_2_black.webp'),
+        dark: useBaseUrl('/img/robots/raph/overview/Driving_2_white.webp'),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 500,
+      }}
+    />
+  </TabItem>
+  <TabItem value="middle">
+    <ThemedImageZoom
+      alt="Raph Rover rotating around middle"
+      sources={{
+        light: useBaseUrl('/img/robots/raph/overview/Driving_1_black.webp'),
+        dark: useBaseUrl('/img/robots/raph/overview/Driving_1_white.webp'),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 500,
+      }}
+    />
+  </TabItem>
+  <TabItem value="front">
+    <ThemedImageZoom
+      alt="Raph Rover rotating around front wheel"
+      sources={{
+        light: useBaseUrl('/img/robots/raph/overview/Driving_3_black.webp'),
+        dark: useBaseUrl('/img/robots/raph/overview/Driving_3_white.webp'),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 500,
+      }}
+    />
+  </TabItem>
+</Tabs>
+
+### Components
+
+<CenterContent>
+
+| Name                | Quantity | Description                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------- | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Built-in computer   |    1     | **UPBoard 7000** - Credit card-sized SBC based on the Intel N100 CPU<br />- CPU: Intel® N100 quad-core (x86 architecture)<br />- Memory: 8GB LPDDR5<br />- Storage: 64GB eMMC<br />- Connectivity:<br />&ensp;- 1 Gigabit LAN<br />&ensp;- HDMI 1.4b<br />&ensp;- 3 USB 3.2 Gen 2x1 (10Gb/s)<br />&ensp;- 2 USB 2.0/UART<br />&ensp;- 40-pin GPIO header<br /> [Full specification](https://up-board.org/up-7000/) |
+| Router              |    1     | **Teltonika RUTX10** - Industrial router with with Gigabit Ethernet, Bluetooth LE, and AC Wi-Fi.<br />- WAN: 1 x 10/100/1000 Mbps<br />- LAN: 3 x 10/100/1000 Mbps<br />- Wi-Fi: 802.11b/g/n/ac Wave 2 (Wi-Fi 5)<br />- Bluetooth: 4.0 <br />[Full specification](https://www.teltonika-networks.com/products/routers/rutx10)                                                                                       |
+| Controller          |    1     | **RaphCore** - Custom Fictionlab's controller designed for Raph Rover. [See&nbsp;more](#raphcore-controller)                                                                                                                                                                                                                                                                                                        |
+| Antenna             |    2     | Dual-band (2.4 GHz / 5 GHz) placed on the rear of the robot.                                                                                                                                                                                                                                                                                                                                                        |
+| Stereoscopic camera |    1     | **Luxonis OAK-D Pro W IMX378** - a wide-angle camera with active stereo depth and high-resolution color capabilities.<br />- RGB sensor: IMS 378<br />- RGB sensor resolution: 12 MP<br />- RGB sensor DFOV: 120°<br />- Stereo sensors: OV9282<br />- Stereo sensor resolution: 1 MP<br />- Stereo sensor DFOV: 150°<br />[Full specification](https://docs.luxonis.com/hardware/products/OAK-D%20Pro%20W)         |
+| Lidar               |    1     | **RPLidar S3** - 360-degree waterproof 2D Lidar scanner with a 40-meter range. <br />- Coverage: 360°<br />- Max range: 40m<br />- Sample rate: 32kHz (32 000 points per second)<br />- Angular resolution: 0.1125°<br />[Full specification](https://www.slamtec.com/en/S3/Spec)                                                                                                                                   |
+| Battery             |    2     | 6S (22.2V) 4Ah Li-ion battery - Custom battery pack with hot-swappable connectors. [See&nbsp;more](#battery)                                                                                                                                                                                                                                                                                                        |
+| BLDC motors         |    6     | BLDC motors with integrated controllers. Connected to RaphCore board via RS 485 bus. [See&nbsp;more](#speed-and-performance)                                                                                                                                                                                                                                                                                        |
+| LED strip           |    4     | 143 RGBW Individually addressable LEDs. Used as rover status indicator as well as any custom purpose programmed by the user.<br />- Form factor: 3535<br />- Density: 144 LEDs/m<br />- Power: 23W<br />- Temperature: 6000-6500K.<br />- Luminance R: 46; G: 156; B: 34; W:409lm                                                                                                                                   |
+
+</CenterContent>
+
+#### Component's diagram
+
+<ThemedImageZoom
+  alt="Hardware diagram of Raph Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/raph-hardware-diagram-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/raph-hardware-diagram-dark.webp',
+    ),
+  }}
+  width="2000"
+  height="1629"
+  caption="Block diagram of Raph Rovers components"
+  figStyle={{ paddingBottom: '2rem' }}
+/>
+
+#### Battery
+
+Raph rover's batteries are enclosed in specially designed case, allowing them to
+be quick swappable. Each pack has its own BMS that manages charging, discharging
+and has built-in protections
+
+<CenterContent>
+
+| Parameter            |                         Value                         |
+| -------------------- | :---------------------------------------------------: |
+| Battery type         |                        Li-Ion                         |
+| Battery pack type    |                         6S1P                          |
+| Cell type            |                      Samsung 40T                      |
+| Nominal voltage      |                        22.2 V                         |
+| Capacity             |          4000 mAh<br />88.8 Wh (flight safe)          |
+| Maximum output power |                        ~650 W                         |
+| Safety systems       | Overcurrent<br />Reverse polarity<br />Overheat<br /> |
+
+</CenterContent>
+
+#### RaphCore controller
+
+RaphCore serves as the primary control board for Raph Rover. The board leverages
+FreeRTOS and MicroROS to control rover tasks such as:
+
+- Drivetrain control
+- Power system management
+- LED control
+- IMU operation
+- Odometry tracking
+
+<ThemedImageZoom
+  alt="External connections of RaphCore"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/RaphCore_overview_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/RaphCore_overview_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  caption="RaphCore PCB connectors"
+/>
+
+<CenterContent>
+
+| Component                 |                                                                        Model                                                                         | Description                                                                                                                                       |
+| ------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Microcontroller           |                                                                    STM32H5 series                                                                    | CPU type: 32-bit Arm® Cortex®-M33<br />CPU frequency: 250 MHz<br />Flash memory: 2 Mb                                                           |
+| IMU                       |                                                                          -                                                                           | Sensor Type: 6-axis<br />Acceleration: 2 g, 4 g, 8 g, 16 g<br />Resolution: 16 bit<br />Sensitivity: 2097.2 deg/s/LSB                             |
+| Internal power connectors | 3 x [MC&nbsp;1,5/&nbsp;2&#8209;G&#8209;3,5](https://www.phoenixcontact.com/pl-pl/produkty/obudowa-podstawowa-plytki-drukowanej-mc-15-2-g-35-1844210) | Additional power outputs for the rover. Each individual output can be disabled or enabled separately.                                             |
+| External power connectors | 1 x [MC&nbsp;1,5/&nbsp;6&#8209;G&#8209;3,5](https://www.phoenixcontact.com/pl-pl/produkty/obudowa-podstawowa-plytki-drukowanej-mc-15-6-g-35-1844252) | Power outputs for the rover interface panel. Each individual output can be disabled or enabled separately. [See&nbsp;more](#external-power-panel) |
+
+</CenterContent>
+
 ## Payload
 
 The Raph Rover is engineered for easy and versatile payload integration. If your
 sensor or hardware is ROS 2-compatible and falls within the rover's power (5V
-2A, 12V 2A, and 24V 4A) and weight limits (10kg), you can be confident in its
+4A, 12V 4A, and 24V 4A) and weight limits (10kg), you can be confident in its
 compatibility.
 
-### Data ports
+### External data ports
 
 <ThemedImageZoom
   alt="Raph Rover's rear compartment overview"
@@ -115,27 +329,34 @@ compatibility.
 
 <CenterContent>
 
-| Interface  |           Notes           |       Device connected       |
-| ---------- | :-----------------------: | :--------------------------: |
-| USB type A | USB 3.2 Gen 2x1 (10 Gb/s) | UPBoard 7000 (Main computer) |
-| USB type C | USB 3.2 Gen 2x1 (10 Gb/s) | UPBoard 7000 (Main computer) |
-| HDMI       |         HDMI 1.4b         | UPBoard 7000 (Main computer) |
-| RJ-45      |     10/100/1000 Mbps      |  Teltonika RUTX10 (Router)   |
-| RJ-45      |     10/100/1000 Mbps      |  Teltonika RUTX10 (Router)   |
+| Interface  |         Notes          |       Device connected       |
+| ---------- | :--------------------: | :--------------------------: |
+| USB type A | USB 3.2 Gen 1 (5 Gb/s) | UPBoard 7000 (Main computer) |
+| USB type C | USB 3.2 Gen 1 (5 Gb/s) | UPBoard 7000 (Main computer) |
+| HDMI       |       HDMI 1.4b        | UPBoard 7000 (Main computer) |
+| RJ-45      |    10/100/1000 Mb/s    |  Teltonika RUTX10 (Router)   |
 
 </CenterContent>
 
-### Power panel
+### External power panel
 
 <CenterContent>
 
-|    Voltage    |  Max power  |                                                                       Connector                                                                        |
-| :-----------: | :---------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
-|      5 V      | 2 A (10 W)  |  [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.tme.eu/en/details/mc1.5_2-st-3.5/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-5-1840366/)   |
-|     12 V      | 2 A (24 W)  | [Phoenix Contact MC 1,5/ 2-ST-3,81](https://www.tme.eu/en/details/mc1.5_2-st-3.81/pluggable-terminal-blocks/phoenix-contact/mc-1-5-2-st-3-81-1803578/) |
-| BAT (20-25 V) | 4 A (120 W) |       [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.tme.eu/en/details/mstb2.5_2-st-5.08/pluggable-terminal-blocks/phoenix-contact/1757019/)        |
+|    Voltage    | Max amperage | Max power | Connector                                                                                                                             |
+| :-----------: | :----------: | :-------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+|      5 V      |     4 A      |    20     | [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)        |
+|     12 V      |     4 A      |   48 W    | [Phoenix Contact MC 1,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)      |
+| BAT (20-25 V) |     4 A      |   100 W   | [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987) |
 
 </CenterContent>
+
+:::note
+
+Total amperage and power is shared between 2 connectors on the external panel,
+so for example it is possible to connect 1 device that uses 4 A or 2 devices
+that use 2 A each.
+
+:::
 
 ### Mechanical connections
 
@@ -183,205 +404,35 @@ mm** working area.
   }}
   width="2000"
   height="819"
+  figStyle={{
+    paddingBottom: '4rem',
+  }}
 />
-
-<font color="red">
-
-TODO:
-
-- Add UI image with functionalities listed
-- REVIEW
 
 <CenterContent>
 
 | Parameter        |                             Value                              |
 | ---------------- | :------------------------------------------------------------: |
 | Operating System |                        Ubuntu 22.04 LTS                        |
-| Core Framework   |                     ROS 2 Humble Hawksbill                     |
+| Core Framework   |                          ROS 2 Jazzy                           |
 | User Interface   |              Web-based GUI accessible over Wi-Fi               |
 | UI Features      | Real-time teleoperation, H.264 video stream, system monitoring |
 | API Access       | Full control via standard ROS 2 topics, services, and actions  |
-| Source Model     |                   Open Source (MIT License)                    |
+| Software license |                          MIT License                           |
 
 </CenterContent>
 
-</font>
-
-## Hardware
+### ROS nodes
 
 <ThemedImageZoom
-  alt="Main dimensions of Raph Rover"
+  alt="Simplified graph of core ROS nodes running on Raph Rover"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/specification/raph_dimensions_black.webp',
+      '/img/robots/raph/specification/raph-ros-nodes-light.webp',
     ),
-    dark: useBaseUrl(
-      '/img/robots/raph/specification/raph_dimensions_white.webp',
-    ),
+    dark: useBaseUrl('/img/robots/raph/specification/raph-ros-nodes-dark.webp'),
   }}
-  width="3000"
-  height="4997"
+  width="2000"
+  height="856"
+  caption="Simplified graph of core ROS nodes running on Raph Rover"
 />
-
-<CenterContent>
-
-| Parameter             |          Value           |
-| --------------------- | :----------------------: |
-| Dimensions (LxWxH)    | 559 mm x 474 mm x 255 mm |
-| Weight                |         12.5 kg          |
-| Maximum payload       |          10 kg           |
-| Maximum linear speed  |         1.8 m/s          |
-| Maximum angular speed |        4.7 Rad/s         |
-| IP protection rating  |           IP54           |
-| Operating temperature |     -10 °C to +40 °C     |
-| Battery Capacity      |          96 Wh           |
-| Run time              |          4 h\*           |
-
-</CenterContent>
-
-\* - infinite with hot swapping batteries
-
-### Drivetrain
-
-<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly', alignItems: 'center'}}>
-  <FlexTableItem
-    style={{
-      width: '30%'
-    }}>
-      <ThemedImageZoom
-  loading="eager"
-  alt="Raph Rover following a curve"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/overview/Driving_2_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/overview/Driving_2_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 300,
-  }}
-/>
-
-<center>
-<font color="c07b2c" size="+1"> **Following a curve** </font>
-</center>
-  </FlexTableItem>
-
-  <FlexTableItem
-    style={{
-      width: '30%'
-    }}>
-      <ThemedImageZoom
-  loading="eager"
-  alt="Raph Rover rotating around middle"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/overview/Driving_1_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/overview/Driving_1_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 300,
-  }}
-/>
-<center>
-<font color="c07b2c" size="+1"> **Rotate around middle** </font>
-</center>
-
-  </FlexTableItem>
-
-  <FlexTableItem
-    style={{
-      width: '30%'
-    }}>
-      <ThemedImageZoom
-  loading="eager"
-  alt="Raph Rover rotating around front wheel"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/overview/Driving_3_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/overview/Driving_3_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 300,
-  }}
-/>
-
-<center>
-  <font color="c07b2c" size="+1">
-    {' '}
-    **Rotate around front wheel**{' '}
-  </font>
-</center>
-
-  </FlexTableItem>
-</FlexTable>
-
-<font color="red" size="+2">
-  Review specs
-</font>
-
-<CenterContent>
-
-| Parameter                     |    Value    |
-| ----------------------------- | :---------: |
-| Track Width                   |   385 mm    |
-| Wheelbase length              |   379 mm    |
-| Ground clearance              |   105 mm    |
-| Climb grade (no payload)      | 30° ( ~58%) |
-| Climb grade with 5kg payload  | 20° ( ~36%) |
-| Climb grade with 10kg payload | 10° ( ~18%) |
-| Hill grade traversal          | 30° ( ~58%) |
-| Nominal torque                |    4 Nm     |
-| Maximum torque                |    8 Nm     |
-| Wheel diameter                |   170 mm    |
-
-</CenterContent>
-
-### Components
-
-<font color="red">Shorten text, provide raw data</font>
-
-<CenterContent>
-
-| Name                | Quantity | Description                                                                                                                                                                                                                                                                                                                                                                                                     |
-| ------------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Built-in computer   |    1     | UPBoard 7000 - third-generation credit card-sized developer board in the UP Board series.- Processor: Intel® N100 quad-core processor. <br /> <br /> Key features: <br /> - Processor: Intel® N100 quad-core processor. <br /> - Memory: 8GB LPDDR5 system memory. <br /> - Storage: 64GB eMMC storage. <br /> - Connectivity: 1 Gigabit LAN, HDMI 1.4b, 3 USB 3.2 Gen 2, 2 USB 2.0/UART, 40-pin GPIO header. |
-| Router              |    1     | Teltonika RUTX10 (With RUTX11 as option after beta). Router that combines the best of wired and wireless routing functionalities with Gigabit Ethernet, Bluetooth LE, and AC Wi-Fi.                                                                                                                                                                                                                             |
-| Controller          |    1     | RaphCore, Custom controller purpose built for Raph Rover.                                                                                                                                                                                                                                                                                                                                                       |
-| Antenna             |    2     | Dual-band (2.4 GHz / 5 GHz) placed on the rear of the robot.                                                                                                                                                                                                                                                                                                                                                    |
-| Stereoscopic camera |    1     | Luxonis OAK-D Pro W <font color="red"> SENSOR</font> is a wide-angle camera with active stereo depth and high-resolution color capabilities. It includes on-device neural network inference, computer vision features, and night vision for low-light environments.                                                                                                                                             |
-| Lidar               |    1     | RPLidar S3 - 360-degree waterproof 2D Lidar scanner with a 40-meter range. It ensures stable performance in diverse conditions, making it suitable for both indoor and outdoor use. Operating at 10Hz, it guarantees a sample rate of 32KHz.                                                                                                                                                                    |
-| Battery             |    2     | <font color="red"> 6S Li-ion battery, 24V, 98Wh, flight safe, internal BMS provides protection from overcurrent, short, overheating </font>                                                                                                                                                                                                                                                                     |
-| BLDC motors         |    6     | M0601C-111 BLDC motors from Direct Drive Tech. Connected to RaphCore board via RS 485 bus.                                                                                                                                                                                                                                                                                                                      |
-| LED strip           |    4     | 143 RGBW Individually addressable LEDs. <br /> 3535 form factor; 144/m, 23W, 6000-6500K. <br /> Luminance R: 46; G: 156; B: 34; W:409lm <br /> They serve as the rovers status indicator, but can be programmed for any custom behavior e.g. to work as a flashlight.                                                                                                                                           |
-
-</CenterContent>
-
-### Battery
-
-<CenterContent>
-
-| Parameter            |                           Value                            |
-| -------------------- | :--------------------------------------------------------: |
-| Voltage              |                      22.2 V (nominal)                      |
-| Battery type         |                           Li-Ion                           |
-| Capacity             |                           96 Wh                            |
-| Battery pack type    |                            6S1P                            |
-| Maximum output power |                           ~650 W                           |
-| Safety systems       | Overcurrent, <br /> Reverse polarity,<br /> Overheat<br /> |
-
-</CenterContent>
