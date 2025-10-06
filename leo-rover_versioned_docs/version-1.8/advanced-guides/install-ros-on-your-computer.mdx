@@ -9,9 +9,6 @@ description: >-
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import ROS2info from './_advanced-guides-ROS2-info.mdx';
-
-<ROS2info />
 
 Having ROS on your host machine has many advantages. First of all, it allows you
 to communicate with nodes running on your Leo Rover, so it is easier to
@@ -22,42 +19,222 @@ interfaces and visualization tools.
 There is a couple of ROS installation options depending on your system:
 
 <Tabs>
-    <TabItem value='linux' label='Linux Installation'>
-        If you have Linux distribution installed (either natively or on virtual machine), you can
-        follow instructions on [ROS wiki](http://wiki.ros.org/noetic/Installation).
+    <TabItem value='ros1' label='ROS 1'>
+        <Tabs>
+            <TabItem value='linux' label='Linux Installation'>
+                If you have Linux distribution installed (either natively or on virtual machine), you can
+                follow instructions on [ROS wiki](https://wiki.ros.org/noetic/Installation/Ubuntu).
 
-        ROS repository contains prebuild packages for ubuntu and debian systems. Melodic distribution
-        requires Ubuntu Bionic (18.04 LTS) or Debian Stretch. Noetic requires Ubuntu Focal (20.04 LTS)
-        or Debian Buster.
+                ROS repository contains prebuild packages for ubuntu and debian systems. Melodic distribution
+                requires Ubuntu Bionic (18.04 LTS) or Debian Stretch. Noetic requires Ubuntu Focal (20.04 LTS)
+                or Debian Buster.
+            </TabItem>
+            <TabItem value='wsl' label='Windows Subsystem for Linux'>
+                To install Windows Subsystem for Linux (WSL), open PowerShell as Administrator and run:
+
+                ```powershell
+                wsl --install -d Ubuntu-20.04
+                ```
+                This will install WSL with Ubuntu 20.04 distribution, which is required by ROS Noetic.
+
+                :::tip
+
+                To open PowerShell as Administrator, search for `PowerShell` in Start menu, right-click
+                `Windows PowerShell` and select `Run as administrator`.
+
+                :::
+
+                Make sure that your WSL is the latest version by running:
+
+                ```powershell
+                wsl --update
+                ```
+
+                :::note
+
+                To see other available Linux distributions, run:
+
+                ```powershell
+                wsl --list --online
+                ```
+
+                :::
+
+                After installation is complete the system will ask you to provide user name and password.
+                When the credentials are set, Ubuntu will be opened in the terminal.
+
+                To launch a Ubuntu 20.04 WSL session in the future, run in PowerShell:
+
+                ```powershell
+                wsl -d Ubuntu-20.04
+                ```
+
+                Alternatively, installed WSL distributions should also be available from the Start menu.
+
+                Make sure that you are in the home directory before executing further commands:
+
+                ```bash
+                cd ~
+                ```
+
+                You can now follow steps from [ROS installation tutorial](https://wiki.ros.org/noetic/Installation/Ubuntu)
+                on ROS wiki and install ROS in WSL as you would on a native Linux system.
+
+                WSL 2 also supports graphical applications, so you can run RViz and other GUI tools
+                directly in WSL by default.
+
+                In order to communicate with your Leo Rover from WSL,
+                you need to set up [mirrored mode networking](https://learn.microsoft.com/en-us/windows/wsl/networking#mirrored-mode-networking).
+
+                To enable mirrored mode networking, first make sure that you have closed all WSL instances and then,
+                from the Start menu, open `Windows Subsystem for Linux Settings`, navigate to `Networking` tab
+                and set `Networking mode` to `Mirrored`:
+
+                <ImageZoom
+                    src='/img/robots/leo/advanced-guides/install-ros-on-your-computer/networking-mode.webp'
+                    alt='WSL Mirrored Networking Settings'
+                    width={1270}
+                    height={260}
+                />
+
+                :::warning
+
+                Mirrored networking is not supported in Windows 10.
+
+                :::
+
+                Next, you need to change firewall settings to allow WSL to access the network.
+                Open `PowerShell` as Administrator and run:
+
+                ```powershell
+                Set-NetFirewallHyperVVMSetting -Name '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -DefaultInboundAction Allow
+                ```
+
+                Your WSL instance should now have ROS installed and have access to the network.
+            </TabItem>
+        </Tabs>
     </TabItem>
-    <TabItem value='wsl' label='Windows Subsystem for Linux'>
-        Ensure that Windows Subsystem for Linux feature is enabled by opening PowerShell as Administrator
-        and running:
+    <TabItem value='ros2' label='ROS 2'>
+        <Tabs>
+            <TabItem value='linux' label='Linux Installation'>
+                If you have Linux distribution installed (either natively or on virtual machine), you can
+                follow instructions in [ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html).
 
-        ```powershell
-        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-        ```
+                ROS repository contains pre-built packages for Ubuntu and Debian systems. ROS 2 Jazzy requires
+                Ubuntu 24.04 or Debian Bookworm.
 
-        Reboot when prompted.
+            </TabItem>
+            <TabItem value='wsl' label='Windows Subsystem for Linux'>
+                To install Windows Subsystem for Linux (WSL), open PowerShell as Administrator and run:
 
-        Install [Ubuntu 18.04](https://www.microsoft.com/pl-pl/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab)
-        from Microsoft Store and open the application.
+                ```powershell
+                wsl --install -d Ubuntu-24.04
+                ```
+                This will install WSL with Ubuntu 24.04 distribution, which is required by ROS 2 Jazzy.
 
-        You can now follow steps from [ros installation tutorial](http://wiki.ros.org/melodic/Installation/Ubuntu)
-        on ROS wiki.
+                :::tip
 
-        To run graphical applications, you need to install X server on Windows. We recommend using
-        [VcXsrv](https://sourceforge.net/projects/vcxsrv/). Install it and run with default configuration except for
-        `Native OpenGL` which should be unchecked (otherwise, `rviz` may fail to launch)
+                To open PowerShell as Administrator, search for `PowerShell` in Start menu, right-click
+                `Windows PowerShell` and select `Run as administrator`.
 
-        In your ubuntu session, type:
+                :::
 
-        ```bash
-        echo "export DISPLAY=:0" >> ~/.bashrc
-        source ~/.bashrc
-        ```
+                Make sure that your WSL is the latest version by running:
 
-        Now, to test it, run `roscore` on one session and rqt or rviz on another.
+                ```powershell
+                wsl --update
+                ```
+
+                :::note
+
+                To see other available Linux distributions, run:
+
+                ```powershell
+                wsl --list --online
+                ```
+
+                :::
+
+                After installation is complete the system will ask you to provide user name and password.
+                When the credentials are set, Ubuntu will be opened in the terminal.
+
+                To launch a Ubuntu 24.04 WSL session in the future, run in PowerShell:
+
+                ```powershell
+                wsl -d Ubuntu-24.04
+                ```
+
+                Alternatively, installed WSL distributions should also be available from the Start menu:
+
+                <ImageZoom
+                    src='/img/robots/leo/advanced-guides/install-ros-on-your-computer/ubuntu-start-menu.webp'
+                    alt='Ubuntu 24.04 in Start menu'
+                    width={471}
+                    height={409}
+                    figStyle={{
+                        width: 400,
+                    }}
+                />
+
+                Make sure that you are in the home directory before executing further commands:
+
+                ```bash
+                cd ~
+                ```
+
+                You can now follow steps from [ROS 2 installation tutorial](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html)
+                on ROS wiki and install ROS 2 in WSL as you would on a native Linux system.
+
+                WSL 2 also supports graphical applications, so you can run RViz and other GUI tools
+                directly in WSL by default.
+
+                In order to communicate with your Leo Rover from WSL,
+                you need to set up [mirrored mode networking](https://learn.microsoft.com/en-us/windows/wsl/networking#mirrored-mode-networking).
+
+                To enable mirrored mode networking, first make sure that you have closed all WSL instances and then,
+                from the Start menu, open `Windows Subsystem for Linux Settings`, navigate to `Networking` tab
+                and set `Networking mode` to `Mirrored`:
+
+                <ImageZoom
+                    src='/img/robots/leo/advanced-guides/install-ros-on-your-computer/networking-mode.webp'
+                    alt='WSL Mirrored Networking Settings'
+                    width={1270}
+                    height={260}
+                />
+
+                :::warning
+
+                Mirrored networking is not supported in Windows 10.
+
+                :::
+
+                Next, you need to change firewall settings to allow WSL to access the network.
+                Open `PowerShell` as Administrator and run:
+
+                ```powershell
+                Set-NetFirewallHyperVVMSetting -Name '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -DefaultInboundAction Allow
+                ```
+
+                Your WSL instance should now have ROS installed and have access to the network.
+            </TabItem>
+            <TabItem value='windows' label='Windows Native Installation'>
+                ROS 2 can be installed on Windows by following instructions
+                in [ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Windows-Install-Binary.html).
+
+                Please note that native Windows support of ROS 2 is limited and is not supported as well as Linux or WSL installations.
+                We highly recommend using Windows Subsystem for Linux instead.
+            </TabItem>
+        </Tabs>
+
+        :::note
+
+        In order to be see nodes and topics running on your Leo Rover,
+        make sure that your computer is connected to rover's access point.
+
+        <LinkButton docId='guides/connect-to-rover-ap'/>
+
+        :::
+
     </TabItem>
 
 </Tabs>
