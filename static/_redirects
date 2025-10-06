@@ -54,3 +54,7 @@
 /integrations/positioning-systems/* /integrations/noetic/positioning-systems/:splat 302
 /integrations/robotic-arms /integrations/noetic/robotic-arms 302
 /integrations/robotic-arms/* /integrations/noetic/robotic-arms/:splat 302
+
+# raph rover redirects
+/raph-rover/specification /raph-rover/documentation/specification 301
+/raph-rover/specification/ros-api /raph-rover/documentation/ros-api 301
