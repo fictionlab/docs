@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="100%"
+   height="100%"
+   viewBox="0 0 591 591"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg4"
+   sodipodi:docname="dual-battery.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:serif="http://www.serif.com/"><defs
+   id="defs4" /><sodipodi:namedview
+   id="namedview4"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="1.3756345"
+   inkscape:cx="295.13653"
+   inkscape:cy="295.5"
+   inkscape:current-layer="svg4" />
+    <g
+   transform="matrix(1,0,0,1,-2114,0)"
+   id="g4">
+        <g
+   id="dual-battery"
+   serif:id="dual battery"
+   transform="matrix(1,0,0,1,2114,0)">
+            
+            <g
+   transform="matrix(2.17172,0,0,1.40476,-5131.63,-755.016)"
+   id="g3">
+                <g
+   transform="matrix(0.233308,0,0,0.360686,2386.91,982.031)"
+   id="g1">
+                    <path
+   d="M215,-326C206.5,-326 199.377,-328.877 193.63,-334.63C187.877,-340.377 185,-347.5 185,-356L185,-416L162,-416C153.5,-416 146.377,-418.877 140.63,-424.63C134.877,-430.377 132,-437.5 132,-446L132,-514C132,-522.5 134.877,-529.627 140.63,-535.38C146.377,-541.127 153.5,-544 162,-544L185,-544L185,-604.21C185,-612.737 187.877,-619.833 193.63,-625.5C199.377,-631.167 206.5,-634 215,-634L798,-634C806.5,-634 813.627,-631.127 819.38,-625.38C825.127,-619.627 828,-612.5 828,-604L828,-356.17C828,-347.39 825.127,-340.167 819.38,-334.5C813.627,-328.833 806.5,-326 798,-326L215,-326ZM212,-354L399,-354L399,-606L212,-606L212,-354Z"
+   style="fill:currentColor;fill-rule:nonzero;"
+   id="path1" />
+                </g>
+                <g
+   transform="matrix(0.233308,0,0,0.360686,2386.91,859.559)"
+   id="g2">
+                    <path
+   d="M215,-326C206.5,-326 199.377,-328.877 193.63,-334.63C187.877,-340.377 185,-347.5 185,-356L185,-416L162,-416C153.5,-416 146.377,-418.877 140.63,-424.63C134.877,-430.377 132,-437.5 132,-446L132,-514C132,-522.5 134.877,-529.627 140.63,-535.38C146.377,-541.127 153.5,-544 162,-544L185,-544L185,-604.21C185,-612.737 187.877,-619.833 193.63,-625.5C199.377,-631.167 206.5,-634 215,-634L798,-634C806.5,-634 813.627,-631.127 819.38,-625.38C825.127,-619.627 828,-612.5 828,-604L828,-356.17C828,-347.39 825.127,-340.167 819.38,-334.5C813.627,-328.833 806.5,-326 798,-326L215,-326ZM212,-354L399,-354L399,-606L212,-606L212,-354Z"
+   style="fill:currentColor;fill-rule:nonzero;"
+   id="path2" />
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

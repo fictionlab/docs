@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="100%"
+   height="100%"
+   viewBox="0 0 591 591"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg4"
+   sodipodi:docname="silent.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs4" /><sodipodi:namedview
+   id="namedview4"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="1.3756345"
+   inkscape:cx="295.13653"
+   inkscape:cy="295.5"
+   inkscape:current-layer="svg4" />
+    <g
+   transform="matrix(1,0,0,1,-7571,0)"
+   id="g4">
+        <g
+   id="silent"
+   transform="matrix(1,0,0,1,7571.06,0)">
+            
+            <g
+   transform="matrix(2.17172,0,0,1.40476,-5102.12,-2496.53)"
+   id="g3">
+                <g
+   transform="matrix(0.644203,0,0,0.711864,-954.409,-6612.9)"
+   id="g1">
+                    <path
+   d="M5251.31,12125.7L5194.41,12125.7C5191.53,12125.7 5189.19,12122.4 5189.19,12118.4L5189.19,12044.1C5189.19,12040.1 5191.53,12036.8 5194.41,12036.8L5251.44,12036.8L5300.92,11968.7C5302.41,11966.6 5304.65,11966 5306.59,11967.1C5308.53,11968.3 5309.79,11970.9 5309.79,11973.8L5309.79,12188.9C5309.79,12191.8 5308.53,12194.5 5306.59,12195.6C5304.65,12196.7 5302.41,12196.1 5300.92,12194.1L5251.31,12125.7ZM5257.1,12113.2L5299.36,12171.5L5299.36,11991.3L5257.23,12049.3C5256.26,12050.7 5254.94,12051.4 5253.57,12051.4L5199.62,12051.4L5199.62,12111.1L5253.44,12111.1C5254.81,12111.1 5256.13,12111.9 5257.1,12113.2Z"
+   style="fill:currentColor;"
+   id="path1" />
+                </g>
+                <g
+   transform="matrix(0.460465,0,0,0.711864,0,-6612.9)"
+   id="g2">
+                    <path
+   d="M5524.13,12089.9L5453.58,12160.5C5450.73,12163.3 5446.11,12163.3 5443.27,12160.5C5440.42,12157.6 5440.42,12153 5443.27,12150.1L5513.82,12079.6L5445.07,12010.8C5442.23,12008 5442.23,12003.4 5445.07,12000.5C5447.92,11997.7 5452.54,11997.7 5455.38,12000.5L5524.13,12069.3L5593.96,11999.4C5596.81,11996.6 5601.43,11996.6 5604.27,11999.4C5607.12,12002.3 5607.12,12006.9 5604.27,12009.8L5534.44,12079.6L5605.54,12150.7C5608.38,12153.5 5608.38,12158.1 5605.54,12161C5602.69,12163.8 5598.07,12163.8 5595.23,12161L5524.13,12089.9Z"
+   style="fill:currentColor;"
+   id="path2" />
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

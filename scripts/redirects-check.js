@@ -1,17 +1,45 @@
+#!/usr/bin/env node
 const fs = require('fs');
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
 const { execSync } = require('child_process');
 
-const baseBranch = process.argv[2] || 'origin/development';
-console.log(`Comparing against ${baseBranch}...HEAD`);
+const argv = yargs(hideBin(process.argv))
+  .option('ref', {
+    alias: 'r',
+    type: 'string',
+    description: 'Ref to compare',
+    default: 'HEAD',
+  })
+  .option('base', {
+    alias: 'b',
+    type: 'string',
+    description: 'Base ref to compare against',
+    default: 'origin/development',
+  })
+  .help()
+  .alias('help', 'h').argv;
+
+const compareRef = argv.ref;
+const baseBranch = argv.base;
+console.log(`Comparing ${compareRef} against ${baseBranch}`);
 
 function pathToUrl(path) {
-  return (
+  const canonicalUrl =
     '/' +
     path
       .replace(/^docs\//, '')
       .replace(/\.mdx?$/, '')
-      .replace(/\/index$/, '/')
-  );
+      .replace(/\/index$/, '');
+
+  parts = canonicalUrl.split('/');
+
+  // Remove duplicate last part (e.g., /foo/bar/bar -> /foo/bar)
+  if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
+    parts.pop();
+  }
+
+  return parts.join('/');
 }
 
 function parseRedirects(file) {
@@ -35,25 +63,47 @@ function matchRedirect(url, redirects) {
   });
 }
 
-const diff = execSync(`git diff --name-status ${baseBranch}...HEAD -- docs/`)
+const diff = execSync(
+  `git diff --name-status ${baseBranch}...${compareRef} -- docs/`,
+)
   .toString()
   .trim()
   .split('\n');
 
-const added = [];
-const deleted = [];
+let added = [];
+let deleted = [];
 if (diff.length === 1 && diff[0] === '') {
   console.log('No added or deleted pages');
   process.exit(0);
 }
 
 diff.forEach((line) => {
-  const [status, file] = line.split(/\s+/);
-  if (file.endsWith('.md') || file.endsWith('.mdx')) {
-    if (status === 'A') added.push(pathToUrl(file));
-    if (status === 'D') deleted.push(pathToUrl(file));
+  const [status, file1, file2] = line.split(/\s+/);
+  if (file1.endsWith('.md') || file1.endsWith('.mdx')) {
+    if (status === 'A') added.push(pathToUrl(file1));
+    if (status === 'D') deleted.push(pathToUrl(file1));
+    if (status.startsWith('R')) {
+      deleted.push(pathToUrl(file1));
+      added.push(pathToUrl(file2));
+    }
   }
 });
+
+// Remove pages that either:
+//  * are both in added and deleted. For example, /foo/bar/index.mdx renamed to /foo/bar/bar.mdx
+//  * have a name starting with an underscore. For example, /foo/bar/_baz.mdx (these are usually template or utility pages)
+const intersection = added.filter((url) => deleted.includes(url));
+added = added
+  .filter((url) => !intersection.includes(url))
+  .filter((url) => !url.split('/').at(-1).startsWith('_'));
+deleted = deleted
+  .filter((url) => !intersection.includes(url))
+  .filter((url) => !url.split('/').at(-1).startsWith('_'));
+
+console.log('Added pages:');
+added.forEach((url) => console.log(`  ${url}`));
+console.log('Deleted pages:');
+deleted.forEach((url) => console.log(`  ${url}`));
 
 const redirects = parseRedirects('static/_redirects');
 let foundProblems = 0;

@@ -1,0 +1,34 @@
+.feature {
+  width: 30%;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 15%);
+  background-color: var(--ifm-background-surface-color);
+}
+
+.dark_block {
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 0.4rem;
+  box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 15%);
+  background-color: var(--ifm-background-surface-color);
+}
+
+.subheading,
+.label_drivetrain {
+  font-size: large;
+  font-weight: bold;
+}
+
+.benefit {
+  font-weight: bold;
+  color: var(--ifm-color-primary);
+}
+
+.highlight {
+  font-weight: bold;
+  color: var(--ifm-color-primary);
+}

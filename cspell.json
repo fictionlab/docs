@@ -22,6 +22,7 @@
     ],
     "words": [
         "ackermann",
+        "agro",
         "alvar",
         "amcl",
         "Arbotix",
@@ -38,6 +39,7 @@
         "CUDA",
         "Dawe",
         "devel",
+        "DFOV",
         "distrobox",
         "Dynamixel",
         "EEPROM",
@@ -123,6 +125,7 @@
         "slamtec",
         "srvs",
         "sshfs",
+        "ssids",
         "Szymon",
         "teleop",
         "teleoperation",
