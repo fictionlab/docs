@@ -5,6 +5,12 @@ const { hideBin } = require('yargs/helpers');
 const { execSync } = require('child_process');
 
 const argv = yargs(hideBin(process.argv))
+  .option('ref', {
+    alias: 'r',
+    type: 'string',
+    description: 'Ref to compare',
+    default: 'HEAD',
+  })
   .option('base', {
     alias: 'b',
     type: 'string',
@@ -14,8 +20,9 @@ const argv = yargs(hideBin(process.argv))
   .help()
   .alias('help', 'h').argv;
 
+const compareRef = argv.ref;
 const baseBranch = argv.base;
-console.log(`Comparing HEAD against ${baseBranch}`);
+console.log(`Comparing ${compareRef} against ${baseBranch}`);
 
 function pathToUrl(path) {
   return (
@@ -48,7 +55,9 @@ function matchRedirect(url, redirects) {
   });
 }
 
-const diff = execSync(`git diff --name-status ${baseBranch}...HEAD -- docs/`)
+const diff = execSync(
+  `git diff --name-status ${baseBranch}...${compareRef} -- docs/`,
+)
   .toString()
   .trim()
   .split('\n');
