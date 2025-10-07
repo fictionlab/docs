@@ -63,7 +63,7 @@ present and undamaged.
 
 Raph Rover is equipped with 2 physical buttons that we will reference in this
 guide. Power button is located next to the left battery slot. Second, control
-button is located at the rear of the robot.
+button is located at the back of the robot.
 
 <ThemedImageZoom
   alt="Diagram with arrows pointing to the buttons of Raph Rover, showing power and multifunctional buttons"
@@ -95,20 +95,20 @@ Each button has a different function. What it does depends on the robot's state.
 
 <CenterContent>
 
-| Condition |                  Button                   |        Function         |  Action   |
-| --------- | :---------------------------------------: | :---------------------: | :-------: |
-| Any       |  <font color="2c71bf"> **POWER** </font>  |  Check battery charge   |   Click   |
-| Rover off |  <font color="2c71bf"> **POWER** </font>  |         Turn on         | Hold - 3s |
-| Rover on  |  <font color="2c71bf"> **POWER** </font>  |        Turn off         | Hold - 5s |
-| Rover on  | <font color="c07b2c"> **CONTROL** </font> | Toggle maintenance mode |   Click   |
-| Rover on  | <font color="c07b2c"> **CONTROL** </font> |    Calibrate servos     | Hold - 3s |
+| Condition |                  Button                   |        Function         |   Action    |
+| --------- | :---------------------------------------: | :---------------------: | :---------: |
+| Any       |  <font color="2c71bf"> **POWER** </font>  |  Check battery charge   |    Click    |
+| Rover off |  <font color="2c71bf"> **POWER** </font>  |         Turn on         | Hold - 1.5s |
+| Rover on  |  <font color="2c71bf"> **POWER** </font>  |        Turn off         |  Hold - 5s  |
+| Rover on  | <font color="c07b2c"> **CONTROL** </font> | Toggle maintenance mode |    Click    |
+| Rover on  | <font color="c07b2c"> **CONTROL** </font> |    Calibrate servos     |  Hold - 2s  |
 
 </CenterContent>
 
 ## Connecting batteries
 
-Each Raph Rover is equipped with two dedicated 24V Li-Ion battery packs. As long
-as at least one charged battery is plugged into the rover all of the
+Each Raph Rover is equipped with two dedicated 6S (22.2V) Li-Ion battery packs.
+As long as at least one charged battery is plugged into the rover all of the
 functionality is available. It is allowed to hot-swap batteries (replace
 discharged ones with new ones without turning the rover off for the process).
 
@@ -216,6 +216,8 @@ you to connect to.
 - **SSID 5 GHz:** `Raph-XXXX-5G`
 - **Password:** `fictionlab`
 
+Where `XXXX` is the ID of the robot.
+
 ### Wheel calibration
 
 Before driving the robot is is required to calibrate the rear steering wheels.
@@ -307,7 +309,7 @@ located at the back.
   alt="Raph Rover with power adapter"
   sources={{
     light: useBaseUrl(
-      '/img/robots/raph/getting-started/Charging_rover_white.webp',
+      '/img/robots/raph/getting-started/Charging_rover_black.webp',
     ),
     dark: useBaseUrl(
       '/img/robots/raph/getting-started/Charging_rover_white.webp',
@@ -328,8 +330,9 @@ of around 2.5 h. The Rover does not need to be powered off for this process.
 
 When working on the rover while charging the batteries the LED indicator of
 power adapter will not transition to green when charging is complete. Power draw
-of the rover will keep the charger in active (red) state. To verify that the
-batteries are fully charged, press the power button once.
+of the rover will keep the charger in active (red) state. To check battery
+level, press the power button once. Fully illuminated LED side panels will
+indicate fully charged batteries.
 
 :::
 

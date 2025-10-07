@@ -156,7 +156,7 @@ import ParameterTable from '@site/docs/raph-rover/partial/_parameterTable.mdx';
 
 ### Drivetrain
 
-Raph rover is equipped with 2, independent steering wheels on the rear of the
+Raph rover is equipped with two independent steering wheels on the rear of the
 robot. It enables great agility of the robot as well as precise manoeuvres such
 as:
 
@@ -251,7 +251,7 @@ as:
 
 Raph rover's batteries are enclosed in specially designed case, allowing them to
 be quick swappable. Each pack has its own BMS that manages charging, discharging
-and has built-in protections
+and has built-in protections.
 
 <CenterContent>
 
@@ -297,7 +297,7 @@ FreeRTOS and MicroROS to control rover tasks such as:
 
 | Component                 |                                                                        Model                                                                         | Description                                                                                                                                       |
 | ------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Microcontroller           |                                                                    STM32H5 series                                                                    | CPU type: 32-bit Arm® Cortex®-M33<br />CPU frequency: 250 MHz<br />Flash memory: 2 Mb                                                           |
+| Microcontroller           |                                                                    STM32H5 series                                                                    | CPU type: 32-bit Arm® Cortex®-M33<br />CPU frequency: 250 MHz<br />Flash memory: 2 MB                                                           |
 | IMU                       |                                                                          -                                                                           | Sensor Type: 6-axis<br />Acceleration: 2 g, 4 g, 8 g, 16 g<br />Resolution: 16 bit<br />Sensitivity: 2097.2 deg/s/LSB                             |
 | Internal power connectors | 3 x [MC&nbsp;1,5/&nbsp;2&#8209;G&#8209;3,5](https://www.phoenixcontact.com/pl-pl/produkty/obudowa-podstawowa-plytki-drukowanej-mc-15-2-g-35-1844210) | Additional power outputs for the rover. Each individual output can be disabled or enabled separately.                                             |
 | External power connectors | 1 x [MC&nbsp;1,5/&nbsp;6&#8209;G&#8209;3,5](https://www.phoenixcontact.com/pl-pl/produkty/obudowa-podstawowa-plytki-drukowanej-mc-15-6-g-35-1844252) | Power outputs for the rover interface panel. Each individual output can be disabled or enabled separately. [See&nbsp;more](#external-power-panel) |
@@ -308,7 +308,7 @@ FreeRTOS and MicroROS to control rover tasks such as:
 
 The Raph Rover is engineered for easy and versatile payload integration. If your
 sensor or hardware is ROS 2-compatible and falls within the rover's power (5V
-4A, 12V 4A, and 24V 4A) and weight limits (10kg), you can be confident in its
+4A, 12V 4A, and 24V 4A) and weight limits (10 kg), you can be confident in its
 compatibility.
 
 ### External data ports
@@ -342,11 +342,11 @@ compatibility.
 
 <CenterContent>
 
-|    Voltage    | Max amperage | Max power | Connector                                                                                                                             |
-| :-----------: | :----------: | :-------: | :------------------------------------------------------------------------------------------------------------------------------------ |
-|      5 V      |     4 A      |   20 W    | [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)        |
-|     12 V      |     4 A      |   48 W    | [Phoenix Contact MC 1,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)      |
-| BAT (20-25 V) |     4 A      |   100 W   | [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987) |
+|     Voltage     | Max amperage | Max power | Connector                                                                                                                             |
+| :-------------: | :----------: | :-------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+|       5 V       |     4 A      |   20 W    | [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)        |
+|      12 V       |     4 A      |   48 W    | [Phoenix Contact MC 1,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)      |
+| BAT (18-25.2 V) |     4 A      |   100 W   | [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987) |
 
 </CenterContent>
 
@@ -387,7 +387,7 @@ that use 2 A each.
 :::info
 
 Apart from the mounting plate, it is possible to mount payloads directly to
-v-slot extrusions of the Raph Rover. Effectively providing a **360 mm by 430
+v-slot extrusions of the Raph Rover, effectively providing a **360 mm by 430
 mm** working area.
 
 :::
@@ -411,14 +411,14 @@ mm** working area.
 
 <CenterContent>
 
-| Parameter        |                             Value                              |
-| ---------------- | :------------------------------------------------------------: |
-| Operating System |                        Ubuntu 22.04 LTS                        |
-| Core Framework   |                          ROS 2 Jazzy                           |
-| User Interface   |              Web-based GUI accessible over Wi-Fi               |
-| UI Features      | Real-time teleoperation, H.264 video stream, system monitoring |
-| API Access       | Full control via standard ROS 2 topics, services, and actions  |
-| Software license |                          MIT License                           |
+| Parameter        |                              Value                               |
+| ---------------- | :--------------------------------------------------------------: |
+| Operating System |                         Ubuntu 24.04 LTS                         |
+| Core Framework   |                           ROS 2 Jazzy                            |
+| User Interface   |               Web-based GUI accessible over Wi-Fi                |
+| UI Features      | Real-time teleoperation, live video streaming, system monitoring |
+| API Access       |  Full control via standard ROS 2 topics, services, and actions   |
+| Software license |                           MIT License                            |
 
 </CenterContent>
 
