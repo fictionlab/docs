@@ -2,10 +2,12 @@
 /leo-rover/integrations /integrations 301
 /leo-rover/integrations/* /integrations/:splat 301
 /leo-rover/getting-started /leo-rover/documentation/getting-started 301
+/leo-rover/getting-started/ /leo-rover/documentation/getting-started 301
 /leo-rover/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
 /leo-rover/1.8/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
 /rapha-rover /raph-rover 301
 /rapha-rover/* /raph-rover/:splat 301
+/leo-rover/overview /leo-rover 301
 
 # manuals redirects
 /leo-rover/manuals/wheels-to-meb /leo-rover/manuals/combining-subassemblies 301
@@ -15,6 +17,9 @@
 /leo-rover/manuals/meb-to-frame /leo-rover/manuals/combining-subassemblies 301
 /leo-rover/manuals/software /leo-rover/manuals/boot-and-firmware 301
 /leo-rover/manuals/final-touches /leo-rover/manuals/combining-subassemblies 301
+
+/leo-rover/archive/old-manuals /leo-rover/1.8/archive/old-manuals 301
+/leo-rover/archive/old-manuals/* /leo-rover/1.8/archive/old-manuals/:splat 301
 
 # category redirects
 /category/rover-documentation /leo-rover/documentation 301
@@ -32,6 +37,17 @@
 /category/guides /leo-rover/guides 301
 /category/advanced-guides /leo-rover/advanced-guides 301
 /category/archive /leo-rover/archive 301
+/category/assembly-manuals /leo-rover/manuals 301
+
+# slash placeholder redirect
+/category/:category/ /category/:category 301
+
+# old USB tutorial
+/leo-rover/guides/install-ros-on-usb /leo-rover/1.8/archive/install-ros-on-usb 301
+/leo-rover/1.8/guides/install-ros-on-usb /leo-rover/1.8/archive/install-ros-on-usb 301
+
+/leo-rover/guides/imu-calibration /leo-rover/1.8/guides/imu-calibration 301
+
 
 # temp redirects for leo examples and avanced guides (REMOVE after adding new examples)
 /leo-rover/leo-examples /leo-rover/1.8/leo-examples 302
