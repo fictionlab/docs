@@ -16,6 +16,9 @@
 /leo-rover/manuals/software /leo-rover/manuals/boot-and-firmware 301
 /leo-rover/manuals/final-touches /leo-rover/manuals/combining-subassemblies 301
 
+/leo-rover/archive/old-manuals /leo-rover/1.8/archive/old-manuals 301
+/leo-rover/archive/old-manuals/* /leo-rover/1.8/archive/old-manuals/:splat 301
+
 # category redirects
 /category/rover-documentation /leo-rover/documentation 301
 /category/assembly-manuals /leo-rover/manuals 301
