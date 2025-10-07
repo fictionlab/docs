@@ -28,4 +28,4 @@ jobs:
       - name: Run redirects check
         run: |
           git fetch origin ${{ github.base_ref }}
-          node scripts/redirects-check.js origin/${{ github.base_ref }}
+          node scripts/redirects-check.js --base origin/${{ github.base_ref }}
