@@ -70,8 +70,8 @@ const diff = execSync(
   .trim()
   .split('\n');
 
-const added = [];
-const deleted = [];
+var added = [];
+var deleted = [];
 if (diff.length === 1 && diff[0] === '') {
   console.log('No added or deleted pages');
   process.exit(0);
@@ -89,9 +89,15 @@ diff.forEach((line) => {
   }
 });
 
-console.log("Added pages:");
+// Remove pages that are both in added and deleted
+// For example, /foo/bar/index.mdx renamed to /foo/bar/baz.mdx
+const intersection = added.filter((url) => deleted.includes(url));
+added = added.filter((url) => !intersection.includes(url));
+deleted = deleted.filter((url) => !intersection.includes(url));
+
+console.log('Added pages:');
 added.forEach((url) => console.log(`  ${url}`));
-console.log("Deleted pages:");
+console.log('Deleted pages:');
 deleted.forEach((url) => console.log(`  ${url}`));
 
 const redirects = parseRedirects('static/_redirects');
