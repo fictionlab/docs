@@ -78,10 +78,14 @@ if (diff.length === 1 && diff[0] === '') {
 }
 
 diff.forEach((line) => {
-  const [status, file] = line.split(/\s+/);
-  if (file.endsWith('.md') || file.endsWith('.mdx')) {
-    if (status === 'A') added.push(pathToUrl(file));
-    if (status === 'D') deleted.push(pathToUrl(file));
+  const [status, file1, file2] = line.split(/\s+/);
+  if (file1.endsWith('.md') || file1.endsWith('.mdx')) {
+    if (status === 'A') added.push(pathToUrl(file1));
+    if (status === 'D') deleted.push(pathToUrl(file1));
+    if (status.startsWith('R')) {
+      deleted.push(pathToUrl(file1));
+      added.push(pathToUrl(file2));
+    }
   }
 });
 
