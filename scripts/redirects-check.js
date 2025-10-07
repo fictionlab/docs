@@ -89,11 +89,16 @@ diff.forEach((line) => {
   }
 });
 
-// Remove pages that are both in added and deleted
-// For example, /foo/bar/index.mdx renamed to /foo/bar/bar.mdx
+// Remove pages that either:
+//  * are both in added and deleted. For example, /foo/bar/index.mdx renamed to /foo/bar/bar.mdx
+//  * have a name starting with an underscore. For example, /foo/bar/_baz.mdx (these are usually template or utility pages)
 const intersection = added.filter((url) => deleted.includes(url));
-added = added.filter((url) => !intersection.includes(url));
-deleted = deleted.filter((url) => !intersection.includes(url));
+added = added
+  .filter((url) => !intersection.includes(url))
+  .filter((url) => !url.split('/').at(-1).startsWith('_'));
+deleted = deleted
+  .filter((url) => !intersection.includes(url))
+  .filter((url) => !url.split('/').at(-1).startsWith('_'));
 
 console.log('Added pages:');
 added.forEach((url) => console.log(`  ${url}`));
