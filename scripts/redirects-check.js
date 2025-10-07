@@ -70,8 +70,8 @@ const diff = execSync(
   .trim()
   .split('\n');
 
-var added = [];
-var deleted = [];
+let added = [];
+let deleted = [];
 if (diff.length === 1 && diff[0] === '') {
   console.log('No added or deleted pages');
   process.exit(0);
