@@ -1,0 +1,87 @@
+---
+title: Connect to a local network and the Internet
+sidebar_label: Connect to a local network and the Internet
+sidebar_position: 5
+description: >-
+  Learn how to connect your Raph Rover to a local network and the internet to
+  download files and forward internet to your computer.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+When you connect the Rover to your local network that provides Internet
+connection, you'll be able to download files to the Rover, as well as forward
+the Internet to your computer when you're connected to the Rover's access point.
+
+Raph Rover comes with a router that can connect to a WiFi network as a client.
+
+In order to do that, you need to access the router's web interface. Open a
+browser and navigate to http://10.10.0.1. Use the credentials provided below to
+log in:
+
+- **username:** `admin`
+- **password:** `Fictionlab1`
+
+## Connect to a WiFi network
+
+Go to Network → Wireless → SSIDs tab.
+
+<ImageZoom
+  src="/img/robots/raph/guides/connect-to-network/rutx-ssids.webp"
+  alt="RUTX SSIDs list"
+  width="1920"
+  height="991"
+/>
+
+Click `Scan 2.4 GHz` or `Scan 5 GHz` depending on the bandwidth of the network
+you want to connect to.
+
+:::warning
+
+Using the router in client mode will temporarily disable the access point
+functionality on the chosen band. You will have to wait until the router
+connects to the network before you can connect to the access point on that band
+again.
+
+:::
+
+Choose the network you want to connect to from the list and click
+`Join Network`.
+
+<ImageZoom
+  src="/img/robots/raph/guides/connect-to-network/rutx-scan-results.webp"
+  alt="RUTX scan results"
+  width="1535"
+  height="797"
+/>
+
+Enter the WPA passphrase of the network and click `Submit`.
+
+<ImageZoom
+  src="/img/robots/raph/guides/connect-to-network/rutx-joining-network.webp"
+  alt="Network joining window"
+  width="1535"
+  height="797"
+/>
+
+The settings of the connection will be shown. You can modify them according to
+your needs. However, in most cases the default settings should work. Click
+`Save & Apply` to connect to the network.
+
+<ImageZoom
+  src="/img/robots/raph/guides/connect-to-network/rutx-network-confirmation.webp"
+  alt="Network confirmation window"
+  width="1535"
+  height="797"
+/>
+
+The router will take a few seconds to apply the changes and connect to the
+network.
+
+:::success
+
+You are now connected to the network. You can check the connection status in
+Network → Wireless → SSIDs tab.
+
+:::
