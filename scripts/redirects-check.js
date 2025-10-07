@@ -1,9 +1,21 @@
 #!/usr/bin/env node
 const fs = require('fs');
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
 const { execSync } = require('child_process');
 
-const baseBranch = process.argv[2] || 'origin/development';
-console.log(`Comparing against ${baseBranch}...HEAD`);
+const argv = yargs(hideBin(process.argv))
+  .option('base', {
+    alias: 'b',
+    type: 'string',
+    description: 'Base ref to compare against',
+    default: 'origin/development',
+  })
+  .help()
+  .alias('help', 'h').argv;
+
+const baseBranch = argv.base;
+console.log(`Comparing HEAD against ${baseBranch}`);
 
 function pathToUrl(path) {
   return (
