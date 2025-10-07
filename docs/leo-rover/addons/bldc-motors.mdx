@@ -1,0 +1,290 @@
+---
+title: BLDC motored wheels
+sidebar_label: BLDC motored wheels
+sidebar_position: 2
+keywords:
+  - bldc
+  - development
+  - cable routing
+  - addon
+description: >-
+  Learn how to setup and customize Leo Rover running bldc motors.
+---
+
+{/* TODO: BLA BLA COŚ O TYCH SILNIKACH CHYBA CO NIE HMMM. */}
+
+## What to expect?
+
+After completing this tutorial, you will have a fully operational Leo Rover
+equipped with BLDC motor-driven wheels {/* TODO: MOŻE FOTA? */}
+
+## Referenced products
+
+{/* TODO: JEŻELI BĘDZIE. */}
+
+## List of components
+
+{/* TODO: PEWNIE KOMPLET WYLISTOWAĆ TUTAJ */}
+
+## Mechanical integration
+
+{/* TODO: WIADOMKA */}
+
+## Software integration
+
+To make the process as straightforward as possible, we’ve prepared a dedicated
+version of **LeoOS** that includes all the necessary software for the BLDC motor
+system.  
+Simply download the [image](TODO), flash it onto the SD card, and insert it into
+the robot.
+
+You can follow this guide for detailed instructions on flashing the OS image:
+
+<LinkButton docId="guides/software-update" />
+
+Once the new system is installed, ensure that **LeoCore** is properly
+communicating with it by updating the firmware on the board.  
+Follow this guide to update the firmware:
+
+<LinkButton docId="guides/firmware-update" />
+
+After completing the firmware update, reboot the robot or restart the ROS nodes:
+
+```bash
+ros-nodes-restart
+```
+
+### Configuration
+
+The prepared BLDC motor integration is highly configurable — you can adjust each
+parameter at runtime to observe how it affects the system and the rover’s
+behavior.  
+This part of the tutorial will guide you through accessing one of the most
+convenient interfaces for configuring these parameters.
+
+You will need **ROS Jazzy** installed on your computer. If you don’t have ROS
+installed, follow this guide:
+
+<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+
+Before configuring any parameters, make sure your computer is connected to the
+rover’s access point:
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+
+Next, connect your local ROS environment to the one running on the robot.  
+To do so, source either the `/opt/ros/jazzy/setup.bash` file or the
+`install/setup.bash` file from your ROS workspace (if you have one).  
+Then verify the connection by running:
+
+```bash
+ros2 node list
+```
+
+If this command displays a list of running nodes, the connection has been
+established successfully. You can now launch the configuration interface:
+
+```bash
+rqt -s rqt_reconfigure
+```
+
+:::info
+
+If this command returns an error, the plugin might not be installed. Install it
+by running:
+
+```bash
+sudo apt install ros-jazzy-rqt-reconfigure
+```
+
+:::
+
+In the **rqt** window, select the `bldc_manager` node from the list on the left
+side of the screen. You will see all available parameters that can be configured
+in real time. {/* TODO: DODAĆ SCREEN JAK ZROBIE */}
+
+Hover your cursor over a parameter name to display its description and learn
+what it controls.
+
+The next section provides a detailed explanation of each parameter, including
+valid value ranges and usage notes.
+
+## Parameters
+
+The parameters are divided into three main groups:
+
+- **`node` parameters** - general settings that affect the ROS-related aspects
+  of the system.
+- **`wheel controller` parameters** - define the BLDC motor configuration and
+  behavior (these apply to all motors simultaneously).
+- **`robot controller` parameters** - used primarily for odometry calculations
+  and system timeouts.  
+  It's recommended to leave these unchanged unless you know exactly what you're
+  adjusting.
+
+### `bldc_manager` node
+
+- **`mecanum_wheels`** (type: `bool`, default: `false`)  
+  Indicates whether the rover is equipped with mecanum wheels.  
+  When set to `true`, the robot operates in _holonomic_ motion mode.  
+  When set to `false`, it uses _differential_ motion mode.
+
+- **`max_linear_velocity`** (type: `float`, default: `5.0`)  
+  The maximum linear velocity of the robot, expressed in meters per second.  
+  Accepted values range from **0.1 m/s** to **20.0 m/s**.
+
+  :::info
+
+  Keep in mind that even though the parameter accepts high values, the physical
+  rover may not be capable of reaching them.
+
+  :::
+
+- **`max_angular_velocity`** (type: `float`, default: `4.8`)  
+  The maximum angular velocity of the robot, expressed in radians per second.  
+  Accepted values range from **0.1 rad/s** to **20.0 rad/s**.
+
+  :::info
+
+  As with linear velocity, higher values may exceed the physical limits of the
+  rover's drivetrain.
+
+  :::
+
+- **`tf_frame_prefix`** (type: `string`, default: `''`)  
+  Prefix added to the names of published TF frames.
+
+- **`robot_frame_id`** (type: `string`, default: `base_footprint`)  
+  The TF frame associated with the robot base.
+
+- **`odom_frame_id`** (type: `string`, default: `odom`)  
+  The TF frame associated with odometry readings.
+
+- **`wheel_joint_names`** (type: `string[]`, default:  
+  `['wheel_RL_joint', 'wheel_RR_joint', 'wheel_FL_joint', 'wheel_FR_joint']`)  
+  The names of the wheel joints used in the `joint_states` topic.  
+  The order of names is: **rear left**, **rear right**, **front left**, **front
+  right**.
+
+- **`wheel_odom_twist_covariance_diagonal`** (type: `float[]`, default:  
+  `[0.0001, 0, 0, 0, 0, 0.001]`)  
+  The diagonal elements of the covariance matrix for standard wheel odometry
+  twist readings.  
+  The array must contain exactly six values representing variances for **linear
+  x**, **linear y**, **linear z**, **angular x**, **angular y**, and **angular
+  z**.
+
+- **`wheel_odom_mecanum_twist_covariance_diagonal`** (type: `float[]`,
+  default:  
+  `[0.0001, 0.0001, 0, 0, 0, 0.001]`)  
+  The diagonal elements of the covariance matrix for mecanum wheel odometry
+  twist readings.  
+  The array must contain exactly six values representing variances for **linear
+  x**, **linear y**, **linear z**, **angular x**, **angular y**, and **angular
+  z**.
+
+### `Wheel Controller`
+
+- **`max_torque`** (type: `float`, default: `1.5`)  
+  The maximum torque that the motors can produce (in newton-meters).
+
+- **`pid_constants`** (type: `float[]`, default: `[0.2, 0.5, 0.0]`)  
+  The proportional (**P**), integral (**I**), and derivative (**D**) constants
+  of the PID controller.  
+  The array must contain exactly three non-negative values.
+
+  :::warning This is one of the most critical parameters, as it significantly
+  affects how the rover drives.  
+  Incorrect configuration can result in poor control, unstable motion, or even
+  motor damage.
+
+  When using the **D** component, keep its value low (preferably below
+  `0.0001`).  
+  A high derivative value can make the motors noisy and increase the risk of
+  overheating or failure. :::
+
+- **`pid_integral_max`** (type: `float`, default: `20.0`)  
+  The upper limit for the output of the integral component in the PID controller
+  (in radians per second).  
+  The value must be non-negative.
+
+- **`profile_velocity`** (type: `float`, default: `6.0`)  
+  The target velocity for the velocity profile motion mode (in radians per
+  second).  
+  Acceptable values range from **0.0 rad/s** to **60.0 rad/s**.
+
+- **`profile_acceleration`** (type: `float`, default: `6.0`)  
+  The target acceleration for the velocity profile motion mode (in radians per
+  second²).  
+  Acceptable values range from **0.0 rad/s^2** to **100.0 rad/s^2**.
+
+- **`motion_mode`** (type: `int`, default: `0`)  
+  The motion mode used by the motor controller.  
+  Possible values are:
+  - `0` - **VELOCITY_PID**
+  - `1` - **VELOCITY_PROFILE**
+  - `2` - **IDLE**
+
+- **`min_velocity`** (type: `float`, default: `0.1`)  
+  The minimum velocity for a wheel to be considered rotating (in radians per
+  second).  
+  This threshold is used to detect when the rover is stationary, allowing the
+  system to disable motor effort to conserve power when appropriate.
+
+### `Robot Controller`
+
+- **`diff_drive/wheel_radius`** (type: `float`, default: `0.0625`)  
+  The radius of each wheel (in meters).  
+  Valid range: **0.01-0.2**.  
+  Used only when the `mecanum_wheels` parameter is set to `false`.
+
+- **`diff_drive/wheel_separation`** (type: `float`, default: `0.358`)  
+  The distance between the centers of the left and right wheels (in meters).  
+  Valid range: **0.1-1.0**.  
+  Used only when `mecanum_wheels` is `false`.
+
+- **`diff_drive/angular_velocity_multiplier`** (type: `float`, default:
+  `1.76`)  
+  A scaling factor for angular velocity.  
+  The angular velocity in the `cmd_vel` command is **multiplied** by this
+  value,  
+  while the calculated odometry's angular velocity is **divided** by it.  
+  Valid range: **0.01-5.0**.  
+  Used only when `mecanum_wheels` is `false`.
+
+- **`mecanum/wheel_radius`** (type: `float`, default: `0.0635`)  
+  The radius of each mecanum wheel (in meters).  
+  Valid range: **0.01-0.2**.  
+  Used only when `mecanum_wheels` is `true`.
+
+- **`mecanum/wheel_separation`** (type: `float`, default: `0.354`)  
+  The distance between the centers of the left and right mecanum wheels (in
+  meters).  
+  Valid range: **0.1-1.0**.  
+  Used only when `mecanum_wheels` is `true`.
+
+- **`mecanum/wheel_base`** (type: `float`, default: `0.3052`)  
+  The distance between the centers of the front and rear mecanum wheels (in
+  meters).  
+  Valid range: **0.1-1.0**.  
+  Used only when `mecanum_wheels` is `true`.
+
+- **`mecanum/angular_velocity_multiplier`** (type: `float`, default: `1.0`)  
+  A scaling factor for angular velocity in mecanum drive mode.  
+  The angular velocity in the `cmd_vel` command is **multiplied** by this
+  value,  
+  while the odometry's angular velocity is **divided** by it.  
+  Valid range: **0.01-5.0**.  
+  Used only when `mecanum_wheels` is `true`.
+
+- **`input_timeout`** (type: `int`, default: `500`)  
+  The timeout (in milliseconds) for `cmd_vel` messages.  
+  The controller is disabled if no command is received within this period.  
+  Setting this value to `0` disables the timeout.  
+  Valid range: **0-2000**.
+
+- **`effort_timeout`** (type: `int`, default: `500`)  
+  The timeout (in milliseconds) before motor effort is released.  
+  If the robot remains stationary for this duration, motor effort is set to
+  zero.  
+  Valid range: **100-2000**.
