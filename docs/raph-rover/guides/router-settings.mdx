@@ -1,0 +1,90 @@
+---
+title: Change the router settings
+sidebar_label: Change the router settings
+sidebar_position: 10
+description: >-
+  Learn how to modify the Raph Rover's router settings, including
+  SSID, password channel and country code.
+---
+
+## Connecting to the Router (RUTX10)
+
+To modify the router settings, first connect to the router by accessing its web interface.
+Open a browser and navigate to http://10.10.0.1. Use the credentials provided below to log in:
+
+- **username:** `admin`
+- **password:** `Fictionlab1`
+
+## Modifying the settings
+
+### Change the SSID and password
+
+Go to Network → Wireless → SSIDs tab.
+
+<ImageZoom
+  src="/img/robots/raph/guides/router-settings/rutx-ssids.webp"
+  alt="List of SSIDs in the RUTX10 WebUI"
+  width="1102"
+  height="461"
+/>
+
+Click `edit` on the SSID you want to change.
+
+:::note
+
+You need to edit both SSIDs (2.4 GHz and 5 GHz) separately.
+
+:::
+
+In the `General Setup` tab, modify the `ssid` and `password` fields and click `Save & Apply`.
+The router will take a few seconds to apply the changes.
+
+<ImageZoom
+  src="/img/robots/raph/guides/router-settings/rutx-ssids-edit.webp"
+  alt="SSID edit window in the RUTX10 WebUI"
+  width="1102"
+  height="660"
+/>
+
+:::warning
+
+Changing the SSID or password will disconnect you from the network. You will need to reconnect using the new credentials.
+
+:::
+
+### Change the access point channel and set the country code
+
+:::tip
+
+Changing the channel may be useful if you notice the network interference in crowded areas or
+you want to use multiple Raph Rovers at once.
+
+:::
+
+Go to Network → Wireless → Radio tab and click `edit` on the radio interface you wish to modify.
+
+<ImageZoom
+  src="/img/robots/raph/guides/router-settings/rutx-radio.webp"
+  alt="Radio list in the RUTX10 WebUI"
+  width="1102"
+  height="583"
+/>
+
+In the `General Setup` tab, modify the `mode`, `channel`, `width` and `country code` fields.
+
+<ImageZoom
+  src="/img/robots/raph/guides/router-settings/rutx-channel-country-code.webp"
+  alt="Channel and country code edit window in the RUTX10 WebUI"
+  width="1102"
+  height="438"
+/>
+
+:::warning
+
+Setting the country code can limit the number of available channels to use.
+
+:::
+
+## Router manual
+
+You can find more information about the router settings in the [RUTX10 WebUI manual](https://wiki.teltonika-networks.com/view/RUTX10_WebUI).
