@@ -90,7 +90,7 @@ diff.forEach((line) => {
 });
 
 // Remove pages that are both in added and deleted
-// For example, /foo/bar/index.mdx renamed to /foo/bar/baz.mdx
+// For example, /foo/bar/index.mdx renamed to /foo/bar/bar.mdx
 const intersection = added.filter((url) => deleted.includes(url));
 added = added.filter((url) => !intersection.includes(url));
 deleted = deleted.filter((url) => !intersection.includes(url));
