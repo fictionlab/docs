@@ -77,6 +77,11 @@ diff.forEach((line) => {
   }
 });
 
+console.log("Added pages:");
+added.forEach((url) => console.log(`  ${url}`));
+console.log("Deleted pages:");
+deleted.forEach((url) => console.log(`  ${url}`));
+
 const redirects = parseRedirects('static/_redirects');
 let foundProblems = 0;
 
