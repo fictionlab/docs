@@ -32,8 +32,7 @@ description: >-
 
   Sets a new user state for all the LEDs in the LED strip.
 
-- `controller/led_panel_state` ([raph_interfaces/msg/LedPanelState]) **Not
-  implemented yet**
+- `controller/led_panel_state` ([raph_interfaces/msg/LedPanelState])
 
   Sets a new user state for all the LEDs in the specified LED panel.
 
@@ -337,19 +336,6 @@ uint8 blue
 uint8 white
 ```
 
-- `raph_interfaces/msg/LedPanel`
-
-<a id="msg-led-panel"></a>
-
-```bash title="Enumeration of robot's LED panels."
-uint8 FRONT=0
-uint8 BACK=1
-uint8 LEFT=2
-uint8 RIGHT=3
-
-uint8 data
-```
-
 - `raph_interfaces/msg/LedState`
 
 <a id="msg-led-state"></a>
@@ -373,12 +359,19 @@ raph_interfaces/LedColor color
 <a id="msg-led-panel-state"></a>
 
 ```bash title="Represents the state of the whole LED panel."
+uint8 PANEL_FRONT=0
+uint8 PANEL_REAR=1
+uint8 PANEL_LEFT=2
+uint8 PANEL_RIGHT=3
+
 # Which LED panel does this state applies to.
-raph_interfaces/LedPanel panel
+uint8 panel
 
 # State of each LED on the panel.
-# For panels with less than 36 LEDs, the last array items are ignored.
-raph_interfaces/LedState[36] state
+# The largest panel has 40 LEDs. If the length of the array is smaller than the number of LEDs on
+# the panel, the remaining LEDs are not changed. If the length is greater than the number of LEDs
+# on the panel, the extra states are ignored.
+raph_interfaces/LedState[<=40] state
 ```
 
 - `raph_interfaces/msg/LedStripState`
@@ -386,8 +379,9 @@ raph_interfaces/LedState[36] state
 <a id="msg-led-strip-state"></a>
 
 ```bash title="Represents the state of the whole LED strip."
-uint8 LED_STRIP_SIZE=129
-raph_interfaces/LedState[129] state
+uint8 LED_STRIP_SIZE=143
+
+raph_interfaces/LedState[143] state
 ```
 
 - `raph_interfaces/msg/Led`
@@ -395,8 +389,13 @@ raph_interfaces/LedState[129] state
 <a id="msg-led"></a>
 
 ```bash title="Represents the position and the state of the LED."
+uint8 PANEL_FRONT=0
+uint8 PANEL_REAR=1
+uint8 PANEL_LEFT=2
+uint8 PANEL_RIGHT=3
+
 # The panel the LED is on.
-raph_interfaces/LedPanel panel
+uint8 panel
 
 # The id of the LED on the panel.
 uint8 id
@@ -490,7 +489,7 @@ string status_message
 <a id="srv-set-leds"></a>
 
 ```bash
-raph_interfaces/Led[<=129] leds
+raph_interfaces/Led[<=143] leds
 ---
 bool success
 string status_message
@@ -526,17 +525,15 @@ string status_message
   https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
 [raph_interfaces/msg/BatteryMode]: #msg-battery-mode
 [raph_interfaces/msg/BatteryState]: #msg-battery-state
-
-{/* [raph_interfaces/msg/ImuDiagnostics]: #msg-imu-diagnostics */}
-[raph_interfaces/msg/Led]: #msg-led [raph_interfaces/msg/LedColor]:
-#msg-led-color [raph_interfaces/msg/LedPanel]: #msg-led-panel
-{/* [raph_interfaces/msg/LedPanelState]: #msg-led-panel-state */}
+[raph_interfaces/msg/Led]: #msg-led
+[raph_interfaces/msg/LedColor]: #msg-led-color
 [raph_interfaces/msg/LedState]: #msg-led-state
-
-{/* [raph_interfaces/msg/LedStripState]: #msg-led-strip-state */}
-{/* [raph_interfaces/msg/MotorDiagnostics]: #msg-motor-diagnostics */}
-{/* [raph_interfaces/msg/PowerSystemState]: #msg-power-system-state */}
-{/* [raph_interfaces/msg/SteeringMode]: #msg-steering-mode */}
-{/* [raph_interfaces/srv/SetBatteryModes]: #srv-set-battery-modes */}
-{/* [raph_interfaces/srv/SetLeds]: #srv-set-leds */}
-{/* [raph_interfaces/srv/SetSteeringMode]: #srv-set-steering-mode */}
+[raph_interfaces/msg/LedStripState]: #msg-led-strip-state
+[raph_interfaces/msg/LedPanelState]: #msg-led-panel-state
+[raph_interfaces/msg/SteeringMode]: #msg-steering-mode
+[raph_interfaces/srv/SetSteeringMode]: #srv-set-steering-mode
+[raph_interfaces/msg/ImuDiagnostics]: #msg-imu-diagnostics
+[raph_interfaces/msg/MotorDiagnostics]: #msg-motor-diagnostics
+[raph_interfaces/msg/PowerSystemState]: #msg-power-system-state
+[raph_interfaces/srv/SetBatteryModes]: #srv-set-battery-modes
+[raph_interfaces/srv/SetLeds]: #srv-set-leds
