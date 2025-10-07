@@ -1,0 +1,350 @@
+---
+title: Getting started with Raph Rover
+sidebar_label: Getting started
+keywords:
+  - raph
+  - rover
+  - getting started
+sidebar_position: 1
+description: >-
+  Get started with Raph Rover: setup guide on contents, powering on, charging,
+  internet connection, and SSH access for a seamless start with your new rover.
+image: /img/robots/raph/raph-rover.webp
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import FlexTable from '@site/src/components/FlexTable';
+import FlexTableItem from '@site/src/components/FlexTableItem';
+import CenterContent from '@site/src/components/CenterContent';
+
+import Support from '@site/docs/raph-rover/partial/_support.mdx';
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/raph/raph-rover.webp"
+  alt="Raph Rover isometric render"
+  width="3000"
+  height="2250"
+  figStyle={{
+    width: 500,
+    paddingBottom: '2rem',
+  }}
+/>
+
+# Getting started with Raph Rover
+
+---
+
+## Unboxing
+
+Currently, Raph Rover comes only in assembled version. All essential components
+are pre-installed and ready for use out of the box.
+
+Before attempting to power on the rover, unbox the robot from protective foam
+package and verify that all accessories listed in the package contents are
+present and undamaged.
+
+<CenterContent>
+
+| Item                       | Count |
+| -------------------------- | :---: |
+| Raph Rover                 |   1   |
+| Raph Rover battery pack    |   2   |
+| Raph Rover battery charger |   1   |
+| Li-Ion charger 6S 4A       |   1   |
+| Tools                      |   1   |
+
+</CenterContent>
+
+{/* TODO: ADD packed Raph render */}
+
+### Rover buttons
+
+Raph Rover is equipped with 2 physical buttons that we will reference in this
+guide. Power button is located next to the left battery slot. Second, control
+button is located at the rear of the robot.
+
+<ThemedImageZoom
+  alt="Diagram with arrows pointing to the buttons of Raph Rover, showing power and multifunctional buttons"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_buttons_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_buttons_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+<CenterContent>
+
+| Button                                    | Placement |
+| ----------------------------------------- | :-------: |
+| <font color="2c71bf"> **POWER** </font>   | **Left**  |
+| <font color="c07b2c"> **CONTROL** </font> | **Rear**  |
+
+</CenterContent>
+
+Each button has a different function. What it does depends on the robot's state.
+
+<CenterContent>
+
+| Condition |                  Button                   |        Function         |   Action    |
+| --------- | :---------------------------------------: | :---------------------: | :---------: |
+| Any       |  <font color="2c71bf"> **POWER** </font>  |  Check battery charge   |    Click    |
+| Rover off |  <font color="2c71bf"> **POWER** </font>  |         Turn on         | Hold - 1.5s |
+| Rover on  |  <font color="2c71bf"> **POWER** </font>  |        Turn off         |  Hold - 5s  |
+| Rover on  | <font color="c07b2c"> **CONTROL** </font> | Toggle maintenance mode |    Click    |
+| Rover on  | <font color="c07b2c"> **CONTROL** </font> |    Calibrate servos     |  Hold - 2s  |
+
+</CenterContent>
+
+## Connecting batteries
+
+Each Raph Rover is equipped with two dedicated 6S (22.2V) Li-Ion battery packs.
+As long as at least one charged battery is plugged into the rover all of the
+functionality is available. It is allowed to hot-swap batteries (replace
+discharged ones with new ones without turning the rover off for the process).
+
+To power the rover, insert at least one battery pack into its designated slot
+located on either side of the rover.
+
+:::warning
+
+Make sure that there is no debris inside the slots or in the battery connectors!
+
+:::
+
+The batteries are secured by ball catches, which provide slight resistance
+during insertion and removal. A properly inserted battery should be fully nested
+within the slot.
+
+:::info
+
+You should hear a **click** when the batteries are fully inserted.
+
+:::
+
+<FlexTable
+  style={{
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  }}
+>
+  <FlexTableItem
+    style={{
+      width: '40%',
+    }}
+  >
+    <ThemedImageZoom
+      alt="Raph's battery removed"
+      sources={{
+        light: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_out_black.webp',
+        ),
+        dark: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_out_white.webp',
+        ),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 800,
+      }}
+      caption="Battery prepared"
+    />
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '40%',
+    }}
+  >
+    <ThemedImageZoom
+      alt="Raph's battery inserted"
+      sources={{
+        light: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_in_black.webp',
+        ),
+        dark: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_in_white.webp',
+        ),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 800,
+      }}
+      caption="Battery inside the slot"
+    />
+  </FlexTableItem>
+</FlexTable>
+
+To verify proper battery insertion, press the power button once.
+
+If the batteries are properly connected (and have any charge left) the LEDs on
+the sides of the rover will display current battery charge level.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/raph/getting-started/half_charge.webp"
+  alt="LED strips on the sides of Raph Rover showing half battery charge"
+  width="3000"
+  height="2250"
+  figStyle={{
+    width: 500,
+  }}
+/>
+
+## First power on
+
+First, with the charged battery connected, you can switch on the rover. Simply
+press and hold the Power button for 1.5 seconds. You'll see the rear LED panel
+gradually turn green as you hold the button. A quick, single green flash across
+all LED panels confirms the rover is successfully powered on.
+
+In just one to three minutes, the Raph rover will set up its Wi-Fi network for
+you to connect to.
+
+- **SSID 2.4 GHz:** `Raph-XXXX-2G`
+- **SSID 5 GHz:** `Raph-XXXX-5G`
+- **Password:** `fictionlab`
+
+Where `XXXX` is the ID of the robot.
+
+### Wheel calibration
+
+Before driving the robot is is required to calibrate the rear steering wheels.
+This process is initiated using the <font color="c07b2c"> **CONTROL** </font>
+button positioned at the back of the rover. Hold it for 2 seconds until the LED
+strips shines blue.
+
+Wheels will begin to rotate inwards to locate the induction sensor, then bump
+into the frame to set zero position. This 2-step process ensures that the wheels
+are calibrated without obstruction.
+
+<ThemedImageZoom
+  alt="Top down view of the Raph Rover, with arrows next to the turning motors, showcasing movement during calibration"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_calibration_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/raph_calibration_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+/>
+
+:::note
+
+Every time the Raph Rover is switched off, it looses the steering wheel
+position. Because of this, it is required to calibrate the steering wheels each
+time you turn it back on.
+
+:::
+
+### Web interface
+
+Raph Rover has dedicated web interface that you can connect to from any device
+like mobile phone or PC. It allows to test basic robot functionality like
+driving, preview stream from on-board camera.
+
+To access it, open your web browser and navigate to
+[10.10.0.2](http://10.10.0.2).
+
+From here, you can control the rover, access the camera feed, and configure
+various settings. You can control the rover using the on-screen joystick.
+
+:::tip
+
+You can use gamepads, including Xbox and PlayStation controllers, with the Web
+UI. First, plug the controller into your device. The UI will confirm the
+connection with a "Gamepad connected" notification. You can then immediately
+start controlling the robot with the gamepad.
+
+:::
+
+_More inforation coming soon_
+
+{/* TODO: ADD UI Pictures */}
+
+## Maintenance
+
+### Charging batteries
+
+Raph Rover comes with a 4A 25,2V Li-Ion charger. It can charge 1 battery pack in
+about 1.5 hour via the dedicated charging slot.
+
+<ThemedImageZoom
+  alt="Raph Rover battery dock"
+  sources={{
+    light: useBaseUrl('/img/robots/raph/getting-started/Charging_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/getting-started/Charging_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+The charger (not the dock) is outfitted with an LED status indicator designed to
+provide information about the charging status of the battery. A green LED
+signifies that the battery has reached full charge, while a red LED indicates
+that the battery is currently in the charging process.
+
+As an alternative, the batteries can be charged via the rover, by leaving them
+inside the battery ports and connecting the charger to the rover's power input
+located at the back.
+
+<ThemedImageZoom
+  alt="Raph Rover with power adapter"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/Charging_rover_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/Charging_rover_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+This way it's possible to charge both batteries at the same time, however the
+charging current will be split between them, resulting in a longer charging time
+of around 2.5 h. The Rover does not need to be powered off for this process.
+
+:::note
+
+When working on the rover while charging the batteries the LED indicator of
+power adapter will not transition to green when charging is complete. Power draw
+of the rover will keep the charger in active (red) state. To check battery
+level, press the power button once. Fully illuminated LED side panels will
+indicate fully charged batteries.
+
+:::
+
+## What's next
+
+After initial testing, you can explore what else Raph Rover has to offer. Start
+developing your own robotic application with help of our tutorials:
+
+_Coming soon_
+
+{/* TODO: Add link to guides */}
+
+### Support
+
+<Support />

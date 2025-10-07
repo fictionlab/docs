@@ -1,0 +1,40 @@
+---
+title: Connect via remote desktop
+sidebar_label: Connect via remote desktop
+sidebar_position: 3
+description: >-
+  Learn how to remotely access your Leo Rover's desktop environment using RDP
+  and popular remote desktop clients.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<font color="red" size="+10">
+  {' '}
+  Replace text with what Raph should have{' '}
+</font>
+
+If you are using the `full` version of LeoOS, you should have a desktop
+environment installed, as well as an VNC (Virtual Network Computing) server.
+This allows you to remotely control a desktop session on your Rover from your
+computer.
+
+Firstly, you will have to connect to the Rover's network:
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+
+Now, to connect to the robot's desktop you have to install and open
+[TigerVNC viewer](https://tigervnc.org/)
+
+Type `10.0.0.1` in the **VNC server** field and click **Connect**.
+
+<ImageZoom
+  src="/img/robots/leo/guides/remote-desktop/tigervnc.webp"
+  alt="Remote Desktop Connection app"
+  width="407"
+  height="253"
+  figStyle={{
+    width: 400,
+  }}
+/>

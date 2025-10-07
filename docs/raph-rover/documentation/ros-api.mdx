@@ -1,0 +1,542 @@
+---
+title: Raph Rover ROS API
+sidebar_label: ROS API
+sidebar_position: 4
+keywords:
+  - raph
+  - rover
+  - ros
+  - api
+description: >-
+  Description of the ROS API for Raph Rover. Includes published topics,
+  subscriptions, advertised services and custom message types.
+---
+
+## Subscribed topics
+
+- `controller/cmd_ackermann` ([ackermann_msgs/msg/AckermannDrive])
+
+  Steers the robot when operating in the Ackermann steering mode.
+
+- `controller/cmd_turn_in_place` (?) **Not implemented yet**
+
+  Steers the robot when operating in the Turn-In-Place steering mode.
+
+- `controller/cmd_vel` ([geometry_msgs/msg/Twist]) **Not implemented yet**
+
+  Steers the robot using `Twist` commands. More standardized way to control the
+  robot. \
+  Useful for some navigation stacks. Not recommended for manual teleoperation.
+
+- `controller/led_strip_state` ([raph_interfaces/msg/LedStripState])
+
+  Sets a new user state for all the LEDs in the LED strip.
+
+- `controller/led_panel_state` ([raph_interfaces/msg/LedPanelState]) **Not
+  implemented yet**
+
+  Sets a new user state for all the LEDs in the specified LED panel.
+
+## Published Topics
+
+- `controller/imu` ([sensor_msgs/msg/Imu])
+
+  Current gyroscope and accelerometer readings from the onboard IMU.
+
+- `controller/odom` ([nav_msgs/msg/Odometry])
+
+  Odometry calculated from wheel encoders and the onboard IMU.
+
+- `controller/steering_mode` ([raph_interfaces/msg/SteeringMode]) **Not
+  implemented yet**
+
+  Current steering mode. Published whenever the mode changes. \
+  Uses transient local durability to deliver last message to joining
+  subscriptions.
+
+- `controller/diagnostics/imu` ([raph_interfaces/msg/ImuDiagnostics])
+
+  Diagnostic information about the IMU module. \
+  Includes module temperature and calibration data.
+
+- `controller/diagnostics/motors` ([raph_interfaces/msg/MotorDiagnostics])
+
+  Diagnostic information about the motors. \
+  Includes motor temperatures, power consumption and fault data.
+
+- `controller/power_system_state` ([raph_interfaces/msg/PowerSystemState])
+
+  Current information about the power system.
+
+- `oak/imu/data` ([sensor_msgs/msg/Imu])
+
+  Current gyroscope and accelerometer readings from the Oak-D IMU.
+
+- `oak/left/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the left Oak-D camera.
+
+- `oak/left/image_raw` ([sensor_msgs/msg/Image])
+
+  Raw images from the left Oak-D camera.
+
+- `oak/rgb/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the center (RGB) Oak-D camera.
+
+- `oak/rgb/image_raw` ([sensor_msgs/msg/Image])
+
+  Raw images from the center (RGB) Oak-D camera.
+
+- `oak/right/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the right Oak-D camera.
+
+- `oak/right/image_raw` ([sensor_msgs/msg/Image])
+
+  Raw images from the right Oak-D camera.
+
+- `oak/stereo/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data corresponding to the depth images calculated from the stereo
+  pair (left and right Oak-D cameras).
+
+- `oak/stereo/image_raw` ([sensor_msgs/msg/Image])
+
+  Depth images calculated from the stereo pair (left and right Oak-D cameras).
+
+- `oak/points` ([sensor_msgs/msg/PointCloud2])
+
+  Point cloud data converted from the depth images.
+
+- `rplidar/scan` ([sensor_msgs/msg/LaserScan])
+
+  Raw laser scans from the onboard 2D LIDAR.
+
+- `rplidar/scan_filtered` ([sensor_msgs/msg/LaserScan]) **Not implemented yet**
+
+  Laser scans from the onboard 2D LIDAR with points lying on the robot's
+  footprint filtered out.
+
+- `joint_states` ([sensor_msgs/msg/JointState])
+
+  Current state of the robot joints.
+
+- `robot_description` ([std_msgs/msg/String])
+
+  The URDF description of the robot.
+
+- `/diagnostics` ([diagnostic_msgs/msg/DiagnosticArray])
+
+  Diagnostic information from various ROS nodes.
+
+- `/parameter_events` ([rcl_interfaces/msg/ParameterEvent])
+
+  Parameter events (additions, changes or deletions) from all the running ROS
+  nodes.
+
+- `/rosout` ([rcl_interfaces/msg/Log])
+
+  Logs from all the running ROS nodes.
+
+- `/tf`, `/tf_static` ([tf2_msgs/msg/TFMessage])
+
+  Relationships between TF frames in the ROS network. \
+  These topics are used by the
+  [tf2 library](https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Tf2.html).
+
+## Services
+
+- `controller/clear_leds` ([std_srvs/srv/Trigger])
+
+  Resets user states for all LEDs in the LED strip.
+
+- `controller/set_leds` ([raph_interfaces/srv/SetLeds])
+
+  Set user state for specified LEDs.
+
+- `controller/calibrate_servos` ([std_srvs/srv/Trigger])
+
+  Trigger servo calibration procedure.
+
+- `controller/reset_odom` ([std_srvs/srv/Trigger])
+
+  Reset odometry position.
+
+- `controller/reset_motor_diagnostics` ([std_srvs/srv/Trigger])
+
+  Reset motor faults and calculated consumed energy.
+
+- `controller/set_battery_modes` ([raph_interfaces/srv/SetBatteryModes])
+
+  Set target battery modes.
+
+- `controller/set_steering_mode` ([raph_interfaces/srv/SetSteeringMode])
+
+  Set the current steering mode.
+
+- `system/shutdown` ([std_srvs/srv/Trigger])
+
+  Perform onboard computer's system shutdown.
+
+- `system/reboot` ([std_srvs/srv/Trigger])
+
+  Perform onboard computer's system reboot.
+
+## Parameters
+
+### controller
+
+- `drivetrain.wheel_base` (type: `float`, default: `0.378`)
+
+  Distance between front and rear wheels. $[m]$
+
+- `drivetrain.track_width` (type: `float`, default: `0.384`)
+
+  Distance between left and right wheels. $[m]$
+
+- `drivetrain.wheel_radius` (type: `float`, default: `0.08`)
+
+  Radius of the wheel. $[m]$
+
+- `drivetrain.max_wheel_angular_velocity` (type: `float`, default: `19.0`)
+
+  Maximum allowable wheel angular velocity. $[\frac{rad}{s}]$
+
+- `drivetrain.change_mode_acceleration` (type: `float`, default: `2.0`)
+
+  Acceleration to use when changing steering mode.
+  $[\frac{m}{s^2}, \frac{rad}{s^2}]$
+
+- `drivetrain.change_mode_steering_angle_velocity` (type: `float`, default:
+  `4.0`)
+
+  Steering angle velocity to use when changing steering mode. $[\frac{rad}{s}]$
+
+- `drivetrain.max_steering_angle` (type: `float`, default: `1.08`)
+
+  Maximum steering angle used in ackermann mode. $[rad]$
+
+- `drivetrain.input_timeout` (type: `float`, default: `0.5`)
+
+  The duration from last received target, after which the controller will stop
+  the robot. Set to 0 to disable. $[s]$
+
+- `drivetrain.wheel_disable_timeout` (type: `float`, default: `10.0`)
+
+  The duration from last received target, after which the controller will
+  disable all motors. Set to 0 to disable. $[s]$
+
+- `drivetrain.servo_left_position_offset` (type: `float`, default: `0.0`)
+
+  Offset added to the left servo position. $[rad]$
+
+- `drivetrain.servo_right_position_offset` (type: `float`, default: `0.0`)
+
+  Offset added to the right servo position. $[rad]$
+
+- `drivetrain.servo_calibration_power_threshold` (type: `float`, default:
+  `20.0`)
+
+  The minimal motor power after which we assume the servo is pressing against
+  the bumper during calibration procedure. $[W]$
+
+- `drivetrain.servo.acceleration_divider` (type: `int`, default: `10`)
+
+  Raw acceleration divider value passed to servo motors.
+
+- `drivetrain.servo.position_loop_speed` (type: `float`, default: `5.0`)
+
+  Position loop speed value passed to servos motors. $[\frac{rad}{s}]$
+
+- `drivetrain.wheel.acceleration_divider` (type: `int`, default: `2`)
+
+  Raw acceleration divider value passed to wheel motors.
+
+{/* TODO: Other nodes parameters */}
+
+## Custom message types
+
+{/* TODO: Remove this section after raph_interfaces message definitions start being hosted in docs.ros2.org */}
+
+- `raph_interfaces/msg/SteeringMode`
+
+<a id="msg-steering-mode"></a>
+
+```bash title="Represents the steering mode used by the drivetrain controller."
+uint8 ACKERMANN=0
+uint8 TURN_IN_PLACE=1
+
+uint8 data
+```
+
+- `raph_interfaces/msg/BatteryMode`
+
+<a id="msg-battery-mode"></a>
+
+```bash title="Represents the target or actual battery power mode."
+# Whether the battery is charging.
+bool charging
+
+# Whether the battery is used as a power source.
+bool draining
+```
+
+- `raph_interfaces/msg/BatteryState`
+
+<a id="msg-battery-state"></a>
+
+```bash title="Represents the state of a single battery."
+# The current voltage in volts.
+float64 voltage
+
+# Estimated state of charge in percents.
+float64 state_of_charge
+
+# The target battery mode.
+raph_interfaces/BatteryMode target_mode
+
+# The actual battery mode.
+raph_interfaces/BatteryMode current_mode
+```
+
+- `raph_interfaces/msg/PowerSystemState`
+
+<a id="msg-power-system-state"></a>
+
+```bash title="Represents the state of the Power System."
+std_msgs/Header header
+
+# Whether the charger is connected.
+bool charger_connected
+
+# Whether the batteries are connected.
+bool bat1_connected
+bool bat2_connected
+
+# The states of the batteries, not valid for unconnected batteries.
+raph_interfaces/BatteryState bat1_state
+raph_interfaces/BatteryState bat2_state
+
+# The current power output in watts.
+float64 power
+
+# The energy consumed in watt-hours since the robot was powered on.
+float64 energy
+```
+
+- `raph_interfaces/msg/LedColor`
+
+<a id="msg-led-color"></a>
+
+```bash title="Represents the color of an LED."
+# The intensity of each color (255 = 100%).
+uint8 red
+uint8 green
+uint8 blue
+uint8 white
+```
+
+- `raph_interfaces/msg/LedPanel`
+
+<a id="msg-led-panel"></a>
+
+```bash title="Enumeration of robot's LED panels."
+uint8 FRONT=0
+uint8 BACK=1
+uint8 LEFT=2
+uint8 RIGHT=3
+
+uint8 data
+```
+
+- `raph_interfaces/msg/LedState`
+
+<a id="msg-led-state"></a>
+
+```bash title="Represents the state of a single LED."
+# The duration (in ms) the state should be active.
+# Setting it to 0 will make the state active indefinitely.
+uint16 duration
+
+# The priority of the state.
+# If the value is equal to 0 or is lower than the priority of the current user LED, the state is ignored.
+# The value of -1 resets the user state of the LED.
+int8 priority
+
+# The color of the LED
+raph_interfaces/LedColor color
+```
+
+- `raph_interfaces/msg/LedPanelState`
+
+<a id="msg-led-panel-state"></a>
+
+```bash title="Represents the state of the whole LED panel."
+# Which LED panel does this state applies to.
+raph_interfaces/LedPanel panel
+
+# State of each LED on the panel.
+# For panels with less than 36 LEDs, the last array items are ignored.
+raph_interfaces/LedState[36] state
+```
+
+- `raph_interfaces/msg/LedStripState`
+
+<a id="msg-led-strip-state"></a>
+
+```bash title="Represents the state of the whole LED strip."
+uint8 LED_STRIP_SIZE=129
+raph_interfaces/LedState[129] state
+```
+
+- `raph_interfaces/msg/Led`
+
+<a id="msg-led"></a>
+
+```bash title="Represents the position and the state of the LED."
+# The panel the LED is on.
+raph_interfaces/LedPanel panel
+
+# The id of the LED on the panel.
+uint8 id
+
+# The state of the LED.
+raph_interfaces/LedState state
+```
+
+- `raph_interfaces/msg/MotorDiagnostics`
+
+<a id="msg-motor-diagnostics"></a>
+
+```bash title="Diagnostic information about motors controlled by RaphCore."
+# The order of the motors is:
+#   - rear left wheel
+#   - rear right wheel
+#   - right servo
+#   - left servo
+#   - front left wheel
+#   - front right wheel
+
+std_msgs/Header header
+
+# The current temperature in degrees Celsius.
+uint8[6] temperature
+
+# The current power output in watts.
+float64[6] power
+
+# The energy consumed in watt-hours since the robot was powered on.
+float64[6] energy
+
+uint8 FAULT_BIT_SENSOR_FAULT=1
+uint8 FAULT_BIT_BUS_OVERCURRENT=2
+uint8 FAULT_BIT_PHASE_OVERCURRENT=4
+uint8 FAULT_BIT_STALL=8
+uint8 FAULT_BIT_OVERHEAT=16
+
+# The current fault mask reported by the motor.
+uint8[6] fault_mask_active
+
+# Mask of all fault that occurred since the robot was powered on.
+uint8[6] fault_mask_occurred
+```
+
+- `raph_interfaces/msg/ImuDiagnostics`
+
+<a id="msg-imu-diagnostics"></a>
+
+```bash title="Diagnostic information about IMU sensor running on RaphCore."
+std_msgs/Header header
+
+# The current temperature of the sensor in degrees Celsius.
+float64 temperature
+
+# The current gyroscope biases.
+float64 gyro_bias_x
+float64 gyro_bias_y
+float64 gyro_bias_z
+```
+
+## Custom service types
+
+{/* TODO: Remove this section after raph_interfaces message definitions start being hosted in docs.ros2.org */}
+
+- `raph_interfaces/srv/SetSteeringMode`
+
+<a id="srv-set-steering-mode"></a>
+
+```bash
+raph_interfaces/SteeringMode steering_mode
+---
+bool success
+string status_message
+```
+
+- `raph_interfaces/srv/SetBatteryModes`
+
+<a id="srv-set-battery-modes"></a>
+
+```bash
+raph_interfaces/BatteryMode bat1_mode
+raph_interfaces/BatteryMode bat2_mode
+---
+bool success
+string status_message
+```
+
+- `raph_interfaces/srv/SetLeds`
+
+<a id="srv-set-leds"></a>
+
+```bash
+raph_interfaces/Led[<=129] leds
+---
+bool success
+string status_message
+```
+
+[ackermann_msgs/msg/AckermannDrive]:
+  https://github.com/ros-drivers/ackermann_msgs/blob/ros2/msg/AckermannDrive.msg
+[diagnostic_msgs/msg/DiagnosticArray]:
+  https://docs.ros2.org/latest/api/diagnostic_msgs/msg/DiagnosticArray.html
+[geometry_msgs/msg/Twist]:
+  https://docs.ros2.org/latest/api/geometry_msgs/msg/Twist.html
+[nav_msgs/msg/Odometry]:
+  https://docs.ros2.org/latest/api/nav_msgs/msg/Odometry.html
+[rcl_interfaces/msg/Log]:
+  https://docs.ros2.org/latest/api/rcl_interfaces/msg/Log.html
+[rcl_interfaces/msg/ParameterEvent]:
+  https://docs.ros2.org/latest/api/rcl_interfaces/msg/ParameterEvent.html
+[sensor_msgs/msg/CameraInfo]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html
+[sensor_msgs/msg/Image]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html
+[sensor_msgs/msg/Imu]: https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html
+[sensor_msgs/msg/JointState]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/JointState.html
+[sensor_msgs/msg/LaserScan]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/LaserScan.html
+[sensor_msgs/msg/PointCloud2]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud2.html
+[std_msgs/msg/String]: https://docs.ros2.org/latest/api/std_msgs/msg/String.html
+[std_srvs/srv/Trigger]:
+  https://docs.ros2.org/latest/api/std_srvs/srv/Trigger.html
+[tf2_msgs/msg/TFMessage]:
+  https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
+[raph_interfaces/msg/BatteryMode]: #msg-battery-mode
+[raph_interfaces/msg/BatteryState]: #msg-battery-state
+
+{/* [raph_interfaces/msg/ImuDiagnostics]: #msg-imu-diagnostics */}
+[raph_interfaces/msg/Led]: #msg-led [raph_interfaces/msg/LedColor]:
+#msg-led-color [raph_interfaces/msg/LedPanel]: #msg-led-panel
+{/* [raph_interfaces/msg/LedPanelState]: #msg-led-panel-state */}
+[raph_interfaces/msg/LedState]: #msg-led-state
+
+{/* [raph_interfaces/msg/LedStripState]: #msg-led-strip-state */}
+{/* [raph_interfaces/msg/MotorDiagnostics]: #msg-motor-diagnostics */}
+{/* [raph_interfaces/msg/PowerSystemState]: #msg-power-system-state */}
+{/* [raph_interfaces/msg/SteeringMode]: #msg-steering-mode */}
+{/* [raph_interfaces/srv/SetBatteryModes]: #srv-set-battery-modes */}
+{/* [raph_interfaces/srv/SetLeds]: #srv-set-leds */}
+{/* [raph_interfaces/srv/SetSteeringMode]: #srv-set-steering-mode */}

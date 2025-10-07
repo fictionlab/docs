@@ -5,8 +5,6 @@
 /leo-rover/getting-started/ /leo-rover/documentation/getting-started 301
 /leo-rover/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
 /leo-rover/1.8/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
-/rapha-rover /raph-rover 301
-/rapha-rover/* /raph-rover/:splat 301
 /leo-rover/overview /leo-rover 301
 
 # manuals redirects
@@ -75,3 +73,11 @@
 /integrations/software/artag-tracking-with-alvar /integrations/software/aruco-tracking 302
 /integrations/software/freedom-robotics /integrations/noetic/software/freedom-robotics 302
 /integrations/software/scratch /integrations/noetic/software/scratch 302
+
+# raph rover redirects
+/rapha-rover /raph-rover 301
+/rapha-rover/* /raph-rover/:splat 301
+/raph-rover/getting-started /raph-rover 301
+/raph-rover/specification /raph-rover/documentation/specification 301
+/raph-rover/specification/ros-api /raph-rover/documentation/ros-api 301
+
