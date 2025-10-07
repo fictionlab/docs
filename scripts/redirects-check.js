@@ -25,13 +25,21 @@ const baseBranch = argv.base;
 console.log(`Comparing ${compareRef} against ${baseBranch}`);
 
 function pathToUrl(path) {
-  return (
+  const canonicalUrl =
     '/' +
     path
       .replace(/^docs\//, '')
       .replace(/\.mdx?$/, '')
-      .replace(/\/index$/, '/')
-  );
+      .replace(/\/index$/, '');
+
+  parts = canonicalUrl.split('/');
+
+  // Remove duplicate last part (e.g., /foo/bar/bar -> /foo/bar)
+  if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
+    parts.pop();
+  }
+
+  return parts.join('/');
 }
 
 function parseRedirects(file) {
