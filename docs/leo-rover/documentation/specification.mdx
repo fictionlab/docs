@@ -168,21 +168,20 @@ reliable foundation for robotics research, education, and prototyping.
 - Works with **Raspberry Pi** (power + UART serial communication)
 - Provides power and serial communication between LeoCore and Raspberry Pi
 - Manages **system readiness indicator** (battery LED)
-- Total current draw from all 5V outputs (J2-J5, J7, JP4, JP3) must not exceed
-  **5A**
+- Total current draw from all 5V outputs must not exceed **5A**
 - Operating temperature: **-20°C to +50°C**
 
 <CenterContent>
 
-| Port                      | Functionality                                                                                                                                                                                                                                                                                 |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **J1** - Power Input      | <ul><li>DC 2.1/5.0 mm barrel jack</li><li>Reverse polarity protection</li><li>Overvoltage protection</li><li>10 A fast-blow fuse</li><li>Input voltage: 8–30 V DC</li></ul>                                                                                                                   |
-| **J2-J5** - Motor Outputs | <ul><li>4x PWM H-bridge motor outputs (A, B, C, D)</li><li>Peak current: ±2.8 A</li><li>Overcurrent (OCP) and short-circuit protection (to power and GND)</li><li>5 V encoder supply (max 1 A total for all motors)</li><li>2× encoder inputs per motor (active low – short to GND)</li></ul> |
-| **J7** - LED Output       | <ul><li>Controlled LED output (e.g. battery/system status)</li><li>Output: 5 V / 10 mA</li></ul>                                                                                                                                                                                              |
-| **JP4** - Fan Connector   | <ul><li>Controllable fan power output</li><li>Output: 5 V / 1 A</li></ul>                                                                                                                                                                                                                     |
-| **JP1** - UART Port       | <ul><li>UART communication interface</li><li>Logic level: 3.3 V</li></ul>                                                                                                                                                                                                                     |
-| **JP3** - GPIO Port       | <ul><li>General-purpose I/O connector</li><li>Output: 5 V / 5 A</li></ul>                                                                                                                                                                                                                     |
-| **JP2** - Debug Port      | <ul><li>5-pin interface for firmware flashing via ST-Link/V2 (optional)</li></ul>                                                                                                                                                                                                             |
+| Port          | Functionality                                                                                                                                                                                                                                                                                 |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Power Input   | <ul><li>DC 2.1/5.5 mm barrel jack</li><li>Reverse polarity protection</li><li>Overvoltage protection</li><li>10 A fast-blow fuse</li><li>Input voltage: 8–30 V DC</li></ul>                                                                                                                   |
+| Motor Outputs | <ul><li>4x PWM H-bridge motor outputs (A, B, C, D)</li><li>Peak current: ±2.8 A</li><li>Overcurrent (OCP) and short-circuit protection (to power and GND)</li><li>5 V encoder supply (max 1 A total for all motors)</li><li>2× encoder inputs per motor (active low – short to GND)</li></ul> |
+| LED Output    | <ul><li>Controlled LED output (e.g. battery/system status)</li><li>Output: 5 V / 10 mA</li></ul>                                                                                                                                                                                              |
+| Fan Connector | <ul><li>Controllable fan power output</li><li>Output: 5 V / 1 A</li></ul>                                                                                                                                                                                                                     |
+| GPIO Port     | <ul><li>General-purpose I/O connector</li><li>Provides power to Raspberry Pi</li><li>Exposes pins for UART communication (PIN8 - TX, PIN10 - RX)</li><li>Enables flashing of the module directly via Raspberry Pi</li></ul>                                                                   |
+| UART Port     | <ul><li>UART communication interface (same UART as on GPIO port)</li><li>Logic level: 3.3 V</li></ul>                                                                                                                                                                                         |
+| Debug Port    | <ul><li>5-pin interface for firmware flashing and debugging via ST-Link/V2 (optional)</li></ul>                                                                                                                                                                                               |
 
 </CenterContent>
 
