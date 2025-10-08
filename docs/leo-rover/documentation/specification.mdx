@@ -146,9 +146,11 @@ obstacle detection, and remote monitoring.
 
 ### LeoCore controller
 
-Leo Rover since version 1.8 is based on the LeoCore electronics board which,
-together with the Raspberry Pi computer, controls all the Rover's
-functionalities.
+LeoCore is the main control board of the Leo Rover platform, responsible for
+power distribution, motor control, and communication with the onboard Raspberry
+Pi computer. Equipped with an STM32F401 microcontroller, it provides robust
+protection, precise motor drivers, and expandable I/O ports — making it a
+reliable foundation for robotics research, education, and prototyping.
 
 <ImageZoom
   src="/img/robots/leo/specification/LeoCore.webp"
@@ -160,18 +162,26 @@ functionalities.
   }}
 />
 
-To make it easier, we listed all the interfaces used by Leo Rover as default.
-Just to make sure you don't interfere with them when developing.
+#### General
+
+- Custom **LeoCore** board with **STM32F401** microcontroller
+- Works with **Raspberry Pi** (power + UART serial communication)
+- Provides power and serial communication between LeoCore and Raspberry Pi
+- Manages **system readiness indicator** (battery LED)
+- Total current draw from all 5V outputs must not exceed **5A**
+- Operating temperature: **-20°C to +50°C**
 
 <CenterContent>
 
-| Port                                    | Functionality                                                     |
-| --------------------------------------- | ----------------------------------------------------------------- |
-| Power input                             | To power the board                                                |
-| RPi port                                | To power and RPi serial communication                             |
-| LED output                              | To control the battery LED (to show system readiness)             |
-| Motor output A, B, C & D (PWM H-bridge) | To power the rover motors and encodes                             |
-| 5-pin debug port                        | Used to flash firmware to the board using ST-link/V2 (optionally) |
+| Port          | Functionality                                                                                                                                                                                                                                                                                 |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Power Input   | <ul><li>DC 2.1/5.5 mm barrel jack</li><li>Reverse polarity protection</li><li>Overvoltage protection</li><li>10 A fast-blow fuse</li><li>Input voltage: 8–30 V DC</li></ul>                                                                                                                   |
+| Motor Outputs | <ul><li>4x PWM H-bridge motor outputs (A, B, C, D)</li><li>Peak current: ±2.8 A</li><li>Overcurrent (OCP) and short-circuit protection (to power and GND)</li><li>5 V encoder supply (max 1 A total for all motors)</li><li>2x encoder inputs per motor (active low – short to GND)</li></ul> |
+| LED Output    | <ul><li>Controlled LED output (e.g. battery/system status)</li><li>Output: 5 V / 10 mA</li></ul>                                                                                                                                                                                              |
+| Fan Connector | <ul><li>Controllable fan power output</li><li>Output: 5 V / 1 A</li></ul>                                                                                                                                                                                                                     |
+| GPIO Port     | <ul><li>General-purpose I/O connector</li><li>Provides power to Raspberry Pi</li><li>Exposes pins for UART communication (PIN8 - TX, PIN10 - RX)</li><li>Enables flashing of the module directly via Raspberry Pi</li></ul>                                                                   |
+| UART Port     | <ul><li>UART communication interface (same UART as on GPIO port)</li><li>Logic level: 3.3 V</li></ul>                                                                                                                                                                                         |
+| Debug Port    | <ul><li>5-pin interface for firmware flashing and debugging via ST-Link/V2 (optional)</li></ul>                                                                                                                                                                                               |
 
 </CenterContent>
 
