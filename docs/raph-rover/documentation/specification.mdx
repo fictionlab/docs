@@ -269,7 +269,8 @@ and has built-in protections.
 
 ### RaphCore controller
 
-RaphCore serves as the primary control board for Raph Rover. The board leverages **FreeRTOS** and **MicroROS** to control rover tasks such as:
+RaphCore serves as the primary control board for Raph Rover. The board leverages
+**FreeRTOS** and **MicroROS** to control rover tasks such as:
 
 - Drivetrain control
 - Power system management
@@ -309,17 +310,17 @@ or incorrect polarity.
 
 <CenterContent>
 
-| **Component**                          | **Description**                                                                                                                                                                                                                                                                                      |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Ethernet port**                      | Standard RJ45 connector with onboard PHY for wired communication and networking.                                                                                                                                                                                                                     |
-| **Router power**                       | 12 V / 1 A regulated output dedicated to powering an external Wi-Fi router.                                                                                                                                                                                                                          |
-| **Main computer power (UP Board)**     | 12 V / 5 A output supplying the onboard computer.                                                                                                                                                                                                                                                    |
-| **External power / charging port**     | Input for 12 - 27 V DC external power or battery charging. Includes reverse-polarity and surge protection, max 5 A.                                                                                                                                                                                  |
-| **5 V output (2-pin)**                 | 5 V / 4 A max (20 W) auxiliary power line for external devices. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)                                                     |
-| **12 V output (2-pin)**                | 12 V / 4 A max (48 W) auxiliary power line for external modules. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)                                                  |
-| **BAT output (2-pin)**                 | 18 - 25.2 V / 4 A max (100 W) direct battery line for high-power accessories. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MSTB 2,5 / 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987)                                |
-| **5 V / 12 V / BAT power bus (6-pin)** | Combined 6-pin connector providing 5 V, 12 V and BAT lines (the same as above). [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 6-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-6-st-35-1840405)  |
-| **Battery A / Battery B inputs**       | Dual Li-Ion 6S (24 V nominal) inputs with 30 A fuses and over-voltage protection.                                                                                                                                                                                                                    |
+| **Component**                          | **Description**                                                                                                                                                                                                                                                        |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ethernet port**                      | Standard RJ45 connector with onboard PHY for wired communication and networking.                                                                                                                                                                                       |
+| **Router power**                       | 12 V / 1 A regulated output dedicated to powering an external Wi-Fi router.                                                                                                                                                                                            |
+| **Main computer power (UP Board)**     | 12 V / 5 A output supplying the onboard computer.                                                                                                                                                                                                                      |
+| **External power / charging port**     | Input for 12 - 27 V DC external power or battery charging. Includes reverse-polarity and surge protection, max 5 A.                                                                                                                                                    |
+| **5 V output (2-pin)**                 | 5 V / 4 A max (20 W) auxiliary power line for external devices. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)                      |
+| **12 V output (2-pin)**                | 12 V / 4 A max (48 W) auxiliary power line for external modules. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)                   |
+| **BAT output (2-pin)**                 | 18 - 25.2 V / 4 A max (100 W) direct battery line for high-power accessories. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MSTB 2,5 / 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987) |
+| **5 V / 12 V / BAT power bus (6-pin)** | Combined 6-pin connector providing 5 V, 12 V and BAT lines (the same as above). [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 6-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-6-st-35-1840405)      |
+| **Battery A / Battery B inputs**       | Dual Li-Ion 6S (24 V nominal) inputs with 30 A fuses and over-voltage protection.                                                                                                                                                                                      |
 
 </CenterContent>
 
@@ -327,15 +328,15 @@ or incorrect polarity.
 
 <CenterContent>
 
-| **Component**                                          | **Description**                                                                                                                                                                                     |
-| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **8 x motor power connectors**                         | Two motor sections (4 connectors each), up to 8 A combined per section.                                                                                                                             |
-| **4 x inductive sensor inputs**                        | Inputs for wheel encoders or proximity sensors.                                                                                                                                                     |
-| **LED strip output**                                   | 5 V / 5 A output with PWM control channel for addressable LED strips.                                                                                                                               |
-| **Power button / Emergency stop / Calibration button** | Dedicated safety and control inputs for rover operation.                                                                                                                                            |
-| **Programming port**                                   | SWD + UART interface for firmware upload and diagnostics.                                                                                                                                           |
+| **Component**                                          | **Description**                                                                                                                                                      |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **8 x motor power connectors**                         | Two motor sections (4 connectors each), up to 8 A combined per section.                                                                                              |
+| **4 x inductive sensor inputs**                        | Inputs for wheel encoders or proximity sensors.                                                                                                                      |
+| **LED strip output**                                   | 5 V / 5 A output with PWM control channel for addressable LED strips.                                                                                                |
+| **Power button / Emergency stop / Calibration button** | Dedicated safety and control inputs for rover operation.                                                                                                             |
+| **Programming port**                                   | SWD + UART interface for firmware upload and diagnostics.                                                                                                            |
 | **IMU module**                                         | TDK InvenSense ICM-42605 - 6-axis accelerometer and gyroscope.<br/>Acceleration: ±2 g / ±4 g / ±8 g / ±16 g<br/>Resolution: 16 bit<br/>Sensitivity: 2097.2 deg/s/LSB |
-| **Microcontroller**                                    | STM32H563VIT6 (Arm® Cortex®-M33, 250 MHz, 2 MB Flash, 640 kB RAM).                                                                                                                                |
+| **Microcontroller**                                    | STM32H563VIT6 (Arm® Cortex®-M33, 250 MHz, 2 MB Flash, 640 kB RAM).                                                                                                 |
 
 </CenterContent>
 
@@ -377,10 +378,10 @@ compatibility.
 
 <CenterContent>
 
-|     Voltage     | Max amperage | Max power | Connector                                                                                                                             |
-| :-------------: | :----------: | :-------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+|       Voltage       | Max amperage | Max power | Connector                                                                                                                             |
+| :-----------------: | :----------: | :-------: | :------------------------------------------------------------------------------------------------------------------------------------ |
 |       2 x 5 V       |     4 A      |   20 W    | [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)        |
-|     2 x 12 V       |     4 A      |   48 W    | [Phoenix Contact MC 1,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)      |
+|      2 x 12 V       |     4 A      |   48 W    | [Phoenix Contact MC 1,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)      |
 | 2 x BAT (18-25.2 V) |     4 A      |   100 W   | [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987) |
 
 </CenterContent>
