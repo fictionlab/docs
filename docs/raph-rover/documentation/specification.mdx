@@ -267,16 +267,23 @@ and has built-in protections.
 
 </CenterContent>
 
-#### RaphCore controller
+### RaphCore controller
 
-RaphCore serves as the primary control board for Raph Rover. The board leverages
-FreeRTOS and MicroROS to control rover tasks such as:
+RaphCore serves as the primary control board for Raph Rover. The board leverages **FreeRTOS** and **MicroROS** to control rover tasks such as:
 
 - Drivetrain control
 - Power system management
 - LED control
 - IMU operation
 - Odometry tracking
+
+#### Operating conditions
+
+- **Operating temperature range:** -20 °C - +50 °C
+- **Nominal battery voltage:** 24 V (Li-Ion 6S)
+- **External power input:** 12 - 27 V DC
+- **Environmental protection:** Over-voltage and reverse-polarity protection,
+  PTC and TVS fuses on all major power lines
 
 <ThemedImageZoom
   alt="External connections of RaphCore"
@@ -293,14 +300,42 @@ FreeRTOS and MicroROS to control rover tasks such as:
   caption="RaphCore PCB connectors"
 />
 
+#### Power & Connectivity
+
+RaphCore integrates **automatic source switching**, current limiting and voltage
+conversion between battery and external supply modes.  
+The design enables safe charging, load balancing, and protection against surges
+or incorrect polarity.
+
 <CenterContent>
 
-| Component                 |                                                                        Model                                                                         | Description                                                                                                                                       |
-| ------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Microcontroller           |                                                                    STM32H5 series                                                                    | CPU type: 32-bit Arm® Cortex®-M33<br />CPU frequency: 250 MHz<br />Flash memory: 2 MB                                                           |
-| IMU                       |                                                                          -                                                                           | Sensor Type: 6-axis<br />Acceleration: 2 g, 4 g, 8 g, 16 g<br />Resolution: 16 bit<br />Sensitivity: 2097.2 deg/s/LSB                             |
-| Internal power connectors | 3 x [MC&nbsp;1,5/&nbsp;2&#8209;G&#8209;3,5](https://www.phoenixcontact.com/pl-pl/produkty/obudowa-podstawowa-plytki-drukowanej-mc-15-2-g-35-1844210) | Additional power outputs for the rover. Each individual output can be disabled or enabled separately.                                             |
-| External power connectors | 1 x [MC&nbsp;1,5/&nbsp;6&#8209;G&#8209;3,5](https://www.phoenixcontact.com/pl-pl/produkty/obudowa-podstawowa-plytki-drukowanej-mc-15-6-g-35-1844252) | Power outputs for the rover interface panel. Each individual output can be disabled or enabled separately. [See&nbsp;more](#external-power-panel) |
+| **Component**                          | **Description**                                                                                                                                                                                                                                                                                      |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ethernet port**                      | Standard RJ45 connector with onboard PHY for wired communication and networking.                                                                                                                                                                                                                     |
+| **Router power**                       | 12 V / 1 A regulated output dedicated to powering an external Wi-Fi router.                                                                                                                                                                                                                          |
+| **Main computer power (UP Board)**     | 12 V / 5 A output supplying the onboard computer.                                                                                                                                                                                                                                                    |
+| **External power / charging port**     | Input for 12 - 27 V DC external power or battery charging. Includes reverse-polarity and surge protection, max 5 A.                                                                                                                                                                                  |
+| **5 V output (2-pin)**                 | 5 V / 4 A max (20 W) auxiliary power line for external devices. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)                                                     |
+| **12 V output (2-pin)**                | 12 V / 4 A max (48 W) auxiliary power line for external modules. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)                                                  |
+| **BAT output (2-pin)**                 | 18 - 25.2 V / 4 A max (100 W) direct battery line for high-power accessories. [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MSTB 2,5 / 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987)                                |
+| **5 V / 12 V / BAT power bus (6-pin)** | Combined 6-pin connector providing 5 V, 12 V and BAT lines (the same as above). [See more](#external-power-panel) <br/>Connector: [Phoenix Contact MC 1,5 / 6-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-6-st-35-1840405)  |
+| **Battery A / Battery B inputs**       | Dual Li-Ion 6S (24 V nominal) inputs with 30 A fuses and over-voltage protection.                                                                                                                                                                                                                    |
+
+</CenterContent>
+
+#### Control & Sensors
+
+<CenterContent>
+
+| **Component**                                          | **Description**                                                                                                                                                                                     |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **8 x motor power connectors**                         | Two motor sections (4 connectors each), up to 8 A combined per section.                                                                                                                             |
+| **4 x inductive sensor inputs**                        | Inputs for wheel encoders or proximity sensors.                                                                                                                                                     |
+| **LED strip output**                                   | 5 V / 5 A output with PWM control channel for addressable LED strips.                                                                                                                               |
+| **Power button / Emergency stop / Calibration button** | Dedicated safety and control inputs for rover operation.                                                                                                                                            |
+| **Programming port**                                   | SWD + UART interface for firmware upload and diagnostics.                                                                                                                                           |
+| **IMU module**                                         | TDK InvenSense ICM-42605 - 6-axis accelerometer and gyroscope.<br/>Acceleration: ±2 g / ±4 g / ±8 g / ±16 g<br/>Resolution: 16 bit<br/>Sensitivity: 2097.2 deg/s/LSB |
+| **Microcontroller**                                    | STM32H563VIT6 (Arm® Cortex®-M33, 250 MHz, 2 MB Flash, 640 kB RAM).                                                                                                                                |
 
 </CenterContent>
 
@@ -344,9 +379,9 @@ compatibility.
 
 |     Voltage     | Max amperage | Max power | Connector                                                                                                                             |
 | :-------------: | :----------: | :-------: | :------------------------------------------------------------------------------------------------------------------------------------ |
-|       5 V       |     4 A      |   20 W    | [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)        |
-|      12 V       |     4 A      |   48 W    | [Phoenix Contact MC 1,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)      |
-| BAT (18-25.2 V) |     4 A      |   100 W   | [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987) |
+|       2 x 5 V       |     4 A      |   20 W    | [Phoenix Contact MC 1,5/ 2-ST-3,5](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-35-1840366)        |
+|     2 x 12 V       |     4 A      |   48 W    | [Phoenix Contact MC 1,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mc-15-2-st-508-1836079)      |
+| 2 x BAT (18-25.2 V) |     4 A      |   100 W   | [Phoenix Contact MSTB 2,5/ 2-ST-5,08](https://www.phoenixcontact.com/pl-pl/produkty/wtyk-plytki-drukowanej-mstbt-25-2-st-508-1779987) |
 
 </CenterContent>
 
