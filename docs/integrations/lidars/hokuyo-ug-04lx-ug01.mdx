@@ -168,7 +168,7 @@ start at boot.
 Your robot should be aware of where the scanner is located and what space it
 occupies. You can ensure it does that by creating a URDF model of the sensor.
 
-```xml title="/etc/ros/urdf/laser.urdf.xacro"
+```xml title="/etc/ros/urdf/laser.urdf"
 <?xml version="1.0"?>
 <robot>
 
@@ -225,7 +225,7 @@ occupies. You can ensure it does that by creating a URDF model of the sensor.
 And including it in the description that is uploaded at boot.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
-<xacro:include filename="/etc/ros/urdf/laser.urdf.xacro"/>
+<xacro:include filename="/etc/ros/urdf/laser.urdf"/>
 ```
 
 :::tip
