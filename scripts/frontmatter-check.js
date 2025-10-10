@@ -29,7 +29,7 @@ function validateFrontMatter() {
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data: frontMatter } = matter(fileContent);
 
-    const missingKeys = REQUIRED_KEYS.filter(key => !(key in frontMatter));
+    const missingKeys = REQUIRED_KEYS.filter((key) => !(key in frontMatter));
 
     if (missingKeys.length > 0) {
       errors.push({
@@ -41,7 +41,7 @@ function validateFrontMatter() {
 
   if (errors.length > 0) {
     console.error('Front matter validation failed!');
-    errors.forEach(error => {
+    errors.forEach((error) => {
       console.error(`\nFile: ${error.file}`);
       console.error(`  Missing keys: ${error.missing.join(', ')}`);
     });
