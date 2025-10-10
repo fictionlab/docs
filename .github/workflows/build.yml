@@ -1,6 +1,9 @@
 name: Build website
 
 on:
+  push:
+    branches:
+      - development
   pull_request:
     branches:
       - production
