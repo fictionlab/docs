@@ -26,11 +26,17 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Check Frontmatter keys
+        run: yarn check:frontmatter
+
       - name: Check Types
+        if: success() || failure()
         run: yarn typecheck
 
       - name: Check Formatting
+        if: success() || failure()
         run: yarn formatcheck
 
       - name: Check spelling
+        if: success() || failure()
         run: yarn spellcheck
