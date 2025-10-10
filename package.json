@@ -12,12 +12,13 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx,css}\"",
-    "formatcheck": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx,css}\"",
-    "spellcheck": "cspell",
+    "check:formatting": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx,css}\"",
+    "check:spelling": "cspell",
     "check:redirects": "node scripts/redirects-check.js",
-    "check:frontmatter": "node scripts/frontmatter-check.js"
+    "check:frontmatter": "node scripts/frontmatter-check.js",
+    "check:types": "tsc --noEmit",
+    "check": "yarn check:formatting && yarn check:spelling && yarn check:redirects && yarn check:frontmatter && yarn check:types"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.1",

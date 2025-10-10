@@ -31,12 +31,12 @@ jobs:
 
       - name: Check Types
         if: success() || failure()
-        run: yarn typecheck
+        run: yarn check:types
 
       - name: Check Formatting
         if: success() || failure()
-        run: yarn formatcheck
+        run: yarn check:formatting
 
       - name: Check spelling
         if: success() || failure()
-        run: yarn spellcheck
+        run: yarn check:spelling
