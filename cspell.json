@@ -38,6 +38,7 @@
         "convolutional",
         "CUDA",
         "Dawe",
+        "DCMAKE",
         "devel",
         "DFOV",
         "distrobox",
