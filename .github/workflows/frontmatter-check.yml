@@ -2,9 +2,8 @@ name: Check docs frontmatter
 
 on:
   pull_request:
-    branches:
-      - production
-      - development
+    paths:
+      - 'docs/**'
 
 jobs:
   check-frontmatter:
