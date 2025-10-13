@@ -26,6 +26,12 @@ function validateFrontMatter() {
       continue;
     }
 
+    // Rule: Exclude files in the guidelines category
+    if (filePath.includes('docs\\guidelines')) {
+      console.log(`- Skipping guideline: ${filePath}`);
+      continue;
+    }
+
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data: frontMatter } = matter(fileContent);
 
