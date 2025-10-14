@@ -81,3 +81,6 @@
 /raph-rover/specification /raph-rover/documentation/specification 301
 /raph-rover/specification/ros-api /raph-rover/documentation/ros-api 301
 
+# Removed archive redirects
+/leo-rover/archive/* /leo-rover/1.8/archive/:splat 301
+
