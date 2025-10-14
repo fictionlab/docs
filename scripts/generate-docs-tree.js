@@ -1,27 +1,27 @@
-import fs from "fs-extra";
-import path from "path";
-import matter from "gray-matter";
+import fs from 'fs-extra';
+import path from 'path';
+import matter from 'gray-matter';
 
 /**
  * Automatically detect documentation directories.
  * Includes "docs" + any folder ending with "_versioned_docs".
  */
-function detectDocsDirs(root = ".") {
+function detectDocsDirs(root = '.') {
   const entries = fs.readdirSync(root, { withFileTypes: true });
   const docsDirs = [];
 
   for (const entry of entries) {
     if (entry.isDirectory()) {
-      if (entry.name === "docs" || entry.name.endsWith("_versioned_docs")) {
+      if (entry.name === 'docs' || entry.name.endsWith('_versioned_docs')) {
         docsDirs.push(entry.name);
       }
     }
   }
 
   if (docsDirs.length === 0) {
-    console.warn("⚠️ No documentation directories found.");
+    console.warn('⚠️ No documentation directories found.');
   } else {
-    console.log(`📚 Found documentation sources: ${docsDirs.join(", ")}`);
+    console.log(`📚 Found documentation sources: ${docsDirs.join(', ')}`);
   }
 
   return docsDirs;
@@ -45,7 +45,7 @@ function buildTree(dir) {
     if (entry.isDirectory()) {
       console.log(`📁 Entering folder: ${entry.name}`);
       tree.push({
-        type: "folder",
+        type: 'folder',
         name: entry.name,
         path: fullPath,
         children: buildTree(fullPath),
@@ -53,13 +53,16 @@ function buildTree(dir) {
     }
 
     // If .md or .mdx file → extract frontmatter
-    else if (entry.isFile() && (entry.name.endsWith(".mdx") || entry.name.endsWith(".md"))) {
+    else if (
+      entry.isFile() &&
+      (entry.name.endsWith('.mdx') || entry.name.endsWith('.md'))
+    ) {
       console.log(`📝 Reading file: ${entry.name}`);
-      const content = fs.readFileSync(fullPath, "utf-8");
+      const content = fs.readFileSync(fullPath, 'utf-8');
       const { data } = matter(content);
 
       tree.push({
-        type: "file",
+        type: 'file',
         name: entry.name,
         path: fullPath,
         frontmatter: data,
@@ -74,10 +77,10 @@ function buildTree(dir) {
  * Main process — automatically detects documentation directories
  * and generates a full tree with frontmatter data.
  */
-console.log("🚀 Starting documentation tree generation...");
+console.log('🚀 Starting documentation tree generation...');
 
-const ROOT_DIR = ".";
-const OUTPUT_FILE = "docs-tree.json";
+const ROOT_DIR = '.';
+const OUTPUT_FILE = 'docs-tree.json';
 const detectedDirs = detectDocsDirs(ROOT_DIR);
 
 const allDocs = [];
