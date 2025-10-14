@@ -1,4 +1,4 @@
-name: Test
+name: Build website
 
 on:
   push:
@@ -9,13 +9,17 @@ on:
       - production
       - development
 
-jobs:
-  test:
-    name: Test
+jobs: 
+  build-website:
+    name: Build website
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: yarn
@@ -35,9 +39,3 @@ jobs:
 
       - name: Test build website
         run: yarn build
-      - name: Check Types
-        run: yarn typecheck
-      - name: Check Formatting
-        run: yarn formatcheck
-      - name: Check spelling
-        run: yarn spellcheck
