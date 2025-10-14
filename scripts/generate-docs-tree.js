@@ -1,6 +1,6 @@
-import fs from 'fs-extra';
-import path from 'path';
-import matter from 'gray-matter';
+const fs = require('fs-extra');
+const path = require('path');
+const matter = require('gray-matter');
 
 /**
  * Automatically detect documentation directories.
