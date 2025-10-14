@@ -87,7 +87,7 @@ function matchRedirect(url, redirects) {
 
 // include both docs/ and any *_versioned_docs/ pathspecs
 const diff = execSync(
-  `git diff --name-status ${baseBranch}...${compareRef} -- docs/ '*_versioned_docs/'`,
+  `git diff --name-status ${baseBranch}...${compareRef} -- docs/ *_versioned_docs/`,
 )
   .toString()
   .trim()
