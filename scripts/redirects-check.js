@@ -25,9 +25,31 @@ const baseBranch = argv.base;
 console.log(`Comparing ${compareRef} against ${baseBranch}`);
 
 function pathToUrl(path) {
+  // Normalize Windows backslashes to forward slashes
+  let p = path.replace(/\\/g, '/');
+
+  // Handle versioned docs like:
+  // integrations_versioned_docs/version-noetic/[rest]  -> /integrations/noetic/[rest]
+  const versionedMatch = p.match(/^([^\/]+)_versioned_docs\/version-([^\/]+)\/(.*)$/);
+  if (versionedMatch) {
+    const category = versionedMatch[1];
+    const versionName = versionedMatch[2];
+    const rest = versionedMatch[3];
+    let canonical = `/${category}/${versionName}/${rest}`;
+    canonical = canonical
+      .replace(/\.mdx?$/, '')
+      .replace(/\/index$/, '');
+    let parts = canonical.split('/');
+    // Remove duplicate last part (e.g., /foo/bar/bar -> /foo/bar)
+    if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
+      parts.pop();
+    }
+    return parts.join('/');
+  }
+
   const canonicalUrl =
     '/' +
-    path
+    p
       .replace(/^docs\//, '')
       .replace(/\.mdx?$/, '')
       .replace(/\/index$/, '');
@@ -63,8 +85,9 @@ function matchRedirect(url, redirects) {
   });
 }
 
+// include both docs/ and any *_versioned_docs/ pathspecs
 const diff = execSync(
-  `git diff --name-status ${baseBranch}...${compareRef} -- docs/`,
+  `git diff --name-status ${baseBranch}...${compareRef} -- docs/ '*_versioned_docs/'`,
 )
   .toString()
   .trim()
@@ -79,12 +102,21 @@ if (diff.length === 1 && diff[0] === '') {
 
 diff.forEach((line) => {
   const [status, file1, file2] = line.split(/\s+/);
-  if (file1.endsWith('.md') || file1.endsWith('.mdx')) {
-    if (status === 'A') added.push(pathToUrl(file1));
-    if (status === 'D') deleted.push(pathToUrl(file1));
-    if (status.startsWith('R')) {
-      deleted.push(pathToUrl(file1));
-      added.push(pathToUrl(file2));
+  if ((file1 && (file1.endsWith('.md') || file1.endsWith('.mdx'))) || (file2 && (file2.endsWith('.md') || file2.endsWith('.mdx')))) {
+    // For rename operations file1 -> file2
+    if (file1 && (file1.endsWith('.md') || file1.endsWith('.mdx'))) {
+      if (status === 'A') added.push(pathToUrl(file1));
+      if (status === 'D') deleted.push(pathToUrl(file1));
+    }
+    if (status && status.startsWith('R')) {
+      // file1 is old path, file2 is new path
+      if (file1 && (file1.endsWith('.md') || file1.endsWith('.mdx'))) deleted.push(pathToUrl(file1));
+      if (file2 && (file2.endsWith('.md') || file2.endsWith('.mdx'))) added.push(pathToUrl(file2));
+    }
+    // For pure add where file2 is present instead of file1 (rare with this git format),
+    // ensure we capture it:
+    if (status === 'A' && file2 && (file2.endsWith('.md') || file2.endsWith('.mdx'))) {
+      if (!file1 || file1 === '') added.push(pathToUrl(file2));
     }
   }
 });
