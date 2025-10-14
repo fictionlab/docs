@@ -102,21 +102,12 @@ if (diff.length === 1 && diff[0] === '') {
 
 diff.forEach((line) => {
   const [status, file1, file2] = line.split(/\s+/);
-  if ((file1 && (file1.endsWith('.md') || file1.endsWith('.mdx'))) || (file2 && (file2.endsWith('.md') || file2.endsWith('.mdx')))) {
-    // For rename operations file1 -> file2
-    if (file1 && (file1.endsWith('.md') || file1.endsWith('.mdx'))) {
-      if (status === 'A') added.push(pathToUrl(file1));
-      if (status === 'D') deleted.push(pathToUrl(file1));
-    }
-    if (status && status.startsWith('R')) {
-      // file1 is old path, file2 is new path
-      if (file1 && (file1.endsWith('.md') || file1.endsWith('.mdx'))) deleted.push(pathToUrl(file1));
-      if (file2 && (file2.endsWith('.md') || file2.endsWith('.mdx'))) added.push(pathToUrl(file2));
-    }
-    // For pure add where file2 is present instead of file1 (rare with this git format),
-    // ensure we capture it:
-    if (status === 'A' && file2 && (file2.endsWith('.md') || file2.endsWith('.mdx'))) {
-      if (!file1 || file1 === '') added.push(pathToUrl(file2));
+  if (file1.endsWith('.md') || file1.endsWith('.mdx')) {
+    if (status === 'A') added.push(pathToUrl(file1));
+    if (status === 'D') deleted.push(pathToUrl(file1));
+    if (status.startsWith('R')) {
+      deleted.push(pathToUrl(file1));
+      added.push(pathToUrl(file2));
     }
   }
 });
