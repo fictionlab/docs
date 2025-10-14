@@ -13,10 +13,13 @@ const REQUIRED_KEYS = [
 ];
 
 // Path to your MDX files.
-const DOCS_PATH = 'docs/**/*.mdx';
+const DOCS_PATHS = [
+  'docs/**/*.mdx',
+  '*_versioned_docs/**/*.mdx',
+];
 
 function validateFrontMatter() {
-  const filePaths = glob.sync(DOCS_PATH);
+  const filePaths = DOCS_PATHS.flatMap((pattern) => glob.sync(pattern));
   const errors = [];
 
   for (const filePath of filePaths) {
@@ -27,7 +30,7 @@ function validateFrontMatter() {
     }
 
     // Rule: Exclude files in the guidelines category
-    if (filePath.includes('docs\\guidelines')) {
+    if (filePath.includes('docs\\guidelines') || filePath.includes('docs/guidelines')) {
       console.log(`- Skipping guideline: ${filePath}`);
       continue;
     }
