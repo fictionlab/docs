@@ -30,15 +30,15 @@ function pathToUrl(path) {
 
   // Handle versioned docs like:
   // integrations_versioned_docs/version-noetic/[rest]  -> /integrations/noetic/[rest]
-  const versionedMatch = p.match(/^([^\/]+)_versioned_docs\/version-([^\/]+)\/(.*)$/);
+  const versionedMatch = p.match(
+    /^([^\/]+)_versioned_docs\/version-([^\/]+)\/(.*)$/,
+  );
   if (versionedMatch) {
     const category = versionedMatch[1];
     const versionName = versionedMatch[2];
     const rest = versionedMatch[3];
     let canonical = `/${category}/${versionName}/${rest}`;
-    canonical = canonical
-      .replace(/\.mdx?$/, '')
-      .replace(/\/index$/, '');
+    canonical = canonical.replace(/\.mdx?$/, '').replace(/\/index$/, '');
     let parts = canonical.split('/');
     // Remove duplicate last part (e.g., /foo/bar/bar -> /foo/bar)
     if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
