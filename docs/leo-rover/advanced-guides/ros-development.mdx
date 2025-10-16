@@ -95,7 +95,7 @@ ros2 topic type /cmd_vel
 ```
 
 You should get `geometry_msgs/msg/Twist`. This is a standard message in ROS 2
-for commanding velocity controlled ground robots. We can look up the message
+for commanding velocity controlled ground robots. You can look up the message
 description using `ros2 interface` command:
 
 ```bash
@@ -280,10 +280,6 @@ format and XML being the simplest.
   package, but also allows to add additional links or joints to the model.
 - **/etc/ros/firmware_overrides.yaml** - a YAML file that can be used to
   override the default parameters of the firmware node.
-- **/etc/ros/setup.bash** - the environment setup file that sets all the
-  environment variables necessary for the successful start of the ROS nodes.
-  From that file you can change ROS environment variables and change robot
-  namespace.
 - **/etc/ros/aliases** - a file that defines some convenient bash aliases for
   system services. Most importantly, it defines `ros-restart` alias for
   restarting ROS nodes and `ros-stop` for stopping them.
@@ -298,7 +294,7 @@ To add your custom functionality to the rover, include your launch file in
 `/etc/ros/robot.launch` file by adding the following line inside the `<launch>`
 tag:
 
-```xml title="robot.launch"
+```xml title="robot.launch.xml"
 <include file="$(find-pkg-share your_package_name)/launch/your_custom_launch_file.launch.xml"/>
 ```
 
@@ -390,8 +386,8 @@ measuring tools.
 To build custom ROS 2 packages on Leo Rover, you need to first
 [create a ROS 2 workspace](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html).
 The recommended location for the workspace on the rover is home directory
-(`~/ros2_ws` or `/home/pi/ros2_ws`). You can learn how to create a custom
-package in the
+(`~/ros_ws` or `/home/pi/ros_ws`). You can learn how to create a custom package
+in the
 [Creating a ROS 2 Package tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html).
 
 When building your packages on the rover using
@@ -428,7 +424,7 @@ replace the sourced file with your workspace install setup, for example:
 ```bash
 # comment out system ROS setup
 # source /opt/ros/jazzy/setup.bash
-source /home/pi/ros2_ws/install/setup.bash
+source /home/pi/ros_ws/install/setup.bash
 ```
 
 ## Connecting your computer to Leo Rover ROS 2 network
