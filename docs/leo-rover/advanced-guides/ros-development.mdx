@@ -1,0 +1,524 @@
+---
+title: ROS Development
+sidebar_label: ROS Development
+sidebar_position: 2
+keywords:
+  - Leo Rover
+  - ROS tutorial
+  - ros2 topic
+  - colcon build
+  - ros2 launch
+  - robot programming
+description: >-
+  Detailed guide on ROS 2 development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS 2 packages and more.
+image: /img/robots/leo/leo-rover-1.9.webp
+---
+
+import LinkButton from '@site/src/components/LinkButton';
+import ImageZoom from '@site/src/components/ImageZoom';
+
+> The Robot Operating System 2 (ROS 2) is a flexible framework for writing robot
+> software. It is a collection of tools, libraries, and conventions that aim to
+> simplify the task of creating complex and robust robot behavior across a wide
+> variety of robotic platforms
+>
+> https://www.ros.org/
+
+ROS 2 provides the capability to write and run different processes (called
+[nodes](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Nodes.html)) that
+communicate with each other by sending and receiving messages on named buses
+(called
+[topics](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Topics.html)), by
+calling remote procedures (called
+[services](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Services.html)) or
+by using
+[actions](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Actions.html).
+Please read the
+[ROS 2 Basic Concepts](https://docs.ros.org/en/jazzy/Concepts/Basic.html) to get
+a more clear overview of the concepts related to ROS 2.
+
+This tutorial will describe some basic ROS 2 functionality that can be
+accomplished with Leo Rover.
+
+## Prerequisites
+
+<LinkButton docId="guides/ssh" />
+<LinkButton docId="guides/connect-to-network" />
+
+## Introspecting ROS 2 network with command line tools
+
+ROS 2 comes with command line tools that can help to introspect the current
+network of running nodes. The ROS 2 CLI uses a unified command structure with
+the format `ros2 <command> <verb>`. Some of the available commands are:
+
+- [ros2 node](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html) -
+  printing information about currently running nodes, testing connectivity,
+- [ros2 topic](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html) -
+  listing and printing information about topics currently in use, printing
+  published messages, publishing data to topics, finding the type of published
+  messages
+- [ros2 service](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html) -
+  listing and printing information about available services, calling the service
+  with provided arguments,
+- [ros2 interface](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html#ros2-interface-show) -
+  displaying the fields of a specified ROS 2 message, service or action type.
+
+Let's try running some examples. Before that, connect to Leo Rover via SSH.
+
+Start by reading currently running nodes:
+
+```bash
+ros2 node list
+```
+
+You should see the nodes running on your Leo Rover. Detailed descriptions of the
+nodes can be found in the ROS nodes section of the
+[specification](../documentation/specification.mdx#ros-nodes). Among them,
+you'll find nodes that communicate with the hardware and provide the base
+functionality.
+
+Let's get more information about a specific node. For example, if you have a
+node called `/firmware`:
+
+```bash
+ros2 node info /firmware
+```
+
+You should see all the subscribed and published topics, as well as services that
+the node provides.
+
+Among published topics, you might see the `/firmware/battery` topic. Let's read
+the published values using `ros2 topic` command:
+
+```bash
+ros2 topic echo /firmware/battery
+```
+
+Now, let's look at the `/cmd_vel` topic. This topic is used by the firmware to
+receive drive commands. We can look at its type:
+
+```bash
+ros2 topic type /cmd_vel
+```
+
+You should get `geometry_msgs/msg/Twist`. This is a standard message in ROS 2
+for commanding velocity controlled ground robots. You can look up the message
+description using `ros2 interface` command:
+
+```bash
+ros2 interface show geometry_msgs/msg/Twist
+```
+
+The description should look like this:
+
+```bash
+geometry_msgs/Vector3 linear
+        float64 x
+        float64 y
+        float64 z
+geometry_msgs/Vector3 angular
+        float64 x
+        float64 y
+        float64 z
+```
+
+The `linear` field represents linear velocity (in meters per second) along x, y,
+z axes. `angular` field represents angular velocity (in radians per second)
+along the same axes.
+
+:::info
+
+You can read more about standard units of measure and coordinate conventions in
+[REP105](https://www.ros.org/reps/rep-0105.html)
+
+:::
+
+For differential drive robots like Leo Rover, only `linear.x` and `angular.z`
+values are used.
+
+We can use `ros2 topic pub` command to actually command the rover to move
+forward, by sending messages to `/cmd_vel` topic:
+
+```bash
+ros2 topic pub --rate 20 /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
+```
+
+The rover should start moving forward with a velocity of 0.2 m/s. To stop
+message publishing, simply type **Ctrl+C**.
+
+> The --rate 20 argument tells the ros2 topic tool to publish the message
+> repeatedly 20 times per second instead of publishing only one message. This is
+> necessary because the firmware implements a timeout that will stop the rover
+> if it doesn't receive the next command after some time (half a second by
+> default).
+
+## Using ROS 2 client library to publish messages
+
+ROS 2 provides several client libraries that let you write ROS 2 nodes in
+different programming languages. The most common ones are
+[rclcpp](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Client-Libraries.html#the-rclcpp-package)
+for C++ and
+[rclpy](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Client-Libraries.html#the-rclpy-package)
+for Python.
+
+Here is a simple Python node that commands the rover by publishing to `/cmd_vel`
+topic:
+
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist
+import time
+
+class TestDrive(Node):
+    def __init__(self):
+        super().__init__('test_drive')
+        # Create ROS 2 publisher
+        self.cmd_pub = self.create_publisher(Twist, 'cmd_vel', 10)
+
+    # Write a function that drives the Rover with specified
+    # linear and angular speed for 2 seconds
+    def drive(self, linear, angular):
+        # Initialize ROS 2 message object
+        twist = Twist()
+        twist.linear.x = linear
+        twist.angular.z = angular
+
+        for _ in range(20):  # repeat 20 times
+            self.cmd_pub.publish(twist)  # publish message
+            time.sleep(0.1)  # sleep for 100ms
+
+def main():
+    rclpy.init()
+
+    # Create node instance
+    node = TestDrive()
+
+    # Now let's actually test driving the Rover
+    # linear speed is in m/s and angular speed in rad/s
+    node.drive(0.2, 0.0)
+    node.drive(0.0, 0.0)
+    node.drive(-0.2, 0.0)
+    node.drive(0.0, 0.0)
+    node.drive(0.0, 1.0)
+    node.drive(0.0, 0.0)
+    node.drive(0.0, -1.0)
+    node.drive(0.0, 0.0)
+
+    # Cleanup
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+Copy this script to Raspberry Pi filesystem.
+
+:::info
+
+You can paste this to new file when using a terminal. Copy the script to
+clipboard, then type:
+
+```bash
+cat > test_drive.py
+```
+
+Type **Ctrl+Shift+V** if using Linux terminal. Then type **Ctrl+D** to end the
+file.
+
+:::
+
+Add execute permission to the file:
+
+```bash
+chmod +x test_drive.py
+```
+
+And execute it by typing:
+
+```bash
+python3 test_drive.py
+```
+
+The rover should drive forwards and backwards, then, turn in place in left and
+right directions.
+
+:::warning
+
+Make sure you don't have a Web UI running at the moment as it may cause
+conflicts on /cmd_vel topic
+
+:::
+
+## Adding additional functionality to the rover
+
+LeoOS provides an easy mechanism for adding new functionalities without building
+any of the base packages. The whole process of starting the ROS nodes at boot
+can be summarized by the following files:
+
+- **/etc/ros/robot.launch** - a main launch file that starts the robot's
+  functionality. It includes the launch file from the
+  [leo_bringup](https://github.com/LeoRover/leo_robot-ros2/tree/ros2/leo_bringup)
+  package which starts the base functionality of the rover, but also allows to
+  add additional nodes to be started or parameters to be set.
+
+:::info
+
+A
+[launch file](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Launch/Launch-Main.html)
+in ROS 2 describes a set of nodes to be started with specified parameters. ROS 2
+supports Python, XML, and YAML launch files, with Python being the most flexible
+format and XML being the simplest.
+
+:::
+
+- **/etc/ros/setup.bash** - the environment setup file that sets all the
+  environment variables necessary for the successful start of the ROS nodes. It
+  sources the environment setup file from the target ROS distribution (by
+  default `/opt/ros/jazzy/setup.bash`) and sets additional environment
+  variables.
+- **/etc/ros/urdf/robot.urdf.xacro** - the URDF description (in
+  [xacro](https://github.com/ros/xacro/wiki) format) that is uploaded to the
+  Parameter Server by the `leo_bringup.launch.xml` file. It includes the robot's
+  model from the
+  [leo_description](https://github.com/LeoRover/leo_common-ros2/tree/ros2/leo_description)
+  package, but also allows to add additional links or joints to the model.
+- **/etc/ros/firmware_overrides.yaml** - a YAML file that can be used to
+  override the default parameters of the firmware node.
+- **/etc/ros/aliases** - a file that defines some convenient bash aliases for
+  system services. Most importantly, it defines `ros-restart` alias for
+  restarting ROS nodes and `ros-stop` for stopping them.
+
+### Adding custom nodes to be started at boot
+
+To add additional ROS nodes, you can create a custom launch file. You can learn
+how to create files in the
+[ROS 2 Launch tutorial](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Launch/Launch-Main.html).
+
+To add your custom functionality to the rover, include your launch file in
+`/etc/ros/robot.launch` file by adding the following line inside the `<launch>`
+tag:
+
+```xml title="robot.launch.xml"
+<include file="$(find-pkg-share your_package_name)/launch/your_custom_launch_file.launch.xml"/>
+```
+
+After including your launch file, you can restart the ROS nodes by typing:
+
+```bash
+ros-restart
+```
+
+Now, your custom nodes should be started along with the base functionality of
+the rover and will start on boot.
+
+### Expanding the URDF model
+
+When integrating a sensor or other device to your rover, you might sometimes
+want to extend the robot's URDF model to:
+
+- visualize the device attached to the rover in RViz 2
+- make the robot aware of device's collision geometry
+- provide additional reference frames (for example for the sensor readings)
+
+You can create a separate URDF file for your attached device like this one:
+
+```xml title="sensor.urdf.xacro"
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- a link representing visual and collision
+       properties of the sensor -->
+  <link name="sensor_base_link">
+    <visual>
+      <origin xyz="0 0 0.05"/>
+      <geometry>
+        <box size="0.05 0.05 0.1"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 0.7"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.05"/>
+      <geometry>
+        <box size="0.05 0.05 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- fixed joint that attaches
+       the sensor to the rover's body -->
+  <joint name="sensor_base_joint" type="fixed">
+    <origin xyz="0.08 0 0"/>
+    <parent link="base_link"/>
+    <child link="sensor_base_link"/>
+  </joint>
+
+  <!-- reference frame for sensor readings -->
+  <link name="sensor_frame"/>
+
+  <!-- fixed joint that sets the origin
+       of the reference frame -->
+  <joint name="sensor_joint" type="fixed">
+    <origin xyz="0 0 0.06"/>
+    <parent link="sensor_base_link"/>
+    <child link="sensor_frame"/>
+  </joint>
+
+</robot>
+```
+
+And include it in main xacro file that is located at
+`/etc/ros/urdf/robot.urdf.xacro` by adding the following line in between
+`<robot>` tags:
+
+```xml
+<xacro:include filename="$(find your_package)/urdf/sensor.urdf.xacro"/>
+```
+
+Now, when you restart the nodes with `ros-restart` command, the new URDF model
+will be published and you should be able to view the new model in RViz 2.
+
+You can use `base_link` as a reference frame for other links in the model. The
+exact position of the `base_link` origin is defined as the center of the
+mounting hole on the upper plane of the mounting plate.
+
+The distance can be easily measured in CAD programs or even using physical
+measuring tools.
+
+## Building custom ROS 2 packages on Leo Rover
+
+To build custom ROS 2 packages on Leo Rover, you need to first
+[create a ROS 2 workspace](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html).
+The recommended location for the workspace on the rover is home directory
+(`~/ros_ws` or `/home/pi/ros_ws`). You can learn how to create a custom package
+in the
+[Creating a ROS 2 Package tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html).
+
+When building your packages on the rover using
+[colcon](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html),
+we recommend using the following flags:
+
+- `--symlink-install` - to avoid copying install files during active
+  development. Note: C/C++ sources still require rebuilds.
+- `--cmake-args -DCMAKE_BUILD_TYPE=Release` - to build C++ packages in Release
+  mode for better performance.
+
+An example build command can look like this:
+
+```bash
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+```
+
+:::tip
+
+If Raspberry Pi runs out of memory during the build, you can limit the number of
+parallel workers using `--parallel-workers` flag. For example, to use only one
+worker:
+
+```bash
+colcon build --parallel-workers 1
+```
+
+:::
+
+After a successful build, source the workspace install space in the system setup
+so the robot uses your overlay on boot. Edit `/etc/ros/setup.bash` and add or
+replace the sourced file with your workspace install setup, for example:
+
+```bash
+# comment out system ROS setup
+# source /opt/ros/jazzy/setup.bash
+source /home/pi/ros_ws/install/setup.bash
+```
+
+## Connecting your computer to Leo Rover ROS 2 network
+
+ROS 2 is designed with distributed computing in mind. Unlike ROS 1, ROS 2 uses
+DDS (Data Distribution Service) which provides automatic discovery of nodes on
+the network. This makes it easier to run nodes across multiple machines without
+extensive configuration.
+
+To install ROS 2 on your computer, you can follow the official
+[installation guides](https://docs.ros.org/en/jazzy/Installation.html).
+
+In this section, we will assume you run Ubuntu 24.04 with ROS 2 Jazzy or later.
+
+First, connect your computer to the same network your rover is connected to. It
+can be either the Rover's Access Point (`LeoRover-XXXX` by default) or an
+external router (if you connected your rover to it).
+
+ROS 2 nodes on the same network will discover each other automatically if they
+use the same Domain ID. By default, ROS 2 uses Domain ID 0, but you can change
+this by modifying the `ROS_DOMAIN_ID` environment variable:
+
+```bash
+export ROS_DOMAIN_ID=1
+```
+
+Make sure both your computer and the rover use the same Domain ID. If that's the
+case you should be able to see the rover's nodes in a terminal on your computer:
+
+```bash
+ros2 node list
+```
+
+## ROS 2 graphical tools
+
+With ROS 2 properly configured on your computer, you can now run graphical tools
+to introspect and visualize the rover's state.
+
+### RViz 2
+
+RViz 2 is the 3D visualization tool for ROS 2. You can use it to visualize the
+robot model, sensor data, and more. You can find more information about RViz 2
+in the
+[RViz 2 User Guide](https://docs.ros.org/en/jazzy/p/rviz2/doc/index.html).
+
+### rqt
+
+rqt provides various GUI plugins for ROS 2.
+
+Some useful rqt plugins include:
+
+- `rqt_graph` - Visualize the ROS 2 computation graph
+- `rqt_console` - View log messages
+- `rqt_plot` - Plot topic data in real-time
+- `rqt_image_view` - View image topics
+
+You can find more information about rqt in the
+[rqt User Guide](https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-RQt.html).
+
+### Teleop keyboard
+
+You can control the rover using keyboard teleoperation by running:
+
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+## Further learning
+
+To learn more about using ROS 2 development and Leo Rover use cases, check out
+these resources:
+
+<LinkButton
+  to="/leo-rover/1.8/leo-examples"
+  title="Leo Examples"
+  description="Learn about software examples that you can run on the stock Leo Rover."
+/>
+
+<LinkButton
+  to="https://docs.ros.org/"
+  title="ROS 2 Documentation"
+  description="Official documentation for ROS 2."
+/>
+
+<LinkButton
+  to="https://docs.ros.org/en/jazzy/How-To-Guides/Migrating-from-ROS1.html"
+  title="Migrating from ROS 1"
+  description="Guide on how to migrate from ROS 1 to ROS 2."
+/>

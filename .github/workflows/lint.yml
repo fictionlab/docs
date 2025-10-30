@@ -1,0 +1,42 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+    branches:
+      - production
+      - development
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check Frontmatter keys
+        run: yarn check:frontmatter
+
+      - name: Check Types
+        if: success() || failure()
+        run: yarn check:types
+
+      - name: Check Formatting
+        if: success() || failure()
+        run: yarn check:formatting
+
+      - name: Check spelling
+        if: success() || failure()
+        run: yarn check:spelling

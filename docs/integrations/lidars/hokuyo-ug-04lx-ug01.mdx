@@ -1,5 +1,5 @@
 ---
-title: Hokuyo URG-04LX-UG01
+title: Hokuyo URG-04LX-UG01 LiDAR Integration Guide for ROS Robots
 sidebar_label: Hokuyo URG-04LX-UG01
 keywords:
   - hokuyo
@@ -13,6 +13,8 @@ description: >-
   object detection, and SLAM applications.
 image: /img/robots/leo/integrations/hokuyo-lidar/hokuyo-lidar.webp
 ---
+
+# Hokuyo URG-04LX-UG01 LiDAR Integration
 
 import Product from '@site/src/products/powerbox.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
@@ -168,7 +170,7 @@ start at boot.
 Your robot should be aware of where the scanner is located and what space it
 occupies. You can ensure it does that by creating a URDF model of the sensor.
 
-```xml title="/etc/ros/urdf/laser.urdf.xacro"
+```xml title="/etc/ros/urdf/laser.urdf"
 <?xml version="1.0"?>
 <robot>
 
@@ -225,7 +227,7 @@ occupies. You can ensure it does that by creating a URDF model of the sensor.
 And including it in the description that is uploaded at boot.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
-<xacro:include filename="/etc/ros/urdf/laser.urdf.xacro"/>
+<xacro:include filename="/etc/ros/urdf/laser.urdf"/>
 ```
 
 :::tip

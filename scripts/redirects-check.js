@@ -25,9 +25,31 @@ const baseBranch = argv.base;
 console.log(`Comparing ${compareRef} against ${baseBranch}`);
 
 function pathToUrl(path) {
+  // Normalize Windows backslashes to forward slashes
+  let p = path.replace(/\\/g, '/');
+
+  // Handle versioned docs like:
+  // integrations_versioned_docs/version-noetic/[rest]  -> /integrations/noetic/[rest]
+  const versionedMatch = p.match(
+    /^([^\/]+)_versioned_docs\/version-([^\/]+)\/(.*)$/,
+  );
+  if (versionedMatch) {
+    const category = versionedMatch[1];
+    const versionName = versionedMatch[2];
+    const rest = versionedMatch[3];
+    let canonical = `/${category}/${versionName}/${rest}`;
+    canonical = canonical.replace(/\.mdx?$/, '').replace(/\/index$/, '');
+    let parts = canonical.split('/');
+    // Remove duplicate last part (e.g., /foo/bar/bar -> /foo/bar)
+    if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
+      parts.pop();
+    }
+    return parts.join('/');
+  }
+
   const canonicalUrl =
     '/' +
-    path
+    p
       .replace(/^docs\//, '')
       .replace(/\.mdx?$/, '')
       .replace(/\/index$/, '');
@@ -63,8 +85,9 @@ function matchRedirect(url, redirects) {
   });
 }
 
+// include both docs/ and any *_versioned_docs/ pathspecs
 const diff = execSync(
-  `git diff --name-status ${baseBranch}...${compareRef} -- docs/`,
+  `git diff --name-status ${baseBranch}...${compareRef} -- docs/ *_versioned_docs/`,
 )
   .toString()
   .trim()

@@ -1,4 +1,4 @@
-name: Docs redirects check
+name: Check docs redirects
 
 on:
   pull_request:
@@ -8,16 +8,17 @@ on:
 
 jobs:
   check-redirects:
+    name: Check docs redirects
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: yarn
@@ -28,4 +29,4 @@ jobs:
       - name: Run redirects check
         run: |
           git fetch origin ${{ github.base_ref }}
-          node scripts/redirects-check.js --base origin/${{ github.base_ref }}
+          yarn check:redirects -- --base origin/${{ github.base_ref }}

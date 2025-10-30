@@ -1,6 +1,6 @@
 ---
-title: SLAMTEC RPLidar S3
-sidebar_label: SLAMTEC RPLidar S3
+title: SLAMTEC RPLIDAR S3 Integration Guide for ROS Robots
+sidebar_label: SLAMTEC RPLIDAR S3
 keywords:
   - slamtec
   - rplidar
@@ -15,6 +15,8 @@ description: >-
   more. Detailed tutorial mechanical and software integration.
 image: /img/robots/leo/integrations/rplidar-s3/rplidar-s3.webp
 ---
+
+# SLAMTEC RPLIDAR S3 Integration
 
 import Product from '@site/src/products/powerbox.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
@@ -164,7 +166,7 @@ start at boot.
 In `/etc/ros/robot.launch.xml`:
 
 ```xml
-<include file="/etc/ros/laser.launch"/>
+<include file="/etc/ros/laser.launch.xml"/>
 ```
 
 Your robot should be aware of where the sensor is located and what space it
@@ -242,7 +244,7 @@ occupies. You can ensure it does that by creating a URDF model of the sensor.
 And including it in the description that is uploaded at boot.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
-<xacro:include filename="/etc/ros/urdf/laser.urdf.xacro"/>
+<xacro:include filename="/etc/ros/urdf/laser.urdf"/>
 ```
 
 :::tip
