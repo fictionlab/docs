@@ -34,7 +34,7 @@ image: /img/robots/raph/raph-rover.webp
 
 ## Published Topics
 
-- `controller/imu` ([sensor_msgs/msg/Imu])
+- `controller/imu/data_raw` ([sensor_msgs/msg/Imu])
 
   Current gyroscope and accelerometer readings from the onboard IMU.
 
@@ -55,6 +55,10 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/power_system_state` ([raph_interfaces/msg/PowerSystemState])
 
   Current information about the power system.
+
+- `imu/data` ([sensor_msgs/msg/Imu])
+
+  Filtered IMU readings including orientation.
 
 - `oak/imu/data` ([sensor_msgs/msg/Imu])
 
