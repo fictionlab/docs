@@ -15,234 +15,87 @@ image: /img/robots/raph/raph-rover.webp
 toc_max_heading_level: 4
 ---
 
-# Raph Rover User Manual
-
 import styles from './styles.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import CenterContent from '@site/src/components/CenterContent';
 import LinkButton from '@site/src/components/LinkButton';
+import Support from '@site/docs/raph-rover/partial/_support.mdx';
+import FlexTable from '@site/src/components/FlexTable';
+import FlexTableItem from '@site/src/components/FlexTableItem';
 
-<font color="red">
-Anything before software specification is untouched - needs to be changed.
-TODO:
-
-- Split this file into more smaller ones - User Manual and Developer Guides
-- Review data, text, shorten, make it sound less like GPT wrote it
-- Remove stuff thats copied from specification
-- Remove all circlejerk text
-
-</font>
-
-### What's included
-
-<CenterContent>
-
-| Item                       | Count |
-| -------------------------- | :---: |
-| Raph Rover                 |   1   |
-| Raph Rover battery pack    |   2   |
-| Raph Rover battery charger |   1   |
-| Li-Ion charger 6S 4A       |   1   |
-| Tools                      |   1   |
-
-</CenterContent>
-
-### Seals
-
-<font color="red">
-  Both to keep the rover looking cleaner, and to provide extra weather and dust
-  resistance a system of seals around the rover can be used.
-</font>
-
-To ensure weather-tightness while accommodating additional payloads, the Raph
-Rover is equipped with specialized cable seals. To insert additional cables, it
-is necessary to dismantle the entire panel by loosening two thumb screws. Once
-the panel is disassembled, individual seals can be removed from the frame,
-allowing for the insertion of new cables.
-
-Raph Rover comes with different seals, labeled as QT [Z]/[X] or QT [X], where Z
-indicates the number of holes in the seal and X indicates the diameter of the
-cable in millimeters.
-
-<ThemedImageZoom
-  alt="Raph Rover's payload cable seals"
-  sources={{
-    light: useBaseUrl('/img/robots/raph/specification/Back_seals_black.webp'),
-    dark: useBaseUrl('/img/robots/raph/specification/Back_seals_white.webp'),
-  }}
-  width="3000"
-  height="1428"
+<ImageZoom
+  loading="eager"
+  src="/img/robots/raph/raph-rover.webp"
+  alt="Render of beta version of Raph Rover"
+  width="2000"
+  height="1500"
   figStyle={{
-    width: 600,
+    width: 500,
+    paddingBottom: '2rem',
   }}
-  caption="Payload cable seal"
 />
 
-### Block diagram
-
-### Drivetrain
-
-<font color="red" size="+2">
-  {' '}
-  An image is worth a 1000 words - remove text, replace with image showing the
-  movement
-</font>
-
-- turning in place ( around middle point between frontal wheels)
-- turning around specific frontal wheel
-- turning around a curve
-
-<CenterContent>
-
-| Parameter                     |    Value    |
-| ----------------------------- | :---------: |
-| Track Width                   |   385 mm    |
-| Wheelbase length              |   379 mm    |
-| Ground clearance              |   105 mm    |
-| Climb grade (no payload)      | 30° ( ~58%) |
-| Climb grade with 5kg payload  | 20° ( ~36%) |
-| Climb grade with 10kg payload | 10° ( ~18%) |
-| Hill grade traversal          | 30° ( ~58%) |
-| Nominal torque                |    4 Nm     |
-| Maximum torque                |    8 Nm     |
-
-</CenterContent>
-
-The standard configuration of the Raph Rover features a drivetrain comprising
-two fixed wheels at the front and two rotary wheels at the rear. This design
-enhances the mobility of the Rover, enabling it to execute precise maneuvers
-such as:
-
-- turning in place ( around middle point between frontal wheels)
-- turning around specific frontal wheel
-- turning around a curve
-
-This versatile drivetrain configuration optimizes the Rover's navigational
-capabilities, ensuring adaptability in various operational scenarios.
-
-#### Traction parameters
-
-<CenterContent>
-
-| Parameter                     |    Value    |
-| ----------------------------- | :---------: |
-| Track Width                   |   385 mm    |
-| Wheelbase length              |   379 mm    |
-| Ground clearance              |   105 mm    |
-| Climb grade (no payload)      | 30° ( ~58%) |
-| Climb grade with 5kg payload  | 20° ( ~36%) |
-| Climb grade with 10kg payload | 10° ( ~18%) |
-| Hill grade traversal          | 30° ( ~58%) |
-| Nominal torque                |    4 Nm     |
-| Maximum torque                |    8 Nm     |
-
-</CenterContent>
-
-#### Motors
-
-<font color="red" size="+3">
-  {' '}
-  Do ve really want to tell people that we are using chinese motors? Just say
-  that they are high quality, direct drive, brushless motors with integrated
-  encoder and stop there.
-</font>
-
-The Raph Rover is equipped with 6 DirectDriveTech M0601C-111 direct-drive BLDC
-motors, serving both the drive and turn functions. These motors enable the rover
-to attain a speed of approximately 1.8 m/s when equipped with standard diameter
-tires. Each motor is outfitted with an integrated incremental encoder with a
-resolution of 12 bits.
-
-To mitigate potential operational challenges, a mechanical bumper restricts the
-turn angle of each steering wheel to 180°. This bumper not only acts as a limit
-for wheel rotation but also serves to establish the wheel's position when the
-rover is restarted, ensuring consistent and reliable performance.
-
-#### Wheels
-
-As standard, Raph Rover comes with rubber tires with a diameter of about 170 mm.
-Whole drive assembly has following characteristics:
-
-<CenterContent>
-
-| Parameter                        |       Value        |
-| -------------------------------- | :----------------: |
-| Tire size (diameter x thickness) | ~ 170 mm x ~ 80 mm |
-| Tire lock type                   |      Beadlock      |
-| Tire insert                      |     Hard foam      |
-| Wheel rim diameter               |       120 mm       |
-
-</CenterContent>
-
-### Battery & charging
-
-<font color="red" size="+3">
-  Copy what Getting Started says about batteries here
-</font>
-
-Raph Rover boasts an advanced battery management system, a feature enabling the
-simultaneous utilization of two battery packs. This innovative system empowers
-the rover to seamlessly operate for approximately four continuous hours under
-decent conditions (e.g. relatively flat terrain). The dual-battery configuration
-enhances the overall endurance and sustained performance of the rover.
-
-A notable feature of the design is the ability to detach the battery packs
-without requiring a power-off cycle. By connecting the charger to the rear slot
-of the Rover, users can safely remove both batteries. This functionality
-streamlines the process of swift and efficient battery replacements, resulting
-in minimal downtime during operations. The seamless swapping of battery packs
-not only extends the operational range of the rover but also mitigates the
-necessity for frequent service stops, thereby elevating the overall efficiency
-and productivity of the robotic platform.
-
-Each battery pack has following characteristics:
-
-<CenterContent>
-
-| Parameter            |                  Value                   |
-| -------------------- | :--------------------------------------: |
-| Voltage              |             22.2 V (nominal)             |
-| Battery type         |                  Li-Ion                  |
-| Capacity             |        4 Ah (96 Wh - flight safe)        |
-| Battery pack type    |                   6S1P                   |
-| Maximum output power |                  ~650 W                  |
-| Safety systems       | Overcurrent, Reverse polarity protection |
-
-</CenterContent>
-
-#### Battery charging
-
-<font color="red" size="+3">
-  {' '}
-  Battery and charging -> battery charging - do we really need a whole section
-  about this?
-</font>
-
-By default Raph Rover comes with 2A 25,2V Li-Ion charger. It can charge 1
-battery pack in about 2,5 hours.
-
-Raph Rover has 2 options for charging batteries:
-
-- Outside the Rover, by plugging battery into charger
-- Inside the Rover, by plugging charger directly into rear charging slot of the
-  Rover
-
-The charger is outfitted with an LED status indicator designed to provideS
-information about the charging status of the battery. A green LED signifies that
-the battery has reached full charge, while a red LED indicates that the battery
-is currently in the charging process.
+# Raph Rover User Manual
 
 :::note
 
-When charging the batteries with the Rover powered on, the LED indicator will
-not transition to green during the charging cycle. This is due to the fact that
-the charger will be used to sustain the operational state of the rover after the
-charging process.
+This manual assumes that you already unboxed and launched the Raph Rover for the
+first time. If not, please complete the Getting started guide.
+
+<LinkButton docId="documentation/getting-started" />
 
 :::
 
-## Software specification
+## Introduction
+
+This user manual provides concise, practical guidance for safely operating,
+maintaining, and troubleshooting the Raph Rover. Use this manual as the primary
+reference for day-to-day use and field maintenance; follow links to Getting
+Started, developer guides, and the ROS API for setup and advanced development.
+
+Always observe local safety regulations and the safety guidelines in this
+document before operating the rover.
+
+{/* ### Safety guidelines */}
+
+{/* TODO */}
+
+:::tip
+
+If you are seeking more information about Raph Rover features check our Overview
+page:
+
+<LinkButton docId="index" />
+
+:::
+
+## Hardware
+
+Raph Rover integrates several key hardware components that work together to
+provide a robust mobile robotics platform:
+
+<ThemedImageZoom
+  alt="Hardware diagram of Raph Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/raph-hardware-diagram-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/raph-hardware-diagram-dark.webp',
+    ),
+  }}
+  width="2000"
+  height="2037"
+  caption="Block diagram of Raph Rovers components"
+  figStyle={{ paddingBottom: '2rem' }}
+/>
+
+These components are integrated into a compact chassis designed for durability
+and ease of maintenance. The modular architecture allows for customization while
+maintaining core functionality through the ROS 2 software stack.
+
+## Software
 
 ### Overview
 
@@ -307,6 +160,11 @@ There are two important software components which don't run as native ROS nodes:
 | Camera Driver         | Publishes the data provided by the stereoscopic camera. In the default configuration used in Raph Rover, it includes:<ul><li>Images captured by the left, right and RGB (center) camera image sensors.</li><li>Calibration parameters for each image sensor.</li><li>Data from the camera's IMU sensor.</li><li>Depth images computed from the left and right sensors.</li></ul>                                                                                                                                                                                                                                                               |
 | Depth Processing Node | Publishes point cloud data computed from depth images and camera calibration parameters.<br /><br />Employs “lazy subscription”, meaning it doesn't process any depth images until at least one node subscribes to the Point Cloud topic.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | LIDAR Driver          | Publishes data from the LIDAR sensor.<br /><br />Additionally, it provides services for starting and stopping the sensor's motor.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Raph System Node      | Enables rebooting and shutting down the onboard computer via ROS services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| LIDAR Filter Node     | Filters out LIDAR measurements from the robot's footprint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ROS API Node          | Exposes ROS API services so the Web UI can inspect the ROS graph, query/set parameters and call services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Rosbridge Server      | Provides a WebSocket interface for communication with the Web User Interface using the rosbridge protocol.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Web Video Server      | Streams camera images to the Web User Interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
 </CenterContent>
 
@@ -332,7 +190,25 @@ You can learn how to create custom ROS nodes for Raph Rover in the
 
 ### Firmware
 
-{/* TODO: uzupełnić */}
+Rover's low-level hardware functions are managed by the RaphCore
+microcontroller, which runs an RTOS app (firmware) based on FreeRTOS.
+Communication between the firmware and the onboard computer is facilitated by
+Micro-ROS.
+
+The firmware is responsible for:
+
+- Controlling the wheel motors and servos.
+- Managing the power system, including battery monitoring and charging.
+- Operating the LED panels.
+- Publishing data from the IMU sensor.
+- Publishing odometry calculated from wheel encoders and IMU.
+
+The firmware also uses a custom bootloader which is responsible for loading and
+updating the firmware itself. To learn how to flash or update the firmware,
+follow the guide below:
+
+{/* TODO: Add firmware flashing tutorial */}
+{/* <LinkButton docId="guides/firmware-update" /> */}
 
 #### LED controller
 
@@ -356,42 +232,8 @@ flexibility for different use cases:
   topic.
 
 LED priorities range from 1 to 127. Higher priority animations override lower
-priority ones.
-
-#### LED indicators
-
-##### Normal states
-
-<CenterContent>
-
-|                                LED                                | LED description                                                | State description                                                                                                                                                                                                                                           | Priority |
-| :---------------------------------------------------------------: | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
-|        <span className={styles.circle} id={styles.green}/>        | Green, constant - side panels                                  | Battery state - indicates current battery level. Can be activated by pressing the <font color="c07b2c"> **CONTROL** </font> button. Each side panel corresponds to a battery on the robot.                                                                  |   106    |
-|     <span className={styles.circle} id={styles.chargeCycle}/>     | Color corresponding to battery charge, breathing - side panels | Battery charging - indicates charging and shows current battery charge. When fully charged, the side panel light up green and stops breathing. Charging animation can be disabled by pressing <font color="2c71bf"> **POWER** </font> button when charging. |    51    |
-|    <span className={styles.bar} id={styles.batteryConnected}/>    | Color corresponding to battery charge - side panels            | Battery connected - indicates that a battery was connected succesfully.                                                                                                                                                                                     |   108    |
-| <span className={styles.circle} id={styles.batteryDisconnected}/> | Red, fading out - side panels                                  | Battery disconnected - indicates that a battery was disconnected or is fully depleted.                                                                                                                                                                      |   108    |
-|        <span className={styles.bar} id={styles.microRos}/>        | Blue segment going back and forth - side panels                | Micro-ROS connection animation - indicates that the robot is waiting for Micro-ROS connection.                                                                                                                                                              |    60    |
-|        <span className={styles.circle} id={styles.white}/>        | White, constant                                                | Rover fully on - shows that RaphCore is connected to onboard computer. When motors are relaxed a light blue segment will go around the whole LED strip.                                                                                                     |    1     |
-|       <span className={styles.circle} id={styles.yellow}/>        | Yellow, constant                                               | Maintenance mode - indicates that maintenance mode is active.                                                                                                                                                                                               |    90    |
-|        <span className={styles.circle} id={styles.blue}/>         | Blue, constant                                                 | Servo calibration - indicates that servo calibration is in progress.                                                                                                                                                                                        |    90    |
-
-</CenterContent>
-
-##### Fault states
-
-<CenterContent>
-
-|                                LED                                |      LED description       |     State description     | Priority |
-| :---------------------------------------------------------------: | :------------------------: | :-----------------------: | :------: |
-|      <span className={styles.circle} id={styles.flashRed3}/>      | Red, flashing - rear panel | Servo calibration failure |   102    |
-| <span className={styles.circle} id={styles.batteryDisconnected}/> |  Red, flashing and fading  | Motor communication error |   104    |
-|      <span className={styles.circle} id={styles.flashRed3}/>      |       Red, flashing        |        Motor fault        |   104    |
-
-</CenterContent>
-
-Fault states also indicate which motor has failed by illuminating the segment of
-the LED strip that corresponds to the position of the faulty motor, with side
-panels indicating wheel motors, and rear panel indicating servos.
+priority ones. Sending an LED state with priority -1 will reset the LED (turn it
+off). Messages with priority 0 are ignored.
 
 ### Web User Interface
 
@@ -407,13 +249,19 @@ below:
 
 :::
 
-### Network
+## Control & Basic Operations
+
+### Connectivity & network configuration
 
 Raph Rover comes with a built-in router that provides a Wi-Fi access point and
 can be configured to suit the user's needs. The router supports both 2.4 GHz and
 5 GHz frequency bands, allowing for flexible connectivity options. Users can
 connect their devices to the rover's Wi-Fi network to access the Web User
-Interface and rover's onboard comuter.
+Interface and rover's onboard computer.
+
+To learn how to connect to the Raph Rover's Access Point, follow guide below:
+
+<LinkButton docId="guides/connect-to-rover-ap" />
 
 The table below describes rover's network configuration:
 
@@ -428,3 +276,315 @@ configure network settings in the guides below:
 
 <LinkButton docId="guides/connect-to-network" />
 <LinkButton docId="guides/router-settings" />
+
+### Understanding LED panel signals
+
+#### Normal states
+
+<CenterContent>
+
+|                                LED                                | LED description                                                | State description                                                                                                                                                                                                                                           | Priority |
+| :---------------------------------------------------------------: | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
+|        <span className={styles.circle} id={styles.green}/>        | Green, constant - side panels                                  | Battery state - indicates current battery level. Can be activated by pressing the <font color="2c71bf"> **POWER** </font> button when the charger is disconnected. Each side panel corresponds to a battery on the robot.                                   |   106    |
+|     <span className={styles.circle} id={styles.chargeCycle}/>     | Color corresponding to battery charge, breathing - side panels | Battery charging - indicates charging and shows current battery charge. When fully charged, the side panel light up green and stops breathing. Charging animation can be disabled by pressing <font color="2c71bf"> **POWER** </font> button when charging. |    51    |
+|    <span className={styles.bar} id={styles.batteryConnected}/>    | Color corresponding to battery charge - side panels            | Battery connected - indicates that a battery was connected succesfully.                                                                                                                                                                                     |   108    |
+| <span className={styles.circle} id={styles.batteryDisconnected}/> | Red, fading out - side panels                                  | Battery disconnected - indicates that a battery was disconnected or is fully depleted.                                                                                                                                                                      |   108    |
+|        <span className={styles.bar} id={styles.microRos}/>        | Blue segment going back and forth - side panels                | Micro-ROS connection animation - indicates that the robot is waiting for Micro-ROS connection.                                                                                                                                                              |    60    |
+|        <span className={styles.circle} id={styles.white}/>        | White, constant                                                | Rover fully on - shows that RaphCore is connected to onboard computer. When motors are relaxed a light blue segment will go around the whole LED strip.                                                                                                     |    1     |
+|       <span className={styles.circle} id={styles.yellow}/>        | Yellow, constant                                               | Maintenance mode - indicates that maintenance mode is active.                                                                                                                                                                                               |    90    |
+|        <span className={styles.circle} id={styles.blue}/>         | Blue, constant                                                 | Servo calibration - indicates that servo calibration is in progress.                                                                                                                                                                                        |    90    |
+
+</CenterContent>
+
+#### Fault states
+
+<CenterContent>
+
+|                                LED                                |      LED description       |     State description     | Priority |
+| :---------------------------------------------------------------: | :------------------------: | :-----------------------: | :------: |
+|      <span className={styles.circle} id={styles.flashRed3}/>      | Red, flashing - rear panel | Servo calibration failure |   102    |
+| <span className={styles.circle} id={styles.batteryDisconnected}/> |  Red, flashing and fading  | Motor communication error |   104    |
+|      <span className={styles.circle} id={styles.flashRed3}/>      |       Red, flashing        |        Motor fault        |   104    |
+
+</CenterContent>
+
+Fault states also indicate which motor has failed by illuminating the segment of
+the LED strip that corresponds to the position of the faulty motor, with side
+panels indicating wheel motors, and rear panel indicating servos.
+
+## Payload integration basics
+
+### Mechanical mountings
+
+<font color="red">
+
+- Jak zamontować coś na płycie
+- Jak wprasować wkładki w płytę
+
+</font>
+
+### Using external data & power ports
+
+The external data and power ports are located within the rear compartment. This
+compartment must be opened for access. The interfaces are provided for
+connecting external payloads or for establishing a direct connection to the
+rover's internal network.
+
+<ThemedImageZoom
+  alt="Raph Rover's rear compartment overview"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/Interface_panels_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/Interface_panels_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  caption="Raph Rover's rear compartment overview"
+/>
+
+:::warning
+
+The Raph Rover is not weatherproof while the rear compartment is open. To
+maintain the IP54 protection rating with external connections, please use the
+[external cable seals](#external-cable-seals).
+
+:::
+
+### External cable seals
+
+Both to keep the rover looking cleaner, and to provide extra weather and dust
+resistance a system of seals around the rover can be used. They can ensure that
+the whole robot with additional payload will maitain the IP54 protection rating.
+
+To insert additional cables, it is necessary to dismantle the entire panel by
+loosening two thumb screws. Once the panel is disassembled, individual seals can
+be removed from the frame, allowing for the insertion of new cables.
+
+<ThemedImageZoom
+  alt="Raph Rover's payload cable seals"
+  sources={{
+    light: useBaseUrl('/img/robots/raph/specification/Back_seals_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/specification/Back_seals_white.webp'),
+  }}
+  width="3000"
+  height="1428"
+  figStyle={{
+    width: 600,
+  }}
+  caption="Payload cable seals"
+/>
+
+Raph Rover comes with different seals, labeled as QT [Z]/[X] or QT [X], where Z
+indicates the number of holes in the seal and X indicates the diameter of the
+cable in millimeters.
+
+:::tip
+
+Each cable seal has splitted holes, so it is possible to route pre-terminated
+cables through them.
+
+:::
+
+## Maintenance & Troubleshooting
+
+{/* In case of any issues with the Raph Rover, please refer to the **FAQ** and **Known Issues** pages on our docs. If issue isn't listed on these pages please [reach to us](#community--resources) for support. */}
+
+{/* TODO: Link to FAQ */}
+
+{/* TODO: Link to Known Issues */}
+
+### Power & Battery management
+
+#### Power On and Shutdown procedures
+
+- **Power On**: Press and hold the main **POWER** button until the rear LED
+  panel fill with green color. The system will proceed through its startup
+  sequence.
+- **Shutdown**: Press and hold the main **POWER** button until the rear LED
+  panel fill with red color.
+
+:::tip
+
+Power button is located on the **Left battery drawer** of the robot.
+
+:::
+
+#### Battery Hot-Swap
+
+The dual-battery architecture of the Raph Rover facilitates hot-swapping,
+enabling battery exchange without powering down the system.
+
+Before initiating a hot-swap, confirm the following conditions:
+
+- The Rover is stationary on a level surface.
+- The battery not being replaced contains a sufficient charge level.
+
+:::tip
+
+A hot-swap can be performed without second battery while a charger is connected.
+To prevent overloading the charger, ensure the motors are disabled beforehand.
+
+:::
+
+To execute the hot-swap procedure:
+
+1.  Remove the depleted battery from its drawer.
+2.  Inspect the battery drawer for any debris and clear if necessary.
+3.  Insert a fully charged battery into the empty drawer.
+
+:::info
+
+The side LED panel provides status notifications for battery removal and
+insertion.
+
+- **Removal:** Indicated by a red flash.
+- **Insertion:** Indicated by the LEDs illuminating to the current charge
+  percentage of the new battery.
+
+:::
+
+<FlexTable
+  style={{
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  }}
+>
+  <FlexTableItem
+    style={{
+      width: '40%',
+    }}
+  >
+    <ThemedImageZoom
+      alt="Raph battery removed"
+      sources={{
+        light: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_out_black.webp',
+        ),
+        dark: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_out_white.webp',
+        ),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 800,
+      }}
+      caption="Battery removed from the drawer"
+    />
+  </FlexTableItem>
+  <FlexTableItem
+    style={{
+      width: '40%',
+    }}
+  >
+    <ThemedImageZoom
+      alt="Raph battery inserted"
+      sources={{
+        light: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_in_black.webp',
+        ),
+        dark: useBaseUrl(
+          '/img/robots/raph/getting-started/battery_in_white.webp',
+        ),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 800,
+      }}
+      caption="Battery inside the drawer"
+    />
+  </FlexTableItem>
+</FlexTable>
+
+:::warning
+
+A battery must seat fully within the drawer. Insertion should require minimal
+force, culminating in a tactile click. If resistance is encountered, abort the
+insertion immediately and inspect the drawer for obstructions.
+
+:::
+
+#### Battery Charging
+
+Raph Rover comes with a 4A 25,2V Li-Ion charger. It can charge 1 battery pack in
+about 1.5 hour via the dedicated charging slot.
+
+<ThemedImageZoom
+  alt="Raph Rover battery dock"
+  sources={{
+    light: useBaseUrl('/img/robots/raph/getting-started/Charging_black.webp'),
+    dark: useBaseUrl('/img/robots/raph/getting-started/Charging_white.webp'),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+The charger (not the dock) is outfitted with an LED status indicator designed to
+provide information about the charging status of the battery. A green LED
+signifies that the battery has reached full charge, while a red LED indicates
+that the battery is currently in the charging process.
+
+As an alternative, the batteries can be charged via the rover, by leaving them
+inside the battery ports and connecting the charger to the rover's power input
+located at the back.
+
+<ThemedImageZoom
+  alt="Raph Rover with power adapter"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/getting-started/Charging_rover_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/getting-started/Charging_rover_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+This way it's possible to charge both batteries at the same time, however the
+charging current will be split between them, resulting in a longer charging time
+of around 2.5 h. The Rover does not need to be powered off for this process.
+
+:::note
+
+When working on the rover while charging the batteries the LED indicator of
+power adapter will not transition to green when charging is complete. Power draw
+of the rover will keep the charger in active (red) state. To check battery
+level, press the power button once. Fully illuminated LED side panels will
+indicate fully charged batteries.
+
+:::
+
+### Inspection & Cleaning
+
+<font color="red">
+
+- Otwieranie pokrywy i zaglądanie do środka
+- wyciąganie podłogi
+- inspekcja bumperów
+- regulacja czujników indukcyjnych
+- czyszczenie portów baterii
+
+</font>
+
+## Community & resources
+
+<Support />
+
+<LinkButton
+  url="https://github.com/RaphRover/"
+  title="Raph Rover's Github organization"
+/>
+<LinkButton url="https://a360.co/46y2hej" title="Raph Rover's 3D CAD model" />
