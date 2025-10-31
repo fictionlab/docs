@@ -25,6 +25,8 @@ import LinkButton from '@site/src/components/LinkButton';
 import Support from '@site/docs/raph-rover/partial/_support.mdx';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <ImageZoom
   loading="eager"
@@ -97,7 +99,7 @@ provide a robust mobile robotics platform:
 
 These components are integrated into a compact chassis designed for durability
 and ease of maintenance. The modular architecture allows for customization while
-maintaining core functionality through the ROS 2 software stack.
+maintaining core functionality.
 
 ## Software
 
@@ -110,7 +112,7 @@ functionalities that are used on the robot, such as:
 - Abstraction layer facilitating communication between software components.
 - Open-source software components, maintained by the community.
 - A collection of standard message interfaces.
-- Tools for introspection.
+- Tools for introspection and debugging.
 
 The primary segment of the software stack is partitioned into several
 [ROS Nodes](https://wiki.ros.org/Nodes), treated as computational units, each
@@ -255,6 +257,8 @@ below:
 
 ## Control & Basic Operations
 
+{/* I'd add here how the rover can be controller (ros topics, web app, joy_teleop node) and I'd describe robot's steering mode (turn in place, regular ackermann) */}
+
 ### Connectivity & network configuration
 
 Raph Rover comes with a built-in router that provides a Wi-Fi access point and
@@ -315,6 +319,64 @@ configure network settings in the guides below:
 Fault states also indicate which motor has failed by illuminating the segment of
 the LED strip that corresponds to the position of the faulty motor, with side
 panels indicating wheel motors, and rear panel indicating servos.
+
+### Controlling the Rover
+
+Raph Rover can be controlled in multiple ways, depending on the needs and
+preferences. The available control methods are:
+
+- **Web User Interface** - From the Web UI Raph Rover can be controlled using a
+  gamepad, keyboard or virtual joystick.
+- **ROS topics** - Users can publish commands to the appropriate ROS topics to
+  control the rover's movement programmatically. To see available topics refer
+  to the [ROS API documentation](./ros-api).
+- **Joystick teleoperation** - By using the `joy_teleop` node from
+  [raph_teleop](https://github.com/RaphRover/raph_common/tree/jazzy/raph_teleop)
+  ROS package, users can control the rover using a gamepad such as an Xbox or
+  PlayStation controller.
+
+Raph Rover supports multiple steering modes:
+- **Ackermann steering** - Suitable for smooth navigation in open areas.
+- **Turn in place** - Ideal for tight spaces and precise maneuvers.
+
+<Tabs
+  values={[
+    { label: 'Ackermann steering', value: 'curve' },
+    { label: 'Turn in place', value: 'middle' },
+  ]}
+>
+  <TabItem value="curve">
+    <ThemedImageZoom
+      alt="Raph Rover following a curve"
+      sources={{
+        light: useBaseUrl('/img/robots/raph/overview/Driving_2_black.webp'),
+        dark: useBaseUrl('/img/robots/raph/overview/Driving_2_white.webp'),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 500,
+      }}
+    />
+  </TabItem>
+  <TabItem value="middle">
+    <ThemedImageZoom
+      alt="Raph Rover rotating around middle"
+      sources={{
+        light: useBaseUrl('/img/robots/raph/overview/Driving_1_black.webp'),
+        dark: useBaseUrl('/img/robots/raph/overview/Driving_1_white.webp'),
+      }}
+      width="3000"
+      height="2121"
+      figStyle={{
+        width: 500,
+      }}
+    />
+  </TabItem>
+</Tabs>
+
+Steering modes can be switched via the Web UI or by calling the `controller/set_steering_mode` [ROS
+service](./ros-api#services).
 
 ## Payload integration basics
 
@@ -594,15 +656,60 @@ indicate fully charged batteries.
 
 ### Inspection & Cleaning
 
-<font color="red">
+Regular inspection and cleaning of the Raph Rover are essential to ensure
+optimal performance and longevity. Follow these guidelines to maintain your
+rover:
 
-- Otwieranie pokrywy i zaglądanie do środka
-- wyciąganie podłogi
-- inspekcja bumperów
-- regulacja czujników indukcyjnych
-- czyszczenie portów baterii
+#### Internal inspection
 
-</font>
+To inspect the internals of the rover it is required to dismantle payload and
+electronics cover.
+
+Before dismantling ensure that the robot is:
+
+- stationary on a level surface,
+- powered off and batteries removed.
+
+To open electronics bay:
+
+1. Unscrew the payload mounting plate (4 M5 round head screws).
+2. Remove the payload mounting plate.
+3. Unscrew 6 torx screws next to the side LED panels.
+4. Remove top electronics cover (you can use handle next to the lidar).
+5. Inspect for any loose cables water ingress etc.
+
+#### Electronics removal
+
+In case of serious problems or issues with the robot it is possible to remove
+whole internal electronics form the robot. It can be helpful with debugging
+problems.
+
+Before dismantling ensure that:
+- [top electronics cover is removed](#internal-inspection),
+- robot is stationary on a level surface,
+- robot is powered off and batteries removed.
+
+To remove internal electronics follow instructions below:
+1. Unplug all cables connected to the internal electronics
+    - Interface panel (Power, USB & Ethernet)
+    - All of the motors
+    - Batteries
+    - Lidar
+    - OAK-D camera
+    - Power & Control buttons
+    - Antennas
+2. Unscrew the front cover (2 screws below the front LED panel)
+3. Remove the front cover
+4. Unplug the USB-C cable from the OAK-D camera
+5. Rotate the robot upside down
+6. Unscrew 8 torx screws on the bottom of the robot
+7. Carefully remove the floor with electronics 
+
+{/* #### Steering wheel's bumper inspection */}
+
+{/* #### Induction sensor adjustments */}
+
+{/* #### Battery port cleaning */}
 
 ## Community & resources
 
