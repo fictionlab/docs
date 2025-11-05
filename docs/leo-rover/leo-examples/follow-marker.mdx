@@ -1,5 +1,5 @@
 ---
-title: 'Leo Rover Example: How to Follow an Auco Marker'
+title: 'Leo Rover Example: How to Follow an Aruco Marker'
 sidebar_label: Follow Aruco Marker
 sidebar_position: 1
 keywords:
@@ -18,11 +18,9 @@ description: >-
 image: /img/robots/leo/integrations/follow-aruco-marker/follow-aruco-1.webp
 ---
 
-# Example: How to Follow an ARTag
+# Example: How to Follow an Aruco Marker
 
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
-
-An Aruco Marker follower example for a stock Leo Rover
 
 In this example, we will show you how to make the Leo Rover mobile robot follow
 an Aruco marker.
@@ -60,8 +58,8 @@ The only physical thing you'll need to do is to print an Aruco marker:
 - You can generate and download an Aruco marker from
   [here](https://chev.me/arucogen) (you'll need to select the 4x4 dictionary),
   or you can follow our instructions on generating markers from the tutorial
-  linked below. It gives you more controll regarding marker size and other
-  parameters, which might be preferable for most of users.
+  linked below. It gives you more control regarding marker size and other
+  parameters, which might be preferable for some users.
 
 <LinkButton
   to="/integrations/software/aruco-tracking#generate-aruco-markers"
@@ -86,21 +84,21 @@ Here's an example of our aruco marker that we used for this task:
 :::info
 
 Remember that the white border around the marker is necessary. You can leave the
-printed marker on the peace of paper, but we do recommend, to attach it to some
+printed marker on the peace of paper, but we do recommend to attach it to some
 harder material like cardboard - this way your marker won't bend, so it will be
 easier for the software to notice it.
 
 :::
 
 ## Software integration
-
+{/* TODO
 :::tip
 
 Since LeoOS x.x.x release, leo_examples package is installed by default. If the
 system is updated to at least x.x.x release you can skip software integration
 part.
 
-:::
+::: */}
 
 :::info
 
@@ -128,7 +126,7 @@ source /opt/ros/${ROS_DISTRO}/setup.bash
 You can also get all needed software from our
 [leo_examples](https://github.com/LeoRover/leo_examples-ros2) github repository.
 You need to clone it on the rover in the ros workspace directory (if there's no
-such a directory, then, first go through the
+such a directory, first go through the
 [ROS development](../advanced-guides/ros-development) tutorial):
 
 ```bash
@@ -140,6 +138,7 @@ Now, you need to install all the dependencies for the downloaded packages:
 
 ```bash
 cd ~/ros_ws
+sudo apt update
 rosdep update
 rosdep install --from-paths src -ir
 ```
@@ -174,7 +173,7 @@ The rover will start following the marker once it detects it.
 
 By default the rover follows only the marker with id 0, and has marker tracker
 configured for a marker of size 15cm. If your printed marker doesn't comply with
-the requrements you need to follow the configuration instructions.
+the requirements, you need to follow the configuration instructions.
 
 :::
 
@@ -187,12 +186,7 @@ network.
 
 If you don't have ROS installed, you can follow this guide:
 
-<LinkButton
-  to="/leo-rover/advanced-guides/install-ros-on-your-computer"
-  title="Install ROS on your computer"
-  description="Learn how to install the Robot Operating System (ROS) on your computer.
-  Step-by-step guide for beginners."
-/>
+<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
 
 Beeing connected and having ROS installed, next you have to source the `ROS`
 workspace:
