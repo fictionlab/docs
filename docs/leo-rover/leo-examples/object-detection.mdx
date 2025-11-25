@@ -162,19 +162,19 @@ The given launch file has a few arguments:
 :::note
 
 - Every argument has default value, so when launching the node, you don't need
-  to specify any of them. those are for your use, if you want to change the
+  to specify any of them. Those are for your use, if you want to change the
   default functionality. You can see the default values with command:
   ```bash
   ros2 launch leo_example_object_detection detector.launch.xml -s
   ```
 - You can create your own `config_file`, or modify the one provided by us. What
   matters is that the file you provide has specific structure - it must start
-  with `labels` keywoard, and each consecutive line must be of form
-  `key: value`, where `key` is a label specified in labels file for the model,
-  and `value` is a list of 3 integers representing RGB values, that will be used
-  for displaying given object. For each label, that is not defined in this file,
-  there is a default color, so you don't need to define all the labels. Here is
-  our example configuration which you can use as a base for your label coloring:
+  with `labels` keyword, and each consecutive line must be of form `key: value`,
+  where `key` is a label specified in labels file for the model, and `value` is
+  a list of 3 integers representing RGB values, that will be used for displaying
+  given object. For each label, that is not defined in this file, there is a
+  default color, so you don't need to define all the labels. Here is our example
+  configuration which you can use as a base for your label coloring:
   ```yaml title="labels_config.yaml"
   labels:
     person: [255, 0, 0]
@@ -182,7 +182,7 @@ The given launch file has a few arguments:
     backpack: [0, 255, 0]
     cell_phone: [153, 0, 153]
   ```
-  The intendation for each defined label is important - they all need to be in
+  The indentation for each defined label is important - they all need to be in
   `labels` "namespace".
 
 :::
@@ -275,7 +275,6 @@ model needs to follow the same output signature as the TF models.
 
 ## What next?
 
-After completing this tutorial, you can try other examples from the
-[leo_examples](https://github.com/LeoRover/leo_examples) repository
-([line follower](/leo-rover/1.8/leo-examples/line-follower) and
+After completing this tutorial, you can try other examples from the leo_examples
+repository ([line follower](/leo-rover/1.8/leo-examples/line-follower) and
 [follow Aruco Marker](follow-marker)), or try other integration from our site.
