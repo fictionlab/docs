@@ -11,33 +11,39 @@ description: >-
   Learn how to setup and customize Leo Rover running bldc motors.
 ---
 
-{/* TODO: BLA BLA COŚ O TYCH SILNIKACH CHYBA CO NIE HMMM. */}
+Brushless DC (BLDC) motors offer high efficiency, smooth operation, and
+excellent power density, making them a common choice in robotics and automation.
+Their electronic commutation provides better control and reliability compared to
+traditional brushed motors.
+
+In this project, we replace the stock wheel motors of our robot with more
+powerful BLDC motors, resulting in significantly higher speed and improved
+overall performance. This tutorial outlines the key steps and considerations
+involved in integrating BLDC motors into a mobile robot platform.
 
 ## What to expect?
 
 After completing this tutorial, you will have a fully operational Leo Rover
-equipped with BLDC motor-driven wheels {/* TODO: MOŻE FOTA? */}
+equipped with BLDC motor-driven wheels {/* TODO: MAYBE IMAGE HERE? */}
 
 ## Referenced products
 
-{/* TODO: JEŻELI BĘDZIE. */}
+{/* TODO: IF ANY. */}
 
 ## List of components
 
-{/* TODO: PEWNIE KOMPLET WYLISTOWAĆ TUTAJ */}
+{/* TODO: LIST THE SETUP */}
 
 ## Mechanical integration
 
-{/* TODO: WIADOMKA */}
+{/* TODO */}
 
 ## Software integration
 
-To make the process as straightforward as possible, we’ve prepared a dedicated
+To make the process as straightforward as possible, we've prepared a dedicated
 version of **LeoOS** that includes all the necessary software for the BLDC motor
-system.
-{/* TODO: PODMIENIĆ NA LINK DO OS */}
-Simply download the image, flash it onto the SD card, and insert it into
-the robot.
+system. {/* TODO: ADD LINK WITH OS IMAGE */} Simply download the image, flash it
+onto the SD card, and insert it into the robot.
 
 You can follow this guide for detailed instructions on flashing the OS image:
 
@@ -58,18 +64,18 @@ ros-nodes-restart
 ### Configuration
 
 The prepared BLDC motor integration is highly configurable — you can adjust each
-parameter at runtime to observe how it affects the system and the rover’s
+parameter at runtime to observe how it affects the system and the rover's
 behavior.  
 This part of the tutorial will guide you through accessing one of the most
 convenient interfaces for configuring these parameters.
 
-You will need **ROS Jazzy** installed on your computer. If you don’t have ROS
+You will need **ROS Jazzy** installed on your computer. If you don't have ROS
 installed, follow this guide:
 
 <LinkButton docId="advanced-guides/install-ros-on-your-computer" />
 
 Before configuring any parameters, make sure your computer is connected to the
-rover’s access point:
+rover's access point:
 
 <LinkButton docId="guides/connect-to-rover-ap" />
 
@@ -102,7 +108,7 @@ sudo apt install ros-jazzy-rqt-reconfigure
 
 In the **rqt** window, select the `bldc_manager` node from the list on the left
 side of the screen. You will see all available parameters that can be configured
-in real time. {/* TODO: DODAĆ SCREEN JAK ZROBIE */}
+in real time. {/* TODO: ADD SCREENSHOT */}
 
 Hover your cursor over a parameter name to display its description and learn
 what it controls.
