@@ -1,0 +1,280 @@
+---
+title: 'Leo Rover Example: Real-Time Object Detection with TensorFlow Lite'
+sidebar_label: Object detection
+sidebar_position: 3
+keywords:
+  - object
+  - detection
+  - ai
+  - tensorflow
+  - example
+  - stock
+  - leo
+  - rover
+  - tutorial
+description: >-
+  Detect objects in real-time on the Leo Rover using pre-trained models, with
+  TensorFlow Lite library. Step-by-step tutorial for stock Leo Rover.
+image: /img/robots/leo/integrations/object-detection/object-detection-2.webp
+---
+
+# Example: How to Detect Objects
+
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+In this example, we will show you how to run Object Detection on the Leo Rover
+mobile robot.
+
+## What to expect?
+
+After completing this tutorial, your rover should be able to recognize 91
+objects from the COCO dataset
+([listed here](https://blog.roboflow.com/coco-dataset/#coco-dataset-class-list)),
+and display an image with drawn bounding boxes around the detected objects.
+
+<div className="video-container">
+  <LiteYouTubeEmbed
+    id="ZF85igYXXBo"
+    params="autoplay=0&autohide=1&showinfo=0&rel=0"
+    poster="hqdefault"
+    title="Leo Rover Unboxing and Getting Started"
+    webp
+  />
+</div>
+
+## Prerequisites
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+<LinkButton docId="guides/ssh" />
+<LinkButton docId="advanced-guides/ros-development" />
+<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+
+## List of components
+
+1. Any computer which you can connect to the rover via `ssh`.
+2. Stock Leo Rover
+
+## Software integration
+
+{/* TODO */} {/* :::tip */}
+
+{/* Since LeoOS x.x.x release, leo_examples package is installed by default. If the */}
+{/* system is updated to at least x.x.x release you can skip software integration */}
+{/* part. */}
+
+{/* ::: */}
+
+:::info
+
+To complete those steps, you need to connect to the rover's network first, and
+then log in using ssh (both covered in prerequisites).
+
+:::
+
+Our neural network model was converted to
+[TensorFlow Lite](https://www.tensorflow.org/lite), so you need to install it on
+your rover too. As you shouldn't install python packages system-wide, we will
+create virtual environment and install the module inside it:
+
+```bash
+sudo apt install python3-pip python3-venv
+python3 -m venv env_ros --system-site-packages
+source env_ros/bin/activate
+pip3 install ai-edge-litert
+```
+
+### Installing using apt
+
+You can install the package using `apt` by typing **on the rover**:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-examples
+```
+
+Then you just need to source the `ROS` workspace:
+
+```bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
+```
+
+### Building from source
+
+You can also get all needed software from our
+[leo_examples](https://github.com/LeoRover/leo_examples-ros2) github repository.
+You need to clone it on the rover in the ros workspace directory (if there's no
+such a directory, first go through the
+[ROS Development](../advanced-guides/ros-development) tutorial):
+
+```bash
+cd ~/ros_ws/src
+git clone https://github.com/LeoRover/leo_examples-ros2.git
+```
+
+Now, you need to install all the dependencies for the downloaded packages:
+
+```bash
+cd ~/ros_ws
+sudo apt update
+rosdep update
+rosdep install --from-paths src -ir
+```
+
+Then, you need to source the directory and build the packages:
+
+```bash
+cd ~/ros_ws
+source install/setup.bash
+colcon build
+```
+
+:::info
+
+If your installation went without any errors, then you have successfully
+installed required software.
+
+:::
+
+## Examples
+
+### Using given models
+
+Running the object detection node is very simple. First, you need to connect to
+the rover via `ssh`. Once you are logged in to the rover, you can launch the
+node using `ros2 launch` command:
+
+```bash
+ros2 launch leo_example_object_detection detector.launch.xml
+```
+
+The given launch file has a few arguments:
+
+- `camera_topic` - the name of the topic with the `Image` messages (you can
+  specify it if you have changed basic setup on the rover or maybe have two
+  cameras)
+- `labels` - a path to the file with labels for the model (a parameter provided
+  in case you want to try other neural network models that were trained on other
+  datasets than `COCO`)
+- `model` - a path to neural network model for object detection (the models
+  given by us are in the `models` directory of the
+  `leo_example_object_detection` package)
+- `config_file` - a path to the yaml file with defined colors for given labels.
+
+:::note
+
+- Every argument has default value, so when launching the node, you don't need
+  to specify any of them. Those are for your use, if you want to change the
+  default functionality. You can see the default values with command:
+  ```bash
+  ros2 launch leo_example_object_detection detector.launch.xml -s
+  ```
+- You can create your own `config_file`, or modify the one provided by us. What
+  matters is that the file you provide has specific structure - it must start
+  with `labels` keyword, and each consecutive line must be of form `key: value`,
+  where `key` is a label specified in labels file for the model, and `value` is
+  a list of 3 integers representing RGB values, that will be used for displaying
+  given object. For each label, that is not defined in this file, there is a
+  default color, so you don't need to define all the labels. Here is our example
+  configuration which you can use as a base for your label coloring:
+  ```yaml title="labels_config.yaml"
+  labels:
+    person: [255, 0, 0]
+    chair: [0, 0, 255]
+    backpack: [0, 255, 0]
+    cell_phone: [153, 0, 153]
+  ```
+  The indentation for each defined label is important - they all need to be in
+  `labels` "namespace".
+
+:::
+
+So, with some arguments your line can look like this:
+
+```bash
+ros2 launch leo_example_object_detection detector.launch.xml config_file:=<absolute path to your config yaml file>
+```
+
+To be able to display the output of the model you need to have ROS installed on
+your computer and be connected to the rover's network.
+
+If you don't have ROS installed, you can follow this guide:
+
+<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+
+Being connected and having ROS installed, next you have to source the `ROS`
+workspace:
+
+```bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
+```
+
+Now just run `rqt` on your computer:
+
+```bash
+rqt
+```
+
+There, you need to run two things:
+
+- `Image View` (Plugins -> Visualization -> Image View)
+- `Dynamic Reconfigure` (Plugins -> Configuration -> Dynamic Reconfigure)
+
+In `Image View`, from the topic drop down choose `/detections/compressed` - this
+is the processed image with drawn detections on it. In `Dynamic Reconfigure`,
+choose `object_detector`.
+
+You should see something like this:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/object-detection/object-detection-1.webp"
+  alt="rqt setup for object detection with leo rover"
+  width="1362"
+  height="729"
+/>
+
+In the `Parameter Reconfigure` window you are able to change the node's
+parameters values. The only important one is `confidence` - it specifies the
+confidence threshold for the neural network guesses (only the detections with
+confidence higher than the specified will be displayed). You can change the
+value to see how the detections change.
+
+Place objects inside the view of the camera and if they are a part of the
+dataset, and the algorithm recognizes them with enough confidence, boxes around
+the item and a text description will appear.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/object-detection/object-detection-2.webp"
+  alt="bottle and cup with drawn detection rectangles"
+  width="1209"
+  height="737"
+/>
+
+### Adding models of your choice
+
+It's possible to run the node with your models (either made from scratch or
+found on the internet). To launch the node with your files, you have the launch
+arguments. You can specify their values to make the node use your files.
+
+:::info
+
+If you provide model, that was trained on other dataset than COCO, then you will
+need to give the node labels for your model too.
+
+:::
+
+:::warning
+
+Not every object detection model will be compatible with our node. The models
+that we have provided in the _models_ directory of the package, are pretrained,
+single-shot detector models, converted to TensorFlow Lite from the TensorFlow
+repository.
+
+So if you want the model of your choice to be compatible with our node, the
+model needs to follow the same output signature as the TF models.
+
+:::
+
+## What next?
+
+After completing this tutorial, you can try other examples from the leo_examples
+repository ([line follower](/leo-rover/1.8/leo-examples/line-follower) and
+[follow Aruco Marker](follow-marker)), or try other integration from our site.
