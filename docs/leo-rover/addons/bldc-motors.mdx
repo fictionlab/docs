@@ -28,17 +28,11 @@ involved in integrating BLDC motors into a mobile robot platform.
 After completing this tutorial, you will have a fully operational Leo Rover
 equipped with BLDC motor-driven wheels {/* TODO: MAYBE IMAGE HERE? */}
 
-## Referenced products
+{/* TODO: IF ANY. ## Referenced products */}
 
-{/* TODO: IF ANY. */}
+{/* TODO: LIST THE SETUP ## List of components */}
 
-## List of components
-
-{/* TODO: LIST THE SETUP */}
-
-## Mechanical integration
-
-{/* TODO */}
+{/* TODO: ## Mechanical integration */}
 
 ## Software integration
 
@@ -63,6 +57,9 @@ After completing the firmware update, reboot the robot or restart the ROS nodes:
 ros-nodes-restart
 ```
 
+Now you should be able to control the robot with BLDC motors in their default
+configuration.
+
 ### Configuration
 
 The prepared BLDC motor integration is highly configurable — you can adjust each
@@ -75,6 +72,20 @@ You will need **ROS Jazzy** installed on your computer. If you don't have ROS
 installed, follow this guide:
 
 <LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+
+:::tip
+
+If for some reason you don't want to install ROS on your machine, you can always
+use the `ros2 param` CLI tool which will allow you to change parameter values -
+you just have to connect to the rover through ssh.
+
+<LinkButton docId="guides/ssh" />
+
+You can learn how to use `ros2 param` tool from
+[this](https://docs.ros.org/en/jazzy/How-To-Guides/Using-ros2-param.html)
+tutorial.
+
+:::
 
 Before configuring any parameters, make sure your computer is connected to the
 rover's access point:
@@ -202,15 +213,19 @@ The parameters are divided into three main groups:
   of the PID controller.  
   The array must contain exactly three non-negative values.
 
-  :::warning This is one of the most critical parameters, as it significantly
-  affects how the rover drives.  
+  :::warning
+
+  This is one of the most critical parameters, as it significantly affects how
+  the rover drives.  
   Incorrect configuration can result in poor control, unstable motion, or even
   motor damage.
 
   When using the **D** component, keep its value low (preferably below
   `0.0001`).  
   A high derivative value can make the motors noisy and increase the risk of
-  overheating or failure. :::
+  overheating or failure.
+
+  :::
 
 - **`pid_integral_max`** (type: `float`, default: `20.0`)  
   The upper limit for the output of the integral component in the PID controller
@@ -233,6 +248,14 @@ The parameters are divided into three main groups:
   - `0` - **VELOCITY_PID**
   - `1` - **VELOCITY_PROFILE**
   - `2` - **IDLE**
+
+  :::info
+
+  You can read about the `VELOCITY_` modes
+  [here](https://mabrobotics.github.io/MD80-x-CANdle-Documentation/MD/motion.html).
+  In `IDLE` mode the motors don't produce any torque.
+
+  :::
 
 - **`min_velocity`** (type: `float`, default: `0.1`)  
   The minimum velocity for a wheel to be considered rotating (in radians per
