@@ -107,11 +107,11 @@ on paper and stick it to the ground with adhesive tape.
 :::info
 
 To complete those steps, you need to connect to the rover's network first, and
-then log in using ssh (both covered in prerequisites).
+then log in using ssh.
 
 :::
 
-Our neural network model was converted to
+Our program uses a neural network model converted to
 [TensorFlow Lite](https://www.tensorflow.org/lite), so you need to install it on
 your rover too. As you shouldn't install python packages system-wide, we will
 create virtual environment and install the module inside it:
@@ -142,8 +142,8 @@ source /opt/ros/${ROS_DISTRO}/setup.bash
 You can also get all needed software from our
 [leo_examples](https://github.com/LeoRover/leo_examples-ros2) github repository.
 You need to clone it on the rover in the ros workspace directory (if there's no
-such a directory, then, first go through the
-[ROS Development](../advanced-guides/ros-development) tutorial):
+such a directory, then go through the
+[ROS Development](../advanced-guides/ros-development) tutorial first):
 
 ```bash
 cd ~/ros_ws/src
@@ -239,10 +239,10 @@ this:
   height="729"
 />
 
-Our color catching works on thresholding each of HSV components in the image. In
-the `Parameter Reconfigure` you can see sliders for choosing the min and max
-threshold values for each color format component.<br/> If you want to see what
-colors are currently in the mask, switch the topic in the `Image View` to
+Our color capturing works on thresholding each of HSV components in the image.
+In the `Parameter Reconfigure` you can see sliders for choosing the min and max
+threshold values for each component.<br/> If you want to see what colors are
+currently in the mask, switch the topic in the `Image View` to
 `colors_caught/compressed`.
 
 :::note
@@ -293,8 +293,8 @@ Then, paste the values (**ctrl+shift+v** or use the mouse), save the file
 
 It's important that the file has to have the same structure, as our config
 files. All the indentation and namings are really important for the node to
-successfully load the values. It' will be best if you start with such file
-contents, and swap values with the ones obtained from the color mask node.
+successfully load the values. It will be best if you start with such file
+contents and swap values with the ones obtained from the color mask node.
 
 ```yaml
 /**:
@@ -328,6 +328,19 @@ you can launch the program using `ros2 launch` command:
 ros2 launch leo_example_line_follower line_follower.launch.xml
 ```
 
+:::info
+
+As you run this command, the robot won't move untill you change the
+`follow_enabled` parameter. It's a feature that allows to easily stop the rover
+and by default it's set to `false`.<br/> To make the robot start driving
+automatically you need to call the program like this:
+
+```bash
+ros2 launch leo_example_line_follower line_follower.launch.xml follow:=true
+```
+
+:::
+
 The file has a few `launch` arguments provided to run the model with your data
 (e.g. your color mask file).
 
@@ -338,6 +351,9 @@ The most important ones are as follows:
   driving (might slow the payload but useful for debugging)
 - `model` - path to neural network model (there is a `models` directory with
   couple models prepared by us, which you can choose from)
+- `follow` - flag specifying if the robot should start following the track from
+  the node startup. By default it's set to `false` which means, the robot will
+  wait for manual change of the parameter to start driving.
 
 Every argument is documented, you can see them, their descriptions and default
 values by running:
@@ -408,7 +424,7 @@ data will be recorded).
 After recording the data, in your output directory, you'll find images saved
 from the rover, and one file `labels.txt`. The file contains multiple lines of
 format `img_name:label`, where the label is a tuple of two floats representing
-linear and angular (respectively) velocitu values of the rover in the situation
+linear and angular (respectively) velocity values of the rover in the situation
 visible in the specified image.
 
 :::note
@@ -422,10 +438,10 @@ still do this using the Leo UI and keyboard.
 
 :::warning
 
-If the name for output directory, that you have provided is not an absolute path
-(starting with "/"), the directory will be put under home directory (by default
-_/home/pi_). If you want it to be somewhere else, you need to give the absolute
-path.
+If the name for the output directory, that you have provided is not an absolute
+path (starting with "/"), the directory will be put under home directory (by
+default _/home/pi_). If you want it to be somewhere else, you need to give the
+absolute path.
 
 :::
 
@@ -454,13 +470,13 @@ ros2 run leo_example_line_follower prepare_data -t train_dir1 train_dir2 -v val1
 :::warning
 
 Unlike `launch`, `ros2 run` commands run in your current working directory, so
-for example: If you run the node in _/home/pi/test directory_ and provide names
+for example: If you run the node in _/home/pi/test_ directory and provide names
 for the `-t` and `-v` flags as _train_ and _valid_, then the node will look for
 _/home/pi/test/train_ and _/home/pi/test/valid_ directories.
 
 :::
 
-As the script finishes, it will vreate your zip file with processed data in the
+As the script finishes, it will create your zip file with processed data in the
 same directory that it was run. Such data is ready to be uploaded to your
 notebook.
 
@@ -486,11 +502,11 @@ Having your data ready, you need to upload it to your notebook. You get a copy
 of our notebook when cloning repository, but you can also get it under this
 [link](https://www.kaggle.com/code/aleksanderszymaski/leorover-line-follower).
 
-Once you have the notebook, you can upload the data using the **Add data**
-button in the upper-right corner.
+Once you have the notebook, you can upload the data using the **Upload** button
+in the `Input` section in upper-right corner.
 
-Then, just click on the **Upload** button, and drag your zip file (you also need
-to provide a name for the dataset).
+Then, just select the **New Dataset** button, and drag (or browse for) your zip
+file (you also need to provide a name for the dataset).
 
 <ImageZoom
   src="/img/robots/leo/integrations/line-follower/line-follower-5.webp"
@@ -501,9 +517,11 @@ to provide a name for the dataset).
 
 :::info
 
-You can also use our dataset. After going to **Add data** section type in the
-search bar (upper-right corner) _"LeoRover"_ and you will see, our dataset.
-Click blue _Add_ button, and the dataset will be added to your notebook.
+If you have used the `Copy & Edit` on Kaggle to get our notebook, then in the
+datasets you have our dataset that has been added automatically. <br/> To add it
+manually use **Add input** option with **Datasets** selected and type in the
+search bar _LeoRover_ and you will see, our dataset. Click the plus button, and
+the dataset will be added to your notebook.
 
 :::
 
