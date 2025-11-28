@@ -10,7 +10,8 @@ keywords:
   - control
   - teleoperation
 description: >-
-  Documentation on how to control and operate Raph Rover, including teleoperation methods and basic functionalities.
+  Documentation on how to control and operate Raph Rover, including
+  teleoperation methods and basic functionalities.
 image: /img/robots/raph/raph-rover.webp
 toc_max_heading_level: 4
 ---
@@ -39,11 +40,11 @@ To learn how to connect to the Raph Rover's Access Point, follow guide below:
 
 The table below describes rover's network configuration:
 
-| Device       | IP Address or hostname | Description                                                                                                                                                                 |
-| ------------ | :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Router       | `10.0.0.1`             | The built-in router providing Wi-Fi access point.                                                                                                                           |
-| UPBoard 7000 | `10.0.0.2` or `raph.local` | The built-in computer running ROS and other software components. Uses mDNS for hostname resolution.                                                                                                            |
-| RaphCore     | `raphcore.local`       | The microcontroller managing low-level hardware functions. Its IP address is not consistent across the rovers but can be accessed via mDNS under the name `raphcore.local`. |
+| Device       | IP Address or hostname     | Description                                                                                                                                                                 |
+| ------------ | :------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Router       | `10.0.0.1`                 | The built-in router providing Wi-Fi access point.                                                                                                                           |
+| UPBoard 7000 | `10.0.0.2` or `raph.local` | The built-in computer running ROS and other software components. Uses mDNS for hostname resolution.                                                                         |
+| RaphCore     | `raphcore.local`           | The microcontroller managing low-level hardware functions. Its IP address is not consistent across the rovers but can be accessed via mDNS under the name `raphcore.local`. |
 
 You can learn how to connect the Raph Rover to an existing Wi-Fi network or
 configure network settings in the guides below:
@@ -53,8 +54,8 @@ configure network settings in the guides below:
 
 ## Understanding LED panel signals
 
-Raph Rover indicates its current state using LED panels. Understanding these signals
-can help users diagnose issues and monitor the rover's status.
+Raph Rover indicates its current state using LED panels. Understanding these
+signals can help users diagnose issues and monitor the rover's status.
 
 ### Normal states
 
@@ -105,6 +106,7 @@ preferences. The available control methods are:
   PlayStation controller.
 
 Raph Rover supports multiple steering modes:
+
 - **Ackermann steering** - Suitable for smooth navigation in open areas.
 - **Turn in place** - Ideal for tight spaces and precise maneuvers.
 
@@ -144,5 +146,5 @@ Raph Rover supports multiple steering modes:
   </TabItem>
 </Tabs>
 
-Steering modes can be switched via the Web UI or by calling the `controller/set_steering_mode` [ROS
-service](./../ros-api.mdx#services).
+Steering modes can be switched via the Web UI or by calling the
+`controller/set_steering_mode` [ROS service](./../ros-api.mdx#services).
