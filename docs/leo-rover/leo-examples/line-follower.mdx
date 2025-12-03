@@ -140,7 +140,7 @@ source /opt/ros/${ROS_DISTRO}/setup.bash
 ### Building from source
 
 You can also get all needed software from our
-[leo_examples](https://github.com/LeoRover/leo_examples-ros2) github repository.
+[leo_examples](https://github.com/LeoRover/leo_examples-ros2) GitHub repository.
 You need to clone it on the rover in the ros workspace directory (if there's no
 such a directory, then go through the
 [ROS Development](../advanced-guides/ros-development) tutorial first):
@@ -167,6 +167,12 @@ source install/setup.bash
 colcon build
 ```
 
+:::warning
+
+This instructions will fail if you don't have a ros workspace on the rover.
+
+:::
+
 :::info
 
 If your installation went without any errors, then you have successfully
@@ -177,6 +183,19 @@ installed required software.
 ## Examples
 
 ### Running nodes
+
+:::info
+
+You need to source the python virtual environment in each terminal on the rover
+you want to use for running the nodes. Othervise the nodes will fail because
+they won't find the TensorFlow Lite library. <br/> You can source the
+environment with command:
+
+```bash
+source <path_to_env>/bin/activate
+```
+
+:::
 
 #### Color Mask
 
@@ -252,7 +271,7 @@ currently in the mask, switch the topic in the `Image View` to
   one by one, until the only white object in the mask is your track (tape).
   Color mask visible in rqt is already preprocessed image as neural network
   input - this is what the model will base its prediction on.
-- when you inspect the command we used for starting the color mask node you can
+- When you inspect the command we used for starting the color mask node you can
   notice we specify the params file. It holds starting values for the
   thresholding parameters. You can use this way to provide your own file with
   starting setup.
@@ -330,7 +349,7 @@ ros2 launch leo_example_line_follower line_follower.launch.xml
 
 :::info
 
-As you run this command, the robot won't move untill you change the
+As you run this command, the robot won't move until you change the
 `follow_enabled` parameter. It's a feature that allows to easily stop the rover
 and by default it's set to `false`.<br/> To make the robot start driving
 automatically you need to call the program like this:
@@ -483,7 +502,7 @@ notebook.
 :::note
 
 As we have used kaggle, we know that providing zip file is enough for the
-dataset as it get's unpacked automatically. If you use other platform you may
+dataset as it get s unpacked automatically. If you use other platform you may
 need to unpack the files by hand.
 
 :::
@@ -542,8 +561,8 @@ begin the training.
 :::warning
 
 There is one cell, with variables that might need to change. Each of them has
-provided description in a comment. Go through before running, and check if you
-need to change something.
+provided description in a comment. Go through it before running, and check if
+you need to change something.
 
 :::
 
