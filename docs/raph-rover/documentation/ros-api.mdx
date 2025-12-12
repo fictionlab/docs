@@ -24,16 +24,6 @@ image: /img/robots/raph/raph-rover.webp
 
   Steers the robot when operating in the Ackermann steering mode.
 
-- `controller/cmd_turn_in_place` (?) **Not implemented yet**
-
-  Steers the robot when operating in the Turn-In-Place steering mode.
-
-- `controller/cmd_vel` ([geometry_msgs/msg/Twist]) **Not implemented yet**
-
-  Steers the robot using `Twist` commands. More standardized way to control the
-  robot. \
-  Useful for some navigation stacks. Not recommended for manual teleoperation.
-
 - `controller/led_strip_state` ([raph_interfaces/msg/LedStripState])
 
   Sets a new user state for all the LEDs in the LED strip.
@@ -44,20 +34,13 @@ image: /img/robots/raph/raph-rover.webp
 
 ## Published Topics
 
-- `controller/imu` ([sensor_msgs/msg/Imu])
+- `controller/imu/data_raw` ([sensor_msgs/msg/Imu])
 
   Current gyroscope and accelerometer readings from the onboard IMU.
 
 - `controller/odom` ([nav_msgs/msg/Odometry])
 
   Odometry calculated from wheel encoders and the onboard IMU.
-
-- `controller/steering_mode` ([raph_interfaces/msg/SteeringMode]) **Not
-  implemented yet**
-
-  Current steering mode. Published whenever the mode changes. \
-  Uses transient local durability to deliver last message to joining
-  subscriptions.
 
 - `controller/diagnostics/imu` ([raph_interfaces/msg/ImuDiagnostics])
 
@@ -72,6 +55,10 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/power_system_state` ([raph_interfaces/msg/PowerSystemState])
 
   Current information about the power system.
+
+- `imu/data` ([sensor_msgs/msg/Imu])
+
+  Filtered IMU readings including orientation.
 
 - `oak/imu/data` ([sensor_msgs/msg/Imu])
 
@@ -118,7 +105,7 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw laser scans from the onboard 2D LIDAR.
 
-- `rplidar/scan_filtered` ([sensor_msgs/msg/LaserScan]) **Not implemented yet**
+- `rplidar/scan_filtered` ([sensor_msgs/msg/LaserScan])
 
   Laser scans from the onboard 2D LIDAR with points lying on the robot's
   footprint filtered out.

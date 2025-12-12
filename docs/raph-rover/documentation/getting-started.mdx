@@ -17,6 +17,7 @@ import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 import CenterContent from '@site/src/components/CenterContent';
+import LinkButton from '@site/src/components/LinkButton';
 
 import Support from '@site/docs/raph-rover/partial/_support.mdx';
 
@@ -260,79 +261,14 @@ driving, preview stream from on-board camera.
 To access it, open your web browser and navigate to
 [10.10.0.2](http://10.10.0.2).
 
-From here, you can control the rover, access the camera feed, and configure
-various settings. You can control the rover using the on-screen joystick.
+From here, you can control the rover using keyboard and on-screen joystick,
+access the camera feed, and configure various settings.
 
-:::tip
+:::info
 
-You can use gamepads, including Xbox and PlayStation controllers, with the Web
-UI. First, plug the controller into your device. The UI will confirm the
-connection with a "Gamepad connected" notification. You can then immediately
-start controlling the robot with the gamepad.
+To find out more about using the Web UI, visit the documentation page below:
 
-:::
-
-_More inforation coming soon_
-
-{/* TODO: ADD UI Pictures */}
-
-## Maintenance
-
-### Charging batteries
-
-Raph Rover comes with a 4A 25,2V Li-Ion charger. It can charge 1 battery pack in
-about 1.5 hour via the dedicated charging slot.
-
-<ThemedImageZoom
-  alt="Raph Rover battery dock"
-  sources={{
-    light: useBaseUrl('/img/robots/raph/getting-started/Charging_black.webp'),
-    dark: useBaseUrl('/img/robots/raph/getting-started/Charging_white.webp'),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-The charger (not the dock) is outfitted with an LED status indicator designed to
-provide information about the charging status of the battery. A green LED
-signifies that the battery has reached full charge, while a red LED indicates
-that the battery is currently in the charging process.
-
-As an alternative, the batteries can be charged via the rover, by leaving them
-inside the battery ports and connecting the charger to the rover's power input
-located at the back.
-
-<ThemedImageZoom
-  alt="Raph Rover with power adapter"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/raph/getting-started/Charging_rover_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/raph/getting-started/Charging_rover_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-This way it's possible to charge both batteries at the same time, however the
-charging current will be split between them, resulting in a longer charging time
-of around 2.5 h. The Rover does not need to be powered off for this process.
-
-:::note
-
-When working on the rover while charging the batteries the LED indicator of
-power adapter will not transition to green when charging is complete. Power draw
-of the rover will keep the charger in active (red) state. To check battery
-level, press the power button once. Fully illuminated LED side panels will
-indicate fully charged batteries.
+<LinkButton docId="documentation/web-user-interface" />
 
 :::
 
@@ -341,9 +277,7 @@ indicate fully charged batteries.
 After initial testing, you can explore what else Raph Rover has to offer. Start
 developing your own robotic application with help of our tutorials:
 
-_Coming soon_
-
-{/* TODO: Add link to guides */}
+<LinkButton to="/raph-rover/guides" title="Guides" />
 
 ### Support
 

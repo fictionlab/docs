@@ -1,0 +1,211 @@
+---
+title: Software & Hardware
+sidebar_label: Software & Hardware
+sidebar_position: 1
+keywords:
+  - raph
+  - rover
+  - mobile
+  - robot
+  - software
+  - hardware
+description: >-
+  Documentation providing an overview of Raph Rover's software and hardware
+  architectures and components.
+image: /img/robots/raph/raph-rover.webp
+toc_max_heading_level: 4
+---
+
+import CenterContent from '@site/src/components/CenterContent';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Software and Hardware components
+
+## Hardware
+
+Raph Rover integrates several key hardware components that work together to
+provide a robust mobile robotics platform:
+
+<ThemedImageZoom
+  alt="Hardware diagram of Raph Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/raph-hardware-diagram-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/specification/raph-hardware-diagram-dark.webp',
+    ),
+  }}
+  width="2000"
+  height="2037"
+  caption="Block diagram of Raph Rovers components"
+  figStyle={{ paddingBottom: '2rem' }}
+/>
+
+These components are integrated into a compact chassis designed for durability
+and ease of maintenance. The modular architecture allows for customization while
+maintaining core functionality.
+
+## Software
+
+### Overview
+
+Raph Rover's software heavily relies on The
+[Robot Operating System (ROS)](https://ros.org/) which offers many
+functionalities that are used on the robot, such as:
+
+- Abstraction layer facilitating communication between software components.
+- Open-source software components, maintained by the community.
+- A collection of standard message interfaces.
+- Tools for introspection and debugging.
+
+The primary segment of the software stack is partitioned into several
+[ROS Nodes](https://wiki.ros.org/Nodes), treated as computational units, each
+performing one logical task. The nodes interact via:
+
+- **Topics** - Named buses enabling message exchange between nodes. They are
+  strongly typed and employ anonymous publish/subscribe semantics.
+- **Services** - A client/server mechanism for remote procedure calls between
+  nodes. The service server accepts remote procedure requests identified by name
+  and type, which must be known to the service client beforehand.
+- **Parameters** - Sets of key/value pairs maintained separately by each node,
+  utilized for node configuration during startup and runtime without
+  necessitating code modifications.
+- **TF transforms** - A single transform describes the relationship between 2
+  coordinate frames at a specific point in time. TF transforms are distributed
+  between nodes using topics, but, for the sake of clarity, we will refer to
+  them as separate entities.
+
+There are two important software components which don't run as native ROS nodes:
+
+- **Controller firmware** - The firmware itself acts as a ROS node but uses
+  eProsima's
+  [Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/) as its
+  middleware. Thus, it requires the presence of the Micro-ROS Agent on the
+  built-in computer to communicate with other ROS nodes.
+- **Web User Interface** - The WebUI establishes a connection with the Rosbridge
+  Server via WebSocket transport layer and employs the rosbridge protocol for
+  communication with the ROS nodes.
+
+<ThemedImageZoom
+  alt="Overview of Raph Rover's software components"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/raph-software-light.webp',
+    ),
+    dark: useBaseUrl('/img/robots/raph/specification/raph-software-dark.webp'),
+  }}
+  width="2000"
+  height="819"
+  caption="Overview of the Raph Rover software components"
+/>
+
+### ROS nodes
+
+<CenterContent>
+
+| ROS Node              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Controller Node       | The node created by the Controller firmware. Provides access to functionalities via topics and services for the management of the drivetrain, LED panels, Power System and many more. Additionally, it publishes relevant information, including:<ul><li>State of the dynamic joints controlled by RaphCore.</li><li>Data retrieved from the onboard IMU sensor.</li><li>Power system status, comprising:<ul><li>Battery voltages.</li><li>Connection status of batteries or the charger to the robot.</li><li>Current output power.</li></ul></li><li>Robot odometry.</li><li>Diagnostic information for various system components.</li></ul> |
+| Robot State Publisher | Parses the kinematic tree model of the robot in URDF format and broadcasts the robot state using TF transforms. Here's how it operates:<ul><li>Fixed joints, like sensor positions, are published as static transforms.</li><li>Movable joints, such as wheel states, are published as dynamic transforms, based on the current joint states published by the Controller Node.</li></ul>It also publishes the robot URDF description on a designated topic, making it easily accessible to other nodes.                                                                                                                                        |
+| Camera Driver         | Publishes the data provided by the stereoscopic camera. In the default configuration used in Raph Rover, it includes:<ul><li>Images captured by the left, right and RGB (center) camera image sensors.</li><li>Calibration parameters for each image sensor.</li><li>Data from the camera's IMU sensor.</li><li>Depth images computed from the left and right sensors.</li></ul>                                                                                                                                                                                                                                                               |
+| Depth Processing Node | Publishes point cloud data computed from depth images and camera calibration parameters.<br /><br />Employs “lazy subscription”, meaning it doesn't process any depth images until at least one node subscribes to the Point Cloud topic.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| LIDAR Driver          | Publishes data from the LIDAR sensor.<br /><br />Additionally, it provides services for starting and stopping the sensor's motor.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Raph System Node      | Enables rebooting and shutting down the onboard computer via ROS services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| LIDAR Filter Node     | Filters out LIDAR measurements from the robot's footprint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ROS API Node          | Exposes ROS API services so the Web UI can inspect the ROS graph, query/set parameters and call services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Rosbridge Server      | Provides a WebSocket interface for communication with the Web User Interface using the rosbridge protocol.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Web Video Server      | Streams camera images to the Web User Interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+
+</CenterContent>
+
+<ThemedImageZoom
+  alt="Simplified graph of core ROS nodes running on Raph Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/specification/raph-ros-nodes-light.webp',
+    ),
+    dark: useBaseUrl('/img/robots/raph/specification/raph-ros-nodes-dark.webp'),
+  }}
+  width="2000"
+  height="856"
+  caption="Simplified graph of core ROS nodes running on Raph Rover"
+/>
+
+Custom ROS nodes can be created to extend the robot's capabilities even further.
+Raph Rover's software stack provides a robust framework for developing and
+integrating custom software and other sensors.
+
+You can learn how to create custom ROS nodes for Raph Rover in the
+[ROS Development Tutorial](./../../advanced-guides/ros-development.mdx).
+
+### Firmware
+
+Rover's low-level hardware functions are managed by the RaphCore
+microcontroller, which runs an RTOS app (firmware) based on FreeRTOS.
+Communication between the firmware and the onboard computer is facilitated by
+Micro-ROS.
+
+The firmware is responsible for:
+
+- Controlling the wheel motors and servos.
+- Managing the power system, including battery monitoring and charging.
+- Operating the LED panels.
+- Publishing data from the IMU sensor.
+- Publishing odometry calculated from wheel encoders and IMU.
+
+The firmware also uses a custom bootloader which is responsible for loading and
+updating the firmware itself. To learn how to flash or update the firmware,
+follow the guide below:
+
+{/* TODO: Add firmware flashing tutorial */}
+{/* <LinkButton docId="guides/firmware-update" /> */}
+
+#### LED controller
+
+The built-in LED controller manages the LED states of the robot by processing
+user-defined states and animations, integrating them with ongoing animations,
+and updating the LEDs accordingly.
+
+Users can control the LED strip by specifying colors, duration, and priority of
+specific LEDs via ROS topics.
+
+The robot features four LED panels that combine to form one long LED strip. LEDs
+can be controlled either as a full strip or as specific panels, providing
+flexibility for different use cases:
+
+- **Full Strip Control**: Ideal for animations that span the entire perimeter of
+  the robot, such as police lights. Can be set using
+  [controller/led_strip_state](./../ros-api#msg-led-strip-state) ROS topic.
+- **Panel-Specific Control**: Useful for targeted functions, such as using all
+  front LEDs as a floodlight or using side LEDs to indicate battery levels. Can
+  be set using [controller/led_panel_state](./../ros-api#msg-led-panel-state)
+  ROS topic.
+
+LED priorities range from 1 to 127. Higher priority animations override lower
+priority ones. Sending an LED state with priority -1 will reset the LED (turn it
+off). Messages with priority 0 are ignored.
+
+### Web User Interface
+
+Web User Interface can be used to control Raph Rover, view camera streams and
+monitor robot status. It utilizes the rosbridge protocol to communicate with ROS
+nodes on the robot via WebSocket.
+
+<ImageZoom
+  alt="Raph Rover Web User Interface"
+  src={useBaseUrl('/img/robots/raph/user-manual/raph_ui_showcase.webp')}
+  width="1600"
+  height="900"
+  caption="Raph Rover Web User Interface"
+/>
+
+:::info
+
+To find out how to connect to and use the Web UI, visit the documentation page
+below:
+
+<LinkButton docId="documentation/web-user-interface" />
+
+:::

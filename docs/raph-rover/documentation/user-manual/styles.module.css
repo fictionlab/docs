@@ -1,0 +1,236 @@
+.circle {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.bar {
+  height: 16px;
+  width: 120px;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+[data-theme='light'] .LEDcell {
+  background-color: var(--ifm-color-gray-200);
+}
+
+#flashWhite {
+  animation: whiteAnimation 1.5s steps(1, end) infinite;
+}
+
+#breathWhite {
+  animation: whiteAnimation 3s linear infinite;
+}
+
+#white {
+  background: white;
+}
+
+#flashBlue {
+  animation: blueAnimation 1.5s steps(1, end) infinite;
+}
+
+#breathBlue {
+  animation: blueAnimation 3s linear infinite;
+}
+
+#breathGreen {
+  animation: greenAnimation 3s linear infinite;
+}
+
+#blue {
+  background: blue;
+}
+
+#yellow {
+  background: yellow;
+}
+
+#green {
+  background: limegreen;
+}
+
+#red {
+  background: red;
+}
+
+#chargeCycle {
+  animation: chargeCycleAnimation 4s ease-in-out infinite;
+}
+
+#batteryConnected {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+#batteryConnected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: red;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: batteryConnectedFill 2.5s ease-in-out infinite;
+}
+
+#batteryDisconnected {
+  animation: batteryDisconnectedAnimation 2s ease-in-out infinite;
+}
+
+#microRos {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 20, 40, 0.35) 0%,
+    rgba(10, 20, 40, 0.35) 37.5%,
+    #1d6fff 37.5%,
+    #1d6fff 62.5%,
+    rgba(10, 20, 40, 0.35) 62.5%,
+    rgba(10, 20, 40, 0.35) 100%
+  );
+  background-size: 200% 100%;
+  animation: microRosAnimation 1.8s ease-in-out infinite alternate;
+}
+
+#flashRed {
+  animation: redAnimation 1.5s steps(1, end) infinite;
+}
+
+#flashRed3 {
+  animation: red3flashAnimation 2s steps(1, start) infinite;
+}
+
+@keyframes whiteAnimation {
+  0% {
+    background: white;
+  }
+  50% {
+    background: none;
+  }
+  100% {
+    background: white;
+  }
+}
+
+@keyframes blueAnimation {
+  0% {
+    background: blue;
+  }
+  50% {
+    background: none;
+  }
+  100% {
+    background: blue;
+  }
+}
+
+@keyframes greenAnimation {
+  0% {
+    background: limegreen;
+  }
+  50% {
+    background: none;
+  }
+  100% {
+    background: limegreen;
+  }
+}
+
+@keyframes redAnimation {
+  0% {
+    background: red;
+  }
+  50% {
+    background: none;
+  }
+  100% {
+    background: red;
+  }
+}
+
+@keyframes chargeCycleAnimation {
+  0% {
+    background: red;
+  }
+  25% {
+    background: rgba(255, 0, 0, 0.15);
+  }
+  50% {
+    background: #ffea00;
+  }
+  75% {
+    background: rgba(50, 205, 50, 0.15);
+  }
+  100% {
+    background: limegreen;
+  }
+}
+
+@keyframes batteryConnectedFill {
+  0% {
+    transform: scaleX(0);
+    background: red;
+  }
+  50% {
+    background: #ff9900;
+  }
+  100% {
+    transform: scaleX(1);
+    background: limegreen;
+  }
+}
+
+@keyframes batteryDisconnectedAnimation {
+  0% {
+    background: red;
+  }
+  60% {
+    background: rgba(255, 0, 0, 0);
+  }
+  99% {
+    background: rgba(255, 0, 0, 0);
+  }
+  100% {
+    background: red;
+  }
+}
+
+@keyframes microRosAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes red3flashAnimation {
+  0% {
+    background: none;
+  }
+  10% {
+    background: red;
+  }
+  20% {
+    background: none;
+  }
+  40% {
+    background: red;
+  }
+  50% {
+    background: none;
+  }
+  60% {
+    background: red;
+  }
+  70% {
+    background: none;
+  }
+  100% {
+    background: none;
+  }
+}
