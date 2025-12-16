@@ -238,10 +238,10 @@ const config: Config = {
             {
               label: 'Linkedin',
               href: 'https://www.linkedin.com/company/fictionlab1',
-              className: 'footer-linkedin-link'
+              className: 'footer-linkedin-link',
             },
             {
-              label:'Github',
+              label: 'Github',
               href: 'https://github.com/fictionlab',
               className: 'footer-github-link',
             },
