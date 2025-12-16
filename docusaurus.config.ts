@@ -226,20 +226,29 @@ const config: Config = {
           title: 'Find us on:',
           items: [
             {
+              label: 'Facebook',
+              href: 'https://www.facebook.com/fictionlabpl',
+              className: 'footer-facebook-link',
+            },
+            {
               label: 'Youtube',
               href: 'https://www.youtube.com/@leorover6230',
+              className: 'footer-youtube-link',
             },
             {
               label: 'Linkedin',
-              href: 'https://www.linkedin.com/company/leorover/',
+              href: 'https://www.linkedin.com/company/fictionlab1',
+              className: 'footer-linkedin-link'
             },
             {
-              label: 'Online forum',
-              href: 'https://forum.fictionlab.pl/',
+              label:'Github',
+              href: 'https://github.com/fictionlab',
+              className: 'footer-github-link',
             },
             {
-              label: 'Facebook Community Group',
-              href: 'https://www.facebook.com/groups/leorover',
+              label: 'Discord Community',
+              href: 'https://discord.gg/57DdtCnhCc',
+              className: 'footer-discord-link',
             },
           ],
         },
