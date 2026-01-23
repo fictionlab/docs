@@ -97,7 +97,7 @@ const config: Config = {
         },
         blog: {
           id: 'community-projects',
-          path: 'community-projects',
+          path: 'communityProjects',
           blogTitle: 'Fictionlab Community Projects',
           blogDescription:
             'Showcase of projects created by the Fictionlab community',
