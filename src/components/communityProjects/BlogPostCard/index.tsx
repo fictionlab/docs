@@ -6,7 +6,7 @@ import type {Props} from '@theme/BlogPostItem';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 
-export default function BlogPostCard({className}: Props): ReactNode {
+export default function BlogPostCard({children, className}: Props): ReactNode {
   const {metadata} = useBlogPost();
 
   return (
@@ -22,7 +22,7 @@ export default function BlogPostCard({className}: Props): ReactNode {
         <div className={styles.cardContent}>
           <h2 className={styles.cardTitle}>{metadata.title}</h2>
           {metadata.description && (
-            <p className={styles.cardDescription}>{metadata.description}</p>
+            <p className={styles.cardDescription}>{children}</p>
           )}
           {metadata.tags && metadata.tags.length > 0 && (
             <div className={styles.cardTags}>
