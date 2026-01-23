@@ -7,12 +7,12 @@ import {
   HtmlClassNameProvider,
   ThemeClassNames,
 } from '@docusaurus/theme-common';
-import BlogLayout from '@theme/BlogLayout';
 import BlogListPaginator from '@theme/BlogListPaginator';
 import SearchMetadata from '@theme/SearchMetadata';
 import type {Props} from '@theme/BlogListPage';
-import BlogPostItems from '@theme/BlogPostItems';
+import BlogPostItems from '@site/src/components/communityProjects/BlogPostItems';
 import BlogListPageStructuredData from '@theme/BlogListPage/StructuredData';
+import Layout from '@theme/Layout';
 
 function BlogListPageMetadata(props: Props): ReactNode {
   const {metadata} = props;
@@ -31,12 +31,14 @@ function BlogListPageMetadata(props: Props): ReactNode {
 }
 
 function BlogListPageContent(props: Props): ReactNode {
-  const {metadata, items, sidebar} = props;
+  const {metadata, items} = props;
   return (
-    <BlogLayout sidebar={sidebar}>
-      <BlogPostItems items={items} />
-      <BlogListPaginator metadata={metadata} />
-    </BlogLayout>
+    <Layout>
+      <div className="container margin-vert--lg">
+        <BlogPostItems items={items} />
+        <BlogListPaginator metadata={metadata} />
+      </div>
+    </Layout>
   );
 }
 

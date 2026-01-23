@@ -102,8 +102,9 @@ const config: Config = {
           blogDescription:
             'Showcase of projects created by the Fictionlab community',
           routeBasePath: '/community-projects',
-          blogSidebarTitle: 'All posts',
-          blogSidebarCount: 'ALL',
+          blogSidebarCount: 0,
+          feedOptions: { type: null },
+          blogListComponent: '@site/src/components/communityProjects/BlogListPage',
         },
         theme: {
           customCss: './src/css/custom.css',
