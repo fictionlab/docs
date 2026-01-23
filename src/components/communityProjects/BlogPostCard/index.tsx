@@ -6,20 +6,12 @@ import type {Props} from '@theme/BlogPostItem';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 
-// apply a bottom margin in list view
-function useContainerClassName() {
-  const {isBlogPostPage} = useBlogPost();
-  return !isBlogPostPage ? 'margin-bottom--xl' : undefined;
-}
-
-
-export default function BlogPostCard({children, className}: Props): ReactNode {
-  const containerClassName = useContainerClassName();
-  const {metadata, isBlogPostPage} = useBlogPost();
+export default function BlogPostCard({className}: Props): ReactNode {
+  const {metadata} = useBlogPost();
 
   return (
     <BlogPostItemContainer
-      className={clsx(containerClassName, className, styles.compactCard)}
+      className={clsx(className, styles.compactCard)}
     >
       <Link to={metadata.permalink} className={styles.cardLink}>
         {metadata.frontMatter.image && (

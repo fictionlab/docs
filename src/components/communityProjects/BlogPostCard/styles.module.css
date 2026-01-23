@@ -55,6 +55,7 @@
   color: var(--ifm-heading-color);
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -67,8 +68,10 @@
   margin: 0 0 1rem 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  max-height: 69.14px;
 }
 
 .cardTags {
@@ -87,7 +90,6 @@
   font-weight: 500;
 }
 
-/* Ciemny motyw */
 [data-theme='dark'] .cardTag {
   background-color: var(--ifm-color-emphasis-300);
   color: var(--ifm-color-emphasis-900);
