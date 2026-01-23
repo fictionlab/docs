@@ -5,9 +5,20 @@ import BlogPostItemContainer from '@theme/BlogPostItem/Container';
 import type {Props} from '@theme/BlogPostItem';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
+import { PropBlogPostMetadata } from '@docusaurus/plugin-content-blog';
+
+interface communityProjectMetadata extends Omit<PropBlogPostMetadata, 'frontMatter'> {
+  frontMatter: PropBlogPostMetadata['frontMatter'] & {
+    company?: {
+      name?: string;
+      logo_url?: string;
+      url?: string;
+    };
+  };
+}
 
 export default function BlogPostCard({children, className}: Props): ReactNode {
-  const {metadata} = useBlogPost();
+  const {metadata} = useBlogPost() as {metadata: communityProjectMetadata};
 
   return (
     <BlogPostItemContainer
@@ -33,6 +44,25 @@ export default function BlogPostCard({children, className}: Props): ReactNode {
               ))}
             </div>
           )}
+          <div className={styles.cardCompanyContainer}>
+            { metadata.frontMatter.company && metadata.frontMatter.company.name && metadata.frontMatter.company.url && (
+              <a
+                href={metadata.frontMatter.company.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.cardCompany}
+              >
+                {metadata.frontMatter.company.logo_url && (
+                  <img
+                    src={metadata.frontMatter.company.logo_url}
+                    alt={metadata.frontMatter.company.name}
+                    className={styles.cardCompanyLogo}
+                  />
+                )}
+                <span className={styles.cardCompanyName}>{metadata.frontMatter.company.name}</span>
+              </a>
+            )}
+          </div>
         </div>
       </Link>
     </BlogPostItemContainer>
