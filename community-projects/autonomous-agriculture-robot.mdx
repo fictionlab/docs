@@ -1,0 +1,105 @@
+---
+title: Autonomous Agriculture Monitoring System
+description: Leo Rover adapted for precision agriculture, featuring autonomous navigation, crop health monitoring, and real-time data collection in vineyard environments.
+slug: autonomous-agriculture-monitoring
+authors:
+  - name: Dr. Maria Santos
+    title: Robotics Researcher
+    url: https://github.com/mariasantos
+    image_url: https://i.pravatar.cc/150?img=5
+    socials:
+      github: mariasantos
+      email: m.santos@agritech.edu
+tags: [leo-rover, agriculture, autonomous-navigation, computer-vision, lidar]
+image: https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800
+hide_table_of_contents: false
+---
+
+An innovative Leo Rover-based system for autonomous crop monitoring in vineyards, utilizing advanced sensors and AI for precision agriculture.
+
+<!-- truncate -->
+
+## Project Overview
+
+Our team at AgriTech University has successfully adapted the Leo Rover platform to create an autonomous agricultural monitoring system. The robot navigates independently through vineyard rows, collecting crucial data about crop health, soil conditions, and environmental parameters.
+
+## Key Features
+
+### Autonomous Navigation
+- **GPS-RTK Integration**: Centimeter-level positioning accuracy for precise row following
+- **LiDAR Mapping**: Real-time 3D mapping of vineyard structure and obstacles
+- **Path Planning**: Intelligent route optimization for complete field coverage
+
+### Crop Health Monitoring
+- **Multispectral Camera**: NDVI analysis for early disease detection
+- **Thermal Imaging**: Identification of water stress in plants
+- **RGB Vision**: High-resolution photos for visual inspection
+
+### Environmental Sensing
+- Soil moisture and temperature sensors
+- Ambient temperature and humidity monitoring
+- Light intensity measurements
+
+## Technical Implementation
+
+The system runs on ROS Noetic with custom nodes for:
+- Sensor data fusion
+- Autonomous navigation stack
+- Image processing and analysis
+- Cloud data synchronization
+
+```python
+# Example: NDVI calculation node
+import rospy
+from sensor_msgs.msg import Image
+import cv2
+import numpy as np
+
+class NDVIProcessor:
+    def __init__(self):
+        self.nir_sub = rospy.Subscriber('/multispectral/nir', Image, self.nir_callback)
+        self.red_sub = rospy.Subscriber('/multispectral/red', Image, self.red_callback)
+        # Processing logic here
+```
+
+## Results
+
+After 6 months of field testing:
+- **95% navigation accuracy** in complex vineyard terrain
+- **Early disease detection** up to 2 weeks before visible symptoms
+- **40% reduction** in manual inspection time
+- **Coverage**: 5 hectares per 8-hour operation
+
+## Hardware Modifications
+
+- Extended battery pack for 8+ hour operation
+- Custom mounting bracket for multispectral camera
+- Weatherproof enclosure for electronics
+- Upgraded wheels for better traction in muddy conditions
+
+## Future Development
+
+We're working on:
+- Integration with drone systems for comprehensive monitoring
+- Machine learning models for automatic pest identification
+- Integration with irrigation systems for automated response
+- Multi-robot coordination for large-scale farms
+
+## Project Team
+
+**Created by**: AgriTech Research Lab, University of California Davis  
+**Project Lead**: Dr. Maria Santos  
+**Duration**: 18 months (2024-2025)  
+**Funding**: USDA Agricultural Research Grant
+
+## Resources
+
+- [GitHub Repository](https://github.com/agritech-lab/leo-agriculture)
+- [Research Paper (PDF)](https://example.com/paper.pdf)
+- [Demo Video](https://youtube.com/watch?v=example)
+- [Technical Documentation](https://docs.example.com/leo-agri)
+- [ROS Packages](https://github.com/agritech-lab/leo-agri-ros)
+
+## Contact
+
+For collaboration or questions, reach out to our team at [agritech@ucdavis.edu](mailto:agritech@ucdavis.edu)
