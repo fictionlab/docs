@@ -1,6 +1,7 @@
 .compactCard {
   height: 100%;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .compactCard:hover {
@@ -9,9 +10,6 @@
 }
 
 .cardLink {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   text-decoration: none;
   color: inherit;
   overflow: hidden;
@@ -41,10 +39,7 @@
 }
 
 .cardContent {
-  padding: 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  padding: 1rem;
 }
 
 .cardTitle {
@@ -61,7 +56,6 @@
 }
 
 .cardDescription {
-  flex: 1;
   font-size: 0.9rem;
   color: var(--ifm-color-emphasis-700);
   line-height: 1.6;
@@ -71,62 +65,41 @@
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  max-height: 69.14px;
 }
 
 .cardTags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: auto;
-}
-
-.cardTag {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  background-color: var(--ifm-color-emphasis-200);
-  color: var(--ifm-color-emphasis-800);
-  border-radius: 12px;
-  font-weight: 500;
-}
-
-[data-theme='dark'] .cardTag {
-  background-color: var(--ifm-color-emphasis-300);
-  color: var(--ifm-color-emphasis-900);
-}
-
-.cardCompanyContainer {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid var(--ifm-color-emphasis-200);
 }
 
-.cardCompany {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  text-decoration: none;
-  color: var(--ifm-color-primary);
-  font-size: 0.9rem;
+.cardTag {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-color-emphasis-900);
+  border-radius: 12px;
   font-weight: 500;
-  transition: opacity 0.2s ease;
-}
-
-.cardCompany:hover {
-  opacity: 0.8;
-  text-decoration: none;
 }
 
 .cardCompanyLogo {
-  width: 32px;
-  height: 32px;
+  width: 100%;
+  height: 100px;
   border-radius: 4px;
-  object-fit: cover;
-  background-color: var(--ifm-color-emphasis-200);
+  object-fit: contain;
 }
 
 .cardCompanyName {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
