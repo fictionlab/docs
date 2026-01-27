@@ -57,7 +57,7 @@ function validateFrontMatter() {
     // Exit with a non-zero exit code to fail the CI job.
     process.exit(1);
   } else {
-    console.log('All MDX files have the required front matter keys.');
+    console.log('All docs files have the required front matter keys.');
   }
 }
 
