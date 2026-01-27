@@ -1,0 +1,20 @@
+.authorsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 2rem;
+}
+
+.authorsInfo {
+  flex-shrink: 1;
+  width: 60%;
+}
+
+.companyLogo {
+  width: 40%;
+  height: 100%;
+  max-height: 100px;
+  object-fit: contain;
+  object-position: right;
+}

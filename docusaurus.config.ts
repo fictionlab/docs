@@ -105,8 +105,10 @@ const config: Config = {
           blogSidebarCount: 0,
           feedOptions: { type: null },
           blogListComponent: '@site/src/components/communityProjects/BlogListPage',
+          blogPostComponent: '@site/src/components/communityProjects/BlogPostPage',
           onInlineTags: 'warn',
-          onInlineAuthors: 'ignore'
+          onInlineAuthors: 'ignore',
+          showReadingTime: false,
         },
         theme: {
           customCss: './src/css/custom.css',

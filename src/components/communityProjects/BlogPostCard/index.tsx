@@ -1,28 +1,16 @@
 import { type ReactNode } from 'react';
 import clsx from 'clsx';
-import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
 import BlogPostItemContainer from '@theme/BlogPostItem/Container';
 import type { Props } from '@theme/BlogPostItem';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
-import { PropBlogPostMetadata } from '@docusaurus/plugin-content-blog';
-
-interface communityProjectMetadata
-  extends Omit<PropBlogPostMetadata, 'frontMatter'> {
-  frontMatter: PropBlogPostMetadata['frontMatter'] & {
-    company?: {
-      name?: string;
-      logo_url?: string;
-      url?: string;
-    };
-  };
-}
+import useCommunityProject from '@site/src/hooks/useCommunityProject';
 
 export default function BlogPostCard({
   children,
   className,
 }: Props): ReactNode {
-  const { metadata } = useBlogPost() as { metadata: communityProjectMetadata };
+  const { metadata } = useCommunityProject();
 
   return (
     <BlogPostItemContainer className={clsx(className, styles.compactCard)}>
