@@ -16,6 +16,6 @@ export default function useCommunityProject() {
   const blogPost = useBlogPost();
   return {
     ...blogPost,
-    metadata: blogPost.metadata as communityProjectMetadata
+    metadata: blogPost.metadata as communityProjectMetadata,
   };
 }

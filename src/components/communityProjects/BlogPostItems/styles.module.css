@@ -42,8 +42,13 @@
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  background-color: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  background-color: var(
+    --ifm-card-background-color,
+    var(--ifm-background-surface-color)
+  );
 }
 
 .blogPostCard:hover {

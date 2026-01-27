@@ -104,8 +104,10 @@ const config: Config = {
           routeBasePath: '/community-projects',
           blogSidebarCount: 0,
           feedOptions: { type: null },
-          blogListComponent: '@site/src/components/communityProjects/BlogListPage',
-          blogPostComponent: '@site/src/components/communityProjects/BlogPostPage',
+          blogListComponent:
+            '@site/src/components/communityProjects/BlogListPage',
+          blogPostComponent:
+            '@site/src/components/communityProjects/BlogPostPage',
           onInlineTags: 'warn',
           onInlineAuthors: 'ignore',
           showReadingTime: false,
@@ -182,7 +184,7 @@ const config: Config = {
           to: '/integrations',
         },
         {
-          label: "Community Projects",
+          label: 'Community Projects',
           position: 'left',
           to: '/community-projects',
         },

@@ -1,6 +1,9 @@
 ---
 title: Interactive Museum Tour Guide Robot
-description: Leo Rover transformed into an engaging, autonomous museum guide with voice interaction, multilingual support, and AR-enhanced exhibits for visitor education.
+description:
+  Leo Rover transformed into an engaging, autonomous museum guide with voice
+  interaction, multilingual support, and AR-enhanced exhibits for visitor
+  education.
 slug: museum-tour-guide-robot
 authors:
   - name: Sophie Laurent
@@ -10,7 +13,14 @@ authors:
     socials:
       github: sophielaurent
       linkedin: sophie-laurent-hri
-tags: [leo-rover, education, human-robot-interaction, voice-recognition, indoor-navigation]
+tags:
+  [
+    leo-rover,
+    education,
+    human-robot-interaction,
+    voice-recognition,
+    indoor-navigation,
+  ]
 image: https://images.unsplash.com/photo-1566127992631-137a642a90f4?w=800
 hide_table_of_contents: false
 company:
@@ -19,29 +29,37 @@ company:
   logo_url: https://i.pravatar.cc/150?img=20
 ---
 
-An autonomous Leo Rover that serves as an interactive museum tour guide, engaging visitors with stories, answering questions, and enhancing exhibitions with augmented reality content.
+An autonomous Leo Rover that serves as an interactive museum tour guide,
+engaging visitors with stories, answering questions, and enhancing exhibitions
+with augmented reality content.
 
 {/* truncate */}
 
 ## Bringing Exhibits to Life
 
-Museums are embracing technology to create more engaging visitor experiences. Our team at the Museum Innovation Lab developed "RoboGuide" - a Leo Rover-based tour guide that combines autonomous navigation, natural language interaction, and augmented reality to transform museum visits.
+Museums are embracing technology to create more engaging visitor experiences.
+Our team at the Museum Innovation Lab developed "RoboGuide" - a Leo Rover-based
+tour guide that combines autonomous navigation, natural language interaction,
+and augmented reality to transform museum visits.
 
 ## Visitor Experience
 
 ### Interactive Tours
+
 - **Voice Interaction**: Natural conversations in 12 languages
 - **Personalized Routes**: Tours adapted to visitor interests and time available
 - **Story Telling**: Engaging narratives about exhibits with historical context
 - **Q&A Capability**: Answers to visitor questions using GPT-4 integration
 
 ### Augmented Reality Features
+
 - **Tablet Display**: 10" screen showing AR overlays
 - **3D Reconstructions**: See artifacts as they looked originally
 - **Historical Scenes**: Visualize historical events in the actual location
 - **Interactive Games**: Educational activities for children
 
 ### Accessibility Features
+
 - **Multilingual Support**: 12 languages including sign language interpretation
 - **Height-Adjustable Display**: Accessible for wheelchair users and children
 - **Audio Descriptions**: Enhanced descriptions for visually impaired visitors
@@ -50,30 +68,34 @@ Museums are embracing technology to create more engaging visitor experiences. Ou
 ## Technical Implementation
 
 ### Navigation System
+
 ```python
 class MuseumNavigator:
     def __init__(self):
         self.map = self.load_museum_map()
         self.exhibits = self.load_exhibit_database()
-        
+
     def plan_tour(self, visitor_preferences, duration):
         """Generate optimal tour based on interests and time"""
         exhibit_priorities = self.rank_exhibits(visitor_preferences)
         route = self.optimize_path(exhibit_priorities, duration)
         return self.create_tour_schedule(route)
-    
+
     def avoid_visitors(self):
         """Dynamic obstacle avoidance for crowded spaces"""
         # LiDAR-based pedestrian detection and avoidance
 ```
 
 ### AI-Powered Interaction
+
 - **Speech Recognition**: Google Speech API with custom museum vocabulary
-- **Natural Language Understanding**: Intent classification and entity extraction
+- **Natural Language Understanding**: Intent classification and entity
+  extraction
 - **Response Generation**: Context-aware answers with personality
 - **Emotion Recognition**: Camera-based visitor engagement detection
 
 ### Safety Systems
+
 - **Collision Avoidance**: 360° LiDAR protection zone
 - **Emergency Stop**: Physical button and remote kill switch
 - **Speed Limiting**: Automatically slows in crowded areas
@@ -82,49 +104,60 @@ class MuseumNavigator:
 ## Deployment Case Studies
 
 ### National History Museum (London)
+
 **Deployment Period**: 6 months  
 **Visitors Served**: 15,000+  
 **Results**:
+
 - 92% visitor satisfaction rate
 - Average tour duration: 45 minutes
 - 78% of visitors said the robot enhanced their experience
 - 25% increase in young adult visitors (18-35)
 
 ### Science Museum (Boston)
+
 **Special Feature**: Interactive science demonstrations  
 **Highlights**:
+
 - Robot demonstrates simple physics experiments
 - Synchronized with exhibit displays
 - 500+ school groups participated
 - Teachers reported 40% higher student engagement
 
 ### Art Gallery (Tokyo)
+
 **Unique Adaptation**: Minimalist aesthetic design  
 **Features**:
+
 - Silent mode in contemplative gallery spaces
 - Art history storytelling with emotional narratives
 - Coordination with 3 robots for large groups
 
 ## Visitor Feedback
 
-> "My kids were completely mesmerized! They learned so much more than with a traditional audio guide. The AR reconstructions were amazing!"  
+> "My kids were completely mesmerized! They learned so much more than with a
+> traditional audio guide. The AR reconstructions were amazing!"  
 > — Sarah M., Parent
 
-> "As a wheelchair user, I appreciated that the robot automatically adjusted its display height and moved at my pace. Very thoughtful design."  
+> "As a wheelchair user, I appreciated that the robot automatically adjusted its
+> display height and moved at my pace. Very thoughtful design."  
 > — David K., Visitor
 
-> "We've seen a significant increase in repeat visitors since introducing RoboGuide. People specifically come back to experience new tours."  
+> "We've seen a significant increase in repeat visitors since introducing
+> RoboGuide. People specifically come back to experience new tours."  
 > — Museum Director, Natural History Museum
 
 ## Hardware Components
 
 ### Base Platform
+
 - Leo Rover (modified for indoor use)
 - Quieter motors for museum environment
 - Wider wheelbase for stability
 - Custom decorative panels (museum-themed)
 
 ### Added Components
+
 - **Display System**: 10" touchscreen tablet on adjustable arm
 - **Speaker Array**: Directional speakers for focused audio
 - **Lighting**: Soft LED strips (museum-friendly)
@@ -132,6 +165,7 @@ class MuseumNavigator:
 - **Branding**: Customizable panels for museum identity
 
 ### Software Stack
+
 - ROS Noetic for robot control
 - Custom navigation package for indoor environments
 - Web-based admin interface for museum staff
@@ -140,6 +174,7 @@ class MuseumNavigator:
 ## Customization Options
 
 Museums can customize:
+
 - **Tour Content**: Easy-to-update exhibit database
 - **Voice Personality**: Choose tone and speaking style
 - **Appearance**: Custom wraps and decorations
@@ -149,12 +184,15 @@ Museums can customize:
 ## Business Model & ROI
 
 ### Cost Breakdown
+
 - Initial Setup: $15,000-20,000 per robot
 - Annual Maintenance: $2,000
 - Software Updates: Included in support package
 
 ### Revenue Impact
+
 Museums report:
+
 - 15-30% increase in ticket sales
 - Higher visitor engagement scores
 - Positive media coverage and social media buzz
@@ -163,12 +201,14 @@ Museums report:
 ## Educational Impact
 
 ### School Programs
+
 - Aligned with curriculum standards
 - Teacher control panels for guided tours
 - Student activity sheets generated by robot
 - Post-visit digital resources
 
 ### Learning Outcomes
+
 - 65% better information retention vs audio guides
 - Higher engagement with complex topics
 - Improved student enthusiasm for museum visits
@@ -176,12 +216,14 @@ Museums report:
 ## Future Developments
 
 **In Progress**:
+
 - Multi-robot coordination for larger museums
 - VR headset integration for immersive experiences
 - Gesture control interface
 - Visitor tracking and analytics (privacy-compliant)
 
 **Planned**:
+
 - Outdoor garden/sculpture garden capability
 - Live expert video calls through the robot
 - Community upload of personal stories related to exhibits
@@ -206,6 +248,7 @@ Museums report:
 ## Get RoboGuide for Your Museum
 
 We offer:
+
 - Complete turnkey solution
 - Custom development for special exhibits
 - Training for museum staff

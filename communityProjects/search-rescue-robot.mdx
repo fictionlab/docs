@@ -1,6 +1,9 @@
 ---
 title: Search and Rescue Robot with Thermal Imaging
-description: Modified Leo Rover for urban search and rescue operations, equipped with thermal cameras, gas sensors, and real-time communication systems for emergency response teams.
+description:
+  Modified Leo Rover for urban search and rescue operations, equipped with
+  thermal cameras, gas sensors, and real-time communication systems for
+  emergency response teams.
 slug: search-rescue-thermal-robot
 authors:
   - name: James Chen
@@ -10,7 +13,8 @@ authors:
     socials:
       github: jameschen
       linkedin: james-chen-robotics
-tags: [leo-rover, search-rescue, thermal-imaging, emergency-response, teleoperation]
+tags:
+  [leo-rover, search-rescue, thermal-imaging, emergency-response, teleoperation]
 image: https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800
 hide_table_of_contents: false
 company:
@@ -19,29 +23,37 @@ company:
   logo_url: https://i.pravatar.cc/150?img=12
 ---
 
-A life-saving Leo Rover modification designed for urban search and rescue operations in hazardous environments where human access is dangerous or impossible.
+A life-saving Leo Rover modification designed for urban search and rescue
+operations in hazardous environments where human access is dangerous or
+impossible.
 
 {/* truncate */}
 
 ## Mission Critical Design
 
-When disaster strikes, every second counts. Our team at Emergency Robotics Inc. has transformed the Leo Rover into a robust search and rescue platform capable of navigating through rubble, detecting survivors, and assessing hazardous conditions in real-time.
+When disaster strikes, every second counts. Our team at Emergency Robotics Inc.
+has transformed the Leo Rover into a robust search and rescue platform capable
+of navigating through rubble, detecting survivors, and assessing hazardous
+conditions in real-time.
 
 ## Core Capabilities
 
 ### Survivor Detection
+
 - **FLIR Thermal Camera**: Detection of body heat signatures through obstacles
 - **Acoustic Sensors**: Detection of sounds and calls for help
 - **CO2 Sensors**: Identification of breathing patterns in confined spaces
 - **Two-way Audio**: Communication with trapped survivors
 
 ### Hazard Assessment
+
 - **Gas Detection Suite**: CO, CO2, methane, and other dangerous gases
 - **Radiation Sensor**: Nuclear hazard identification
 - **Structural Stability Analysis**: Vibration sensors for collapse risk
 - **Air Quality Monitoring**: Oxygen levels and particulate matter
 
 ### Enhanced Mobility
+
 - **Reinforced Chassis**: Withstands impacts and rough terrain
 - **Upgraded Motors**: 50% more torque for climbing rubble
 - **Flexible Tracks Option**: Interchangeable with wheels for different terrains
@@ -53,17 +65,23 @@ When disaster strikes, every second counts. Our team at Emergency Robotics Inc. 
 
 During a warehouse collapse in Portland, our Leo SAR unit was deployed:
 
-1. **Initial Assessment** (5 minutes): Robot entered through a 60cm gap, mapped the interior with LiDAR
-2. **Survivor Location** (15 minutes): Thermal imaging detected 3 heat signatures
+1. **Initial Assessment** (5 minutes): Robot entered through a 60cm gap, mapped
+   the interior with LiDAR
+2. **Survivor Location** (15 minutes): Thermal imaging detected 3 heat
+   signatures
 3. **Communication** (20 minutes): Established audio contact with survivors
-4. **Hazard Report** (25 minutes): Detected elevated CO levels, guiding rescue strategy
-5. **Extraction Support** (2 hours): Provided continuous monitoring during rescue operations
+4. **Hazard Report** (25 minutes): Detected elevated CO levels, guiding rescue
+   strategy
+5. **Extraction Support** (2 hours): Provided continuous monitoring during
+   rescue operations
 
-**Result**: All 3 survivors safely rescued. Robot operations significantly reduced risk to rescue personnel.
+**Result**: All 3 survivors safely rescued. Robot operations significantly
+reduced risk to rescue personnel.
 
 ## Technical Architecture
 
 ### Control System
+
 ```python
 # Emergency Response Control Node
 class SARController:
@@ -71,7 +89,7 @@ class SARController:
         self.thermal_feed = ThermalProcessor()
         self.gas_sensors = GasSensorArray()
         self.audio_system = BidirectionalAudio()
-        
+
     def detect_survivors(self):
         thermal_data = self.thermal_feed.get_hotspots()
         audio_data = self.audio_system.listen()
@@ -79,6 +97,7 @@ class SARController:
 ```
 
 ### Communication
+
 - **4G LTE Backup**: Redundant connectivity in disaster zones
 - **Mesh Network**: Ad-hoc networking with other robots
 - **Satellite Uplink**: Operation in areas with no infrastructure
@@ -95,6 +114,7 @@ class SARController:
 ## Training and Certification
 
 We provide comprehensive training for emergency response teams:
+
 - 2-day operator certification course
 - Simulator-based training scenarios
 - Field exercises with local fire departments
@@ -126,4 +146,5 @@ We provide comprehensive training for emergency response teams:
 
 ## Get Involved
 
-Emergency response organizations interested in deploying this technology can contact us at [info@emergency-robotics.com](mailto:info@emergency-robotics.com)
+Emergency response organizations interested in deploying this technology can
+contact us at [info@emergency-robotics.com](mailto:info@emergency-robotics.com)

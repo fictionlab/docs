@@ -1,6 +1,6 @@
-import {BlogPostProvider} from '@docusaurus/plugin-content-blog/client';
+import { BlogPostProvider } from '@docusaurus/plugin-content-blog/client';
 import BlogPostItem from '@theme/BlogPostItem';
-import type {Props} from '@theme/BlogPostItems';
+import type { Props } from '@theme/BlogPostItems';
 import styles from './styles.module.css';
 import { ReactNode } from 'react';
 import BlogPostCard from '@site/src/components/communityProjects/BlogPostCard';
@@ -11,10 +11,11 @@ export default function BlogPostItems({
 }: Props): ReactNode {
   return (
     <div className={styles.blogPostGrid}>
-      {items.map(({content: BlogPostContent}) => (
+      {items.map(({ content: BlogPostContent }) => (
         <BlogPostProvider
           key={BlogPostContent.metadata.permalink}
-          content={BlogPostContent}>
+          content={BlogPostContent}
+        >
           <div className={styles.blogPostCard}>
             <BlogPostCard>
               <BlogPostContent />
