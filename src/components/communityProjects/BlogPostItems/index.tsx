@@ -5,10 +5,7 @@ import styles from './styles.module.css';
 import { ReactNode } from 'react';
 import BlogPostCard from '@site/src/components/communityProjects/BlogPostCard';
 
-export default function BlogPostItems({
-  items,
-  component: BlogPostItemComponent = BlogPostItem,
-}: Props): ReactNode {
+export default function BlogPostItems({ items }: Props): ReactNode {
   return (
     <div className={styles.blogPostGrid}>
       {items.map(({ content: BlogPostContent }) => (

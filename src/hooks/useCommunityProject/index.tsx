@@ -1,7 +1,7 @@
 import { PropBlogPostMetadata } from '@docusaurus/plugin-content-blog';
-import { useBlogPost } from '@docusaurus/plugin-content-blog/lib/client/contexts.js';
+import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
 
-interface communityProjectMetadata
+interface CommunityProjectMetadata
   extends Omit<PropBlogPostMetadata, 'frontMatter'> {
   frontMatter: PropBlogPostMetadata['frontMatter'] & {
     company?: {
@@ -16,6 +16,6 @@ export default function useCommunityProject() {
   const blogPost = useBlogPost();
   return {
     ...blogPost,
-    metadata: blogPost.metadata as communityProjectMetadata,
+    metadata: blogPost.metadata as CommunityProjectMetadata,
   };
 }

@@ -23,7 +23,7 @@ export default function BlogPostCard({
         <div className={styles.cardContent}>
           <h2 className={styles.cardTitle}>{metadata.title}</h2>
           {metadata.description && (
-            <p className={styles.cardDescription}>{children}</p>
+            <div className={styles.cardDescription}>{children}</div>
           )}
           <div>
             {metadata.frontMatter.company &&

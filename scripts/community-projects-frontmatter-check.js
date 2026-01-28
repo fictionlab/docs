@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const glob = require('glob');
 const matter = require('gray-matter');
 
@@ -7,7 +6,6 @@ const matter = require('gray-matter');
 const REQUIRED_KEYS = [
   'title',
   'description',
-  'slug',
   'authors',
   'tags',
   'image',
@@ -15,7 +13,7 @@ const REQUIRED_KEYS = [
 ];
 
 // Path to your MDX files for community projects.
-const DOCS_PATHS = ['docs/communityProjects/**/*.mdx'];
+const DOCS_PATHS = ['communityProjects/**/*.mdx'];
 
 function validateFrontMatter() {
   const filePaths = DOCS_PATHS.flatMap((pattern) => glob.sync(pattern));
@@ -36,6 +34,7 @@ function validateFrontMatter() {
   if (errors.length > 0) {
     console.error('Validation Errors:');
     errors.forEach((error) => console.error(error));
+    process.exit(1);
   } else {
     console.log('All community project files have valid front matter.');
   }

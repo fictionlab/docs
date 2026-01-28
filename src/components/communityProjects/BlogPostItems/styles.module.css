@@ -9,7 +9,6 @@
   padding: 0 1rem;
 }
 
-/* Maksymalnie 4 kolumny */
 @media (min-width: 1400px) {
   .blogPostGrid {
     grid-template-columns: repeat(4, 1fr);
@@ -57,7 +56,6 @@
   border-color: var(--ifm-color-primary);
 }
 
-/* Upewnij się, że zawartość karty zajmuje całą dostępną przestrzeń */
 .blogPostCard > * {
   height: 100%;
 }

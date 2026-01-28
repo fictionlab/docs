@@ -16,11 +16,13 @@ export default function BlogPostItemHeader(): ReactNode {
         <div className={styles.authorsInfo}>
           <BlogPostItemHeaderAuthors />
         </div>
-        <img
-          className={styles.companyLogo}
-          src={frontMatter.company?.logo_url}
-          alt={frontMatter.company?.name || 'Company logo'}
-        />
+        {frontMatter.company?.logo_url && (
+          <img
+            className={styles.companyLogo}
+            src={frontMatter.company?.logo_url}
+            alt={frontMatter.company?.name || 'Company logo'}
+          />
+        )}
       </div>
     </header>
   );
