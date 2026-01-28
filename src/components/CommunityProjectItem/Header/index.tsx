@@ -5,7 +5,7 @@ import BlogPostItemHeaderAuthors from '@theme/BlogPostItem/Header/Authors';
 import styles from './styles.module.css';
 import useCommunityProject from '@site/src/hooks/useCommunityProject';
 
-export default function BlogPostItemHeader(): ReactNode {
+export default function CommunityProjectItemHeader(): ReactNode {
   const { metadata } = useCommunityProject();
   const { frontMatter } = metadata;
   return (

@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import clsx from 'clsx';
 import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
 import BlogPostItemContainer from '@theme/BlogPostItem/Container';
-import BlogPostItemHeader from '@site/src/components/communityProjects/BlogPostItem/Header';
+import CommunityProjectItemHeader from '@site/src/components/CommunityProjectItem/Header';
 import BlogPostItemContent from '@theme/BlogPostItem/Content';
 import BlogPostItemFooter from '@theme/BlogPostItem/Footer';
 import type { Props } from '@theme/BlogPostItem';
@@ -13,14 +13,14 @@ function useContainerClassName() {
   return !isBlogPostPage ? 'margin-bottom--xl' : undefined;
 }
 
-export default function BlogPostItem({
+export default function CommunityProjectItem({
   children,
   className,
 }: Props): ReactNode {
   const containerClassName = useContainerClassName();
   return (
     <BlogPostItemContainer className={clsx(containerClassName, className)}>
-      <BlogPostItemHeader />
+      <CommunityProjectItemHeader />
       <BlogPostItemContent>{children}</BlogPostItemContent>
       <BlogPostItemFooter />
     </BlogPostItemContainer>

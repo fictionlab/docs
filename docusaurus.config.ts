@@ -97,7 +97,7 @@ const config: Config = {
         },
         blog: {
           id: 'community-projects',
-          path: 'communityProjects',
+          path: 'community-projects',
           blogTitle: 'Fictionlab Community Projects',
           blogDescription:
             'Showcase of projects created by the Fictionlab community',
@@ -105,9 +105,9 @@ const config: Config = {
           blogSidebarCount: 0,
           feedOptions: { type: null },
           blogListComponent:
-            '@site/src/components/communityProjects/BlogListPage',
+            '@site/src/components/CommunityProjectsPage',
           blogPostComponent:
-            '@site/src/components/communityProjects/BlogPostPage',
+            '@site/src/components/CommunityProjectPage',
           onInlineTags: 'warn',
           onInlineAuthors: 'ignore',
           showReadingTime: false,

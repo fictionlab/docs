@@ -9,7 +9,7 @@ import {
   useBlogPost,
 } from '@docusaurus/plugin-content-blog/client';
 import BlogLayout from '@theme/BlogLayout';
-import BlogPostItem from '@site/src/components/communityProjects/BlogPostItem';
+import CommunityProjectItem from '@site/src/components/CommunityProjectItem';
 import BlogPostPaginator from '@theme/BlogPostPaginator';
 import BlogPostPageMetadata from '@theme/BlogPostPage/Metadata';
 import BlogPostPageStructuredData from '@theme/BlogPostPage/StructuredData';
@@ -18,7 +18,7 @@ import ContentVisibility from '@theme/ContentVisibility';
 import type { Props } from '@theme/BlogPostPage';
 import type { BlogSidebar } from '@docusaurus/plugin-content-blog';
 
-function BlogPostPageContent({
+function CommunityProjectPageContent({
   sidebar,
   children,
 }: {
@@ -47,7 +47,7 @@ function BlogPostPageContent({
     >
       <ContentVisibility metadata={metadata} />
 
-      <BlogPostItem>{children}</BlogPostItem>
+      <CommunityProjectItem>{children}</CommunityProjectItem>
 
       {(nextItem || prevItem) && (
         <BlogPostPaginator nextItem={nextItem} prevItem={prevItem} />
@@ -56,7 +56,7 @@ function BlogPostPageContent({
   );
 }
 
-export default function BlogPostPage(props: Props): ReactNode {
+export default function CommunityProjectPage(props: Props): ReactNode {
   const BlogPostContent = props.content;
   return (
     <BlogPostProvider content={props.content} isBlogPostPage>
@@ -68,9 +68,9 @@ export default function BlogPostPage(props: Props): ReactNode {
       >
         <BlogPostPageMetadata />
         <BlogPostPageStructuredData />
-        <BlogPostPageContent sidebar={props.sidebar}>
+        <CommunityProjectPageContent sidebar={props.sidebar}>
           <BlogPostContent />
-        </BlogPostPageContent>
+        </CommunityProjectPageContent>
       </HtmlClassNameProvider>
     </BlogPostProvider>
   );

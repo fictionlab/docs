@@ -10,7 +10,7 @@ import {
 import BlogListPaginator from '@theme/BlogListPaginator';
 import SearchMetadata from '@theme/SearchMetadata';
 import type { Props } from '@theme/BlogListPage';
-import BlogPostItems from '@site/src/components/communityProjects/BlogPostItems';
+import CommunityProjectItems from '@site/src/components/CommunityProjectItems';
 import BlogListPageStructuredData from '@theme/BlogListPage/StructuredData';
 import Layout from '@theme/Layout';
 
@@ -30,19 +30,19 @@ function BlogListPageMetadata(props: Props): ReactNode {
   );
 }
 
-function BlogListPageContent(props: Props): ReactNode {
+function CommunityProjectsPageContent(props: Props): ReactNode {
   const { metadata, items } = props;
   return (
     <Layout>
       <div className="container margin-vert--lg">
-        <BlogPostItems items={items} />
+        <CommunityProjectItems items={items} />
         <BlogListPaginator metadata={metadata} />
       </div>
     </Layout>
   );
 }
 
-export default function BlogListPage(props: Props): ReactNode {
+export default function CommunityProjectsPage(props: Props): ReactNode {
   return (
     <HtmlClassNameProvider
       className={clsx(
@@ -52,7 +52,7 @@ export default function BlogListPage(props: Props): ReactNode {
     >
       <BlogListPageMetadata {...props} />
       <BlogListPageStructuredData {...props} />
-      <BlogListPageContent {...props} />
+      <CommunityProjectsPageContent {...props} />
     </HtmlClassNameProvider>
   );
 }

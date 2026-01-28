@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 import useCommunityProject from '@site/src/hooks/useCommunityProject';
 
-export default function BlogPostCard({
+export default function CommunityProjectCard({
   children,
   className,
 }: Props): ReactNode {

@@ -1,11 +1,10 @@
 import { BlogPostProvider } from '@docusaurus/plugin-content-blog/client';
-import BlogPostItem from '@theme/BlogPostItem';
 import type { Props } from '@theme/BlogPostItems';
 import styles from './styles.module.css';
 import { ReactNode } from 'react';
-import BlogPostCard from '@site/src/components/communityProjects/BlogPostCard';
+import CommunityProjectCard from '@site/src/components/CommunityProjectCard';
 
-export default function BlogPostItems({ items }: Props): ReactNode {
+export default function CommunityProjectItems({ items }: Props): ReactNode {
   return (
     <div className={styles.blogPostGrid}>
       {items.map(({ content: BlogPostContent }) => (
@@ -14,9 +13,9 @@ export default function BlogPostItems({ items }: Props): ReactNode {
           content={BlogPostContent}
         >
           <div className={styles.blogPostCard}>
-            <BlogPostCard>
+            <CommunityProjectCard>
               <BlogPostContent />
-            </BlogPostCard>
+            </CommunityProjectCard>
           </div>
         </BlogPostProvider>
       ))}
