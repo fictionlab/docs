@@ -184,7 +184,7 @@ const config: Config = {
           to: '/integrations',
         },
         {
-          label: 'Community Projects',
+          label: 'Community projects',
           position: 'left',
           to: '/community-projects',
         },
