@@ -104,10 +104,8 @@ const config: Config = {
           routeBasePath: '/community-projects',
           blogSidebarCount: 0,
           feedOptions: { type: null },
-          blogListComponent:
-            '@site/src/components/CommunityProjectsPage',
-          blogPostComponent:
-            '@site/src/components/CommunityProjectPage',
+          blogListComponent: '@site/src/components/CommunityProjectsPage',
+          blogPostComponent: '@site/src/components/CommunityProjectPage',
           onInlineTags: 'warn',
           onInlineAuthors: 'ignore',
           showReadingTime: false,
