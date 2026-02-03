@@ -106,7 +106,7 @@ const config: Config = {
           feedOptions: { type: null },
           blogListComponent: '@site/src/components/CommunityProjectsPage',
           blogPostComponent: '@site/src/components/CommunityProjectPage',
-          onInlineTags: 'warn',
+          onInlineTags: 'throw',
           onInlineAuthors: 'ignore',
           showReadingTime: false,
         },
