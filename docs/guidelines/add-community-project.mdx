@@ -44,7 +44,29 @@ Fictionlab documentation uses custom React components to enhance the content and
 provide additional functionality. To see a list of available components, visit
 the [Components](/guidelines/components) page.
 
-## Creating a community project page
+## Creating a community project entry
+
+### Prepare your workspace on a separate branch
+
+All community project pages should be created on the separate branches of the
+documentation repository. This allows for easier review and testing of the new
+content before it is merged into the main branch.
+
+Create a new branch from the `development` branch of the repository. You can
+name the branch something descriptive related to the community project you are
+adding, but remember to add a `content` prefix
+(e.g.,`content/add-my-community-project`).
+
+:::tip
+
+Check the
+[Getting Started](https://github.com/fictionlab/docs?tab=readme-ov-file#getting-started)
+section in the documentation repository's README for more information on how to
+setup your local workspace from the scratch.
+
+:::
+
+### Create the MDX file
 
 To add a community project to the Fictionlab documentation, create a new MDX
 file in the `community-projects/` directory of this repository. Each community
