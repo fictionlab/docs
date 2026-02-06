@@ -57,6 +57,45 @@ html[data-theme='dark'] {
   background-color: #242526;
 }
 
+[class*='footer-'][class$='-link']::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  background-color: var(--ifm-navbar-link-color);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  vertical-align: middle;
+  transition: background-color var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
+  margin-right: 0.4rem;
+}
+
+[class*='footer-'][class$='-link']:hover::before {
+  background-color: var(--ifm-navbar-link-hover-color);
+}
+
+.footer-facebook-link::before {
+  mask-image: url('/icons/facebook-icon.svg');
+}
+
+.footer-youtube-link::before {
+  mask-image: url('/icons/youtube-icon.svg');
+}
+
+.footer-linkedin-link::before {
+  mask-image: url('/icons/linkedin-icon.svg');
+}
+
+.footer-github-link::before {
+  mask-image: url('/icons/github-icon.svg');
+}
+
+.footer-discord-link::before {
+  mask-image: url('/icons/discord-icon.svg');
+}
+
 div[class^='announcementBar_'] {
   font-size: 20px;
   font-weight: bold;

@@ -1,0 +1,256 @@
+---
+title: 'Leo Rover Example: How to Follow an Aruco Marker'
+sidebar_label: Follow Aruco Marker
+sidebar_position: 1
+keywords:
+  - aruco
+  - detection
+  - follow
+  - opencv
+  - example
+  - stock
+  - leo
+  - rover
+  - tutorial
+description: >-
+  Learn how to make a Leo Rover mobile robot follow a printed Aruco Marker.
+  Print the marker and run the example code to get started.
+image: /img/robots/leo/integrations/follow-aruco-marker/follow-aruco-1.webp
+---
+
+# Example: How to Follow an Aruco Marker
+
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+In this example, we will show you how to make the Leo Rover mobile robot follow
+an Aruco marker.
+
+## What to expect?
+
+After completing this tutorial, your rover should be able to follow a printed
+Aruco Marker.
+
+<div className="video-container">
+  <LiteYouTubeEmbed
+    id="eHNY-6xmyz8"
+    params="autoplay=0&autohide=1&showinfo=0&rel=0"
+    poster="hqdefault"
+    title="Leo Rover Unboxing and Getting Started"
+    webp
+  />
+</div>
+
+## Prerequisites
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+<LinkButton docId="guides/ssh" />
+<LinkButton docId="advanced-guides/ros-development" />
+
+## List of components
+
+1. Any computer which you can connect to the rover via `ssh`.
+2. Stock Leo Rover.
+
+## Mechanical integration
+
+The only physical thing you'll need to do is to print an Aruco marker:
+
+- You can generate and download an Aruco marker from
+  [here](https://chev.me/arucogen) (you'll need to select the 4x4 dictionary),
+  or you can follow our instructions on generating markers from the tutorial
+  linked below. It gives you more control regarding marker size and other
+  parameters, which might be preferable for some users.
+
+<LinkButton
+  to="/integrations/software/aruco-tracking#generate-aruco-markers"
+  title="ArUco Marker Tracking with ROS"
+  description={`Learn how to use the ros_aruco_opencv ROS package to detect ArUco tags with
+  your Leo Rover and visualize them in RViz.`}
+/>
+
+- The printed marker **must** have a white border around it.
+- System default configuration expects marker with id 0 and 15cm in size, but
+  those parameters can be easily changed for your setup.
+
+Here's an example of our aruco marker that we used for this task:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/follow-aruco-marker/follow-aruco-1.webp"
+  alt="leo rover aruco marker"
+  width="1500"
+  height="1410"
+/>
+
+:::info
+
+Remember that the white border around the marker is necessary. You can leave the
+printed marker on the piece of paper, but we do recommend to attach it to some
+harder material like cardboard - this way your marker won't bend, so it will be
+easier for the software to notice it.
+
+:::
+
+## Software integration
+
+{/* TODO */} {/* :::tip */}
+
+{/* Since LeoOS x.x.x release, leo_examples package is installed by default. If the */}
+{/* system is updated to at least x.x.x release you can skip software integration */}
+{/* part. */}
+
+{/* ::: */}
+
+:::info
+
+To complete those steps, you need to connect to the rover's network first, and
+then log in using ssh (both covered in prerequisites).
+
+:::
+
+### Installing using apt
+
+You can install the package using `apt` by typing **on the rover**:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-leo-examples
+```
+
+Then you just need to source the `ROS` workspace:
+
+```bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
+```
+
+### Building from source
+
+You can also get all needed software from our
+[leo_examples](https://github.com/LeoRover/leo_examples-ros2) github repository.
+You need to clone it on the rover in the ros workspace directory (if there's no
+such a directory, first go through the
+[ROS development](../advanced-guides/ros-development) tutorial):
+
+```bash
+cd ~/ros_ws/src
+git clone https://github.com/LeoRover/leo_examples-ros2.git
+```
+
+Now, you need to install all the dependencies for the downloaded packages:
+
+```bash
+cd ~/ros_ws
+sudo apt update
+rosdep update
+rosdep install --from-paths src -ir
+```
+
+Then, you need to source the directory and build the packages:
+
+```bash
+cd ~/ros_ws
+source install/setup.bash
+colcon build
+```
+
+:::info
+
+If your installation went without any errors, then you have successfully
+installed required software.
+
+:::
+
+## Examples
+
+To run the example, you need to be connected to the rover via ssh. Once you do
+this, type in the terminal:
+
+```bash
+ros2 launch leo_example_follow_aruco_marker follow_aruco_marker.launch.xml
+```
+
+The rover will start following the marker once it detects it.
+
+:::warning
+
+By default the rover follows only the marker with id 0, and has marker tracker
+configured for a marker of size 15cm. If your printed marker doesn't comply with
+the requirements, you need to follow the configuration instructions.
+
+:::
+
+### Configuration
+
+All nodes launched in the example have configurable parameters, therefore it's
+easy to adjust the system for your conditions. To be able to change anything you
+need to have ROS installed on your computer and be connected to the rover's
+network.
+
+If you don't have ROS installed, you can follow this guide:
+
+<LinkButton docId="advanced-guides/install-ros-on-your-computer" />
+
+Being connected and having ROS installed, next you have to source the `ROS`
+workspace:
+
+```bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
+```
+
+Now just start the `Dynamic Reconfigure` plugin in rqt:
+
+```bash
+rqt -s rqt_reconfigure
+```
+
+In the displayed window on the left side choose the node which parameters you
+want to change.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/follow-aruco-marker/aruco-reconfigure.webp"
+  alt="leo rover aruco marker"
+  width="1500"
+  height="1410"
+/>
+
+:::tip
+
+If you don't see your target node, try using the `Refresh` option.
+
+:::
+
+The `aruco_follower` and `aruco_tracker` nodes are the core components that make
+this example work. As their names suggest, one handles marker detection, while
+the other uses that information to command the robot's movement.
+
+#### Tracker
+
+The most important parameter in the `aruco_tracker` node is `marker_size`. If
+your printed marker is not exactly 15 cm, adjust this value accordingly.<br/>
+Other parameters generally don't require any modification, but you're free to
+experiment if you'd like. Keep in mind that once you restart the rover's
+programs, the system will automatically reload the default configuration.
+
+:::warning
+
+Only parameters within the aruco namespace (those named like `aruco.xyz`) are
+safe to modify. Changing anything else may prevent the rover from following the
+marker correctly.<br/> For details on each of those parameters, check the
+[OpenCV ArUco documentation](https://docs.opencv.org/4.6.0/d5/dae/tutorial_aruco_detection.html).
+
+:::
+
+#### Follower
+
+Each parameter of the `aruco_follower` node includes a built-in description -
+just hover your mouse over a parameter to see it. The most important one is
+`follow_id`, which specifies the ID of the marker the rover should follow. You
+can also use the `follow_enabled` checkbox to quickly enable or disable the
+rover's movement.
+
+The remaining parameters control the rover's driving and rotation speeds, as
+well as the distance thresholds that determine when it should move or stop.
+
+## What next?
+
+After completing this tutorial, you can try other examples from the leo_examples
+repository ([line follower](line-follower) and
+[object detection](object-detection)), or try other integration from our site.

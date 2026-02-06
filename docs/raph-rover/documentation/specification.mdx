@@ -16,7 +16,6 @@ image: /img/robots/raph/raph-rover.webp
 toc_max_heading_level: 4
 ---
 
-import styles from './styles.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import CenterContent from '@site/src/components/CenterContent';
@@ -211,6 +210,22 @@ as:
   </TabItem>
 </Tabs>
 
+#### Wheels
+
+As standard, Raph Rover comes with rubber tires with a diameter of about 170 mm.
+Whole drive assembly has following characteristics:
+
+<CenterContent>
+
+| Parameter                    |       Value        |
+| ---------------------------- | :----------------: |
+| Tire size (diameter x width) | ~ 170 mm x ~ 80 mm |
+| Tire lock type               |      Beadlock      |
+| Tire insert                  |     Hard foam      |
+| Wheel rim diameter           |       120 mm       |
+
+</CenterContent>
+
 ### Components
 
 <CenterContent>
@@ -255,15 +270,16 @@ and has built-in protections.
 
 <CenterContent>
 
-| Parameter            |                                  Value                                  |
-| -------------------- | :---------------------------------------------------------------------: |
-| Battery type         |                                 Li-Ion                                  |
-| Battery pack type    |                                  6S1P                                   |
-| Cell type            |                               Samsung 40T                               |
-| Nominal voltage      |                                 22.2 V                                  |
-| Capacity             |                   4000 mAh<br />88.8 Wh (flight safe)                   |
-| Maximum output power |                                 ~650 W                                  |
-| Safety systems       | Overcurrent<br />Undercurrent<br />Reverse polarity<br />Overheat<br /> |
+| Parameter            |                         Value                         |
+| -------------------- | :---------------------------------------------------: |
+| Battery type         |                        Li-Ion                         |
+| Battery pack type    |                         6S1P                          |
+| Nominal voltage      |                        21.6 V                         |
+| Charge capacity      |                         4 Ah                          |
+| Energy capacity      |                   $\approx$ 86.4 Wh                   |
+| Maximum output power |                    $\approx$ 650 W                    |
+| Battery cell         |                 Samsung INR21700-40T                  |
+| Safety systems       | Overcurrent, Undervoltage, Reverse polarity, Overheat |
 
 </CenterContent>
 

@@ -24,40 +24,34 @@ image: /img/robots/raph/raph-rover.webp
 
   Steers the robot when operating in the Ackermann steering mode.
 
-- `controller/cmd_turn_in_place` (?) **Not implemented yet**
-
-  Steers the robot when operating in the Turn-In-Place steering mode.
-
-- `controller/cmd_vel` ([geometry_msgs/msg/Twist]) **Not implemented yet**
-
-  Steers the robot using `Twist` commands. More standardized way to control the
-  robot. \
-  Useful for some navigation stacks. Not recommended for manual teleoperation.
-
-- `controller/led_strip_state` ([raph_interfaces/msg/LedStripState])
+- `controller/cmd_led_panel` ([raph_interfaces/msg/LedStripState])
 
   Sets a new user state for all the LEDs in the LED strip.
 
-- `controller/led_panel_state` ([raph_interfaces/msg/LedPanelState])
+- `controller/cmd_led_strip` ([raph_interfaces/msg/LedPanelState])
 
   Sets a new user state for all the LEDs in the specified LED panel.
 
+- `controller/cmd_turn_in_place` ([raph_interfaces/msg/TurnInPlaceDrive])
+
+  Sets the target angular velocity when operating in the turn-in-place steering
+  mode. $[rad]$
+
+- `controller/cmd_vel` ([geometry_msgs/msg/Twist])
+
+  Steers the robot using Twist commands. More standardized way to control the
+  robot. Useful for some navigation stacks. Not recommended for manual
+  teleoperation. Only uses `linear.x` and `angular.z` components.
+
 ## Published Topics
 
-- `controller/imu` ([sensor_msgs/msg/Imu])
+- `controller/imu/data_raw` ([sensor_msgs/msg/Imu])
 
   Current gyroscope and accelerometer readings from the onboard IMU.
 
 - `controller/odom` ([nav_msgs/msg/Odometry])
 
   Odometry calculated from wheel encoders and the onboard IMU.
-
-- `controller/steering_mode` ([raph_interfaces/msg/SteeringMode]) **Not
-  implemented yet**
-
-  Current steering mode. Published whenever the mode changes. \
-  Uses transient local durability to deliver last message to joining
-  subscriptions.
 
 - `controller/diagnostics/imu` ([raph_interfaces/msg/ImuDiagnostics])
 
@@ -69,9 +63,21 @@ image: /img/robots/raph/raph-rover.webp
   Diagnostic information about the motors. \
   Includes motor temperatures, power consumption and fault data.
 
+- `controller/drivetrain_state` ([raph_interfaces/msg/DrivetrainState])
+
+  Current drivetrain state, including steering mode and calibration status.
+
+- `controller/led_strip_state` ([raph_interfaces/msg/LedStripState])
+
+  Current state of the whole LED strip.
+
 - `controller/power_system_state` ([raph_interfaces/msg/PowerSystemState])
 
   Current information about the power system.
+
+- `imu/data` ([sensor_msgs/msg/Imu])
+
+  Filtered IMU readings including orientation.
 
 - `oak/imu/data` ([sensor_msgs/msg/Imu])
 
@@ -118,7 +124,7 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw laser scans from the onboard 2D LIDAR.
 
-- `rplidar/scan_filtered` ([sensor_msgs/msg/LaserScan]) **Not implemented yet**
+- `rplidar/scan_filtered` ([sensor_msgs/msg/LaserScan])
 
   Laser scans from the onboard 2D LIDAR with points lying on the robot's
   footprint filtered out.
@@ -180,17 +186,25 @@ image: /img/robots/raph/raph-rover.webp
 
   Set the current steering mode.
 
-- `system/shutdown` ([std_srvs/srv/Trigger])
+- `raph_system/shutdown` ([std_srvs/srv/Trigger])
 
   Perform onboard computer's system shutdown.
 
-- `system/reboot` ([std_srvs/srv/Trigger])
+- `raph_system/reboot` ([std_srvs/srv/Trigger])
 
   Perform onboard computer's system reboot.
 
 ## Parameters
 
 ### controller
+
+- `drivetrain.ackermann_deceleration` (type: `float`, default: `5.0`)
+
+  Deceleration to use when operating in ackermann mode. $[\frac{m}{s^2}]$
+
+- `drivetrain.turn_in_place_deceleration` (type: `float`, default: `8.0`)
+
+  Deceleration to use when operating in turn-in-place mode. $[\frac{rad}{s^2}]$
 
 - `drivetrain.wheel_base` (type: `float`, default: `0.382`)
 
@@ -218,6 +232,16 @@ image: /img/robots/raph/raph-rover.webp
 
   Steering angle velocity to use when changing steering mode. $[\frac{rad}{s}]$
 
+- `drivetrain.cmd_vel_acceleration` (type: `float`, default: `2.0`)
+
+  Acceleration to use when sending cmd_vel commands.
+  $[\frac{m}{s^2}, \frac{rad}{s^2}]$
+
+- `drivetrain.cmd_vel_steering_angle_velocity` (type: `float`, default: `5.0`)
+
+  Steering angle velocity to use when sending cmd_vel commands.
+  $[\frac{rad}{s}]$
+
 - `drivetrain.max_steering_angle` (type: `float`, default: `1.08`)
 
   Maximum steering angle used in ackermann mode. $[rad]$
@@ -240,6 +264,25 @@ image: /img/robots/raph/raph-rover.webp
 
   Offset added to the right servo position. $[rad]$
 
+- `drivetrain.servo_calibration_speed` (type: `float`, default: `2.0`)
+
+  Speed of servos during calibration. $[\frac{rad}{s}]$
+
+- `drivetrain.servo_calibration_timeout` (type: `float`, default: `6.0`)
+
+  Timeout for servo calibration procedure. $[s]$
+
+- `drivetrain.servo_calibration_torque_samples` (type: `int`, default: `5`)
+
+  Number of consecutive servo torque readings over the threshold required during
+  calibration.
+
+- `drivetrain.servo_calibration_torque_threshold` (type: `float`, default:
+  `1.0`)
+
+  Minimal motor torque that indicates the servo presses against the bumper
+  during calibration. $[Nm]$
+
 - `drivetrain.servo_calibration_power_threshold` (type: `float`, default:
   `20.0`)
 
@@ -258,11 +301,44 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw acceleration divider value passed to wheel motors.
 
+- `power_manager.output_12v_enabled` (type: `bool`, default: `true`)
+
+  Whether the 12V output is enabled.
+
+- `power_manager.output_5v_enabled` (type: `bool`, default: `true`)
+
+  Whether the 5V output is enabled.
+
+- `power_manager.output_bat_enabled` (type: `bool`, default: `true`)
+
+  Whether the BAT output is enabled.
+
 {/* TODO: Other nodes parameters */}
 
 ## Custom message types
 
 {/* TODO: Remove this section after raph_interfaces message definitions start being hosted in docs.ros2.org */}
+
+- `raph_interfaces/msg/DrivetrainState`
+
+<a id="msg-drivetrain-state"></a>
+
+```bash title="Represents the state of the drivetrain"
+
+# Current steering mode.
+raph_interfaces/SteeringMode steering_mode
+
+uint8 OPERATING_STATE_DISABLED=0
+uint8 OPERATING_STATE_ENABLED=1
+uint8 OPERATING_STATE_CALIBRATING_SERVOS=2
+uint8 OPERATING_STATE_CHANGING_STEERING_MODE=3
+
+# Current operating state.
+uint8 operating_state
+
+# Indicates if the servos are calibrated.
+bool is_servos_calibrated
+```
 
 - `raph_interfaces/msg/SteeringMode`
 
@@ -463,6 +539,16 @@ float64 gyro_bias_y
 float64 gyro_bias_z
 ```
 
+- `raph_interfaces/msg/TurnInPlaceDrive`
+
+<a id="msg-turn-in-place-drive"></a>
+
+```bash title="A command to turn the robot in place."
+
+float64 angular_velocity
+float64 acceleration
+```
+
 ## Custom service types
 
 {/* TODO: Remove this section after raph_interfaces message definitions start being hosted in docs.ros2.org */}
@@ -531,6 +617,8 @@ string status_message
   https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
 [raph_interfaces/msg/BatteryMode]: #msg-battery-mode
 [raph_interfaces/msg/BatteryState]: #msg-battery-state
+[raph_interfaces/msg/DrivetrainState]: #msg-drivetrain-state
+[raph_interfaces/msg/TurnInPlaceDrive]: #msg-turn-in-place-drive
 [raph_interfaces/msg/Led]: #msg-led
 [raph_interfaces/msg/LedColor]: #msg-led-color
 [raph_interfaces/msg/LedState]: #msg-led-state
