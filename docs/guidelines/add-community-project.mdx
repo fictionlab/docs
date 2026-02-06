@@ -79,33 +79,55 @@ Each community project page should include the front matter data at the top of
 the MDX file. It allows proper indexing and display of the project on the
 Community Projects page.
 
-:::tip
+:::info
 
 Some of the fields requires providing image_url or logo_url. All images should
 be placed in the `/static/img/community-projects` directory of this repository.
 
 :::
 
+Below is the list of required front matter fields:
+
+- `title`
+- `description`
+- `authors`
+- `tags`
+- `image`
+- `company`
+
+:::tip
+
+To see how each of the front matter fields should be structured, refer to the
+documentation of the docusaurus:
+
+- [Docusaurus Docs - Front matter](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#markdown-front-matter)
+- [Docusaurus Docs - Inline authors](https://docusaurus.io/docs/blog#inline-authors)
+  :::
+
+Example front matter:
+
 ```yml
 ---
-title: My Community Project
-description: A brief description of my community project, up to 160 characters.
+title: Automated Plant Watering System
+description:
+  An IoT-based automated plant watering system using Leo Rover and soil moisture
+  sensors.
 authors:
-  - name: Author Name
-    title: Author Title
-    url: https://author-website.com
-    image_url: /img/community-projects/author-image.jpg
+  - name: John Doe
+    title: Lead Developer
+    url: https://johndoe-website.com
+    image_url: /img/community-projects/automated-plant-watering/johndoe.jpg
     socials:
-      x: author_x_handle
-      github: author_github_handle
-      linkedin: author_linkedin_handle
-      email: author_email_address
-tags: [tag1, tag2, tag3]
-image: /img/community-projects/project-image.jpg
+      x: johnDoe
+      github: johndoe
+      linkedin: johndoe
+      email: johndoe@example.com
+tags: [leo-rover]
+image: /img/community-projects/automated-plant-watering/project-image.jpg
 company:
-  name: Company Name
-  url: https://company-website.com
-  logo_url: /img/community-projects/company-logo.jpg
+  name: GreenTech Solutions
+  url: https://greentech-solutions.com
+  logo_url: /img/community-projects/automated-plant-watering/greentech-logo.jpg
 ---
 ```
 
