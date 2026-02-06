@@ -1,5 +1,6 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, useMemo } from 'react';
 import clsx from 'clsx';
+import type { Tag } from '@docusaurus/utils';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {
@@ -13,6 +14,7 @@ import type { Props } from '@theme/BlogListPage';
 import CommunityProjectItems from '@site/src/components/CommunityProjectItems';
 import BlogListPageStructuredData from '@theme/BlogListPage/StructuredData';
 import Layout from '@theme/Layout';
+import CommunityProjectsTags from '@site/src/components/CommunityProjectsTags';
 
 function BlogListPageMetadata(props: Props): ReactNode {
   const { metadata } = props;
@@ -32,9 +34,26 @@ function BlogListPageMetadata(props: Props): ReactNode {
 
 function CommunityProjectsPageContent(props: Props): ReactNode {
   const { metadata, items } = props;
+
+  // Extract unique tags from items metadata
+  const tags = useMemo(() => {
+    const tagsMap = new Map<string, Tag>();
+
+    items.forEach(({ content }) => {
+      (content.metadata.tags as Tag[])?.forEach((tag) => {
+        if (!tagsMap.has(tag.permalink)) {
+          tagsMap.set(tag.permalink, tag);
+        }
+      });
+    });
+
+    return Array.from(tagsMap.values());
+  }, [items]);
+
   return (
     <Layout>
       <div className="container margin-vert--lg">
+        <CommunityProjectsTags tags={tags} />
         <CommunityProjectItems items={items} />
         <BlogListPaginator metadata={metadata} />
       </div>
