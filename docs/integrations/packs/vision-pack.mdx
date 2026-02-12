@@ -1,0 +1,292 @@
+---
+title: Vision Pack
+sidebar_label: Vision Pack
+keywords:
+  - Jetson
+  - Orin
+  - leo
+  - integration
+  - ZED
+description: >-
+  Explore the steps to integrate the Vision Pack with your Leo Rover system
+  using the ZED camera and Jetson Orin Nano.
+image: /img/robots/leo/leo-rover-1.9.webp
+---
+
+{/* TODO update above image */}
+
+# Vision Pack Integration
+
+{/* TODO create and import a vision pack product */}
+
+This tutorial will guide you through the process of connecting the Vision Pack
+to your Leo Rover. The Vision Pack is a hardware bundle that includes a ZED
+camera and a Jetson Orin Nano, designed to enhance the visual capabilities of
+your Leo Rover. By following this tutorial, you will learn how to integrate
+these components with your rover system, enabling advanced vision processing and
+perception capabilities.
+
+## What to expect?
+
+After completing this tutorial, you will be able to run a Docker container with
+ROS Jazzy and ZED wrapper on your Jetson Orin Nano, and have the camera data
+published on ROS topics.
+
+To see full information about the additional available ROS interfaces and
+configuration options, check the official
+[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/ros/zed-node).
+
+{/* TODO add a render of the Leo Rover with vision pack */}
+
+{/* TODO add an example film/screenshot showing how it works */}
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect to Leo Rover via SSH"
+  description="Guide on how to connect to your Leo Rover using SSH for remote access"
+/>
+
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to network"
+  description="Guide on how to connect your Leo Rover to a Wi-Fi network, enabling internet access"
+/>
+
+<LinkButton
+  to="/leo-rover/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+
+{/* TODO create and import a vision pack product (that links to the product in the store) */}
+
+{/* TODO add link to printables/thingiverse if applicable */}
+
+## Hardware integration
+
+### Mounting
+
+{/* TODO fill in this section */}
+
+### Wiring
+
+{/* TODO fill in this section */}
+
+{/* TODO add disclaimer that it can be mounted in various ways */}
+
+## Software integration
+
+Follow the steps below to bring the Vision Pack online and publish ZED data to
+ROS.
+
+### Setting up the Jetson Orin Nano
+
+:::info
+
+It is recommended to set up the Jetson before mounting it on the rover. In that
+case you can use the Jetson with a regular monitor, keyboard and mouse, which
+makes the setup process easier.
+
+:::
+
+In order to set up the Jetson Orin Nano, you will need to flash the official
+NVIDIA image on it and update the firmware. Follow the steps below to complete
+the setup:
+
+1. Go through the official
+   [Jetson Orin Nano setup guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro).
+2. During flashing, install JetPack **6.2** with L4T firmware **36.4.0** (or
+   newer).
+3. Ensure the Jetson has internet access (either via Ethernet or Wi-Fi) before
+   proceeding.
+4. Finish the initial setup and create a user account when prompted.
+
+After the initial setup is complete, install the latest packages and the NVIDIA
+Container Toolkit runtime on the Jetson. Run the following commands directly on
+the Jetson (either with an attached display or over SSH):
+
+```bash
+sudo apt update && sudo apt upgrade
+sudo apt install -y nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+
+Now, you can proceed with the ZED wrapper container setup.
+
+### Setting up the ZED wrapper container
+
+Pull the prebuilt image with ROS Jazzy and ZED wrapper from our registry onto
+the Jetson:
+
+```bash
+sudo docker pull ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
+```
+
+At this point, if you haven't done so already, connect the Jetson to the Leo
+Rover access point. This will allow the rover to see the ZED ROS interfaces once
+the container is running.
+
+Start the ZED wrapper container whenever you need the camera online. This run
+command exposes the GPU, host networking, and the ZED calibration assets to the
+container:
+
+```bash
+sudo docker run --rm --runtime nvidia -it --privileged --network=host --ipc=host --pid=host \
+  -e NVIDIA_DRIVER_CAPABILITIES=all -e DISPLAY=$DISPLAY \
+  -v /tmp/.X11-unix/:/tmp/.X11-unix \
+  -v /dev:/dev \
+  -v /dev/shm:/dev/shm \
+  -v /usr/local/zed/resources/:/usr/local/zed/resources/ \
+  -v /usr/local/zed/settings/:/usr/local/zed/settings/ \
+  ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
+```
+
+Once you see the container shell prompt, source both the ROS installation and
+the workspace overlay, then launch the wrapper for the `zed2i` camera:
+
+```bash
+source /opt/ros/jazzy/install/setup.bash
+source /root/ros2_ws/install/setup.bash
+ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i
+```
+
+At this point the rover computer should see the ZED ROS interfaces.
+
+:::note
+
+When launching ZED for the first time it might need some time to initialize the
+camera and generate the calibration files. Because of that, the topics might not
+be available immediately.
+
+:::
+
+### Modifying the URDF to include the Vision Pack
+
+{/* TODO add the vision pack to URDF section */}
+
+### (Optional) Launching the container on boot and managing custom configurations
+
+If you want the ZED camera to be available immediately after the Jetson boots or
+you want to manage custom configurations more easily, you can follow the steps
+below to set up a `systemd` service to run the container and mount a host
+directory for configs and logs.
+
+:::note
+
+Perform these steps on the Jetson outside of the container.
+
+:::
+
+Create persistent folders for configs and logs so data survives
+container recreations:
+
+```bash
+sudo mkdir -p /opt/zed_ros/{config,logs}
+sudo chown -R $USER /opt/zed_ros
+```
+
+Create a parameter YAML file under `/opt/zed_ros/config` for the ZED wrapper.
+{/* TODO adjust the parameters to place zed urdf at a specific location and with proper base frame */}
+
+```yaml title="/opt/zed_ros/config/zed2i.yaml"
+/**:
+  ros__parameters:
+    general:
+      camera_model: 'zed2i'
+      camera_name: 'zed2i'
+      grab_resolution: 'HD1080'
+      grab_frame_rate: 15
+    video:
+      brightness: 4
+      contrast: 4
+      hue: 0
+    depth:
+      min_depth: 0.01
+      max_depth: 15.0
+```
+
+:::note
+
+These are just example parameters, you can adjust them as needed. Refer to the
+official
+[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/ros/zed-node)
+for all available options.
+
+:::
+
+Save the following `docker-compose.yml` to `/opt/zed_ros` (adjust
+`camera_model` or environment overrides as needed):
+
+```yaml title="/opt/zed_ros/docker-compose.yml"
+services:
+  zed-wrapper:
+    image: ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
+    container_name: zed-ros-wrapper
+    restart: unless-stopped
+    network_mode: host
+    ipc: host
+    privileged: true
+    runtime: nvidia
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - ROS_DOMAIN_ID=0
+    volumes:
+      - /opt/zed_ros/config:/data:ro
+      - /opt/zed_ros/logs:/root/.ros/log
+      - /dev/bus/usb:/dev/bus/usb
+      - /etc/localtime:/etc/localtime:ro
+    command: >
+      ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i
+      ros_params_override_path:=/data/zed2i.yaml
+```
+
+Add the `systemd` unit `/etc/systemd/system/zed-ros-wrapper.service`:
+
+```ini title="/etc/systemd/system/zed-ros-wrapper.service"
+[Unit]
+Description=ZED ROS 2 Wrapper container
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=exec
+WorkingDirectory=/opt/zed_ros
+ExecStart=/usr/bin/docker compose up --remove-orphans
+ExecStop=/usr/bin/docker compose down
+Restart=always
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start the service:
+
+```bash
+sudo systemctl enable --now zed-ros-wrapper
+```
+
+:::info
+
+You can use `journalctl -u zed-ros-wrapper -f` to follow the logs and ensure the
+container starts correctly.
+
+To restart the container manually, use `sudo systemctl restart zed-ros-wrapper`.
+
+:::
+
+Now the ZED wrapper container will start automatically on boot, and you can
+manage your configurations and logs easily from the host filesystem.
+
+## What's next?
+
+ZED camera can be used in projects involving
+[autonomous navigation](/leo-rover/advanced-guides/autonomous-navigation). You
+might be interested in a tutorial about it.
+
+You can also use the ZED camera for object detection using the
+[ZED ROS wrapper's built-in detection capabilities](https://www.stereolabs.com/docs/ros/zed-node#object-detection).
