@@ -117,6 +117,47 @@ sudo systemctl restart docker
 
 Now, you can proceed with the ZED wrapper container setup.
 
+### Creating ZED camera ROS configuration
+Before launching the ZED wrapper container, you need to create a configuration
+file for the camera. This file will contain the parameters for the ZED camera and
+will be mounted into the container to configure the ROS node.
+
+Create folders for configs and logs on the host:
+
+```bash
+sudo mkdir -p /opt/zed_ros/{config,logs}
+sudo chown -R $USER /opt/zed_ros
+```
+
+Add a parameter file under `/opt/zed_ros/config`:
+
+```yaml title="/opt/zed_ros/config/zed2i.yaml"
+/**:
+  ros__parameters:
+    general:
+      camera_model: 'zed2i'
+      camera_name: 'zed2i'
+      grab_resolution: 'HD1080'
+      grab_frame_rate: 15
+    video:
+      brightness: 4
+      contrast: 4
+      hue: 0
+    depth:
+      min_depth: 0.01
+      max_depth: 15.0
+    pos_tracking:
+      publish_tf: false
+```
+
+:::note
+
+These are just example parameters - tune them as needed and refer to the
+[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/ros/zed-node)
+for the full list of options.
+
+:::
+
 ### Setting up the ZED wrapper container
 
 Pull the prebuilt image with ROS Jazzy and ZED wrapper from our registry onto
@@ -142,16 +183,18 @@ sudo docker run --rm --runtime nvidia -it --privileged --network=host --ipc=host
   -v /dev/shm:/dev/shm \
   -v /usr/local/zed/resources/:/usr/local/zed/resources/ \
   -v /usr/local/zed/settings/:/usr/local/zed/settings/ \
+  -v /opt/zed_ros/config:/data:ro \
   ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
 ```
 
 Once you see the container shell prompt, source both the ROS installation and
-the workspace overlay, then launch the wrapper for the `zed2i` camera:
+the workspace overlay, then launch the wrapper for the `zed2i` camera using the
+host configuration mounted at `/data/zed2i.yaml`:
 
 ```bash
 source /opt/ros/jazzy/install/setup.bash
 source /root/ros2_ws/install/setup.bash
-ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i
+ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/data/zed2i.yaml
 ```
 
 At this point the rover computer should see the ZED ROS interfaces.
@@ -166,9 +209,11 @@ be available immediately.
 
 ### Modifying the URDF to include the Vision Pack
 
-{/* TODO add the vision pack to URDF section */}
+{/* TODO add the vision pack to URDF section: create xacro macro for the vision pack with ZED
+then add it to current urdf on leo rover */}
+{/* TODO Info about the publish_tf param */}
 
-### (Optional) Launching the container on boot and managing custom configurations
+### (Optional) Launching the container on boot
 
 If you want the ZED camera to be available immediately after the Jetson boots or
 you want to manage custom configurations more easily, you can follow the steps
@@ -181,45 +226,8 @@ Perform these steps on the Jetson outside of the container.
 
 :::
 
-Create persistent folders for configs and logs so data survives
-container recreations:
-
-```bash
-sudo mkdir -p /opt/zed_ros/{config,logs}
-sudo chown -R $USER /opt/zed_ros
-```
-
-Create a parameter YAML file under `/opt/zed_ros/config` for the ZED wrapper.
-{/* TODO adjust the parameters to place zed urdf at a specific location and with proper base frame */}
-
-```yaml title="/opt/zed_ros/config/zed2i.yaml"
-/**:
-  ros__parameters:
-    general:
-      camera_model: 'zed2i'
-      camera_name: 'zed2i'
-      grab_resolution: 'HD1080'
-      grab_frame_rate: 15
-    video:
-      brightness: 4
-      contrast: 4
-      hue: 0
-    depth:
-      min_depth: 0.01
-      max_depth: 15.0
-```
-
-:::note
-
-These are just example parameters, you can adjust them as needed. Refer to the
-official
-[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/ros/zed-node)
-for all available options.
-
-:::
-
-Save the following `docker-compose.yml` to `/opt/zed_ros` (adjust
-`camera_model` or environment overrides as needed):
+Save the following `docker-compose.yml` to previously created `/opt/zed_ros` 
+(adjust`camera_model` or environment overrides as needed):
 
 ```yaml title="/opt/zed_ros/docker-compose.yml"
 services:
