@@ -278,10 +278,10 @@ const config: Config = {
       additionalLanguages: ['bash', 'powershell', 'yaml', 'arduino'],
     },
     announcementBar: {
-      id: 'announcementBar_work-in-progress',
-      content: `Leo Rover 1.9 is out! 🎉 Check out the <a href="/leo-rover/documentation/changelog">release notes</a>! Get yours: <a href="https://www.leorover.tech/shop/leo-rover-developer-kit">Developer kit</a> | <a href="https://www.leorover.tech/shop/leo-rover-assembled">Assembled</a>`,
+      id: `raph-rover-launch`,
+      content: `🚀 Raph Rover is here! Check out the new documentation and get your rover today! <a href="https://fictionlab.pl/raph-rover/" target="_blank" rel="noopener">Learn more</a>`,
       backgroundColor: '#c57b2c',
-      textColor: '#ffffff',
+      textColor: '#fff',
       isCloseable: true,
     },
   } satisfies Preset.ThemeConfig,

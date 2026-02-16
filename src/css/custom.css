@@ -96,10 +96,9 @@ html[data-theme='dark'] {
   mask-image: url('/icons/discord-icon.svg');
 }
 
-div[class^='announcementBar_'] {
+.theme-announcement-bar {
   font-size: 20px;
-  font-weight: bold;
-  height: auto;
+  height: auto !important;
 }
 
 .video-container {
