@@ -277,6 +277,13 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
       additionalLanguages: ['bash', 'powershell', 'yaml', 'arduino'],
     },
+    announcementBar: {
+      id: `raph-rover-launch`,
+      content: `🚀 Raph Rover is here! Check out the new documentation and get your rover today! <a href="https://fictionlab.pl/raph-rover/" target="_blank" rel="noopener">Learn more</a>`,
+      backgroundColor: '#c57b2c',
+      textColor: '#fff',
+      isCloseable: true,
+    },
   } satisfies Preset.ThemeConfig,
   plugins: [
     [
