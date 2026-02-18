@@ -121,6 +121,7 @@ BAT ports.
 <Powerbox />
 
 ## Software integration
+
 :::info
 
 Before starting the software integration, please make sure that the sensor is
@@ -157,6 +158,7 @@ Few key points that can be helpful during the configuration process:
 :::
 
 ### Installing the driver
+
 Having configured the sensor, you can now proceed with installing the
 fixposition driver.
 
@@ -234,9 +236,9 @@ converter:
 :::warning
 
 If your robot has a namespace different than the default `/`, you need to
-provide the `input_topic` param with the namespace. Make sure that the
-provided topic name is in the global namespace - starting with `/`,
-e.g. `/namespace/merged_odom`.
+provide the `input_topic` param with the namespace. Make sure that the provided
+topic name is in the global namespace - starting with `/`, e.g.
+`/namespace/merged_odom`.
 
 :::
 
@@ -275,6 +277,14 @@ And add these lines somewhere in between the `launch` tag:
 <node pkg="tf2_ros" exec="static_transform_publisher" name="fixposition_broadcaster"
       args="0 0 0 0 0 0 base_link FP_POI" />
 ```
+
+:::note
+
+Replace the `args` in the static transform publisher with the correct values for
+your setup. The example above assumes that the `base_link` frame is in the same
+position as the `FP_POI` frame.
+
+:::
 
 To launch the driver, you can reboot the robot or restart the ROS nodes:
 
