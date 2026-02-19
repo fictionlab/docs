@@ -64,7 +64,6 @@
 /integrations/legacy/* /integrations/noetic/legacy/:splat 302
 /integrations/lidars/ouster-os0 /integrations/noetic/lidars/ouster-os0 302
 /integrations/lidars/velodyne-puck /integrations/noetic/lidars/velodyne-puck 302
-/integrations/positioning-systems/fixposition-vision-rtk-2 /integrations/noetic/positioning-systems/fixposition-vision-rtk-2 302
 /integrations/positioning-systems/marvelmind-rtls /integrations/noetic/positioning-systems/marvelmind-rtls 302
 /integrations/robotic-arms /integrations/noetic/robotic-arms 302
 /integrations/robotic-arms/* /integrations/noetic/robotic-arms/:splat 302
