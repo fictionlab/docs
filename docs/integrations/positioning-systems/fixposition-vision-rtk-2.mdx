@@ -214,6 +214,16 @@ sensor's IP address in the rover network. It should look like this:
 stream: tcpcli://<your sensor's IP>:21000
 ```
 
+:::note
+
+To avoid creation of numerous ROS topics you can comment out (using `#`) the
+unnecessary data streams in the `messages` field.
+
+If you want the best performance make sure that the `messages` field corresponds
+to the data streams enabled in the sensor's web UI.
+
+:::
+
 Optionally to enable the driver to use the odometry data from the robot, you can
 modify the `converter` parameters in the same file:
 
