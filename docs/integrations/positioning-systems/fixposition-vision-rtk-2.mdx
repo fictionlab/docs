@@ -190,6 +190,7 @@ Now you can install all dependencies:
 sudo apt update
 sudo apt install git libyaml-cpp-dev libboost-all-dev zlib1g-dev libeigen3-dev linux-libc-dev nlohmann-json3-dev
 cd ~/ros_ws
+source /opt/ros/jazzy/setup.bash
 rosdep update
 rosdep install --from-paths src -iry
 ```
@@ -197,6 +198,7 @@ rosdep install --from-paths src -iry
 Finally, you can build the workspace:
 
 ```bash
+source /opt/ros/jazzy/setup.bash
 colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF
 ```
 
