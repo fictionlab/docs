@@ -337,6 +337,110 @@ image: /img/robots/raph/raph-rover.webp
 
   Whether the BAT output is enabled.
 
+### oak
+
+- `device.mx_id` (type: `string`, default: `""`, read-only)
+
+  Device MX ID to connect to.
+
+- `device.usb_port_id` (type: `string`, default: `""`, read-only)
+
+  USB port ID to connect to (e.g. 1.1.2).
+
+- `device.ir_laser_dot_projector_intensity` (type: `double`, default: `0.3`)
+
+  IR laser dot projector intensity (0.0-1.0, higher is stronger intensity).
+
+- `device.ir_laser_dot_projector_lazy` (type: `bool`, default: `true`)
+
+  If true, the IR laser dot projector will only be turned on when the depth
+  stream is active. If false, the IR laser dot projector will be always on.
+
+- `device.ir_flood_light_intensity` (type: `double`, default: `0.0`)
+
+  IR flood light intensity (0.0-1.0, higher is stronger intensity).
+
+- `depth.confidence_threshold` (type: `int`, default: `110`)
+
+  Depth images will only contain pixels where depth confidence is below the
+  confidence threshold (lower the confidence value means better depth accuracy).
+
+- `depth.lr_check_enabled` (type: `bool`, default: `true`)
+
+  Computes and combines disparities in both L-R and R-L directions, and combine
+  them.
+
+- `depth.lr_check_threshold` (type: `int`, default: `5`)
+
+  Disparity is considered for the output when the difference between LR and RL
+  disparities is smaller than the LR check threshold.
+
+- `depth.subpixel_enabled` (type: `bool`, default: `true`)
+
+  Computes disparity with sub-pixel interpolation.
+
+- `depth.subpixel_fractional_bits` (type: `int`, default: `3`)
+
+  Number of fractional bits for subpixel mode.
+
+- `depth.min_distance` (type: `double`, default: `0.0`)
+
+  Minimal distance in meters.
+
+- `depth.max_distance` (type: `double`, default: `10.0`)
+
+  Maximal distance in meters.
+
+- `mono.width` (type: `int`, default: `1280`, read-only)
+
+  Mono camera image width.
+
+- `mono.height` (type: `int`, default: `800`, read-only)
+
+  Mono camera image height.
+
+- `mono.isp_scale_num` (type: `int`, default: `1`, read-only)
+
+  ISP scale numerator for mono cameras.
+
+- `mono.isp_scale_den` (type: `int`, default: `1`, read-only)
+
+  ISP scale denominator for mono cameras.
+
+- `mono.fps` (type: `double`, default: `10.0`, read-only)
+
+  Mono camera frames per second.
+
+- `mono_compressed.jpeg_quality` (type: `int`, default: `80`, read-only)
+
+  JPEG quality for mono compressed images (0-100, higher is better quality and
+  bigger size).
+
+- `rgb.width` (type: `int`, default: `1344`, read-only)
+
+  RGB camera image width.
+
+- `rgb.height` (type: `int`, default: `1008`, read-only)
+
+  RGB camera image height.
+
+- `rgb.isp_scale_num` (type: `int`, default: `1`, read-only)
+
+  ISP scale numerator for RGB camera.
+
+- `rgb.isp_scale_den` (type: `int`, default: `3`, read-only)
+
+  ISP scale denominator for RGB camera.
+
+- `rgb.fps` (type: `double`, default: `15.0`, read-only)
+
+  RGB camera frames per second.
+
+- `rgb_compressed.jpeg_quality` (type: `int`, default: `80`, read-only)
+
+  JPEG quality for RGB compressed images (0-100, higher is better quality and
+  bigger size).
+
 {/* TODO: Other nodes parameters */}
 
 ## Custom message types
