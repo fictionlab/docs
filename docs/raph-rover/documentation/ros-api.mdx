@@ -45,9 +45,12 @@ image: /img/robots/raph/raph-rover.webp
 
 ## Published Topics
 
-- `controller/imu/data_raw` ([sensor_msgs/msg/Imu])
+- `controller/imu/data` ([sensor_msgs/msg/Imu])
 
-  Current gyroscope and accelerometer readings from the onboard IMU.
+  Filtered readings from the onboard IMU. These include:
+  - linear acceleration from the accelerometer,
+  - angular velocity from the gyroscope, with a dynamic bias compensation applied, and 
+  - orientation calculated from the accelerometer and gyroscope sensor fusion.
 
 - `controller/odom` ([nav_msgs/msg/Odometry])
 
@@ -75,25 +78,29 @@ image: /img/robots/raph/raph-rover.webp
 
   Current information about the power system.
 
-- `imu/data` ([sensor_msgs/msg/Imu])
-
-  Filtered IMU readings including orientation.
-
-- `oak/imu/data` ([sensor_msgs/msg/Imu])
+- `oak/imu/data_raw` ([sensor_msgs/msg/Imu])
 
   Current gyroscope and accelerometer readings from the Oak-D IMU.
 
 - `oak/left/camera_info` ([sensor_msgs/msg/CameraInfo])
 
-  Calibration data for the left Oak-D camera.
+  Calibration data for the raw images from the left Oak-D camera.
 
 - `oak/left/image_raw` ([sensor_msgs/msg/Image])
 
   Raw images from the left Oak-D camera.
 
+- `oak/left_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the rectified images from the left Oak-D camera.
+
+- `oak/left_rect/image_rect` ([sensor_msgs/msg/Image])
+
+  Rectified images from the left Oak-D camera.
+
 - `oak/rgb/camera_info` ([sensor_msgs/msg/CameraInfo])
 
-  Calibration data for the center (RGB) Oak-D camera.
+  Calibration data for the raw images from the center (RGB) Oak-D camera.
 
 - `oak/rgb/image_raw` ([sensor_msgs/msg/Image])
 
@@ -101,11 +108,19 @@ image: /img/robots/raph/raph-rover.webp
 
 - `oak/right/camera_info` ([sensor_msgs/msg/CameraInfo])
 
-  Calibration data for the right Oak-D camera.
+  Calibration data for the raw images from the right Oak-D camera.
 
 - `oak/right/image_raw` ([sensor_msgs/msg/Image])
 
   Raw images from the right Oak-D camera.
+
+- `oak/right_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the rectified images from the right Oak-D camera.
+
+- `oak/right_rect/image_rect` ([sensor_msgs/msg/Image])
+
+  Rectified images from the right Oak-D camera.
 
 - `oak/stereo/camera_info` ([sensor_msgs/msg/CameraInfo])
 
