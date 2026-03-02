@@ -182,6 +182,11 @@ image: /img/robots/raph/raph-rover.webp
 
 ## Services
 
+- `controller/get_controller_info` ([raph_interfaces/srv/GetControllerInfo])
+
+  Get information about the controller, including bootloader and firmware
+  versions and other optional information.
+
 - `controller/clear_leds` ([std_srvs/srv/Trigger])
 
   Resets user states for all LEDs in the LED strip.
@@ -209,6 +214,10 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/set_steering_mode` ([raph_interfaces/srv/SetSteeringMode])
 
   Set the current steering mode.
+
+- `raph_system/get_os_version` ([raph_interfaces/srv/GetOsVersion])
+
+  Get the version of the [RaphOS] running on the robot.
 
 - `raph_system/shutdown` ([std_srvs/srv/Trigger])
 
@@ -507,3 +516,4 @@ image: /img/robots/raph/raph-rover.webp
   https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/SetLeds.html
 [raph_interfaces/srv/SetSteeringMode]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/SetSteeringMode.html
+[RaphOS]: https://github.com/RaphRover/RaphOS
