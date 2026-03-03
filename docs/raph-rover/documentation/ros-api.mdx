@@ -32,6 +32,12 @@ image: /img/robots/raph/raph-rover.webp
 
   Sets a new user state for all the LEDs in the specified LED panel.
 
+- `controller/cmd_servo_l`, `controller/cmd_servo_r`
+  ([raph_interfaces/msg/ServoCommand])
+
+  Direct commands for the left and right steering servos that bypass the
+  higher-level Ackermann or turn-in-place interfaces.
+
 - `controller/cmd_turn_in_place` ([raph_interfaces/msg/TurnInPlaceDrive])
 
   Sets the target angular velocity when operating in the turn-in-place steering
@@ -42,6 +48,14 @@ image: /img/robots/raph/raph-rover.webp
   Steers the robot using Twist commands. More standardized way to control the
   robot. Useful for some navigation stacks. Not recommended for manual
   teleoperation. Only uses `linear.x` and `angular.z` components.
+
+- `controller/cmd_wheel_fl`, `controller/cmd_wheel_fr`,
+  `controller/cmd_wheel_rl`, `controller/cmd_wheel_rr`
+  ([raph_interfaces/msg/WheelCommand])
+
+  Per-wheel commands for directly driving each wheel motor (front-left,
+  front-right, rear-left, rear-right). Can be used for testing or custom control
+  strategies.
 
 ## Published topics
 
@@ -544,6 +558,10 @@ image: /img/robots/raph/raph-rover.webp
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/SteeringMode.html
 [raph_interfaces/msg/TurnInPlaceDrive]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/TurnInPlaceDrive.html
+[raph_interfaces/msg/ServoCommand]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/ServoCommand.html
+[raph_interfaces/msg/WheelCommand]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/WheelCommand.html
 [raph_interfaces/srv/GetControllerInfo]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/GetControllerInfo.html
 [raph_interfaces/srv/GetOsVersion]:
