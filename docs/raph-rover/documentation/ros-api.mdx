@@ -346,6 +346,46 @@ image: /img/robots/raph/raph-rover.webp
 
   Whether the BAT output is enabled.
 
+- `imu_filter.gain_acc` (type: `double`, default: `0.01`)
+
+  Gain for the accelerometer in the complementary filter for IMU data fusion
+  (0.0-1.0, higher is more trust in the accelerometer).
+
+- `imu_filter.bias_alpha` (type: `double`, default: `0.01`)
+
+  The factor at which the gyroscope bias is updated when the IMU is determined
+  to be in steady state (>=0.0, higher is faster bias compensation).
+
+- `imu_filter.steady_state_angular_velocity_threshold` (type: `double`, default:
+  `0.05`)
+
+  Threshold for the angular velocity to determine whether the IMU is in steady
+  state. $[\frac{rad}{s}]$
+
+- `imu_filter.steady_state_acceleration_threshold` (type: `double`, default:
+  `0.1`)
+
+  Threshold for the magnitude of the linear acceleration (after subtracting
+  gravity) to determine whether the IMU is in steady state. $[\frac{m}{s^2}]$
+
+- `imu_filter.steady_state_delta_angular_velocity_threshold` (type: `double`,
+  default: `0.01`)
+
+  Threshold for the change in angular velocity, between two consecutive
+  measurements, to determine whether the IMU is in steady state.
+  $[\frac{rad}{s}]$
+
+- `imu_filter.steady_state_required_steady_time` (type: `double`, default:
+  `1.0`)
+
+  How long should the IMU reading meet the steady thresholds before it's
+  determined to be in steady state. $[s]$
+
+- `imu_filter.orientation_variance` (type: `double`, default: `0.001`)
+
+  Values on the diagonal of the orientation covariance matrix in the published
+  IMU data.
+
 ### oak
 
 - `device.mx_id` (type: `string`, default: `""`, read-only)
