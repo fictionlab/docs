@@ -375,8 +375,7 @@ image: /img/robots/raph/raph-rover.webp
   measurements, to determine whether the IMU is in steady state.
   $[\frac{rad}{s}]$
 
-- `imu_filter.steady_state_required_steady_time` (type: `float`, default:
-  `1.0`)
+- `imu_filter.steady_state_required_steady_time` (type: `float`, default: `1.0`)
 
   How long should the IMU reading meet the steady thresholds before it's
   determined to be in steady state. $[s]$
@@ -388,11 +387,11 @@ image: /img/robots/raph/raph-rover.webp
 
 ### oak
 
-- `device.mx_id` (type: `string`, default: `""`, read-only)
+- `device.mx_id` (type: `string`, read-only, default: `""`)
 
   Device MX ID to connect to.
 
-- `device.usb_port_id` (type: `string`, default: `""`, read-only)
+- `device.usb_port_id` (type: `string`, read-only, default: `""`)
 
   USB port ID to connect to (e.g. 1.1.2).
 
@@ -440,52 +439,50 @@ image: /img/robots/raph/raph-rover.webp
 
   Maximal distance in meters.
 
-- `mono.width` (type: `int`, default: `1280`, read-only)
+- `mono.width` (type: `int`, read-only, default: `1280`)
 
   Mono camera image width.
 
-- `mono.height` (type: `int`, default: `800`, read-only)
+- `mono.height` (type: `int`, read-only, default: `800`)
 
   Mono camera image height.
 
-- `mono.isp_scale_num` (type: `int`, default: `1`, read-only)
+- `mono.isp_scale_num` (type: `int`, read-only, default: `1`)
 
   ISP scale numerator for mono cameras.
 
-- `mono.isp_scale_den` (type: `int`, default: `1`, read-only)
+- `mono.isp_scale_den` (type: `int`, read-only, default: `1`)
 
   ISP scale denominator for mono cameras.
 
-- `mono.fps` (type: `float`, default: `10.0`, read-only)
+- `mono.fps` (type: `float`, read-only, default: `10.0`)
 
   Mono camera frames per second.
 
-- `mono_compressed.jpeg_quality` (type: `int`, default: `80`, read-only)
+- `mono_compressed.jpeg_quality` (type: `int`, read-only, default: `80`)
 
   JPEG quality for mono compressed images (0-100, higher is better quality and
   bigger size).
 
-- `rgb.width` (type: `int`, default: `1344`, read-only)
+- `rgb.width` (type: `int`, read-only, default: `1344`) RGB camera image width.
 
-  RGB camera image width.
-
-- `rgb.height` (type: `int`, default: `1008`, read-only)
+- `rgb.height` (type: `int`, read-only, default: `1008`)
 
   RGB camera image height.
 
-- `rgb.isp_scale_num` (type: `int`, default: `1`, read-only)
+- `rgb.isp_scale_num` (type: `int`, read-only, default: `1`)
 
   ISP scale numerator for RGB camera.
 
-- `rgb.isp_scale_den` (type: `int`, default: `3`, read-only)
+- `rgb.isp_scale_den` (type: `int`, read-only, default: `3`)
 
   ISP scale denominator for RGB camera.
 
-- `rgb.fps` (type: `float`, default: `15.0`, read-only)
+- `rgb.fps` (type: `float`, read-only, default: `15.0`)
 
   RGB camera frames per second.
 
-- `rgb_compressed.jpeg_quality` (type: `int`, default: `80`, read-only)
+- `rgb_compressed.jpeg_quality` (type: `int`, read-only, default: `80`)
 
   JPEG quality for RGB compressed images (0-100, higher is better quality and
   bigger size).
