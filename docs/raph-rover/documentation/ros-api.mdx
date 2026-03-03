@@ -43,11 +43,15 @@ image: /img/robots/raph/raph-rover.webp
   robot. Useful for some navigation stacks. Not recommended for manual
   teleoperation. Only uses `linear.x` and `angular.z` components.
 
-## Published Topics
+## Published topics
 
-- `controller/imu/data_raw` ([sensor_msgs/msg/Imu])
+- `controller/imu/data` ([sensor_msgs/msg/Imu])
 
-  Current gyroscope and accelerometer readings from the onboard IMU.
+  Filtered readings from the onboard IMU. These include:
+  - linear acceleration from the accelerometer,
+  - angular velocity from the gyroscope, with a dynamic bias compensation
+    applied, and
+  - orientation calculated from the accelerometer and gyroscope sensor fusion.
 
 - `controller/odom` ([nav_msgs/msg/Odometry])
 
@@ -75,37 +79,57 @@ image: /img/robots/raph/raph-rover.webp
 
   Current information about the power system.
 
-- `imu/data` ([sensor_msgs/msg/Imu])
-
-  Filtered IMU readings including orientation.
-
-- `oak/imu/data` ([sensor_msgs/msg/Imu])
+- `oak/imu/data_raw` ([sensor_msgs/msg/Imu])
 
   Current gyroscope and accelerometer readings from the Oak-D IMU.
 
 - `oak/left/camera_info` ([sensor_msgs/msg/CameraInfo])
 
-  Calibration data for the left Oak-D camera.
+  Calibration data for the raw images from the left Oak-D camera.
 
 - `oak/left/image_raw` ([sensor_msgs/msg/Image])
 
   Raw images from the left Oak-D camera.
 
+- `oak/left_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the rectified images from the left Oak-D camera.
+
+- `oak/left_rect/image_rect` ([sensor_msgs/msg/Image])
+
+  Rectified images from the left Oak-D camera.
+
 - `oak/rgb/camera_info` ([sensor_msgs/msg/CameraInfo])
 
-  Calibration data for the center (RGB) Oak-D camera.
+  Calibration data for the raw images from the center (RGB) Oak-D camera.
 
 - `oak/rgb/image_raw` ([sensor_msgs/msg/Image])
 
   Raw images from the center (RGB) Oak-D camera.
 
+- `oak/rgb_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the rectified images from the center (RGB) Oak-D camera.
+
+- `oak/rgb_rect/image_rect` ([sensor_msgs/msg/Image])
+
+  Rectified images from the center (RGB) Oak-D camera.
+
 - `oak/right/camera_info` ([sensor_msgs/msg/CameraInfo])
 
-  Calibration data for the right Oak-D camera.
+  Calibration data for the raw images from the right Oak-D camera.
 
 - `oak/right/image_raw` ([sensor_msgs/msg/Image])
 
   Raw images from the right Oak-D camera.
+
+- `oak/right_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the rectified images from the right Oak-D camera.
+
+- `oak/right_rect/image_rect` ([sensor_msgs/msg/Image])
+
+  Rectified images from the right Oak-D camera.
 
 - `oak/stereo/camera_info` ([sensor_msgs/msg/CameraInfo])
 
@@ -158,6 +182,11 @@ image: /img/robots/raph/raph-rover.webp
 
 ## Services
 
+- `controller/get_controller_info` ([raph_interfaces/srv/GetControllerInfo])
+
+  Get information about the controller, including bootloader and firmware
+  versions and other optional information.
+
 - `controller/clear_leds` ([std_srvs/srv/Trigger])
 
   Resets user states for all LEDs in the LED strip.
@@ -185,6 +214,10 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/set_steering_mode` ([raph_interfaces/srv/SetSteeringMode])
 
   Set the current steering mode.
+
+- `raph_system/get_os_version` ([raph_interfaces/srv/GetOsVersion])
+
+  Get the version of the [RaphOS] running on the robot.
 
 - `raph_system/shutdown` ([std_srvs/srv/Trigger])
 
@@ -313,279 +346,149 @@ image: /img/robots/raph/raph-rover.webp
 
   Whether the BAT output is enabled.
 
+- `imu_filter.gain_acc` (type: `float`, default: `0.01`)
+
+  Gain for the accelerometer in the complementary filter for IMU data fusion
+  (0.0-1.0, higher is more trust in the accelerometer).
+
+- `imu_filter.bias_alpha` (type: `float`, default: `0.01`)
+
+  The factor at which the gyroscope bias is updated when the IMU is determined
+  to be in steady state (>=0.0, higher is faster bias compensation).
+
+- `imu_filter.steady_state_angular_velocity_threshold` (type: `float`, default:
+  `0.05`)
+
+  Threshold for the angular velocity to determine whether the IMU is in steady
+  state. $[\frac{rad}{s}]$
+
+- `imu_filter.steady_state_acceleration_threshold` (type: `float`, default:
+  `0.1`)
+
+  Threshold for the magnitude of the linear acceleration (after subtracting
+  gravity) to determine whether the IMU is in steady state. $[\frac{m}{s^2}]$
+
+- `imu_filter.steady_state_delta_angular_velocity_threshold` (type: `float`,
+  default: `0.01`)
+
+  Threshold for the change in angular velocity, between two consecutive
+  measurements, to determine whether the IMU is in steady state.
+  $[\frac{rad}{s}]$
+
+- `imu_filter.steady_state_required_steady_time` (type: `float`, default: `1.0`)
+
+  How long should the IMU reading meet the steady thresholds before it's
+  determined to be in steady state. $[s]$
+
+- `imu_filter.orientation_variance` (type: `float`, default: `0.001`)
+
+  Values on the diagonal of the orientation covariance matrix in the published
+  IMU data.
+
+### oak
+
+- `device.mx_id` (type: `string`, read-only, default: `""`)
+
+  Device MX ID to connect to.
+
+- `device.usb_port_id` (type: `string`, read-only, default: `""`)
+
+  USB port ID to connect to (e.g. 1.1.2).
+
+- `device.ir_laser_dot_projector_intensity` (type: `float`, default: `0.3`)
+
+  IR laser dot projector intensity (0.0-1.0, higher is stronger intensity).
+
+- `device.ir_laser_dot_projector_lazy` (type: `bool`, default: `true`)
+
+  If true, the IR laser dot projector will only be turned on when the depth
+  stream is active. If false, the IR laser dot projector will be always on.
+
+- `device.ir_flood_light_intensity` (type: `float`, default: `0.0`)
+
+  IR flood light intensity (0.0-1.0, higher is stronger intensity).
+
+- `depth.confidence_threshold` (type: `int`, default: `110`)
+
+  Depth images will only contain pixels where depth confidence is below the
+  confidence threshold (lower the confidence value means better depth accuracy).
+
+- `depth.lr_check_enabled` (type: `bool`, default: `true`)
+
+  Computes and combines disparities in both L-R and R-L directions.
+
+- `depth.lr_check_threshold` (type: `int`, default: `5`)
+
+  Disparity is considered for the output when the difference between LR and RL
+  disparities is smaller than the LR check threshold.
+
+- `depth.subpixel_enabled` (type: `bool`, default: `true`)
+
+  Computes disparity with sub-pixel interpolation.
+
+- `depth.subpixel_fractional_bits` (type: `int`, default: `3`)
+
+  Number of fractional bits for subpixel mode.
+
+- `depth.min_distance` (type: `float`, default: `0.0`)
+
+  Minimal distance in meters.
+
+- `depth.max_distance` (type: `float`, default: `10.0`)
+
+  Maximal distance in meters.
+
+- `mono.width` (type: `int`, read-only, default: `1280`)
+
+  Mono camera image width.
+
+- `mono.height` (type: `int`, read-only, default: `800`)
+
+  Mono camera image height.
+
+- `mono.isp_scale_num` (type: `int`, read-only, default: `1`)
+
+  ISP scale numerator for mono cameras.
+
+- `mono.isp_scale_den` (type: `int`, read-only, default: `1`)
+
+  ISP scale denominator for mono cameras.
+
+- `mono.fps` (type: `float`, read-only, default: `10.0`)
+
+  Mono camera frames per second.
+
+- `mono_compressed.jpeg_quality` (type: `int`, read-only, default: `80`)
+
+  JPEG quality for mono compressed images (0-100, higher is better quality and
+  bigger size).
+
+- `rgb.width` (type: `int`, read-only, default: `1344`)
+
+  RGB camera image width.
+
+- `rgb.height` (type: `int`, read-only, default: `1008`)
+
+  RGB camera image height.
+
+- `rgb.isp_scale_num` (type: `int`, read-only, default: `1`)
+
+  ISP scale numerator for RGB camera.
+
+- `rgb.isp_scale_den` (type: `int`, read-only, default: `3`)
+
+  ISP scale denominator for RGB camera.
+
+- `rgb.fps` (type: `float`, read-only, default: `15.0`)
+
+  RGB camera frames per second.
+
+- `rgb_compressed.jpeg_quality` (type: `int`, read-only, default: `80`)
+
+  JPEG quality for RGB compressed images (0-100, higher is better quality and
+  bigger size).
+
 {/* TODO: Other nodes parameters */}
-
-## Custom message types
-
-{/* TODO: Remove this section after raph_interfaces message definitions start being hosted in docs.ros2.org */}
-
-- `raph_interfaces/msg/DrivetrainState`
-
-<a id="msg-drivetrain-state"></a>
-
-```bash title="Represents the state of the drivetrain"
-
-# Current steering mode.
-raph_interfaces/SteeringMode steering_mode
-
-uint8 OPERATING_STATE_DISABLED=0
-uint8 OPERATING_STATE_ENABLED=1
-uint8 OPERATING_STATE_CALIBRATING_SERVOS=2
-uint8 OPERATING_STATE_CHANGING_STEERING_MODE=3
-
-# Current operating state.
-uint8 operating_state
-
-# Indicates if the servos are calibrated.
-bool is_servos_calibrated
-```
-
-- `raph_interfaces/msg/SteeringMode`
-
-<a id="msg-steering-mode"></a>
-
-```bash title="Represents the steering mode used by the drivetrain controller."
-uint8 ACKERMANN=0
-uint8 TURN_IN_PLACE=1
-
-uint8 data
-```
-
-- `raph_interfaces/msg/BatteryMode`
-
-<a id="msg-battery-mode"></a>
-
-```bash title="Represents the target or actual battery power mode."
-# Whether the battery is charging.
-bool charging
-
-# Whether the battery is used as a power source.
-bool draining
-```
-
-- `raph_interfaces/msg/BatteryState`
-
-<a id="msg-battery-state"></a>
-
-```bash title="Represents the state of a single battery."
-# The current voltage in volts.
-float64 voltage
-
-# Estimated state of charge in percents.
-float64 state_of_charge
-
-# The target battery mode.
-raph_interfaces/BatteryMode target_mode
-
-# The actual battery mode.
-raph_interfaces/BatteryMode current_mode
-```
-
-- `raph_interfaces/msg/PowerSystemState`
-
-<a id="msg-power-system-state"></a>
-
-```bash title="Represents the state of the Power System."
-std_msgs/Header header
-
-# Whether the charger is connected.
-bool charger_connected
-
-# Whether the batteries are connected.
-bool bat1_connected
-bool bat2_connected
-
-# The states of the batteries, not valid for unconnected batteries.
-raph_interfaces/BatteryState bat1_state
-raph_interfaces/BatteryState bat2_state
-
-# The current power output in watts.
-float64 power
-
-# The energy consumed in watt-hours since the robot was powered on.
-float64 energy
-```
-
-- `raph_interfaces/msg/LedColor`
-
-<a id="msg-led-color"></a>
-
-```bash title="Represents the color of an LED."
-# The intensity of each color (255 = 100%).
-uint8 red
-uint8 green
-uint8 blue
-uint8 white
-```
-
-- `raph_interfaces/msg/LedState`
-
-<a id="msg-led-state"></a>
-
-```bash title="Represents the state of a single LED."
-# The duration (in ms) the state should be active.
-# Setting it to 0 will make the state active indefinitely.
-uint16 duration
-
-# The priority of the state.
-# If the value is equal to 0 or is lower than the priority of the current user LED, the state is ignored.
-# The value of -1 resets the user state of the LED.
-int8 priority
-
-# The color of the LED
-raph_interfaces/LedColor color
-```
-
-- `raph_interfaces/msg/LedPanelState`
-
-<a id="msg-led-panel-state"></a>
-
-```bash title="Represents the state of the whole LED panel."
-uint8 PANEL_FRONT=0
-uint8 PANEL_REAR=1
-uint8 PANEL_LEFT=2
-uint8 PANEL_RIGHT=3
-
-# Which LED panel does this state applies to.
-uint8 panel
-
-# State of each LED on the panel.
-# The largest panel has 40 LEDs. If the length of the array is smaller than the number of LEDs on
-# the panel, the remaining LEDs are not changed. If the length is greater than the number of LEDs
-# on the panel, the extra states are ignored.
-raph_interfaces/LedState[<=40] state
-```
-
-- `raph_interfaces/msg/LedStripState`
-
-<a id="msg-led-strip-state"></a>
-
-```bash title="Represents the state of the whole LED strip."
-uint8 LED_STRIP_SIZE=143
-
-raph_interfaces/LedState[143] state
-```
-
-- `raph_interfaces/msg/Led`
-
-<a id="msg-led"></a>
-
-```bash title="Represents the position and the state of the LED."
-uint8 PANEL_FRONT=0
-uint8 PANEL_REAR=1
-uint8 PANEL_LEFT=2
-uint8 PANEL_RIGHT=3
-
-# The panel the LED is on.
-uint8 panel
-
-# The id of the LED on the panel.
-uint8 id
-
-# The state of the LED.
-raph_interfaces/LedState state
-```
-
-- `raph_interfaces/msg/MotorDiagnostics`
-
-<a id="msg-motor-diagnostics"></a>
-
-```bash title="Diagnostic information about motors controlled by RaphCore."
-# The order of the motors is:
-#   - rear left wheel
-#   - rear right wheel
-#   - right servo
-#   - left servo
-#   - front left wheel
-#   - front right wheel
-
-std_msgs/Header header
-
-# The current temperature in degrees Celsius.
-uint8[6] temperature
-
-# The current power output in watts.
-float64[6] power
-
-# The energy consumed in watt-hours since the robot was powered on.
-float64[6] energy
-
-uint8 FAULT_BIT_SENSOR_FAULT=1
-uint8 FAULT_BIT_BUS_OVERCURRENT=2
-uint8 FAULT_BIT_PHASE_OVERCURRENT=4
-uint8 FAULT_BIT_STALL=8
-uint8 FAULT_BIT_OVERHEAT=16
-
-# The current fault mask reported by the motor.
-uint8[6] fault_mask_active
-
-# Mask of all fault that occurred since the robot was powered on.
-uint8[6] fault_mask_occurred
-```
-
-- `raph_interfaces/msg/ImuDiagnostics`
-
-<a id="msg-imu-diagnostics"></a>
-
-```bash title="Diagnostic information about IMU sensor running on RaphCore."
-std_msgs/Header header
-
-# The current temperature of the sensor in degrees Celsius.
-float64 temperature
-
-# The current gyroscope biases.
-float64 gyro_bias_x
-float64 gyro_bias_y
-float64 gyro_bias_z
-```
-
-- `raph_interfaces/msg/TurnInPlaceDrive`
-
-<a id="msg-turn-in-place-drive"></a>
-
-```bash title="A command to turn the robot in place."
-
-float64 angular_velocity
-float64 acceleration
-```
-
-## Custom service types
-
-{/* TODO: Remove this section after raph_interfaces message definitions start being hosted in docs.ros2.org */}
-
-- `raph_interfaces/srv/SetSteeringMode`
-
-<a id="srv-set-steering-mode"></a>
-
-```bash
-raph_interfaces/SteeringMode steering_mode
----
-bool success
-string status_message
-```
-
-- `raph_interfaces/srv/SetBatteryModes`
-
-<a id="srv-set-battery-modes"></a>
-
-```bash
-raph_interfaces/BatteryMode bat1_mode
-raph_interfaces/BatteryMode bat2_mode
----
-bool success
-string status_message
-```
-
-- `raph_interfaces/srv/SetLeds`
-
-<a id="srv-set-leds"></a>
-
-```bash
-raph_interfaces/Led[<=143] leds
----
-bool success
-string status_message
-```
 
 [ackermann_msgs/msg/AckermannDrive]:
   https://github.com/ros-drivers/ackermann_msgs/blob/ros2/msg/AckermannDrive.msg
@@ -615,19 +518,40 @@ string status_message
   https://docs.ros2.org/latest/api/std_srvs/srv/Trigger.html
 [tf2_msgs/msg/TFMessage]:
   https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
-[raph_interfaces/msg/BatteryMode]: #msg-battery-mode
-[raph_interfaces/msg/BatteryState]: #msg-battery-state
-[raph_interfaces/msg/DrivetrainState]: #msg-drivetrain-state
-[raph_interfaces/msg/TurnInPlaceDrive]: #msg-turn-in-place-drive
-[raph_interfaces/msg/Led]: #msg-led
-[raph_interfaces/msg/LedColor]: #msg-led-color
-[raph_interfaces/msg/LedState]: #msg-led-state
-[raph_interfaces/msg/LedStripState]: #msg-led-strip-state
-[raph_interfaces/msg/LedPanelState]: #msg-led-panel-state
-[raph_interfaces/msg/SteeringMode]: #msg-steering-mode
-[raph_interfaces/srv/SetSteeringMode]: #srv-set-steering-mode
-[raph_interfaces/msg/ImuDiagnostics]: #msg-imu-diagnostics
-[raph_interfaces/msg/MotorDiagnostics]: #msg-motor-diagnostics
-[raph_interfaces/msg/PowerSystemState]: #msg-power-system-state
-[raph_interfaces/srv/SetBatteryModes]: #srv-set-battery-modes
-[raph_interfaces/srv/SetLeds]: #srv-set-leds
+[raph_interfaces/msg/BatteryMode]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/BatteryMode.html
+[raph_interfaces/msg/BatteryState]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/BatteryState.html
+[raph_interfaces/msg/DrivetrainState]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/DrivetrainState.html
+[raph_interfaces/msg/ImuDiagnostics]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/ImuDiagnostics.html
+[raph_interfaces/msg/Led]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/Led.html
+[raph_interfaces/msg/LedColor]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/LedColor.html
+[raph_interfaces/msg/LedState]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/LedState.html
+[raph_interfaces/msg/LedStripState]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/LedStripState.html
+[raph_interfaces/msg/LedPanelState]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/LedPanelState.html
+[raph_interfaces/msg/MotorDiagnostics]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/MotorDiagnostics.html
+[raph_interfaces/msg/PowerSystemState]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/PowerSystemState.html
+[raph_interfaces/msg/SteeringMode]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/SteeringMode.html
+[raph_interfaces/msg/TurnInPlaceDrive]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/TurnInPlaceDrive.html
+[raph_interfaces/srv/GetControllerInfo]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/GetControllerInfo.html
+[raph_interfaces/srv/GetOsVersion]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/GetOsVersion.html
+[raph_interfaces/srv/SetBatteryModes]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/SetBatteryModes.html
+[raph_interfaces/srv/SetLeds]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/SetLeds.html
+[raph_interfaces/srv/SetSteeringMode]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/SetSteeringMode.html
+[RaphOS]: https://github.com/RaphRover/RaphOS
