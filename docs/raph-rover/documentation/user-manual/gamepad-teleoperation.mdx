@@ -1,0 +1,114 @@
+---
+title: 'Gamepad Teleoperation for Raph Rover: ROS 2 & Web UI'
+sidebar_label: Gamepad teleoperation
+sidebar_position: 5
+keywords:
+  - raph rover
+  - mobile robot
+  - joy_teleop
+  - teleoperation
+  - ROS 2
+  - web user interface
+  - gamepad
+description: >-
+  Configure Raph Rover gamepad teleoperation via the joy_teleop ROS 2 node or
+  the integrated Web UI. Includes setup steps, launch commands, and controller
+  mappings.
+image: /img/robots/raph/raph-rover.webp
+toc_max_heading_level: 4
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+
+# Control Raph Rover with a Gamepad Controller
+
+Raph Rover can be controlled using a gamepad controller either through the Web
+UI or by using the `joy_teleop` node from
+[raph_teleop](https://github.com/RaphRover/raph_common/tree/main/raph_teleop)
+ROS package.
+
+## Running the teleop node
+
+To control Raph Rover using a gamepad controller with the `joy_teleop` node, you
+will need to have ROS 2 installed and set up on your system. You will need
+`raph_teleop` and `raph_interfaces` packages installed:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-raph-teleop ros-${ROS_DISTRO}-raph-interfaces
+```
+
+Once you have the necessary packages installed, you can run the `joy_teleop`
+node using the following command:
+
+```bash
+ros2 launch raph_teleop joy_teleop.launch.xml
+```
+
+Provided that your gamepad controller is properly connected and recognized by
+your system, you should be able to control Raph Rover using the gamepad inputs.
+
+:::info
+
+You can launch `joy_teleop` node with custom configuration. You can see all the
+available parameters
+[here](https://github.com/RaphRover/raph_common/blob/main/raph_teleop/config/joy_config.yaml).
+
+To launch the node with a custom configuration file, use the following command:
+
+```bash
+ros2 launch raph_teleop joy_teleop.launch.xml joy_config_file:=/path/to/your/config.yaml
+```
+
+:::
+
+## Using the gamepad in the Web UI
+
+The Web UI allows the gamepad to connect automatically when an input is
+detected. To use the gamepad in the Web UI, simply connect your gamepad
+controller to your computer and interact with it.
+
+:::info
+
+After your first input from the gamepad, you should see a `Gamepad connected`
+message in the Web UI.
+
+:::
+
+The Web UI will recognize the gamepad inputs and allow you to control Raph Rover
+accordingly. Once you click `Enable driving` button in the menu the commands
+from the gamepad will be sent to the rover and you can start driving it around.
+
+## Gamepad button mappings
+
+:::note
+
+Gamepad button mappings are the same for both the Web UI and the `joy_teleop`
+node.
+
+:::
+
+<ThemedImageZoom
+  alt="Button mapping diagram using Xbox One controller as an example"
+  sources={{
+    light: useBaseUrl('/img/robots/raph/user-manual/button-mapping-light.webp'),
+    dark: useBaseUrl('/img/robots/raph/user-manual/button-mapping-dark.webp'),
+  }}
+  width={820}
+  height={430}
+/>
+
+:::info
+
+If you are using a different gamepad controller than the Xbox One, the button
+mappings may differ. However for most controllers, the corresponding buttons
+should be in the same positions as on the diagram above.
+
+:::
+
+:::warning
+
+When using Xbox controller on Linux with Firefox browser, **X** and **Y**
+buttons are swapped due to an existing bug in Firefox.
+
+:::
