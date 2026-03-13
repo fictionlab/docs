@@ -32,12 +32,6 @@ image: /img/robots/raph/raph-rover.webp
 
   Sets a new user state for all the LEDs in the specified LED panel.
 
-- `controller/cmd_servo_l`, `controller/cmd_servo_r`
-  ([raph_interfaces/msg/ServoCommand])
-
-  Direct commands for the left and right steering servos that bypass the
-  higher-level Ackermann or turn-in-place interfaces.
-
 - `controller/cmd_turn_in_place` ([raph_interfaces/msg/TurnInPlaceDrive])
 
   Sets the target angular velocity when operating in the turn-in-place steering
@@ -56,6 +50,12 @@ image: /img/robots/raph/raph-rover.webp
   Per-wheel commands for directly driving each wheel motor (front-left,
   front-right, rear-left, rear-right). Can be used for testing or custom control
   strategies.
+
+- `controller/cmd_servo_l`, `controller/cmd_servo_r`
+  ([raph_interfaces/msg/ServoCommand])
+
+  Per-servo commands for directly controlling the left and right servo motors.
+  Can be used for testing or custom control strategies.
 
 ## Published topics
 
