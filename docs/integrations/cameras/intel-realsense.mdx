@@ -25,16 +25,14 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 # Intel RealSense D435i Camera Integration
 
 In this tutorial we will present the process of connecting a RealSense D435i
-camera to your Leo Rover and integrating it with the system on Intel RealSense
-D435i example.
+camera to your Leo Rover and integrating it with the system using ROS.
 
-Intel RealSense D435i stereo camera is a type of camera capable of capturing
-image from two points at the same time. Using stereo disparity - the difference
-in object location as seen by the left and right lenses - cameras like Intel
-RealSense D435i are capable of distinguishing the distance of objects from the
-camera. This data can then be used to in a wide array of cases. In robotics,
-stereo cameras are commonly used for mapping the environment, object
-recognition, 3D scanning and in many other.
+Intel RealSense D435i is a stereo camera with an inertial measurement unit (IMU)
+that provides depth information and motion tracking capabilities. It is commonly
+used in robotics applications for tasks such as obstacle avoidance, mapping, and
+navigation. By integrating the D435i camera with your Leo Rover, you can enhance
+its perception capabilities and enable it to interact with its environment in
+more sophisticated ways.
 
 <ImageZoom
   loading="eager"
@@ -49,8 +47,11 @@ recognition, 3D scanning and in many other.
 
 ## What to expect?
 
-Having finished the tutorial you will possess basic knowledge about the use of
-stereo cameras with ROS.
+After completing this tutorial, you will have a RealSense D435i camera mounted
+on your Leo Rover, and you will be able to access the camera's data through ROS
+topics.
+
+{/* TODO: Add ROS API */}
 
 <div className="video-container">
   <LiteYouTubeEmbed
@@ -63,6 +64,8 @@ stereo cameras with ROS.
 </div>
 
 ## Prerequisites
+
+{/* TODO: Update this section with the necessary prerequisites */}
 
 Below is the list of all necessary tutorials and hardware components required to
 complete the integration.
@@ -105,12 +108,27 @@ accordingly, so that the camera is correctly positioned in the robot model.
 
 :::
 
+:::tip
+
+If you have access to a 3D printer, you can also design and print your own
+mounting adapter. This way you can customize the design to fit your specific
+needs, and you can also add features such as adjustable angles or additional
+mounting points.
+
+<LinkButton
+  url="https://drive.google.com/drive/folders/14rHxnfDOdguuEG8BnFuGmKLat3z1EwqC?usp=drive_link"
+  title="RealSense D435i adapter 3D printed adapter"
+/>
+
+:::
+
 ### Wiring
 
-For connecting the camera to your Rover you can use USB-C cable, as RealSense
-has USB-C 3.1 Gen 1 connector. You need to remove special plate on the back side
-of the camera, which covers the USB port, and you are ready to connect the
-camera through the USB port on the Rover.
+To connect the camera to the rover, plug the camera's USB cable into the rover's
+USB port. The connection provides power automatically, so you do not need an
+extra power supply. Since the RealSense D435i includes a USB-C to USB-A cable,
+please use the adapter (USB-C male to USB-A female) included with the rover to
+plug it into the rover's USB-C port.
 
 <ImageZoom
   src="/img/robots/leo/integrations/intel-realsense/intel-realsense.webp"
@@ -122,6 +140,8 @@ camera through the USB port on the Rover.
 />
 
 ## Software integration
+
+{/* TODO: Check software integration */}
 
 As ROS `realsense2_camera` package is available as a debian package, we will
 install it using `apt`. To do so, connect to the rover via ssh, and type:
@@ -297,4 +317,5 @@ might be interested in a tutorial about it.
 They are however, not the only way of teaching a Leo Rover how to move on it's
 own. Check out our [line follower](/leo-rover/1.8/leo-examples/line-follower)
 tutorial if you want to learn more. You can also check our
-[Integrations page](/integrations) for more instructions.
+[Integrations page](/integrations) for more hardware you can connect to your
+rover.
