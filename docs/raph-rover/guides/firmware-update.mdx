@@ -1,0 +1,92 @@
+---
+title: How to Update Raph Rover Firmware
+sidebar_label: Firmware update
+sidebar_position: 8
+description: >-
+  Learn how to easily update Leo Rover's firmware from Raspberry Pi without
+  extra cables. Step-by-step guide.
+---
+
+# How to Update the RaphCore Firmware
+
+You can use the
+[raph_fw](https://github.com/RaphRover/raph_robot/tree/main/raph_fw) package to
+flash the newest firmware from the rover's onboard computer. This package
+contains flashing scripts and the latest firmware binaries.
+
+Before flashing the firmware, make sure that you are running the latest version
+of the RaphOS on your rover. You can find out how to update the RaphOS in the
+guide below:
+
+<LinkButton docId="guides/software-update" />
+
+To flash the firmware, you need to boot the rover in the recovery mode. To do
+that you need to press and hold both maintenance button and power button for 3
+seconds. When the rover's LEDs start pulsing white and red you have successfully
+booted the rover in the recovery mode.
+
+:::tip
+
+If you have ROS 2 installed on your computer, you can install the `raph_fw`
+package, connect to the rover's Wi-Fi network, and run the update script from
+your computer. Remeber that the rover needs to be in recovery mode even if you
+are running the update script from your computer.
+
+:::
+
+In recovery mode, the rover will power on the router and the onboard computer,
+so you can login to your Raph Rover as usual:
+
+<LinkButton docId="guides/ssh" />
+
+Make sure the rover is connected to the Internet:
+
+<LinkButton docId="guides/connect-to-network" />
+Install the latest versions of the packages:
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+Now you can proceed to flash the firmware. The firmware consists of two parts:
+the bootloader and the main firmware.
+
+To update the bootloader to the newest version, you can run the following
+command:
+
+```bash
+ros2 run raph_fw update --bootloader
+```
+
+To update the main firmware, you can run the following command:
+
+```bash
+ros2 run raph_fw update
+```
+
+The script will then guide you through the flashing process.
+
+:::info
+
+If you need to flash a specific firmware version you can do that by running:
+
+```bash
+ros2 run raph_fw flash /path/to/raphcore_firmware.bin
+```
+
+Similarly, to flash the bootloader with a specific version, you can run:
+
+```bash
+ros2 run raph_fw flash /path/to/bootloader.bin --bootloader
+```
+
+Both the `flash` and `update` scripts will try to automatically detect the
+RaphCore's IP address, but you can also specify it manually by adding the
+`--address` argument followed by the IP address of the RaphCore board, like
+shown below:
+
+```bash
+ros2 run raph_fw <update or flash> --address <RaphCore IP address>
+```
+
+:::
