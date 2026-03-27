@@ -24,7 +24,7 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 # Intel RealSense D435i Camera Integration
 
-In this tutorial we will present the process of connecting a RealSense D435i
+In this tutorial we will go through the process of connecting a RealSense D435i
 camera to your Leo Rover and integrating it with the system using ROS.
 
 Intel RealSense D435i is a stereo camera with an inertial measurement unit (IMU)
@@ -57,7 +57,7 @@ topics. You can find all available topics and configuration options
     id="HBuKScxo90Q"
     params="autoplay=0&autohide=1&showinfo=0&rel=0"
     poster="hqdefault"
-    title="Leo Rover Unboxing and Getting Started"
+    title="Intel depth camera on Leo Rover"
     webp
   />
 </div>
@@ -157,8 +157,6 @@ plug it into the rover's USB-C port.
 
 ## Software integration
 
-{/* TODO: Check software integration */}
-
 As ROS `realsense2_camera` package is available as a debian package, we will
 install it using `apt`. To do so, connect to the rover via ssh, and type:
 
@@ -166,7 +164,7 @@ install it using `apt`. To do so, connect to the rover via ssh, and type:
 sudo apt install ros-${ROS_DISTRO}-realsense2-camera
 ```
 
-We want also the description package, which includes 3D models of the device
+We also want the description package, which includes 3D models of the device
 (those are required for some nodes). To install them type in the terminal:
 
 ```bash
@@ -189,8 +187,10 @@ create an URDF file with the RealSense included. On
 [this](https://github.com/IntelRealSense/realsense-ros/tree/ros2-master/realsense2_description/urdf)
 site you can see which urdf camera models are available in the
 `realsense2_description` package. Each of the files there has a `xacro macro`
-with a lot of properties. We need to include the correct macro to make the
-camera visible with the robot's model.
+with properties. We need to include the correct macro to make the camera visible
+with the robot's model. To do that create a new file in `/etc/ros/urdf`
+directory, and name it `realsense.urdf.xacro`. In this file, include the
+following content:
 
 ```xml title="/etc/ros/urdf/realsense.urdf.xacro"
 <?xml version="1.0"?>
@@ -226,10 +226,10 @@ description that is uploaded at boot. Add this line somewhere before the closing
 <xacro:include filename="/etc/ros/urdf/realsense.urdf.xacro"/>
 ```
 
-### Launching camera nodes on system startup
+### Launching camera nodes
 
-To get the image from camera, you need to launch the camera nodes. You can
-simply do it by typing in terminal those commands
+To get the image from camera, you need to launch the camera nodes. You can do it
+by typing below commands in terminal:
 
 ```bash
 source /opt/ros/${ROS_DISTRO}/setup.bash
@@ -242,8 +242,10 @@ conflicts. You have to put the same value as in the `urdf` file. We set here the
 which is the same as the robot's default camera. Therefore setting the argument
 to empty string will automatically put the node's topics into global namespace.
 
-We can create a launch file that would start the node with a fitting
-configuration.
+### (Optional) Launching camera nodes on system startup
+
+We can create a `realsense.launch.xml` launch file in `/etc/ros` directory, that
+would start the node with a fitting configuration.
 
 ```xml title="/etc/ros/realsense.launch.xml"
 <launch>
@@ -308,6 +310,13 @@ transfer of the data through your rover and computer.
 You can also start RViz, and add **robot model** in the **display** view. Choose
 also `base_link` as **fixed frame**, and you should see the rover model with
 camera attached.
+
+:::warning
+
+To be able to see the camera model in RViz, you need to have the
+`realsense2_description` package installed on your computer as well.
+
+:::
 
 <ImageZoom
   src="/img/robots/leo/integrations/intel-realsense/rviz-realsense.webp"
