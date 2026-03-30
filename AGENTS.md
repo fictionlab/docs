@@ -19,7 +19,7 @@ in **MDXv3**.
 | `src/theme/`                  | Docusaurus theme overrides (MDXComponents, NavbarItem, DocVersionBanner) |
 | `sidebars/`                   | Sidebar configs (LeoSidebars.ts, RaphSidebars.ts, integrationsSidebar.ts, guidelinesSidebar.ts) |
 | `static/img/`                 | Images organized by `robots/leo/`, `robots/raph/`, `branding/`, `icons/` |
-| `static/_redirects`           | Netlify-style redirect rules                      |
+| `static/_redirects`           | Cloudflare-style redirect rules                      |
 | `scripts/`                    | Validation scripts (frontmatter-check, redirects-check, generate-docs-tree) |
 
 ## Content Authoring Rules
@@ -102,7 +102,7 @@ Full style guide: https://docs.fictionlab.pl/guidelines
 ### Redirects
 
 When renaming or moving a page, add a redirect rule to `static/_redirects`
-(Netlify format: `old-path new-path 301`). The `yarn check:redirects` script
+(Cloudflare format: `old-path new-path 301`). The `yarn check:redirects` script
 validates redirect coverage on PRs.
 
 ## Build & Development
