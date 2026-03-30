@@ -13,13 +13,27 @@ keywords:
 description: >-
   Learn how to connect an RPLiDAR S3 sensor to your Leo Rover for 2D mapping and
   more. Detailed tutorial mechanical and software integration.
+# TODO: Replace with a proper image of Leo Rover with mounted RPLIDAR S3
 image: /img/robots/leo/integrations/rplidar-s3/rplidar-s3.webp
 ---
 
-# SLAMTEC RPLIDAR S3 Integration
-
-import Product from '@site/src/products/powerbox.mdx';
+import Product from '@site/src/products/slamtec-rplidar-s3.mdx';
+import Powerbox from '@site/src/products/powerbox.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+{/* TODO: Replace with a proper image of Leo Rover with mounted RPLIDAR S3 */}
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/rplidar-s3/rplidar-s3.webp"
+  alt="Leo Rover with mounted SLAMTEC RPLIDAR S3"
+  width="536"
+  height="500"
+  figStyle={{
+    width: 400,
+  }}
+/>
+
+# SLAMTEC RPLIDAR S3 Integration
 
 This tutorial will guide you through the process of connecting a LiDAR sensor to
 your Leo Rover.
@@ -31,16 +45,6 @@ A2M12, are used for things such as indoor SLAM
 ([Simultaneous localization and mapping](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping))
 or safety systems.
 
-<ImageZoom
-  loading="eager"
-  src="/img/robots/leo/integrations/rplidar-s3/rplidar-s3.webp"
-  width="536"
-  height="500"
-  figStyle={{
-    width: 400,
-  }}
-/>
-
 ## What to expect?
 
 After finishing the tutorial you should be able to both gather the lidar data
@@ -49,15 +53,23 @@ and visualize it using RViz. Just like in the image below:
 <ImageZoom
   loading="eager"
   src="/img/robots/leo/integrations/rplidar-a2/rviz-map-lidar.webp"
+  alt="RViz visualization of RPLIDAR S3 scan data on Leo Rover"
   width="935"
   height="578"
 />
 
+The robot will publish
+[LaserScan messages](https://docs.ros2.org/latest/api/sensor_msgs/msg/LaserScan.html)
+on the `/scan` topic.
+
 ## Prerequisites
+
+Below is the list of all necessary tutorials and hardware components required to
+complete the integration.
 
 <LinkButton
   to="/leo-rover/guides/ssh"
-  title="Connect via SSH"
+  title="Connect to Leo Rover via SSH"
   description="Learn how to establish an SSH connection with your Leo Rover and access its
   terminal using Putty or OpenSSH."
 />
@@ -68,15 +80,13 @@ and visualize it using RViz. Just like in the image below:
   additional functionalities, building ROS packages and more."
 />
 
-## List of components
+### Referenced products
 
-- RPLidar S3
-- RPLidar S3 adapter plate (can be found here:
-  [Addon adapters](../addon-adapters#rplidar-s3-adapter))
-- M5x10 Allen head screw x4
-- M2.5x6 Allen head screw x4
+<Product />
 
-## Mechanical integration
+## Hardware integration
+
+### Mounting
 
 We developed 3D printable models of mechanical interfaces that allow you to
 mount the aforementioned sensor to the mounting plate of the rover. Locating the
@@ -84,19 +94,30 @@ sensor at the top of the robot provides a wide field of view with not many
 obstacles for the laser beam to get caught on. Get the files from here:
 [Addon Adapters](../addon-adapters/).
 
+Required components:
+
+- RPLidar S3
+- RPLidar S3 adapter plate (can be found here:
+  [Addon adapters](../addon-adapters#rplidar-s3-adapter))
+- M5x10 Allen head screws x4
+- M2.5x6 Allen head screws x4
+
+Steps:
+
 - With 4 x M2.5x6 Allen screws, connect the sensor to the printed interface
   plate.
 - Use 4 x M5x10 Allen screws to fasten the sensor to the Leo Rover.
 
-## Wiring and electronics connection
+### Wiring
 
 The sensor can be connected to the robot's main computer via the USB socket
 positioned at the top of the rover. If your USB cable is long it might get into
-lidars field of view if it sticks up too much. try to hide it in the empty space
-inside Leo Rovers back frame. Just like on the photo below:
+the lidar's field of view if it sticks up too much. Try to hide it in the empty
+space inside Leo Rover's back frame. Just like on the photo below:
 
 <ImageZoom
   src="/img/robots/leo/integrations/rplidar-a2/leo-with-rplidar-s3.webp"
+  alt="Leo Rover with RPLIDAR S3 wired via USB"
   width="1200"
   height="800"
   figStyle={{
@@ -112,11 +133,11 @@ field of view by other parts of the Rover.
 :::
 
 USB connection provides power to the sensor and allows the data transfer. This
-means that no external power sources are necessary. Some lidars might need
-external power connections, that's when [Powerbox](/leo-rover/addons/powerbox)
-might come in handy.
+means that no external power sources are necessary. However, if you want a
+cleaner and more reliable power and data connection, we recommend using the
+Powerbox addon:
 
-<Product />
+<Powerbox />
 
 With everything connected, you are ready to try out your new sensor.
 
@@ -168,6 +189,14 @@ In `/etc/ros/robot.launch.xml`:
 ```xml
 <include file="/etc/ros/laser.launch.xml"/>
 ```
+
+The last step is to either reboot the robot or restart the nodes.
+
+```bash
+ros-nodes-restart
+```
+
+### Modifying the URDF model
 
 Your robot should be aware of where the sensor is located and what space it
 occupies. You can ensure it does that by creating a URDF model of the sensor.
@@ -241,7 +270,7 @@ occupies. You can ensure it does that by creating a URDF model of the sensor.
 </robot>
 ```
 
-And including it in the description that is uploaded at boot.
+And include it in the description that is uploaded at boot.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
 <xacro:include filename="/etc/ros/urdf/laser.urdf"/>
@@ -255,13 +284,7 @@ STL or COLLADA format.
 
 :::
 
-The last step is to either reboot the robot or restart the nodes.
-
-```bash
-ros-nodes-restart
-```
-
-## Examples
+## Example usage
 
 ### Reading and visualizing the data
 
@@ -308,6 +331,7 @@ topic. Choose the **LaserScan** display and click **Ok**.
 
 <ImageZoom
   src="/img/robots/leo/integrations/hokuyo-lidar/rviz-laser-scan.webp"
+  alt="Adding LaserScan topic in RViz"
   width="1362"
   height="727"
 />
@@ -322,6 +346,7 @@ which you can use to change the displayed laser.
 
 <ImageZoom
   src="/img/robots/leo/integrations/hokuyo-lidar/rviz-laser-color.webp"
+  alt="Changing LaserScan color in RViz"
   width="1362"
   height="727"
 />
@@ -336,6 +361,7 @@ display.
 
 <ImageZoom
   src="/img/robots/leo/integrations/hokuyo-lidar/rviz-add-camera.webp"
+  alt="Adding Camera display in RViz"
   width="1364"
   height="730"
 />
@@ -344,6 +370,7 @@ Be sure to select `/camera/image_color` as the Image Topic.
 
 <ImageZoom
   src="/img/robots/leo/integrations/hokuyo-lidar/rviz-camera-topic.webp"
+  alt="Selecting camera image topic in RViz"
   width="1365"
   height="729"
 />
@@ -360,13 +387,13 @@ Here's an example end result:
   />
 </div>
 
-## What next?
+## What's next?
 
 Lidars are commonly used in projects involving
 [autonomous navigation](/leo-rover/advanced-guides/autonomous-navigation), you
 might be interested in a tutorial about it.
 
-They are however, not the only way of teaching a Leo Rover how to move on it's
+They are however, not the only way of teaching a Leo Rover how to move on its
 own. Check out our [line follower](/leo-rover/1.8/leo-examples/line-follower)
 tutorial if you want to learn more. You can also check our
 [Integrations page](/integrations) for more instructions.
