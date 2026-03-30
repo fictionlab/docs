@@ -132,10 +132,15 @@ not obstructed by cables, antennas, or other parts of the rover.
 
 ### Wiring
 
-The sensor can be connected to the robot's main computer via the USB socket
-positioned at the top of the rover. If your USB cable is long it might get into
-the lidar's field of view if it sticks up too much. Try to hide it in the empty
-space inside Leo Rover's back frame. Just like on the photo below:
+The RPLIDAR S3 uses a TTL interface and comes with a TTL-to-USB adapter. To
+connect it to Leo Rover 1.9, use the following chain:
+
+1. Plug the TTL cable from the sensor into the **TTL-to-USB adapter** (included
+   with the lidar).
+2. Connect the **micro USB to USB-A cable** (included with the lidar) to the
+   micro USB port on the adapter.
+3. Use the **USB-A to USB-C adapter** (included with Leo Rover) to connect the
+   cable to the **USB-C port** on top of the rover.
 
 <ImageZoom
   src="/img/robots/leo/integrations/rplidar-a2/leo-with-rplidar-s3.webp"
@@ -147,10 +152,12 @@ space inside Leo Rover's back frame. Just like on the photo below:
   }}
 />
 
-USB connection provides power to the sensor and allows the data transfer. This
-means that no external power sources are necessary. However, if you want a
-cleaner and more reliable power and data connection, we recommend using the
-Powerbox addon:
+If the cable is long, try to tuck it into the empty space inside Leo Rover's
+back frame to keep it away from the lidar's field of view.
+
+This connection provides both power and data transfer to the sensor, so no
+external power source is necessary. However, if you want a cleaner and more
+reliable connection, we recommend using the Powerbox addon:
 
 <Powerbox />
 
