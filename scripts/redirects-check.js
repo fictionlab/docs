@@ -24,6 +24,26 @@ const compareRef = argv.ref;
 const baseBranch = argv.base;
 console.log(`Comparing ${compareRef} against ${baseBranch}`);
 
+// Path prefixes to exclude from redirect checks (e.g. internal/non-public sections)
+const IGNORED_PATH_PREFIXES = ['/guidelines'];
+
+const REDIRECTS_FILE = 'static/_redirects';
+
+function isIgnoredUrl(url) {
+  return IGNORED_PATH_PREFIXES.some((prefix) => url.startsWith(prefix));
+}
+
+function isPrivateUrl(url) {
+  return url.split('/').at(-1).startsWith('_');
+}
+
+function deduplicateLastSegment(parts) {
+  if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
+    parts.pop();
+  }
+  return parts;
+}
+
 function pathToUrl(path) {
   // Normalize Windows backslashes to forward slashes
   let p = path.replace(/\\/g, '/');
@@ -39,12 +59,8 @@ function pathToUrl(path) {
     const rest = versionedMatch[3];
     let canonical = `/${category}/${versionName}/${rest}`;
     canonical = canonical.replace(/\.mdx?$/, '').replace(/\/index$/, '');
-    let parts = canonical.split('/');
-    // Remove duplicate last part (e.g., /foo/bar/bar -> /foo/bar)
-    if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
-      parts.pop();
-    }
-    return parts.join('/');
+    const parts = canonical.split('/');
+    return deduplicateLastSegment(parts).join('/');
   }
 
   const canonicalUrl =
@@ -54,14 +70,8 @@ function pathToUrl(path) {
       .replace(/\.mdx?$/, '')
       .replace(/\/index$/, '');
 
-  parts = canonicalUrl.split('/');
-
-  // Remove duplicate last part (e.g., /foo/bar/bar -> /foo/bar)
-  if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
-    parts.pop();
-  }
-
-  return parts.join('/');
+  const parts = canonicalUrl.split('/');
+  return deduplicateLastSegment(parts).join('/');
 }
 
 function parseRedirects(file) {
@@ -118,17 +128,19 @@ diff.forEach((line) => {
 const intersection = added.filter((url) => deleted.includes(url));
 added = added
   .filter((url) => !intersection.includes(url))
-  .filter((url) => !url.split('/').at(-1).startsWith('_'));
+  .filter((url) => !isPrivateUrl(url))
+  .filter((url) => !isIgnoredUrl(url));
 deleted = deleted
   .filter((url) => !intersection.includes(url))
-  .filter((url) => !url.split('/').at(-1).startsWith('_'));
+  .filter((url) => !isPrivateUrl(url))
+  .filter((url) => !isIgnoredUrl(url));
 
 console.log('Added pages:');
 added.forEach((url) => console.log(`  ${url}`));
 console.log('Deleted pages:');
 deleted.forEach((url) => console.log(`  ${url}`));
 
-const redirects = parseRedirects('static/_redirects');
+const redirects = parseRedirects(REDIRECTS_FILE);
 let foundProblems = 0;
 
 deleted.forEach((url) => {
