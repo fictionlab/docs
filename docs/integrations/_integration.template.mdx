@@ -1,8 +1,8 @@
 ---
-title: [Meta title of the integration]
-sidebar_label: [Sidebar label of the integration]
+title: [Meta title of the integration - SEO optimized]
+sidebar_label: [Sidebar label of the integration - concise and descriptive]
 description: >-
-  [Meta description of the integration]
+  [Meta description of the integration - SEO optimized]
 keywords:
   - keyword1
   - keyword2
@@ -15,15 +15,19 @@ image: path/to/image.webp
 
 {/* https://docs.fictionlab.pl/guidelines/formatting */}
 
-import ImageZoom from '@site/src/components/ImageZoom';
-import LinkButton from '@site/src/components/LinkButton';
-import Product from '@site/src/products/powerbox.mdx';
+{/* Import only components that are NOT globally registered. */}
+{/* ImageZoom and LinkButton are global — do not import them. */}
+
+import Product from '@site/src/products/[product-name].mdx';
+
+{/* Add more imports as needed, for example: */}
+{/* import Powerbox from '@site/src/products/powerbox.mdx'; */}
 
 {/* This is a template for creating a new integration documentation page. */}
 {/* Please fill all of the fields marked with square brackets [] and remove the comments. */}
 {/* For text generation, use the Gemini gem - https://gemini.google.com/gem/1r7lCdS-MWEl3GkkLJvAJis8TdKQbxL-r?usp=sharing */}
 
-{/* Image of the integration on the rover, the same image used in the meta section */}
+{/* Hero image of the integration on the rover — same image as used in the frontmatter */}
 
 <ImageZoom
   loading="eager"
@@ -33,7 +37,7 @@ import Product from '@site/src/products/powerbox.mdx';
   height="xxx"
 />
 
-# [Integration title]
+# [Integration title - concise and descriptive]
 
 [Integration description]
 
@@ -72,15 +76,65 @@ Example below:]
 
 ### Mounting
 
-[Description of how to mount the integration on the rover, including any
-necessary 3D-printed parts, screws, or brackets. Include pictures or diagrams if
-necessary.]
+[If the integration kit includes a mounting adapter, start with:]
+
+If you bought the integration from us, you can use the mounting adapter included
+in the package. It is designed to mount the [sensor/component] on [location] of
+the rover.
+
+Required components:
+
+- [Component 1]
+- [Component 2 — adapter]
+- [Screw type A] x[n]
+- [Screw type B] x[n]
+
+To mount the sensor:
+
+1. [First mounting step.]
+2. [Second mounting step.]
+3. [Third mounting step — fasten to rover.]
+
+:::tip
+
+If you don't have the integration kit, you can also 3D print the adapter plate
+yourself. Get the files from the
+[Addon Adapters](../addon-adapters#[adapter-anchor]) page.
+
+:::
+
+:::note
+
+The URDF model provided in this guide assumes the sensor is mounted using our
+adapter plate in the default position. If you mount the sensor in a different
+position, you will need to adjust the origin values in the URDF file accordingly
+so that the sensor is correctly positioned in the robot model.
+
+:::
+
+:::info
+
+[Any important notes about positioning, field of view, or clearance.]
+
+:::
 
 ### Wiring
 
-[Description of how to connect the hardware components together, including any
-necessary cables, connectors, or adapters. Include pictures or diagrams if
-necessary.]
+[Describe the connection chain with numbered steps. Example:]
+
+1. [First connection step — e.g. connect cable to sensor.]
+2. [Second connection step — e.g. connect to adapter.]
+3. [Third connection step — e.g. connect to rover's port.]
+
+[Picture of the wiring.]
+
+[Notes about cable management, power, and optional addons. Example:]
+
+This connection provides both power and data transfer to the sensor, so no
+external power source is necessary. However, if you want a cleaner and more
+reliable connection, we recommend using the Powerbox addon:
+
+{/* <Powerbox /> */}
 
 ## Software integration
 
