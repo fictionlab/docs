@@ -34,12 +34,14 @@ In order to enter recovery mode follow the steps below:
 
 1. Make sure the rover is powered off.
 2. Make sure that no charger is connected to the rover.
-3. Press and hold **both** the maintenance and power buttons for 3 seconds.
+3. Press and hold the maintenance button.
+4. While holding the maintenance button, press and hold the power button for 3
+   seconds.
 
+The usually green animation of robot powering on is replaced with a white color.
+You can use that as an indication that the rover is booting into recovery mode.
 When the rover's LEDs start pulsing white and red, you have successfully booted
-the rover into recovery mode. The usually green animation of robot powering on
-is replaced with a white color. You can use that as an indication that the rover
-is booting into recovery mode.
+the rover into recovery mode.
 
 :::tip
 
@@ -55,32 +57,34 @@ so you can log in to your Raph Rover as usual:
 
 <LinkButton docId="guides/ssh" />
 
-Make sure the rover is connected to the Internet:
+After opening a terminal session via SSH, you can proceed to flash the firmware.
+The firmware consists of two parts: the bootloader and the main firmware.
 
-<LinkButton docId="guides/connect-to-network" />
-Install the latest versions of the packages:
-
-```bash
-sudo apt update && sudo apt upgrade
-```
-
-Now you can proceed to flash the firmware. The firmware consists of two parts:
-the bootloader and the main firmware.
-
-To update the bootloader to the newest version, you can run the following
+To update the main firmware to the newest version, you can run the following
 command:
-
-```bash
-ros2 run raph_fw update --bootloader
-```
-
-To update the main firmware, you can run the following command:
 
 ```bash
 ros2 run raph_fw update
 ```
 
 The script will then guide you through the flashing process.
+
+Similarly, to update the bootloader, you can run the following command:
+
+```bash
+ros2 run raph_fw update --bootloader
+```
+
+:::danger
+
+Only update the bootloader if a newer version is available. If bootloader update
+is not necessary, it is recommended to only update the main firmware.
+
+If the bootloader flashing procedure fails or is interrupted, the RaphCore board
+can no longer be flashed using these scripts. It will become unresponsive and
+require a manual hardware recovery using an ST-LINK programmer.
+
+:::
 
 :::info
 
