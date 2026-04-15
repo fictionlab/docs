@@ -177,11 +177,12 @@ Now your Jetson should receive an IP address in the `10.0.0.x` range and be
 accessible from the rover network.
 
 ### Creating ZED camera ROS configuration
-Before launching the ZED wrapper container, you need to create a configuration
-file for the camera. This file will contain the parameters for the ZED camera and
-will be mounted into the container to configure the ROS node.
 
-Create folders for configs and logs on the host:
+Before launching the ZED wrapper container, you need to create a configuration
+file for the camera. This file will contain the parameters for the ZED camera
+and will be mounted into the container to configure the ROS node.
+
+On Jetson, create folders for configs and logs on the host:
 
 ```bash
 sudo mkdir -p /opt/zed_ros/{config,logs}
@@ -226,9 +227,13 @@ the Jetson:
 sudo docker pull ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
 ```
 
-At this point, if you haven't done so already, connect the Jetson to the Leo
-Rover access point. This will allow the rover to see the ZED ROS interfaces once
-the container is running.
+:::note
+
+Ensure that your Jetson has internet access to pull the image. Further internet
+access might be required on camera startup if the ZED wrapper needs to download
+additional assets like calibration files or detection models.
+
+:::
 
 Start the ZED wrapper container whenever you need the camera online. This run
 command exposes the GPU, host networking, and the ZED calibration assets to the
@@ -268,9 +273,59 @@ be available immediately.
 
 ### Modifying the URDF to include the Vision Pack
 
-{/* TODO add the vision pack to URDF section: create xacro macro for the vision pack with ZED
-then add it to current urdf on leo rover */}
-{/* TODO Info about the publish_tf param */}
+To ensure proper TF frames and integration with the rest of the rover system,
+you will need to add the ZED camera to the URDF model of the rover.
+
+To do that log in to the Raspberry Pi and install the `zed_description` package
+that contains the URDF macros for ZED cameras:
+
+```bash
+sudo apt update
+sudo apt install ros-${ROS_DISTRO}-zed-description
+```
+
+Then create new `xacro` macro for the vision pack in `/etc/ros/urdf` directory:
+
+```xml title="/etc/ros/urdf/zed2i.urdf.xacro"
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find zed_description)/urdf/zed_macro.urdf.xacro" />
+
+  <xacro:zed_camera name="zed2i" model="zed2i">
+    <gnss_origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:zed_camera>
+
+  <joint name="base_to_zed2i_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="zed2i_camera_link"/>
+    <origin xyz="0.144 0 0.023" rpy="0 0 0"/>
+  </joint>
+
+</robot>
+```
+
+:::note
+
+If you have mounted the ZED camera in a different position or orientation than
+the one specified in the hardware integration section, make sure to update the
+`origin` tag in the joint definition accordingly.
+
+:::
+
+Now, include this file in the main rover URDF before the closing `</robot>` tag:
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+<xacro:include filename="/etc/ros/urdf/zed2i.urdf.xacro"/>
+```
+
+After saving both files, apply the updated robot description:
+
+```bash
+ros-nodes-restart
+```
+
+You should now be able to see the ZED camera frames in the robot's TF tree.
 
 ### (Optional) Launching the container on boot
 
@@ -285,7 +340,7 @@ Perform these steps on the Jetson outside of the container.
 
 :::
 
-Save the following `docker-compose.yml` to previously created `/opt/zed_ros` 
+Save the following `docker-compose.yml` to previously created `/opt/zed_ros`
 (adjust`camera_model` or environment overrides as needed):
 
 ```yaml title="/opt/zed_ros/docker-compose.yml"
