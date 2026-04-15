@@ -65,24 +65,7 @@ configuration options, check the official
 
 {/* TODO add link to printables/thingiverse if applicable */}
 
-## Hardware integration
-
-### Mounting
-
-{/* TODO fill in this section */}
-
-### Wiring
-
-{/* TODO fill in this section */}
-
-{/* TODO add disclaimer that it can be mounted in various ways */}
-
-## Software integration
-
-Follow the steps below to bring the Vision Pack online and publish ZED data to
-ROS.
-
-### Setting up the Jetson Orin Nano
+## Setting up the Jetson Orin Nano
 
 :::info
 
@@ -103,6 +86,15 @@ the setup:
 3. Ensure the Jetson has internet access (either via Ethernet or Wi-Fi) before
    proceeding.
 4. Finish the initial setup and create a user account when prompted.
+5. Ensure that your Jetson is running in `MAXN SUPER` mode for optimal
+   performance.
+
+:::warning
+
+JetPack 7.0 and 7.1 are not supported by Jetson Orin Nano, so make sure to
+select a supported version for flashing.
+
+:::
 
 After the initial setup is complete, install the latest packages and the NVIDIA
 Container Toolkit runtime on the Jetson. Run the following commands directly on
@@ -115,7 +107,74 @@ sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 ```
 
-Now, you can proceed with the ZED wrapper container setup.
+Now you can turn off Wi-Fi on Jetson since later on it will be connected to the
+rover's network.
+
+At this point you can proceed with the hardware integration and mounting the
+Jetson on the rover.
+
+## Hardware integration
+
+### Mounting
+
+{/* TODO fill in this section */}
+
+### Wiring
+
+{/* TODO fill in this section */}
+
+{/* TODO add disclaimer that it can be mounted in various ways (if applicable) */}
+
+## Software integration
+
+In order to use the ZED camera with ROS, we will be using the official ZED ROS
+wrapper in a custom Docker container running on the Jetson.
+
+Follow the steps below to bring the Vision Pack online and publish ZED data to
+ROS.
+
+### Sharing Leo Rover network with the Jetson
+
+Since Jetson ethernet port is connected to the rover via a USB-to-Ethernet
+adapter, a new ethernet interface is created and it needs to be configured to
+bridge the rover's network to the connected device.
+
+To do that, log in to the Raspberry Pi via ssh and open the Netplan
+configuration file that manages the ethernet bridge:
+
+```bash
+sudo nano /etc/netplan/10-eth-bridge.yaml
+```
+
+Add the `eth1` interface configuration. The final file should look like this:
+
+```yaml title="/etc/netplan/10-eth-bridge.yaml"
+# Creates a bridge interface and adds ethernet interface to it.
+network:
+  version: 2
+  ethernets:
+    eth0:
+      renderer: networkd
+      optional: true
+    eth1:
+      renderer: networkd
+      optional: true
+  bridges:
+    br0:
+      renderer: networkd
+      interfaces: [eth0, eth1]
+      addresses: [10.0.0.1/24]
+      link-local: []
+```
+
+Apply the new configuration:
+
+```bash
+sudo netplan apply
+```
+
+Now your Jetson should receive an IP address in the `10.0.0.x` range and be
+accessible from the rover network.
 
 ### Creating ZED camera ROS configuration
 Before launching the ZED wrapper container, you need to create a configuration
