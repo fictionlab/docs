@@ -329,10 +329,9 @@ You should now be able to see the ZED camera frames in the robot's TF tree.
 
 ### (Optional) Launching the container on boot
 
-If you want the ZED camera to be available immediately after the Jetson boots or
-you want to manage custom configurations more easily, you can follow the steps
-below to set up a `systemd` service to run the container and mount a host
-directory for configs and logs.
+If you want the ZED camera to be available immediately after the Jetson boots
+up, you can follow the steps below to set up a `systemd` service to run the
+container and mount a host directory for configs and logs.
 
 :::note
 
@@ -341,7 +340,7 @@ Perform these steps on the Jetson outside of the container.
 :::
 
 Save the following `docker-compose.yml` to previously created `/opt/zed_ros`
-(adjust`camera_model` or environment overrides as needed):
+(adjust environment overrides as needed):
 
 ```yaml title="/opt/zed_ros/docker-compose.yml"
 services:
