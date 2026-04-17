@@ -115,15 +115,64 @@ Jetson on the rover.
 
 ## Hardware integration
 
+The Vision Pack includes all necessary mounts, screws, and cables required to install the **NVIDIA Jetson Orin Nano** and the **ZED2i** camera on your Leo Rover. The pack has been designed to ensure a straightforward and robust assembly process.
+
 ### Mounting
 
-{/* TODO fill in this section */}
+:::info
+
+Three Allen keys (sizes: **2.5, 3, and 4 mm**) are required for the mechanical installation. Please note that these tools are **not included** in the kit.
+
+:::
+
+To assemble the pack, first insert the Jetson Orin Nano into the base mounts as shown below.
+
+*render - base with Jetson*
+
+Secure the Jetson with the 3D-printed bracket using M3 x 8 bolts, then install the ZED mount with M4 x 16 bolts.
+
+*render with mounting details*
+
+Place the Ethernet adapter in its mount and secure it with the 3D-printed holder and M3 x 8 bolts.
+
+*render with arrows*
+
+Mount the ZED2i camera using M3 x 8 bolts.
+
+:::note
+
+Make sure the camera is mounted square to the front of the rover. Proper alignment is crucial for the default URDF values to correctly represent the camera's position in the robot model.
+
+:::
+
+*render - camera position*
+
+The assembled Vision Pack can be mounted on the Leo Rover using M5 x 10 bolts:
+
+*render - final assembly*
+
+
+
+---
 
 ### Wiring
 
-{/* TODO fill in this section */}
+To integrate the Vision Pack electronics with the Leo Rover:
 
-{/* TODO add disclaimer that it can be mounted in various ways (if applicable) */}
+* Connect the USB-C cable from the USB-to-Ethernet adapter to the rover's external interface. Ensure the cable is routed neatly and folded so it does not interfere with the Jetson's cooling fan.
+* Connect the Ethernet adapter to the Jetson Orin Nano using the provided Ethernet cable.
+* Connect the ZED2i camera to one of the Jetson’s USB-A ports using the dedicated screw-in cable.
+* Replace the standard MEB-battery cable with the provided version that includes a barrel jack. Connect the jack to the Jetson’s power port.
+
+The photo below illustrates the correct cable routing and connections.
+
+*(zdj kabli)*
+
+:::info
+
+Once all cables are connected and verified, install the protective cover using **M4 x 12 bolts**. Take extra care to ensure that no cables are pinched or squeezed between the mechanical parts.
+
+:::
 
 ## Software integration
 
