@@ -1,0 +1,20 @@
+#!/bin/sh
+
+branch=$(git symbolic-ref HEAD 2>/dev/null | sed 's|refs/heads/||')
+
+# Allow protected/special branches
+if [ "$branch" = "development" ] || [ "$branch" = "production" ]; then
+  exit 0
+fi
+
+# Enforce naming convention: feat|content|fix|chore/<description>
+if ! echo "$branch" | grep -qE '^(feat|content|fix|chore)/.+'; then
+  echo "ERROR: Branch name '$branch' does not follow the naming convention."
+  echo "       Use: feat/<description>, content/<description>, fix/<description>, or chore/<description>"
+  echo ""
+  echo "       To rename the current branch, run:"
+  echo "         git branch -m <new-name>"
+  exit 1
+fi
+
+exit 0

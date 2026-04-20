@@ -134,7 +134,7 @@ All PRs to `development` and `production` run:
 
 - Default branch: `development`
 - Production branch: `production` (only merged from `development`)
-- Branch naming: `feature/description` or `content/description` from
+- Branch naming: `feat/description`, `content/description`, `fix/description`, or `chore/description` from
   `development`
 - PRs require review from `@Krzemien97` or `@bjsowa` (see `CODEOWNERS`)
 
