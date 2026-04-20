@@ -1,16 +1,29 @@
 #!/bin/sh
 
+# ─── Configuration ────────────────────────────────────────────────────────────
+
+# Branches exempt from naming checks (space-separated)
+PROTECTED_BRANCHES="development production"
+
+# Allowed prefixes for feature branches (space-separated)
+ALLOWED_PREFIXES="feat content fix chore"
+
+# ──────────────────────────────────────────────────────────────────────────────
+
 branch=$(git symbolic-ref HEAD 2>/dev/null | sed 's|refs/heads/||')
 
-# Allow protected/special branches
-if [ "$branch" = "development" ] || [ "$branch" = "production" ]; then
-  exit 0
-fi
+# Allow protected branches
+for protected in $PROTECTED_BRANCHES; do
+  [ "$branch" = "$protected" ] && exit 0
+done
 
-# Enforce naming convention: feat|content|fix|chore/<description>
-if ! echo "$branch" | grep -qE '^(feat|content|fix|chore)/.+'; then
+# Build regex pattern from allowed prefixes
+pattern=$(echo "$ALLOWED_PREFIXES" | sed 's/ /|/g')
+
+if ! echo "$branch" | grep -qE "^($pattern)/.+"; then
   echo "ERROR: Branch name '$branch' does not follow the naming convention."
-  echo "       Use: feat/<description>, content/<description>, fix/<description>, or chore/<description>"
+  echo "       Allowed prefixes: $(echo "$ALLOWED_PREFIXES" | sed 's/ /, /g')"
+  echo "       Example: feat/<description>, fix/<description>"
   echo ""
   echo "       To rename the current branch, run:"
   echo "         git branch -m <new-name>"
