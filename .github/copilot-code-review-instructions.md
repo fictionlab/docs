@@ -25,6 +25,9 @@ or the file is inside `docs/guidelines/`).
 - All documentation files must use `.mdx` extension.
 - File names must be **lowercase with dashes** — no underscores, no spaces
   (e.g. `intel-realsense.mdx`, not `Intel_RealSense.mdx`).
+- Integration pages (files under `docs/integrations/`) must follow the
+  `[manufacturer]-[model].mdx` naming pattern
+  (e.g. `intel-realsense-d435.mdx`, `sick-tim571.mdx`).
 - Image file names must also be lowercase with dashes, and be descriptive —
   never use auto-generated names like `323d2324.webp`.
 
