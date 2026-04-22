@@ -81,7 +81,8 @@ the setup:
 
 1. Go through the official
    [Jetson Orin Nano setup guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro).
-2. During flashing, install JetPack **6.2.1** with L4T firmware at least **36.4.0**.
+2. During flashing, install JetPack **6.2.1** with L4T firmware at least
+   **36.4.0**.
 3. Ensure the Jetson has internet access (either via Ethernet or Wi-Fi) before
    proceeding.
 4. Finish the initial setup and create a user account when prompted.
@@ -90,7 +91,8 @@ the setup:
 
 :::tip
 
-You can find all the JetPack images in the [JetPack Archive](https://developer.nvidia.com/embedded/jetpack-archive).
+You can find all the JetPack images in the
+[JetPack Archive](https://developer.nvidia.com/embedded/jetpack-archive).
 
 :::
 
@@ -113,43 +115,50 @@ Jetson on the rover.
 
 ## Hardware integration
 
-The Vision Pack includes all necessary mounts, screws, and cables required to install the **NVIDIA Jetson Orin Nano** and the **ZED2i** camera on your Leo Rover. The pack has been designed to ensure a straightforward and robust assembly process.
+The Vision Pack includes all necessary mounts, screws, and cables required to
+install the **NVIDIA Jetson Orin Nano** and the **ZED2i** camera on your Leo
+Rover. The pack has been designed to ensure a straightforward and robust
+assembly process.
 
 ### Mounting
 
 :::info
 
-Three Allen keys (sizes: **2.5, 3, and 4 mm**) are required for the mechanical installation. Please note that these tools are **not included** in the kit.
+Three Allen keys (sizes: **2.5, 3, and 4 mm**) are required for the mechanical
+installation. Please note that these tools are **not included** in the kit.
 
 :::
 
-To assemble the pack, first insert the Jetson Orin Nano into the base mounts as shown below.
+To assemble the pack, first insert the Jetson Orin Nano into the base mounts as
+shown below.
 
-*render - base with Jetson*
+_render - base with Jetson_
 
-Secure the Jetson with the 3D-printed bracket using M3 x 8 bolts, then install the ZED mount with M4 x 16 bolts.
+Secure the Jetson with the 3D-printed bracket using M3 x 8 bolts, then install
+the ZED mount with M4 x 16 bolts.
 
-*render with mounting details*
+_render with mounting details_
 
-Place the Ethernet adapter in its mount and secure it with the 3D-printed holder and M3 x 8 bolts.
+Place the Ethernet adapter in its mount and secure it with the 3D-printed holder
+and M3 x 8 bolts.
 
-*render with arrows*
+_render with arrows_
 
 Mount the ZED2i camera using M3 x 8 bolts.
 
 :::note
 
-Make sure the camera is mounted square to the front of the rover. Proper alignment is crucial for the default URDF values to correctly represent the camera's position in the robot model.
+Make sure the camera is mounted square to the front of the rover. Proper
+alignment is crucial for the default URDF values to correctly represent the
+camera's position in the robot model.
 
 :::
 
-*render - camera position*
+_render - camera position_
 
 The assembled Vision Pack can be mounted on the Leo Rover using M5 x 10 bolts:
 
-*render - final assembly*
-
-
+_render - final assembly_
 
 ---
 
@@ -157,18 +166,25 @@ The assembled Vision Pack can be mounted on the Leo Rover using M5 x 10 bolts:
 
 To integrate the Vision Pack electronics with the Leo Rover:
 
-* Connect the USB-C cable from the USB-to-Ethernet adapter to the rover's external interface. Ensure the cable is routed neatly and folded so it does not interfere with the Jetson's cooling fan.
-* Connect the Ethernet adapter to the Jetson Orin Nano using the provided Ethernet cable.
-* Connect the ZED2i camera to one of the Jetson’s USB-A ports using the dedicated screw-in cable.
-* Replace the standard MEB-battery cable with the provided version that includes a barrel jack. Connect the jack to the Jetson’s power port.
+- Connect the USB-C cable from the USB-to-Ethernet adapter to the rover's
+  external interface. Ensure the cable is routed neatly and folded so it does
+  not interfere with the Jetson's cooling fan.
+- Connect the Ethernet adapter to the Jetson Orin Nano using the provided
+  Ethernet cable.
+- Connect the ZED2i camera to one of the Jetson's USB-A ports using the
+  dedicated screw-in cable.
+- Replace the standard MEB-battery cable with the provided version that includes
+  a barrel jack. Connect the jack to the Jetson's power port.
 
 The photo below illustrates the correct cable routing and connections.
 
-*(zdj kabli)*
+_(zdj kabli)_
 
 :::info
 
-Once all cables are connected and verified, install the protective cover using **M4 x 12 bolts**. Take extra care to ensure that no cables are pinched or squeezed between the mechanical parts.
+Once all cables are connected and verified, install the protective cover using
+**M4 x 12 bolts**. Take extra care to ensure that no cables are pinched or
+squeezed between the mechanical parts.
 
 :::
 
@@ -186,16 +202,16 @@ Since Jetson ethernet port is connected to the rover via a USB-to-Ethernet
 adapter, a new ethernet interface is created and it needs to be configured to
 bridge the rover's network to the connected device.
 
-To do that, log in to the Raspberry Pi via ssh (either from Jetson or from your local machine)
-and open the Netplan
-configuration file that manages the ethernet bridge:
+To do that, log in to the Raspberry Pi via ssh (either from Jetson or from your
+local machine) and open the Netplan configuration file that manages the ethernet
+bridge:
 
 ```bash
 sudo nano /etc/netplan/10-eth-bridge.yaml
 ```
 
-Add the `eth1` interface configuration to the `/etc/netplan/10-eth-bridge.yaml` file.
-The final file should look like this:
+Add the `eth1` interface configuration to the `/etc/netplan/10-eth-bridge.yaml`
+file. The final file should look like this:
 
 ```yaml title="/etc/netplan/10-eth-bridge.yaml"
 # Creates a bridge interface and adds ethernet interface to it.
@@ -227,8 +243,8 @@ accessible from the rover network.
 
 :::tip
 
-In order to find the Jetson's IP address, you can use `nmap` from your local machine
-connected to the Leo Rover network:
+In order to find the Jetson's IP address, you can use `nmap` from your local
+machine connected to the Leo Rover network:
 
 ```bash
 sudo apt install -y nmap
@@ -289,8 +305,8 @@ for the full list of options.
 ### Setting up the ZED wrapper container
 
 Pull the prebuilt image with ROS Jazzy and ZED wrapper from our registry onto
-the Jetson (the process might take a long time depending on your internet connection
-and writing speed of the SD card):
+the Jetson (the process might take a long time depending on your internet
+connection and writing speed of the SD card):
 
 ```bash
 sudo docker pull ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
@@ -420,7 +436,8 @@ Perform these steps on the Jetson outside of the container.
 
 :::
 
-Create a new Docker Compose file for the ZED wrapper container in previously created directory `/opt/zed_ros`:
+Create a new Docker Compose file for the ZED wrapper container in previously
+created directory `/opt/zed_ros`:
 
 ```bash
 nano /opt/zed_ros/docker-compose.yml
