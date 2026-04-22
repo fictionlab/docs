@@ -81,18 +81,16 @@ the setup:
 
 1. Go through the official
    [Jetson Orin Nano setup guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro).
-2. During flashing, install JetPack **6.2** with L4T firmware **36.4.0** (or
-   newer).
+2. During flashing, install JetPack **6.2.1** with L4T firmware at least **36.4.0**.
 3. Ensure the Jetson has internet access (either via Ethernet or Wi-Fi) before
    proceeding.
 4. Finish the initial setup and create a user account when prompted.
 5. Ensure that your Jetson is running in `MAXN SUPER` mode for optimal
    performance.
 
-:::warning
+:::tip
 
-JetPack 7.0 and 7.1 are not supported by Jetson Orin Nano, so make sure to
-select a supported version for flashing.
+You can find all the JetPack images in the [JetPack Archive](https://developer.nvidia.com/embedded/jetpack-archive).
 
 :::
 
@@ -108,7 +106,7 @@ sudo systemctl restart docker
 ```
 
 Now you can turn off Wi-Fi on Jetson since later on it will be connected to the
-rover's network.
+rover's network via ethernet.
 
 At this point you can proceed with the hardware integration and mounting the
 Jetson on the rover.
@@ -188,14 +186,16 @@ Since Jetson ethernet port is connected to the rover via a USB-to-Ethernet
 adapter, a new ethernet interface is created and it needs to be configured to
 bridge the rover's network to the connected device.
 
-To do that, log in to the Raspberry Pi via ssh and open the Netplan
+To do that, log in to the Raspberry Pi via ssh (either from Jetson or from your local machine)
+and open the Netplan
 configuration file that manages the ethernet bridge:
 
 ```bash
 sudo nano /etc/netplan/10-eth-bridge.yaml
 ```
 
-Add the `eth1` interface configuration. The final file should look like this:
+Add the `eth1` interface configuration to the `/etc/netplan/10-eth-bridge.yaml` file.
+The final file should look like this:
 
 ```yaml title="/etc/netplan/10-eth-bridge.yaml"
 # Creates a bridge interface and adds ethernet interface to it.
@@ -219,11 +219,23 @@ network:
 Apply the new configuration:
 
 ```bash
-sudo netplan apply
+sudo netplan apply && sudo systemctl restart hostapd dnsmasq
 ```
 
 Now your Jetson should receive an IP address in the `10.0.0.x` range and be
 accessible from the rover network.
+
+:::tip
+
+In order to find the Jetson's IP address, you can use `nmap` from your local machine
+connected to the Leo Rover network:
+
+```bash
+sudo apt install -y nmap
+nmap -sP 10.0.0.1/24
+```
+
+:::
 
 ### Creating ZED camera ROS configuration
 
@@ -239,6 +251,13 @@ sudo chown -R $USER /opt/zed_ros
 ```
 
 Add a parameter file under `/opt/zed_ros/config`:
+
+```bash
+sudo apt install -y nano
+nano /opt/zed_ros/config/zed2i.yaml
+```
+
+And add the following content to the file:
 
 ```yaml title="/opt/zed_ros/config/zed2i.yaml"
 /**:
@@ -270,7 +289,8 @@ for the full list of options.
 ### Setting up the ZED wrapper container
 
 Pull the prebuilt image with ROS Jazzy and ZED wrapper from our registry onto
-the Jetson:
+the Jetson (the process might take a long time depending on your internet connection
+and writing speed of the SD card):
 
 ```bash
 sudo docker pull ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
@@ -312,7 +332,7 @@ ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_over
 
 At this point the rover computer should see the ZED ROS interfaces.
 
-:::note
+:::info
 
 When launching ZED for the first time it might need some time to initialize the
 camera and generate the calibration files. Because of that, the topics might not
@@ -334,6 +354,12 @@ sudo apt install ros-${ROS_DISTRO}-zed-description
 ```
 
 Then create new `xacro` macro for the vision pack in `/etc/ros/urdf` directory:
+
+```bash
+nano /etc/ros/urdf/zed2i.urdf.xacro
+```
+
+And add the following content to the file:
 
 ```xml title="/etc/ros/urdf/zed2i.urdf.xacro"
 <?xml version="1.0"?>
@@ -362,7 +388,13 @@ the one specified in the hardware integration section, make sure to update the
 
 :::
 
-Now, include this file in the main rover URDF before the closing `</robot>` tag:
+Now, open the main URDF file:
+
+```bash
+nano /etc/ros/urdf/robot.urdf.xacro
+```
+
+And include the previously created file before the closing `</robot>` tag:
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
 <xacro:include filename="/etc/ros/urdf/zed2i.urdf.xacro"/>
@@ -388,8 +420,13 @@ Perform these steps on the Jetson outside of the container.
 
 :::
 
-Save the following `docker-compose.yml` to previously created `/opt/zed_ros`
-(adjust environment overrides as needed):
+Create a new Docker Compose file for the ZED wrapper container in previously created directory `/opt/zed_ros`:
+
+```bash
+nano /opt/zed_ros/docker-compose.yml
+```
+
+Save the following content to the file (adjust environment overrides as needed):
 
 ```yaml title="/opt/zed_ros/docker-compose.yml"
 services:
@@ -415,6 +452,12 @@ services:
 ```
 
 Add the `systemd` unit `/etc/systemd/system/zed-ros-wrapper.service`:
+
+```bash
+sudo nano /etc/systemd/system/zed-ros-wrapper.service
+```
+
+And add the following content to the file:
 
 ```ini title="/etc/systemd/system/zed-ros-wrapper.service"
 [Unit]
