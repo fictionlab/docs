@@ -132,15 +132,20 @@ installation. Please note that these tools are **not included** in the kit.
 
 :::
 
-To assemble the pack, first insert the Jetson Orin Nano into the base mounts as
-shown below.
+To assemble the pack, first insert the Jetson Orin Nano into the base mounts,
+then secure the Jetson with the 3D-printed bracket using M3 x 8 bolts as shown
+below.
 
 <ThemedImageZoom
   loading="eager"
-  alt="Needed tools"
+  alt="Securing the Jetson Orin Nano into the base mounts with a 3D-printed bracket"
   sources={{
-    light: useBaseUrl('/img/robots/leo/1.8/manuals/tools/tools-meb-black.webp'),
-    dark: useBaseUrl('/img/robots/leo/1.8/manuals/tools/tools-meb-white.webp'),
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step1_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step1_white.webp',
+    ),
   }}
   width="1480"
   height="2200"
@@ -149,17 +154,46 @@ shown below.
   }}
 />
 
-_render - base with Jetson_
+Install the ZED mount with M4 x 16 bolts.
 
-Secure the Jetson with the 3D-printed bracket using M3 x 8 bolts, then install
-the ZED mount with M4 x 16 bolts.
-
-_render with mounting details_
+<ThemedImageZoom
+  loading="eager"
+  alt="Installing the ZED camera mount using M4 bolts"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step2_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step2_white.webp',
+    ),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
 Place the Ethernet adapter in its mount and secure it with the 3D-printed holder
 and M3 x 8 bolts.
 
-_render with arrows_
+<ThemedImageZoom
+  loading="eager"
+  alt="Placing and securing the Ethernet adapter into its mount"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step3_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step3_white.webp',
+    ),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
 Mount the ZED2i camera using M3 x 8 bolts.
 
@@ -171,39 +205,131 @@ camera's position in the robot model.
 
 :::
 
-_render - camera position_
+<ThemedImageZoom
+  loading="eager"
+  alt="Mounting the ZED2i camera squarely to the front of the rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step4_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step4_white.webp',
+    ),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
 The assembled Vision Pack can be mounted on the Leo Rover using M5 x 10 bolts:
 
-_render - final assembly_
+<ThemedImageZoom
+  loading="eager"
+  alt="Mounting the fully assembled Vision Pack onto the Leo Rover"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step5_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step5_white.webp',
+    ),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
 ---
 
 ### Wiring
 
-To integrate the Vision Pack electronics with the Leo Rover:
+Proper cable management is essential to ensure reliable operation and prevent
+hardware damage. Follow these steps to connect the Vision Pack electronics to
+the Leo Rover:
 
-- Connect the USB-C cable from the USB-to-Ethernet adapter to the rover's
-  external interface. Ensure the cable is routed neatly and folded so it does
-  not interfere with the Jetson's cooling fan.
-- Connect the Ethernet adapter to the Jetson Orin Nano using the provided
-  Ethernet cable.
-- Connect the ZED2i camera to one of the Jetson's USB-A ports using the
-  dedicated screw-in cable.
-- Replace the standard MEB-battery cable with the provided version that includes
-  a barrel jack. Connect the jack to the Jetson's power port.
+1. Connect the USB-C cable from the USB-Ethernet adapter to the rover's external
+   interface. Route the cable neatly, ensuring it is properly folded and safely
+   clear of the Jetson's cooling fan.
+2. Replace the standard MEB-battery power cable with the included modified
+   version featuring a barrel jack connector. Plug the barrel jack directly into
+   the Jetson Orin Nano's power port.
 
-The photo below illustrates the correct cable routing and connections.
+<ThemedImageZoom
+  loading="eager"
+  alt="Routing the USB-C data cable and connecting the barrel jack power supply"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step6_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step6_white.webp',
+    ),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
-_(zdj kabli)_
+3. Link the Ethernet adapter to the Jetson Orin Nano using the provided Ethernet
+   patch cable.
+4. Connect the ZED2i camera to one of the Jetson's USB-A ports. Secure the
+   connection using the camera's dedicated screw-in locking mechanism to prevent
+   accidental disconnection.
 
-:::info
+<ThemedImageZoom
+  loading="eager"
+  alt="Connecting the Ethernet patch cable and the ZED2i camera USB-A cable"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step7_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step7_white.webp',
+    ),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
-Once all cables are connected and verified, install the protective cover using
-**M4 x 12 bolts**. Take extra care to ensure that no cables are pinched or
-squeezed between the mechanical parts.
+Once all connections are secured and verified, enclose the setup by installing
+the protective cover using M4 x 12 bolts.
+
+:::warning
+
+Take extra care during this step. Carefully inspect the perimeter of the cover
+to ensure that no cables are pinched, crimped, or squeezed between the
+mechanical components.
 
 :::
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Installing the protective cover over the assembled Vision Pack"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step8_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/vision-pack/vision_pack_step8_white.webp',
+    ),
+  }}
+  width="1480"
+  height="2200"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+Now the rover is ready for software integration.
 
 ## Software integration
 
