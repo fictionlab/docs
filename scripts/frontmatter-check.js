@@ -7,7 +7,6 @@ const matter = require('gray-matter');
 const REQUIRED_KEYS = [
   'title',
   'sidebar_label',
-  'keywords',
   'description',
   'image',
 ];

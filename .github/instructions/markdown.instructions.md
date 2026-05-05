@@ -20,11 +20,6 @@ Every `.mdx` file (except `_`-prefixed and `docs/guidelines/`) **must** include:
 ---
 title: Full page title for SEO
 sidebar_label: Short sidebar label
-keywords:
-  - keyword1
-  - keyword2
-  - keyword3
-  - keyword4
 description: >-
   Up to 160 characters. Use >- scalar for multiline to avoid Prettier issues.
 image: /img/robots/leo/integrations/example/image.webp
