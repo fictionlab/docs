@@ -10,13 +10,20 @@ keywords:
 description: >-
   Explore the steps to integrate the Vision Pack with your Leo Rover system
   using the ZED camera and Jetson Orin Nano.
-image: /img/robots/leo/leo-rover-1.9.webp
+image: /img/robots/leo/integrations/vision-pack/leo-with-vision-pack-render.webp
 ---
 
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Product from '@site/src/products/vision-pack.mdx';
 
-{/* TODO update above image to the render */}
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/vision-pack/leo-with-vision-pack-render.webp"
+  alt="Leo Rover with mounted Vision Pack"
+  width="4000"
+  height="3000"
+/>
 
 # Vision Pack Integration
 
@@ -36,8 +43,6 @@ published on ROS topics.
 To see full information about the additional available ROS interfaces and
 configuration options, check the official
 [ZED ROS wrapper documentation](https://www.stereolabs.com/docs/ros/zed-node).
-
-{/* TODO add a render of the Leo Rover with vision pack */}
 
 ## Prerequisites
 
@@ -62,7 +67,7 @@ configuration options, check the official
 
 ### Referenced products
 
-{/* TODO create and import a vision pack product (that links to the product in the store) */}
+<Product />
 
 ## Setting up the Jetson Orin Nano
 
