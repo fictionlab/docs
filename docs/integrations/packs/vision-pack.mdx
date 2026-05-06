@@ -485,7 +485,7 @@ the workspace overlay, then launch the wrapper for the `zed2i` camera using the
 host configuration mounted at `/data/zed2i.yaml`:
 
 ```bash
-source /opt/ros/jazzy/install/setup.bash
+source /opt/ros/jazzy/setup.bash
 source /root/ros2_ws/install/setup.bash
 ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/data/zed2i.yaml
 ```
