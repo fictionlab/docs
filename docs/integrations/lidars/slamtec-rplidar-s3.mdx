@@ -22,6 +22,7 @@ import Powerbox from '@site/src/products/powerbox.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 {/* TODO: Replace with a proper image of Leo Rover with mounted RPLIDAR S3 */}
+
 <ImageZoom
   loading="eager"
   src="/img/robots/leo/integrations/rplidar-s3/rplidar-s3.webp"
@@ -64,20 +65,25 @@ on the `/scan` topic.
 
 ## Prerequisites
 
-Below is the list of all necessary tutorials and hardware components required to
-complete the integration.
+Below is the list of all additional tutorials required to complete the
+integration.
+
+<LinkButton
+  to="/leo-rover/guides/connect-to-rover-ap"
+  title="Connect to Leo Rover AP"
+  description="Learn how to connect to your Leo Rover via WiFi."
+/>
 
 <LinkButton
   to="/leo-rover/guides/ssh"
   title="Connect to Leo Rover via SSH"
-  description="Learn how to establish an SSH connection with your Leo Rover and access its
-  terminal using Putty or OpenSSH."
+  description="Guide on how to connect to your Leo Rover using SSH for remote access"
 />
+
 <LinkButton
-  to="/leo-rover/1.8/advanced-guides/ros-development"
-  title="ROS Development"
-  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
-  additional functionalities, building ROS packages and more."
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to network"
+  description="Guide on how to connect your Leo Rover to a Wi-Fi network, enabling internet access"
 />
 
 ### Referenced products
@@ -89,8 +95,8 @@ complete the integration.
 ### Mounting
 
 If you bought the integration kit, you can use the mounting adapter included in
-the kit. It is designed to mount the sensor on top of the rover's mounting plate,
-providing a wide field of view with minimal obstructions.
+the kit. It is designed to mount the sensor on top of the rover's mounting
+plate, providing a wide field of view with minimal obstructions.
 
 Required components:
 
@@ -109,17 +115,8 @@ To mount the sensor:
 :::tip
 
 If you don't have the integration kit, you can also 3D print the adapter plate
-yourself. Get the files from the [Addon Adapters](../addon-adapters#rplidar-s3-adapter) page.
-
-:::
-
-:::note
-
-The URDF model provided in this guide assumes the sensor is mounted using our
-adapter plate in the default position on top of the rover. If you mount the
-sensor in a different position, you will need to adjust the origin values in the
-URDF file accordingly so that the sensor is correctly positioned in the robot
-model.
+yourself. Get the files from the
+[Addon Adapters](../addon-adapters#rplidar-s3-adapter) page.
 
 :::
 
@@ -141,6 +138,15 @@ connect it to Leo Rover 1.9, use the following chain:
    micro USB port on the adapter.
 3. Use the **USB-A to USB-C adapter** (included with Leo Rover) to connect the
    cable to the **USB-C port** on top of the rover.
+
+:::tip
+
+To avoid the cable getting in the way of the sensor's field of view, you can use
+a right-angle adapter for the USB-C port or use the
+[easy access cover for the main electronics box](/leo-rover/addons/additional-meb-covers#00188_dev---easy-access-cover)
+and wire the cables without using the USB-C port on top of the rover.
+
+:::
 
 <ImageZoom
   src="/img/robots/leo/integrations/rplidar-a2/leo-with-rplidar-s3.webp"
