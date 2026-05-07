@@ -171,16 +171,22 @@ With everything connected, you are ready to try out your new sensor.
 
 ## Software integration
 
+:::info
+
+Perform these steps on the Leo Rover computer.
+
+:::
+
 The first thing you can do is to make sure your device has the correct
 permissions and is available at the fixed path on your system. To do this, you
-can add the following rule to the udev service:
+can add the following rule to the udev service by creating a file named
+`lidar.rules` in the `/etc/udev/rules.d/` directory with the following content:
 
 ```xml title="/etc/udev/rules.d/lidar.rules"
 KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", GROUP="dialout", SYMLINK+="lidar"
 ```
 
-Paste these lines to `/etc/udev/rules.d/lidar.rules` file and reload udev rules
-by typing:
+After creating the file, reload udev rules by typing:
 
 ```bash
 sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -188,12 +194,10 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 
 Your device should now be available at the `/dev/lidar` path.
 
-We want the sensor functionality to be available in the ROS ecosystem, so you
-should install a ROS package that provides a node for the sensor you are trying
-to integrate.
+Next, install a ROS package that provides a node for the sensor:
 
 ```bash
-sudo apt install ros-${ROS_DISTRO}-rplidar-ros
+sudo apt update && sudo apt install ros-${ROS_DISTRO}-rplidar-ros
 ```
 
 Now, create a launch file that would start the node with a fitting
@@ -209,16 +213,16 @@ configuration.
 </launch>
 ```
 
-Include your launch file in the `robot.launch.xml` file, so that your node will
-start at boot.
+Include your launch file in the `/etc/ros/robot.launch.xml` file, so that your
+node will start at boot.
 
-In `/etc/ros/robot.launch.xml`:
+Insert the following line between the `<launch>` tags of the file:
 
-```xml
+```xml title="/etc/ros/robot.launch.xml"
 <include file="/etc/ros/laser.launch.xml"/>
 ```
 
-The last step is to either reboot the robot or restart the nodes.
+The last step is to either reboot the robot or restart the nodes with:
 
 ```bash
 ros-nodes-restart
@@ -228,6 +232,16 @@ ros-nodes-restart
 
 Your robot should be aware of where the sensor is located and what space it
 occupies. You can ensure it does that by creating a URDF model of the sensor.
+
+:::note
+
+The URDF model provided in this guide assumes the sensor is mounted using our
+adapter plate in the default position on top of the rover. If you mount the
+sensor in a different position, you will need to adjust the origin values in the
+URDF file accordingly so that the sensor is correctly positioned in the robot
+model.
+
+:::
 
 ```xml title="/etc/ros/urdf/laser.urdf"
 <?xml version="1.0"?>
@@ -298,7 +312,8 @@ occupies. You can ensure it does that by creating a URDF model of the sensor.
 </robot>
 ```
 
-And include it in the description that is uploaded at boot.
+And include it in the description that is uploaded at boot in between the
+`<robot>` tags.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
 <xacro:include filename="/etc/ros/urdf/laser.urdf"/>
@@ -311,6 +326,12 @@ the sensor by adding more visual and collision tags or by including meshes in
 STL or COLLADA format.
 
 :::
+
+To apply the changes, restart the nodes again.
+
+```bash
+ros-nodes-restart
+```
 
 ## Example usage
 
