@@ -356,22 +356,22 @@ guide:
   Step-by-step guide for beginners."
 />
 
-Now, open RViz by typing `rviz2` in the terminal, or, if you have the `leo_viz`
-package installed, type:
+To open RViz, type:
 
 ```bash
-ros2 launch leo_viz rviz.launch
+rviz2
 ```
 
-This will start RViz with visualization of the current robot model.
+:::note
 
-:::info
-
-You can easily install the `leo_viz` package with this command
+Make sure that ROS is sourced on your computer, if not you can do it by typing:
 
 ```bash
-sudo apt install ros-${ROS_DISTRO}-leo-desktop
+source /opt/ros/<your_ros_distro>/setup.bash
 ```
+
+and replacing `<your_ros_distro>` with the name of your ROS distribution, for
+example `jazzy`.
 
 :::
 
@@ -387,7 +387,7 @@ topic. Choose the **LaserScan** display and click **Ok**.
 
 :::info
 
-Sometimes the scan data might not be visible as it will melt with the
+Sometimes the scan data might not be visible as it will blend in with the
 background. To fix this you need to change the color of the displayed laser. To
 do so, use the drop down arrow option from added **LaserScan** and set **Color
 Transformer** to **FlatColor**. As you do so, there will appear **Color** option
@@ -431,7 +431,7 @@ Here's an example end result:
     id="oD5Sp7T0Ki0"
     params="autoplay=0&autohide=1&showinfo=0&rel=0"
     poster="hqdefault"
-    title="Leo Rover Unboxing and Getting Started"
+    title="Leo Rover with RPLIDAR S3"
     webp
   />
 </div>
@@ -443,6 +443,6 @@ Lidars are commonly used in projects involving
 might be interested in a tutorial about it.
 
 They are however, not the only way of teaching a Leo Rover how to move on its
-own. Check out our [line follower](/leo-rover/1.8/leo-examples/line-follower)
+own. Check out our [line follower](/leo-rover/leo-examples/line-follower)
 tutorial if you want to learn more. You can also check our
 [Integrations page](/integrations) for more instructions.
