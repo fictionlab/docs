@@ -22,89 +22,6 @@ in **MDXv3**.
 | `static/_redirects`           | Cloudflare-style redirect rules                      |
 | `scripts/`                    | Validation scripts (frontmatter-check, redirects-check, generate-docs-tree) |
 
-## Content Authoring Rules
-
-### File Conventions
-
-- All documentation files use `.mdx` extension.
-- File names: **lowercase, dashes instead of underscores** (e.g.
-  `intel-realsense.mdx`).
-- Files prefixed with `_` (e.g. `_integration.template.mdx`) are excluded from
-  builds and frontmatter checks.
-- Each documentation section uses `_category_.json` for sidebar category
-  metadata.
-
-### Frontmatter (Required)
-
-Every `.mdx` file (except `_`-prefixed and `guidelines/`) **must** include:
-
-```yaml
----
-title: Full page title for SEO
-sidebar_label: Short sidebar label
-keywords:
-  - keyword1
-  - keyword2
-  - keyword3
-  - keyword4
-description: >-
-  Up to 160 characters. Use >- scalar for multiline to avoid Prettier issues.
-image: /img/robots/leo/integrations/example/image.webp
----
-```
-
-Optional fields: `id`, `sidebar_position`, `slug`, `unlisted`,
-`toc_max_heading_level`.
-
-Validation: `yarn check:frontmatter` enforces the required keys in CI.
-
-### Images
-
-- Use **only** `ImageZoom` or `ThemedImageZoom` components — never raw markdown
-  images or HTML `<img>` tags.
-- Store images in `static/img/` following the existing directory structure
-  (e.g. `static/img/robots/leo/integrations/<name>/`).
-- Prefer `.webp` format for raster images, `.svg` for diagrams and icons.
-
-### Components Available in MDX
-
-Globally registered (no import needed): `LinkButton`, `ImageZoom`.
-
-Other components require explicit import:
-
-```mdx
-import ThemedImageZoom from "@site/src/components/ThemedImageZoom";
-import FlexTable from "@site/src/components/FlexTable";
-import FlexTableItem from "@site/src/components/FlexTableItem";
-import FusionEmbed from "@site/src/components/FusionEmbed";
-import HiddenTabs from "@site/src/components/HiddenTabs";
-import ProductPreview from "@site/src/components/ProductPreview";
-import CenterContent from "@site/src/components/CenterContent";
-```
-
-Product partials are imported from `src/products/`:
-
-```mdx
-import Product from "@site/src/products/powerbox.mdx";
-```
-
-### Templates
-
-When creating new pages, follow existing templates:
-
-- **Integration pages:**
-  `docs/integrations/_integration.template.mdx`
-- **Addon pages:**
-  `docs/guidelines/templates/addon-template.mdx`
-
-Full style guide: https://docs.fictionlab.pl/guidelines
-
-### Redirects
-
-When renaming or moving a page, add a redirect rule to `static/_redirects`
-(Cloudflare format: `old-path new-path 301`). The `yarn check:redirects` script
-validates redirect coverage on PRs.
-
 ## Build & Development
 
 | Command                  | Purpose                                    |
@@ -138,22 +55,11 @@ All PRs to `development` and `production` run:
   `development`
 - PRs require review from `@Krzemien97` or `@bjsowa` (see `CODEOWNERS`)
 
-## Versioning
+## Images
 
-The site uses Docusaurus versioning for two doc plugins:
-
-- **Leo Rover**: current (1.9) + versioned 1.8
-  (`leo-rover_versioned_docs/version-1.8/`)
-- **Integrations**: current + versioned noetic
-  (`integrations_versioned_docs/version-noetic/`)
-
-When editing versioned content, apply changes to the correct version directory.
-Current version lives in `docs/`, older versions in `*_versioned_docs/`.
-
-## Spelling
-
-CSpell is configured in `cspell.json`. If a technical term (ROS topic, product
-name, etc.) is flagged as unknown, add it to the `words` array in `cspell.json`.
+- Store images under `static/img/` in the appropriate subdirectory (e.g. `static/img/robots/leo/integrations/<name>/`).
+- Prefer `.webp` format for raster images (quality 80, lossy); `.svg` is acceptable for diagrams and icons.
+- Image file names must be **lowercase with dashes** and descriptive — never auto-generated names like `323d2324.webp`.
 
 ## Code Style
 

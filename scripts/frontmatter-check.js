@@ -4,13 +4,7 @@ const glob = require('glob');
 const matter = require('gray-matter');
 
 // Define the keys that must be present in the front matter.
-const REQUIRED_KEYS = [
-  'title',
-  'sidebar_label',
-  'keywords',
-  'description',
-  'image',
-];
+const REQUIRED_KEYS = ['title', 'sidebar_label', 'description', 'image'];
 
 // Path to your MDX files.
 const DOCS_PATHS = ['docs/**/*.mdx', '*_versioned_docs/**/*.mdx'];
