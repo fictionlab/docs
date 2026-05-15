@@ -26,6 +26,20 @@ image: /img/robots/leo/leo-rover-1.9.webp
   $[\frac{m}{s}]$ (if using the mecanum wheels mode) and `angular.z`
   $[\frac{rad}{s}]$ are used.
 
+- `heading_controller/cmd_vel` ([geometry_msgs/msg/Twist])
+
+  Target velocity for the Rover when using heading control. Publish to this
+  topic instead of `cmd_vel` if you want the Rover to automatically correct its
+  steering and maintain its heading while driving straight or making wide
+  turns. Only `linear.x` $[\frac{m}{s}]$ and `angular.z` $[\frac{rad}{s}]$
+  are used. This topic is not supported when using mecanum wheels.
+
+  :::warning
+
+  Cannot be used at the same time as other `cmd` topics.
+
+  :::
+
 - `firmware/wheel_{FL,RL,FR,RR}/cmd_pwm_duty` ([std_msgs/msg/Float32])
 
   Target PWM duty cycle for each wheel motor. $[\%]$
