@@ -26,6 +26,20 @@ image: /img/robots/leo/leo-rover-1.9.webp
   $[\frac{m}{s}]$ (if using the mecanum wheels mode) and `angular.z`
   $[\frac{rad}{s}]$ are used.
 
+- `heading_controller/cmd_vel` ([geometry_msgs/msg/Twist])
+
+  Target velocity for the Rover when using heading control. Publish to this
+  topic instead of `cmd_vel` if you want the Rover to automatically correct its
+  steering and maintain its heading while driving straight or making wide turns.
+  Only `linear.x` $[\frac{m}{s}]$ and `angular.z` $[\frac{rad}{s}]$ are used.
+  This topic is not supported when using mecanum wheels.
+
+  :::warning
+
+  Cannot be used at the same time as other `cmd` topics.
+
+  :::
+
 - `firmware/wheel_{FL,RL,FR,RR}/cmd_pwm_duty` ([std_msgs/msg/Float32])
 
   Target PWM duty cycle for each wheel motor. $[\%]$
@@ -373,6 +387,30 @@ The parameters for `/firmware` node can be overridden by modifying the
   The diagonal of the covariance matrix for the IMU linear acceleration
   readings. The size of the array must be 3, representing the variances for the
   x, y and z axes.
+
+#### /heading_controller
+
+- `linear_hold_deadband` (type: `float`, default: `0.05`)
+
+  Minimum absolute `linear.x` command required to enable heading hold. If the
+  command is below this value, no heading correction is applied.
+
+- `kp` (type: `float`, default: `15.0`)
+
+  Proportional gain used to convert heading error into `angular.z` correction.
+
+- `max_correction` (type: `float`, default: `1.0`)
+
+  Maximum absolute `angular.z` correction allowed by the heading controller.
+
+- `yaw_deadband` (type: `float`, default: `0.005`)
+
+  Heading error tolerance. Errors within this range produce no correction.
+
+- `angular_hold_deadband` (type: `float`, default: `0.2`)
+
+  Maximum absolute `angular.z` command still treated as heading-hold mode. Above
+  this value, no heading correction is applied.
 
 #### /imu_filter
 

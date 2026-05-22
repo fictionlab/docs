@@ -6,10 +6,10 @@ applyTo: "**/*.mdx"
 
 ## File Conventions
 
-- File names: **lowercase, dashes** — no underscores, no spaces (e.g. `intel-realsense.mdx`).
+- File names: **lowercase, dashes** - no underscores, no spaces (e.g. `intel-realsense.mdx`).
 - Integration pages (under `docs/integrations/`) must follow `[manufacturer]-[model].mdx` (e.g. `intel-realsense-d435.mdx`, `sick-tim571.mdx`).
 - Files prefixed with `_` (e.g. `_integration.template.mdx`) are excluded from builds and frontmatter checks.
-- Image file names must be lowercase-with-dashes and descriptive — never auto-generated names like `323d2324.webp`.
+- Image file names must be lowercase-with-dashes and descriptive - never auto-generated names like `323d2324.webp`.
 - Each documentation section uses `_category_.json` for sidebar category metadata.
 
 ## Frontmatter
@@ -32,7 +32,7 @@ Validated by `yarn check:frontmatter` in CI.
 
 ## Images
 
-- Use **only** `ImageZoom` or `ThemedImageZoom` components — never raw markdown images (`![alt](url)`) or HTML `<img>` tags.
+- Use **only** `ImageZoom` or `ThemedImageZoom` components - never raw markdown images (`![alt](url)`) or HTML `<img>` tags.
 - `ImageZoom` is globally registered (no import needed). `ThemedImageZoom` requires an explicit import.
 - Themed image pairs must use `-light` / `-dark` suffixes (e.g. `diagram-light.webp`, `diagram-dark.webp`) and have matching dimensions.
 
@@ -47,7 +47,7 @@ Usage:
 />
 ```
 
-`width` and `height` are required — `ImageZoom` throws an error if either is missing.
+`width` and `height` are required - `ImageZoom` throws an error if either is missing.
 
 ```mdx
 import ThemedImageZoom from "@site/src/components/ThemedImageZoom";

@@ -38,6 +38,25 @@ And then, run the update script by typing:
 ros2 run leo_fw update
 ```
 
+:::note
+
+If you are using `LeoOS-humble` that runs ROS 2 inside containers, it is not
+possible to flash the firmware from within the container. In order to flash the
+firmware, you need to install the `leo_fw` package on the host system and run
+the update script from there with the following commands:
+
+```bash
+sudo apt update && sudo apt install ros-jazzy-leo-fw
+source /opt/ros/jazzy/setup.bash
+cd && /opt/ros/jazzy/lib/leo_fw/update
+```
+
+With this setup, the script will not detect the `/firmware` node, but it will
+still be able to flash the firmware. You will need to choose the board type
+manually.
+
+:::
+
 The script will guide you through the flashing process.
 
 If you are flashing the firmware for the first time, the script won't be able to
