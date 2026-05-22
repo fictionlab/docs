@@ -54,7 +54,7 @@ function CommunityProjectsPageContent(props: Props): ReactNode {
     <Layout>
       <div className="container margin-vert--lg">
         <CommunityProjectsTags tags={tags} />
-        <CommunityProjectItems items={items} />
+        {items.length === 0 ? <p>No community projects have been added yet!</p> : <CommunityProjectItems items={items} />}
         <BlogListPaginator metadata={metadata} />
       </div>
     </Layout>
