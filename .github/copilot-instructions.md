@@ -1,4 +1,4 @@
-# Fictionlab Documentation — Project Guidelines
+# Fictionlab Documentation - Project Guidelines
 
 This is a **Docusaurus 3** documentation site for Fictionlab robotics products
 (Leo Rover, Raph Rover) and hardware/software integrations. Content is written
@@ -43,9 +43,9 @@ in **MDXv3**.
 
 All PRs to `development` and `production` run:
 
-1. **Build** — Full Docusaurus build (`yarn build`)
-2. **Lint** — Frontmatter, types, formatting, spelling
-3. **Redirects** — Validates `static/_redirects` against changed files
+1. **Build** - Full Docusaurus build (`yarn build`)
+2. **Lint** - Frontmatter, types, formatting, spelling
+3. **Redirects** - Validates `static/_redirects` against changed files
 
 ## Git Workflow
 
@@ -59,7 +59,7 @@ All PRs to `development` and `production` run:
 
 - Store images under `static/img/` in the appropriate subdirectory (e.g. `static/img/robots/leo/integrations/<name>/`).
 - Prefer `.webp` format for raster images (quality 80, lossy); `.svg` is acceptable for diagrams and icons.
-- Image file names must be **lowercase with dashes** and descriptive — never auto-generated names like `323d2324.webp`.
+- Image file names must be **lowercase with dashes** and descriptive - never auto-generated names like `323d2324.webp`.
 
 ## Code Style
 

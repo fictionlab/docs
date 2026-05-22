@@ -1,0 +1,15 @@
+# Robotic platform related tags
+
+leo-rover:
+  label: Leo Rover
+  description: Projects related to the Leo Rover robotic platform.
+  permalink: 'leo-rover'
+
+raph-rover:
+  label: Raph Rover
+  description: Projects related to the Raph Rover robotic platform.
+  permalink: 'raph-rover'
+
+# Application area tags
+
+# TBD
