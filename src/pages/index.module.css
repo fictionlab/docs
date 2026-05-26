@@ -88,11 +88,17 @@
 
 .featureImage {
   padding: 10px;
+  object-fit: contain;
+  object-position: bottom;
+  padding-bottom: 20px;
 }
 
 @media screen and (max-width: 996px) {
   .featureContainer {
     margin-left: auto;
     margin-right: auto;
+  }
+  .featureImage {
+    margin: 0 !important;
   }
 }
