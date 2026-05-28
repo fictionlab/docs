@@ -213,8 +213,8 @@ the system can be overridden in the `/etc/ros/parameter_overrides.yaml` file.
 Check the file for more details and examples.
 
 The parameters not marked as `read-only` can also be changed at runtime using
-command line tools such as `ros2 param set` or graphical tools like
-`rqt_reconfigure`.
+command line tools such as `ros2 param set` or graphical tools like `rqt` with
+the `rqt_reconfigure` plugin (run `rqt -s rqt_reconfigure`).
 
 :::
 
@@ -284,9 +284,9 @@ documented in [picamera2 documentation (Appendix C)].
 :::info
 
 The parameters for the `firmware` node are not meant to be changed directly by
-the users. Instead, the `firmware_parameter_bridge` node provides a set of
-parameters duplicating the firmware parameters, and setting those will update
-the firmware parameters accordingly.
+users. Instead, set the corresponding parameters on the
+`firmware_parameter_bridge` node (it mirrors the firmware parameters and
+forwards updates to `firmware`).
 
 :::
 
@@ -336,8 +336,9 @@ A $K_p$ of 10.0 would contribute 2.0 $V$ to the output voltage, a $K_i$ of 50.0
 would contribute 10.0 $V$ per second of sustained error.
 
 The firmware employs anti-windup measures to prevent the integral term from
-accumulating excessively when the output voltage is saturated at the battery
-voltage.
+accumulating excessively when the output voltage is saturated at the maximum
+available/applied voltage (e.g. limited by battery voltage and/or
+`wheels.max_voltage`).
 
 :::
 
