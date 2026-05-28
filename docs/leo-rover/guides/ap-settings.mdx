@@ -17,7 +17,41 @@ image: /img/robots/leo/guides/ap-settings/hostapd.webp
 
 # How to Configure the Wi-Fi Access Point
 
-## Access the hostapd configuration file
+## Using the leo-config script
+
+We provide a script for the most common Wi-Fi access point changes. To use it,
+connect to your Leo Rover via SSH and run:
+
+```bash
+sudo leo-config
+```
+
+This will open an interactive menu. From there, you can configure the access
+point mode and wired connection mode or view the current settings.
+
+Access point mode options:
+
+- `wlan_int` - use the internal Wi-Fi adapter to host the access point
+- `wlan_ext` - use an external Wi-Fi adapter to host the access point (default)
+- `disabled` - turn off the access point
+
+Wired connection mode options:
+
+- `bridge` - bridge the wired interface with the wireless access point (default)
+- `dhcp_client` - use the wired interface as a DHCP client on an upstream
+  network
+
+:::tip
+
+To see all available options, type:
+
+```bash
+sudo leo-config --help
+```
+
+:::
+
+## Accessing the hostapd configuration file manually
 
 First you have to connect to your Leo Rover via SSH:
 
@@ -39,8 +73,6 @@ The editor interface should appear.
     width: 400,
   }}
 />
-
-## Modify the settings
 
 ### Change the SSID and password
 
@@ -82,11 +114,11 @@ This can limit the number of available channels to use.
 Type **Ctrl+O** and **Enter** to save the modified configuration and **Ctrl+X**
 to exit the editor.
 
-## Restart the access point
+### Reboot the Raspberry Pi
 
-In order to apply the modifications, you need to restart the access point
-daemon. To do so, just type:
+In order to apply the modifications, you need to reboot the Raspberry Pi. To do
+so, use the power button or type:
 
 ```bash
-sudo systemctl restart hostapd
+sudo reboot now
 ```
