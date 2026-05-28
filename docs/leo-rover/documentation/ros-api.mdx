@@ -206,7 +206,19 @@ image: /img/robots/leo/leo-rover-1.9.webp
 
 ## Parameters
 
-#### /camera
+:::info
+
+All of the default parameters for the standard nodes running on the system can
+be overridden in the `/etc/ros/parameter_overrides.yaml` file. Check the file
+for more details and examples.
+
+The parameters not marked as `read-only` can also be changed at runtime using
+command line tools such as `ros2 param set` or graphical tools like `rqt` with
+the `rqt_reconfigure` plugin (run `rqt -s rqt_reconfigure`).
+
+:::
+
+#### camera
 
 - `role` (type: `string`, read-only, default: `video`)
 
@@ -243,7 +255,7 @@ documented in [picamera2 documentation (Appendix C)].
 
 :::
 
-#### /camera/debayer
+#### camera/debayer
 
 - `.image_color.compressed.jpeg_quality` (type: `int`, default: `80`)
 
@@ -253,76 +265,131 @@ documented in [picamera2 documentation (Appendix C)].
 
   The quality of the JPEG compression for the monochrome image. Range: 0-100.
 
-#### /camera/rectify_mono
+#### camera/rectify_mono
 
 - `.image_rect_color.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the rectified color image. Range:
   0-100.
 
-#### /camera/rectify_color
+#### camera/rectify_color
 
 - `.image_rect.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the rectified monochrome image. Range:
   0-100.
 
-#### /firmware
+#### firmware
 
 :::info
 
-The parameters for `/firmware` node can be overridden by modifying the
-`/etc/ros/firmware_overrides.yaml` file.
+The parameters for the `firmware` node are not meant to be changed directly by
+users. Instead, set the corresponding parameters on the
+`firmware_parameter_bridge` node (it mirrors the firmware parameters and
+forwards updates to `firmware`).
 
 :::
 
-- `wheels/encoder_resolution` (type: `float`, default: `878.4`)
+- `wheels.encoder_resolution` (type: `float`, default: `878.4`)
 
   The resolution of the wheel encoder in counts per rotation.
 
-- `wheels/torque_constant` (type: `float`, default: `1.17647`)
+- `wheels.torque_constant` (type: `float`, default: `1.17647`)
 
   The torque (in newton-meters) produced by the wheel per 1 Ampere of winding
   current.
 
-- `wheels/pid/p` (type: `float`, default: `0.0`)
+- `wheels.pid.kp` (type: `float`, default: `2.64`)
 
-  The P constant of the PID regulator.
+  The proportional gain of the PID regulator.
 
-- `wheels/pid/i` (type: `float`, default: `0.005`)
+- `wheels.pid.ki` (type: `float`, default: `42.24`)
 
-  The I constant of the PID regulator.
+  The integral gain of the PID regulator.
 
-- `wheels/pid/d` (type: `float`, default: `0.0`)
+- `wheels.pid.kd` (type: `float`, default: `0.11`)
 
-  The D constant of the PID regulator.
+  The derivative gain of the PID regulator.
 
-- `wheels/pwm_duty_limit` (type: `float`, default: `100.0`)
+:::info
 
-  The limit of the PWM duty applied to the motor in percent.
+The PID loop controls the voltage applied to the wheels based on the difference
+between the target velocity and the actual velocity.
 
-- `controller/wheel_radius` (type: `float`, default: `0.0625`)
+The output voltage $U(t)$ at time $t$ is calculated as:
+
+$$
+U(t) = K_p \cdot e(t) + K_i \cdot \int e(t) \, dt + K_d \cdot \frac{de(t)}{dt}
+$$
+
+where:
+
+- $t$ is the time in seconds,
+- $e(t)$ is the velocity error at time $t$ (target velocity - actual velocity),
+- $K_p$ is the proportional gain (`wheels.pid.kp`),
+- $K_i$ is the integral gain (`wheels.pid.ki`),
+- $K_d$ is the derivative gain (`wheels.pid.kd`).
+
+For example, if the target velocity is 1.0 $\frac{m}{s}$ and the actual velocity
+is 0.8 $\frac{m}{s}$, the velocity error $e(t)$ is 0.2 $\frac{m}{s}$. \
+A $K_p$ of 10.0 would contribute 2.0 $V$ to the output voltage, a $K_i$ of 50.0
+would contribute 10.0 $V$ per second of sustained error.
+
+The firmware employs anti-windup measures to prevent the integral term from
+accumulating excessively when the output voltage is saturated at the maximum
+available/applied voltage (e.g. limited by battery voltage and/or
+`wheels.max_voltage`).
+
+:::
+
+- `wheels.max_voltage` (type: `float`, default: `26.0`)
+
+  Maximum voltage (in Volts) that can be applied to the wheels. If the battery
+  voltage is above this value, the controller will scale down the PWM duty cycle
+  to avoid applying voltage higher than this to the wheels.
+
+- `controller.wheel_radius` (type: `float`, default: `0.0625`)
 
   The radius of the wheel in meters.
 
-- `controller/wheel_separation` (type: `float`, default: `0.358`)
+- `controller.wheel_separation` (type: `float`, default: `0.358`)
 
   The distance (in meters) between the centers of the left and right wheels.
 
-- `controller/wheel_base` (type: `float`, default: `0.3052`)
+- `controller.wheel_base` (type: `float`, default: `0.3052`)
 
   The distance (in meters) between the centers of the rear and front wheels.
 
-- `controller/angular_velocity_multiplier` (type: `float`, default: `1.76`)
+- `controller.angular_velocity_multiplier` (type: `float`, default: `1.76`)
 
   The angular velocity in `cmd_vel` command is multiplied by this parameter and
   the calculated odometry has its angular velocity divided by this parameter.
 
-- `controller/input_timeout` (type: `int`, default: `500`)
+- `controller.input_timeout` (type: `int`, default: `500`)
 
   The timeout (in milliseconds) for the `cmd_vel` commands. The controller will
   be disabled if it does not receive a command within the specified time. If set
   to 0, the timeout is disabled.
+
+- `controller.linear_acceleration` (type: `float`, default: `0.5`)
+
+  The linear acceleration (in $\frac{m}{s^2}$) applied to the robot when
+  accelerating.
+
+- `controller.linear_deceleration` (type: `float`, default: `2.0`)
+
+  The linear deceleration (in $\frac{m}{s^2}$) applied to the robot when
+  decelerating (when the absolute linear velocity is decreasing).
+
+- `controller.angular_acceleration` (type: `float`, default: `1.0`)
+
+  The angular acceleration (in $\frac{rad}{s^2}$) applied to the robot when
+  accelerating.
+
+- `controller.angular_deceleration` (type: `float`, default: `4.0`)
+
+  The angular deceleration (in $\frac{rad}{s^2}$) applied to the robot when
+  decelerating (when the absolute angular velocity is decreasing).
 
 - `battery_min_voltage` (type: `float`, default: `10.0`)
 
@@ -336,7 +403,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   strafing via `linear.y` commands and adjusting odometry calculations for
   mecanum wheel geometry.
 
-#### /firmware_message_converter
+#### firmware_message_converter
 
 - `robot_frame_id` (type: `string`, read-only, default: `base_footprint`)
 
@@ -388,7 +455,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   readings. The size of the array must be 3, representing the variances for the
   x, y and z axes.
 
-#### /heading_controller
+#### heading_controller
 
 - `linear_hold_deadband` (type: `float`, default: `0.05`)
 
@@ -412,7 +479,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   Maximum absolute `angular.z` command still treated as heading-hold mode. Above
   this value, no heading correction is applied.
 
-#### /imu_filter
+#### imu_filter
 
 - `gain_acc` (type: `float`, default: `0.01`)
 
@@ -449,7 +516,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   of the covariance matrix of the IMU orientation readings. The value must be
   greater than 0.
 
-#### /odom_filter
+#### odom_filter
 
 - `publish_tf` (type: `bool`, default: `true`)
 

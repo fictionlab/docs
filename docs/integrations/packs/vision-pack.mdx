@@ -367,11 +367,18 @@ network:
       link-local: []
 ```
 
-Apply the new configuration:
+Restart the Raspberry Pi to apply changes:
 
 ```bash
-sudo netplan apply && sudo systemctl restart hostapd dnsmasq
+sudo reboot now
 ```
+
+:::note
+
+This will disconnect you from the rover's WiFi network, so make sure to
+reconnect after the reboot.
+
+:::
 
 Now your Jetson should receive an IP address in the `10.0.0.x` range and be
 accessible from the rover network.
