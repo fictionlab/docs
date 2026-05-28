@@ -218,7 +218,7 @@ command line tools such as `ros2 param set` or graphical tools like
 
 :::
 
-#### /camera
+#### camera
 
 - `role` (type: `string`, read-only, default: `video`)
 
@@ -255,7 +255,7 @@ documented in [picamera2 documentation (Appendix C)].
 
 :::
 
-#### /camera/debayer
+#### camera/debayer
 
 - `.image_color.compressed.jpeg_quality` (type: `int`, default: `80`)
 
@@ -265,21 +265,21 @@ documented in [picamera2 documentation (Appendix C)].
 
   The quality of the JPEG compression for the monochrome image. Range: 0-100.
 
-#### /camera/rectify_mono
+#### camera/rectify_mono
 
 - `.image_rect_color.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the rectified color image. Range:
   0-100.
 
-#### /camera/rectify_color
+#### camera/rectify_color
 
 - `.image_rect.compressed.jpeg_quality` (type: `int`, default: `80`)
 
   The quality of the JPEG compression for the rectified monochrome image. Range:
   0-100.
 
-#### /firmware
+#### firmware
 
 :::info
 
@@ -348,7 +348,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   strafing via `linear.y` commands and adjusting odometry calculations for
   mecanum wheel geometry.
 
-#### /firmware_message_converter
+#### firmware_message_converter
 
 - `robot_frame_id` (type: `string`, read-only, default: `base_footprint`)
 
@@ -400,7 +400,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   readings. The size of the array must be 3, representing the variances for the
   x, y and z axes.
 
-#### /heading_controller
+#### heading_controller
 
 - `linear_hold_deadband` (type: `float`, default: `0.05`)
 
@@ -424,7 +424,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   Maximum absolute `angular.z` command still treated as heading-hold mode. Above
   this value, no heading correction is applied.
 
-#### /imu_filter
+#### imu_filter
 
 - `gain_acc` (type: `float`, default: `0.01`)
 
@@ -461,7 +461,7 @@ The parameters for `/firmware` node can be overridden by modifying the
   of the covariance matrix of the IMU orientation readings. The value must be
   greater than 0.
 
-#### /odom_filter
+#### odom_filter
 
 - `publish_tf` (type: `bool`, default: `true`)
 
