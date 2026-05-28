@@ -311,6 +311,36 @@ the firmware parameters accordingly.
 
   The derivative gain of the PID regulator.
 
+:::info
+
+The PID loop controls the voltage applied to the wheels based on the difference
+between the target velocity and the actual velocity.
+
+The output voltage $U(t)$ at time $t$ is calculated as:
+
+$$
+U(t) = K_p \cdot e(t) + K_i \cdot \int e(t) \, dt + K_d \cdot \frac{de(t)}{dt}
+$$
+
+where:
+
+- $t$ is the time in seconds,
+- $e(t)$ is the velocity error at time $t$ (target velocity - actual velocity),
+- $K_p$ is the proportional gain (`wheels.pid.kp`),
+- $K_i$ is the integral gain (`wheels.pid.ki`),
+- $K_d$ is the derivative gain (`wheels.pid.kd`).
+
+For example, if the target velocity is 1.0 $\frac{m}{s}$ and the actual velocity
+is 0.8 $\frac{m}{s}$, the velocity error $e(t)$ is 0.2 $\frac{m}{s}$. \
+A $K_p$ of 10.0 would contribute 2.0 $V$ to the output voltage, a $K_i$ of 50.0
+would contribute 10.0 $V$ per second of sustained error.
+
+The firmware employs anti-windup measures to prevent the integral term from
+accumulating excessively when the output voltage is saturated at the battery
+voltage.
+
+:::
+
 - `wheels.max_voltage` (type: `float`, default: `26.0`)
 
   Maximum voltage (in Volts) that can be applied to the wheels. If the battery
