@@ -1,6 +1,6 @@
 ---
-title: How to Change Leo Rover Wi-Fi AP Settings (SSID, Password)
-sidebar_label: Configure the Access Point
+title: How to Change Leo Rover Network Settings (SSID, Password)
+sidebar_label: Network configuration
 sidebar_position: 10
 keywords:
   - Leo Rover
@@ -15,9 +15,55 @@ description: >-
 image: /img/robots/leo/guides/ap-settings/hostapd.webp
 ---
 
-# How to Configure the Wi-Fi Access Point
+# How to Configure the Leo Rover Network
 
-## Access the hostapd configuration file
+:::note
+
+In order to apply any of the below modifications, you will need to reboot the
+Raspberry Pi. To do so, use the power button or type:
+
+```bash
+reboot
+```
+
+:::
+
+## Switching the access point interfaces and wired connection modes
+
+We provide a script for the most common Wi-Fi access point changes. To use it,
+connect to your Leo Rover via SSH and run:
+
+```bash
+sudo leo-config
+```
+
+This will open an interactive menu. From there, you can configure the access
+point interfaces and wired connection mode or view the current settings.
+
+Access point interface options:
+
+- `wlan_int` - use the internal Wi-Fi interface to host the access point
+- `wlan_ext` - use an external Wi-Fi interface (USB dongle) to host the access
+  point (default)
+- `disabled` - turn off the access point
+
+Wired connection mode options:
+
+- `bridge` - bridge the wired interface with the wireless access point (default)
+- `dhcp_client` - use the wired interface as a DHCP client on an upstream
+  network
+
+:::tip
+
+To see all available options, type:
+
+```bash
+sudo leo-config --help
+```
+
+:::
+
+## Changing the access point settings
 
 First you have to connect to your Leo Rover via SSH:
 
@@ -39,8 +85,6 @@ The editor interface should appear.
     width: 400,
   }}
 />
-
-## Modify the settings
 
 ### Change the SSID and password
 
@@ -81,12 +125,3 @@ This can limit the number of available channels to use.
 
 Type **Ctrl+O** and **Enter** to save the modified configuration and **Ctrl+X**
 to exit the editor.
-
-## Restart the access point
-
-In order to apply the modifications, you need to restart the access point
-daemon. To do so, just type:
-
-```bash
-sudo systemctl restart hostapd
-```

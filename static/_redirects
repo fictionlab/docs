@@ -81,3 +81,6 @@
 # Removed archive redirects
 /leo-rover/archive/* /leo-rover/1.8/archive/:splat 301
 
+# Renamed network configuration tutorial
+/leo-rover/guides/ap-settings /leo-rover/guides/network-configuration 301
+
