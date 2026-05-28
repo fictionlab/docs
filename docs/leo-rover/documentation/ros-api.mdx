@@ -283,58 +283,82 @@ documented in [picamera2 documentation (Appendix C)].
 
 :::info
 
-The parameters for `/firmware` node can be overridden by modifying the
-`/etc/ros/firmware_overrides.yaml` file.
+The parameters for the `firmware` node are not meant to be changed directly by
+the users. Instead, the `firmware_parameter_bridge` node provides a set of
+parameters duplicating the firmware parameters, and setting those will update
+the firmware parameters accordingly.
 
 :::
 
-- `wheels/encoder_resolution` (type: `float`, default: `878.4`)
+- `wheels.encoder_resolution` (type: `float`, default: `878.4`)
 
   The resolution of the wheel encoder in counts per rotation.
 
-- `wheels/torque_constant` (type: `float`, default: `1.17647`)
+- `wheels.torque_constant` (type: `float`, default: `1.17647`)
 
   The torque (in newton-meters) produced by the wheel per 1 Ampere of winding
   current.
 
-- `wheels/pid/p` (type: `float`, default: `0.0`)
+- `wheels.pid.kp` (type: `float`, default: `2.64`)
 
-  The P constant of the PID regulator.
+  The proportional gain of the PID regulator.
 
-- `wheels/pid/i` (type: `float`, default: `0.005`)
+- `wheels.pid.ki` (type: `float`, default: `42.24`)
 
-  The I constant of the PID regulator.
+  The integral gain of the PID regulator.
 
-- `wheels/pid/d` (type: `float`, default: `0.0`)
+- `wheels.pid.kd` (type: `float`, default: `0.11`)
 
-  The D constant of the PID regulator.
+  The derivative gain of the PID regulator.
 
-- `wheels/pwm_duty_limit` (type: `float`, default: `100.0`)
+- `wheels.max_voltage` (type: `float`, default: `26.0`)
 
-  The limit of the PWM duty applied to the motor in percent.
+  Maximum voltage (in Volts) that can be applied to the wheels. If the battery
+  voltage is above this value, the controller will scale down the PWM duty cycle
+  to avoid applying voltage higher than this to the wheels.
 
-- `controller/wheel_radius` (type: `float`, default: `0.0625`)
+- `controller.wheel_radius` (type: `float`, default: `0.0625`)
 
   The radius of the wheel in meters.
 
-- `controller/wheel_separation` (type: `float`, default: `0.358`)
+- `controller.wheel_separation` (type: `float`, default: `0.358`)
 
   The distance (in meters) between the centers of the left and right wheels.
 
-- `controller/wheel_base` (type: `float`, default: `0.3052`)
+- `controller.wheel_base` (type: `float`, default: `0.3052`)
 
   The distance (in meters) between the centers of the rear and front wheels.
 
-- `controller/angular_velocity_multiplier` (type: `float`, default: `1.76`)
+- `controller.angular_velocity_multiplier` (type: `float`, default: `1.76`)
 
   The angular velocity in `cmd_vel` command is multiplied by this parameter and
   the calculated odometry has its angular velocity divided by this parameter.
 
-- `controller/input_timeout` (type: `int`, default: `500`)
+- `controller.input_timeout` (type: `int`, default: `500`)
 
   The timeout (in milliseconds) for the `cmd_vel` commands. The controller will
   be disabled if it does not receive a command within the specified time. If set
   to 0, the timeout is disabled.
+
+- `controller.linear_acceleration` (type: `float`, default: `0.5`)
+
+  The linear acceleration (in $\frac{m}{s^2}$) applied to the robot when
+  accelerating.
+
+- `controller.linear_deceleration` (type: `float`, default: `2.0`)
+
+  The linear deceleration (in $\frac{m}{s^2}$) applied to the robot when
+  decelerating (when the absolute linear velocity is decreasing).
+
+- `controller.angular_acceleration` (type: `float`, default: `1.0`)
+
+  The angular acceleration (in $\frac{rad}{s^2}$) applied to the robot when
+  accelerating.
+
+- `controller.angular_deceleration` (type: `float`, default: `4.0`)
+
+  The angular deceleration (in $\frac{rad}{s^2}$) applied to the robot when
+  decelerating (when the absolute angular velocity is decreasing).
 
 - `battery_min_voltage` (type: `float`, default: `10.0`)
 
