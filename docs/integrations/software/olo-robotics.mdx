@@ -27,7 +27,7 @@ and AI-assisted coding. The goal is to spend less time wiring together separate
 tools and more time working with your robot.
 
 This guide shows how to connect a Leo Rover to OLO by installing the **OLO
-appliance** on the rover. The appliance runs in Docker, links the robot to the
+appliance** on the Leo Rover. The appliance runs in Docker, links the robot to the
 [OLO dashboard](https://app.olo-robotics.com/), and bridges your ROS 2 stack to
 the platform. From there you can teleoperate, stream camera feeds, record and playback ROS
 topics, run navigation workflows, and develop against your hardware from
@@ -74,7 +74,7 @@ This guide assumes your Leo Rover is running **LeoOS 1.9** or newer.
 
 All steps below are performed on the Leo Rover over SSH unless noted otherwise.
 
-### Install Docker on the rover
+### Install Docker on the Leo Rover
 
 Install Docker Engine by following the
 [official Docker installation guide for Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
@@ -93,7 +93,7 @@ Open the [OLO dashboard](https://app.olo-robotics.com/), sign in, and click
 **Register Appliance**. In the dialog, name the robot `Leo Rover` and continue.
 This displays a Device API key beginning with `apl_`.
 
-Copy the key, then on the rover store it in an environment file (replace
+Copy the key, then on the Leo Rover store it in an environment file (replace
 `apl_<your-device-api-key>` with your key):
 
 ```bash
@@ -152,7 +152,7 @@ Check the logs for errors:
 docker compose logs -f olo-appliance
 ```
 
-You should see the appliance connect to the OLO backend and discover the rover's
+You should see the appliance connect to the OLO backend and discover the Leo Rover's
 ROS 2 topics.
 
 ### Update the appliance
