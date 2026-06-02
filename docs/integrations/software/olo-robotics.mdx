@@ -1,0 +1,186 @@
+---
+title: OLO Robotics Integration with Leo Rover | Cloud ROS Bridge
+sidebar_label: OLO Robotics
+keywords:
+  - olo robotics
+  - olo
+  - docker
+  - ros 2
+  - cloud
+  - teleoperation
+  - leo
+  - integration
+  - software
+  - appliance
+description: >-
+  Connect your Leo Rover to the OLO Robotics cloud platform. Install Docker,
+  register the appliance, and bridge ROS 2 topics to the OLO dashboard.
+image: /img/robots/leo/integrations/olo-robotics/leo_olo_dashboard.webp
+---
+
+# OLO Robotics
+
+[OLO Robotics](https://olo-robotics.com/) is a browser-based robotics platform
+that brings simulation, visualization, teleoperation, and
+development into one place—with native ROS 2 access, JavaScript and Python SDKs,
+and AI-assisted coding. The goal is to spend less time wiring together separate
+tools and more time working with your robot.
+
+This guide shows how to connect a Leo Rover to OLO by installing the **OLO
+appliance** on the rover. The appliance runs in Docker, links the robot to the
+[OLO dashboard](https://app.olo-robotics.com/), and bridges your ROS 2 stack to
+the platform. From there you can teleoperate, stream camera feeds, record and playback ROS
+topics, run navigation workflows, and develop against your hardware from
+anywhere. No changes to Leo Rover hardware are required.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/olo-robotics/leo_olo_dashboard.webp"
+  alt="Leo Rover in the OLO platform visualizer"
+  width="2000"
+  height="1300"
+/>
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/software-update"
+  title="Software update"
+  description="Detailed guide on updating the software of Leo Rover, covering steps to access
+  the microSD card, download and flash the latest LeoOS image."
+/>
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to a local network and the Internet"
+  description="Learn how to connect your Leo Rover to a local network and the internet to
+  download files and forward internet to your computer."
+/>
+
+You also need a free [OLO account](https://app.olo-robotics.com/register).
+
+:::note
+
+This guide assumes your Leo Rover is running **LeoOS 1.9** or newer.
+
+:::
+
+## Software integration
+
+All steps below are performed on the Leo Rover over SSH unless noted otherwise.
+
+### Install Docker on the rover
+
+Install Docker Engine by following the
+[official Docker installation guide for Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
+
+It is recommended to add your user to the `docker` group so Docker commands do
+not require `sudo`:
+
+```bash
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+### Generate a device API key
+
+Open the [OLO dashboard](https://app.olo-robotics.com/), sign in, and click
+**Register Appliance**. In the dialog, name the robot `Leo Rover` and continue.
+This displays a Device API key beginning with `apl_`.
+
+Copy the key, then on the rover store it in an environment file (replace
+`apl_<your-device-api-key>` with your key):
+
+```bash
+mkdir -p ~/olo-appliance
+echo "OLO_APL_DEVICE_API_KEY=apl_<your-device-api-key>" > ~/olo-appliance/.env
+```
+
+### Create Docker Compose
+
+Create a Docker Compose file:
+
+```bash
+cat <<"EOF" > ~/olo-appliance/compose.yaml
+services:
+  olo-appliance:
+    image: olorobotics/olo-appliance:jazzy-latest
+    container_name: olo-appliance
+    network_mode: host
+    environment:
+      OLO_APL_DEVICE_API_KEY: $OLO_APL_DEVICE_API_KEY
+      FASTDDS_BUILTIN_TRANSPORTS: UDPv4
+    volumes:
+      - olo-data:/data
+    restart: unless-stopped
+
+volumes:
+  olo-data:
+    driver: local
+EOF
+```
+
+### Start the appliance
+
+Pull the image and start the appliance. The first run downloads the Docker
+image, which may take a few minutes:
+
+```bash
+cd ~/olo-appliance
+docker compose up -d
+```
+
+### Verify the installation
+
+After the image is pulled and the container starts, the appliance should appear
+on your [OLO dashboard](https://app.olo-robotics.com/).
+
+You can also verify the container is running:
+
+```bash
+docker compose ps
+```
+
+Check the logs for errors:
+
+```bash
+docker compose logs -f olo-appliance
+```
+
+You should see the appliance connect to the OLO backend and discover the rover's
+ROS 2 topics.
+
+### Update the appliance
+
+When a new appliance image is available, pull the latest image and recreate the
+container:
+
+```bash
+cd ~/olo-appliance
+docker compose pull
+docker compose up -d
+```
+
+Optional cleanup of old unused images:
+
+```bash
+docker image prune -f
+```
+
+### Uninstall
+
+To remove the OLO appliance, stop and remove the Compose resources:
+
+```bash
+cd ~/olo-appliance
+docker compose down
+```
+
+To uninstall Docker Engine as well, follow
+[Docker's official Ubuntu uninstall guide](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine).
+git res
