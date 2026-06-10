@@ -21,17 +21,17 @@ image: /img/robots/leo/integrations/olo-robotics/leo_olo_dashboard.webp
 # OLO Robotics
 
 [OLO Robotics](https://olo-robotics.com/) is a browser-based robotics platform
-that brings simulation, visualization, teleoperation, and
-development into one place—with native ROS 2 access, JavaScript and Python SDKs,
-and AI-assisted coding. The goal is to spend less time wiring together separate
-tools and more time working with your robot.
+that brings simulation, visualization, teleoperation, and development into one
+place—with native ROS 2 access, JavaScript and Python SDKs, and AI-assisted
+coding. The goal is to spend less time wiring together separate tools and more
+time working with your robot.
 
 This guide shows how to connect a Leo Rover to OLO by installing the **OLO
-appliance** on the Leo Rover. The appliance runs in Docker, links the robot to the
-[OLO dashboard](https://app.olo-robotics.com/), and bridges your ROS 2 stack to
-the platform. From there you can teleop, stream camera feeds, record and playback ROS
-topics, run navigation workflows, and develop against your hardware from
-anywhere. No changes to Leo Rover hardware are required.
+appliance** on the Leo Rover. The appliance runs in Docker, links the robot to
+the [OLO dashboard](https://app.olo-robotics.com/), and bridges your ROS 2 stack
+to the platform. From there you can teleop, stream camera feeds, record and
+playback ROS topics, run navigation workflows, and develop against your hardware
+from anywhere. No changes to Leo Rover hardware are required.
 
 <ImageZoom
   loading="eager"
@@ -152,8 +152,8 @@ Check the logs for errors:
 docker compose logs -f olo-appliance
 ```
 
-You should see the appliance connect to the OLO backend and discover the Leo Rover's
-ROS 2 topics.
+You should see the appliance connect to the OLO backend and discover the Leo
+Rover's ROS 2 topics.
 
 ### Update the appliance
 
@@ -183,4 +183,3 @@ docker compose down
 
 To uninstall Docker Engine as well, follow
 [Docker's official Ubuntu uninstall guide](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine).
-git res
