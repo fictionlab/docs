@@ -1,0 +1,59 @@
+---
+title: RaphOS Release Schedule
+sidebar_label: RaphOS release schedule
+sidebar_position: 6
+keywords:
+  - RaphOS
+  - release schedule
+  - ROS 2
+  - LTS
+  - EOL
+  - Raph Rover
+description: >-
+  RaphOS release schedule aligned with ROS 2 LTS distributions, including
+  support rules, beta version availability, and default distribution updates.
+image: /img/robots/raph/raph-rover.webp
+---
+
+import CenterContent from '@site/src/components/CenterContent';
+
+# RaphOS release schedule
+
+## Support
+
+RaphOS releases are aligned with
+[ROS 2 LTS distributions](https://docs.ros.org/en/rolling/The-ROS2-Project/Release-Schedule.html).
+Each RaphOS release will be supported until the corresponding ROS 2 LTS
+distribution reaches its End of Life (EOL). During the support period, we will
+provide updates, bug fixes, and security patches for the RaphOS release.
+
+New RaphOS releases will be made available up to a year after the corresponding
+ROS 2 LTS release, with a beta version available a few months prior.
+
+:::info
+
+For non-LTS ROS 2 releases, official RaphOS releases will not be provided.
+However, Raph Rover ROS 2 packages will be available for all currently supported
+upstream ROS 2 distributions.
+
+:::
+
+## Releases and support duration
+
+<CenterContent>
+
+| RaphOS version | ROS 2 LTS | Release date | End of Life | Status              |
+| -------------- | --------- | ------------ | ----------- | ------------------- |
+| 1.x.x          | Jazzy     | March 2026   | May 2029    | Supported (default) |
+| 2.x.x          | Lyrical   | May 2027     | May 2031    | To be released      |
+
+</CenterContent>
+
+:::note
+
+For details about the latest RaphOS releases and flashing instructions, visit
+the guide below.
+
+<LinkButton docId="guides/software-update" />
+
+:::
