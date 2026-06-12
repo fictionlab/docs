@@ -12,13 +12,45 @@ keywords:
 description: >-
   Step-by-step guide to set up and run the simulation environment in Gazebo with
   ROS.
-image: /img/robots/leo/integrations/gazebo-zed2/leo-rover-gazebo.webp
+image: /img/robots/leo/integrations/gazebo-zed2/3-leo-rovers-gazebo.webp
 ---
 
 # Gazebo Simulation for Mobile Robots
 
 In this tutorial you will learn how to launch a Gazebo simulation with the Leo
 Rover robot model.
+
+## What to expect?
+
+After running the simulation, all the topics listed below are available. For example, rovers can be controller with joystick.
+
+The following topics are available after running the simulation (namespace `robot_ns:=leo_sim1`):
+
+```
+/clock
+/leo_sim1/camera/camera_info
+/leo_sim1/camera/image_raw
+/leo_sim1/camera/image_raw/compressed
+/leo_sim1/camera/image_raw/compressedDepth
+/leo_sim1/camera/image_raw/theora
+/leo_sim1/camera/image_raw/zstd
+/leo_sim1/cmd_vel
+/leo_sim1/imu/data_raw
+/leo_sim1/joint_states
+/leo_sim1/odom
+/leo_sim1/robot_description
+/leo_sim1/tf
+/tf
+/tf_static
+```
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/gazebo-zed2/3-leo-rovers-gazebo.webp"
+  alt="Gazebo window with 3 Leo Rovers"
+  width="1854"
+  height="1048"
+/>
 
 ## Prerequisites
 
@@ -52,7 +84,7 @@ jazzy) as `<distro>`.
   height="740"
 />
 
-## Installing the packages
+## Software integration
 
 You can easily install the required packages with this command:
 
@@ -63,7 +95,7 @@ sudo apt install ros-${ROS_DISTRO}-leo-simulator
 Alternatively, [here](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy)
 are instructions how to build the packages from source.
 
-## Launching
+## Example usage
 
 Make sure your ROS environment is properly sourced. Source either the global
 workspace:
@@ -149,3 +181,13 @@ The command mapping was set for the Xbox 360 controller and looks like this:
 | RB                        | button enable - hold it to send commands |
 | Left joystick Up/Down     | linear velocity                          |
 | Right joystick Left/Right | angular velocity                         |
+
+## What's next?
+
+import LeoRoverDevKit from '@site/src/products/leo-rover-dev-kit.mdx';
+import LeoRoverAssembled from '@site/src/products/leo-rover-assembled.mdx';
+
+Did you like Leo Rover in simulation? If so, consider switching to the physical robot:
+
+<LeoRoverDevKit />
+<LeoRoverAssembled />
