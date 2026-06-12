@@ -22,7 +22,7 @@ Rover robot model.
 
 ## What to expect?
 
-After running the simulation, all the topics listed below are available. For example, rovers can be controller with joystick.
+For example, spawned rovers can be controlled with joystick.
 
 The following topics are available after running the simulation (namespace `robot_ns:=leo_sim1`):
 
@@ -122,7 +122,7 @@ robot will be in and the world that is going to launch (to see available choices
 refer to
 [leo_gz_worlds](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy/leo_gz_worlds)
 package). For example you can launch simulation of an ERC 2021 competition
-terrain and put the robot inside some namspace like this:
+terrain and put the robot inside some namespace like this:
 
 ```bash
 ros2 launch leo_gz_bringup leo_gz.launch.py sim_world:=marsyard2021.sdf robot_ns:=leo_sim1
@@ -168,7 +168,7 @@ value provided, the node will use the default namespace and topic - `/cmd_vel`.
 
 The command mapping was set for the Xbox 360 controller and looks like this:
 
-| Xbox 360Controller        | Command                                  |
+| Xbox 360 Controller        | Command                                  |
 | ------------------------- | ---------------------------------------- |
 | RB                        | button enable - hold it to send commands |
 | Left joystick Up/Down     | linear velocity                          |
