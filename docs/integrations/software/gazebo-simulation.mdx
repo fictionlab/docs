@@ -117,7 +117,7 @@ can use `ros2 topic echo` command to get info from the robots, and
 driving forward:
 
 ```bash
-ros2 topic pub /leo_sim1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"" -r 20
+ros2 topic pub /leo_sim1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}" -r 20
 ```
 
 You can also control the rover using joystick. To do so you need `leo-teleop`
