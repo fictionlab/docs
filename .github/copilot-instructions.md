@@ -24,26 +24,26 @@ in **MDXv3**.
 
 ## Build & Development
 
-| Command                  | Purpose                                    |
-| ------------------------ | ------------------------------------------ |
-| `yarn install`           | Install dependencies                       |
-| `yarn start`             | Start dev server at localhost:3000          |
-| `yarn build`             | Production build                           |
-| `yarn format`            | Auto-format with Prettier                  |
-| `yarn check`             | Run all checks (formatting, spelling, frontmatter, types, redirects) |
-| `yarn check:formatting`  | Prettier validation                        |
-| `yarn check:spelling`    | CSpell spell check                         |
-| `yarn check:frontmatter` | Validate required frontmatter keys         |
-| `yarn check:types`       | TypeScript type check                      |
-| `yarn check:redirects`   | Validate redirect rules                    |
+| Command                    | Purpose                                    |
+| -------------------------- | ------------------------------------------ |
+| `npm install`              | Install dependencies                       |
+| `npm start`                | Start dev server at localhost:3000          |
+| `npm run build`            | Production build                           |
+| `npm run format`           | Auto-format with Prettier                  |
+| `npm run check`            | Run all checks (formatting, spelling, frontmatter, types, redirects) |
+| `npm run check:formatting` | Prettier validation                        |
+| `npm run check:spelling`   | CSpell spell check                         |
+| `npm run check:frontmatter`| Validate required frontmatter keys         |
+| `npm run check:types`      | TypeScript type check                      |
+| `npm run check:redirects`  | Validate redirect rules                    |
 
-**Node.js >= 20** and **Yarn Classic (1.x)** are required.
+**Node.js >= 20** is required.
 
 ## CI Checks
 
 All PRs to `development` and `production` run:
 
-1. **Build** - Full Docusaurus build (`yarn build`)
+1. **Build** - Full Docusaurus build (`npm run build`)
 2. **Lint** - Frontmatter, types, formatting, spelling
 3. **Redirects** - Validates `static/_redirects` against changed files
 
