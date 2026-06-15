@@ -28,7 +28,7 @@ image: /img/robots/leo/integrations/example/image.webp
 
 Optional fields: `id`, `sidebar_position`, `slug`, `unlisted`, `toc_max_heading_level`.
 
-Validated by `yarn check:frontmatter` in CI.
+Validated by `npm run check:frontmatter` in CI.
 
 ## Images
 
@@ -105,7 +105,7 @@ Do not leave sections empty. If a section is unfinished, it must contain a `{/* 
 
 ## Redirects
 
-When renaming or moving a page, add a redirect rule to `static/_redirects` (Cloudflare format: `old-path new-path 301`). Validated by `yarn check:redirects` in CI.
+When renaming or moving a page, add a redirect rule to `static/_redirects` (Cloudflare format: `old-path new-path 301`). Validated by `npm run check:redirects` in CI.
 
 ## Versioning
 
@@ -116,7 +116,7 @@ When renaming or moving a page, add a redirect rule to `static/_redirects` (Clou
 
 ## Spelling
 
-New technical terms (ROS topics, product names, etc.) must be added to the `words` array in `cspell.json`. Validated by `yarn check:spelling` in CI.
+New technical terms (ROS topics, product names, etc.) must be added to the `words` array in `cspell.json`. Validated by `npm run check:spelling` in CI.
 
 ## Templates
 
