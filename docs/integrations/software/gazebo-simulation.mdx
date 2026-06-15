@@ -88,7 +88,8 @@ You can easily install the required packages with this command:
 sudo apt install ros-${ROS_DISTRO}-leo-simulator
 ```
 
-Alternatively, you can build the packages from source by following the instructions [here](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy).
+Alternatively, you can build the packages from source by following the
+instructions [here](https://github.com/LeoRover/leo_simulator-ros2/tree/jazzy).
 
 ## Example usage
 
@@ -166,7 +167,8 @@ ros2 launch leo_teleop joy_teleop.launch.xml cmd_vel_out:=/leo_sim1/cmd_vel
 You can choose which rover to operate with the joystick by providing correct
 namespace for the argument `cmd_vel_out`. In the example it's `leo_sim1`. If no
 namespace for the argument `cmd_vel_out`. In the example it's `leo_sim1`. If the
-`cmd_vel_out` argument is not provided, the node will use the default namespace and topic - `/cmd_vel`.
+`cmd_vel_out` argument is not provided, the node will use the default namespace
+and topic - `/cmd_vel`.
 
 :::
 
