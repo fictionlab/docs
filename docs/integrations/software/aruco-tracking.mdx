@@ -70,6 +70,49 @@ could use the output in your custom nodes.
 
 ## Software integration
 
+### Starting the ArUco tracking
+
+Start by logging in into your rover via SSH:
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+
+Start aruco tracking by setting the corresponding environment variable to `true` in `etc/ros/setup.bash`:
+```bash
+# Set to true to enable aruco tracking
+export START_ARUCO_TRACKING=true
+```
+
+Source the modified setup file:
+
+```bash
+source etc/ros/setup.bash
+```
+
+And launch the ROS:
+
+```bash
+ros2 launch robot.launch.xml
+```
+
+:::info
+
+You will most likely need to change marker_size parameter depending on the
+actual size of your printed ArUco tag.
+
+The parameters in `aruco` namespace are dynamic reconfigure parameters - which
+means you can change them as the node is working using `rqt` (in
+`dynamic reconfigure` plugin). You can play with their values and then add
+chosen parameters to the `yaml` file.
+
+You can find a detailed description of each parameter in the `aruco` namespace
+[here](https://docs.opencv.org/4.6.0/d5/dae/tutorial_aruco_detection.html).
+
+:::
 
 
 ## Example usage
