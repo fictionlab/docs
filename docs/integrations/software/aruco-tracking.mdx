@@ -25,10 +25,6 @@ vision to support tasks such as localization, mapping, and navigation. These
 visual markers provide a reliable, easily detectable point of reference that
 helps robots perceive and interpret their environment with precision.
 
-In this example, we will use
-[ros_aruco_opencv](https://github.com/fictionlab/ros_aruco_opencv/tree/jazzy)
-package for detecting individual markers.
-
 As sending raw images from the camera via wireless network may be insufficient,
 we will relay all the processing to the Raspberry Pi.
 
@@ -74,97 +70,11 @@ could use the output in your custom nodes.
 
 ## Software integration
 
-### Installing the packages
 
-Start by logging in into your rover via SSH:
 
-<LinkButton
-  to="/leo-rover/guides/ssh"
-  title="Connect via SSH"
-  description="Learn how to establish an SSH connection with your Leo Rover and access its
-  terminal using Putty or OpenSSH."
-/>
+## Example usage
 
-Install `aruco-opencv` package:
-
-```bash
-sudo apt install ros-${ROS_DISTRO}-aruco-opencv
-```
-
-### Creating launch and configuration files
-
-To launch the tracker, you can use the launch file from the installed
-`aruco-opencv` package or you can create your own. In this guide, we will show
-you how to create a launch file which provides basic config for detecting single
-markers.
-
-In `/etc/ros`, create a `yaml` configuration file. This simple example sets the
-basic parameters for the node.
-
-```yaml title="/etc/ros/tracker.yaml"
-/**:
-  ros__parameters:
-    cam_base_topic: camera/image_color
-    output_frame: 'base_link'
-
-    marker_dict: 4X4_50
-
-    publish_tf: true
-    marker_size: 0.15
-
-    aruco:
-      adaptiveThreshWinSizeMin: 3
-      adaptiveThreshWinSizeMax: 23
-      adaptiveThreshWinSizeStep: 10
-```
-
-:::info
-
-You will most likely need to change marker_size parameter depending on the
-actual size of your printed ArUco tag.
-
-The parameters in `aruco` namespace are dynamic reconfigure parameters - which
-means you can change them as the node is working using `rqt` (in
-`dynamic reconfigure` plugin). You can play with their values and then add
-chosen parameters to the `yaml` file.
-
-You can find a detailed description of each parameter in the `aruco` namespace
-[here](https://docs.opencv.org/4.6.0/d5/dae/tutorial_aruco_detection.html).
-
-:::
-
-Next, also in `/etc/ros`, create a launch file that will use the previously
-added configuration with the tracker node.
-
-```xml title="/etc/ros/tracker.launch.xml"
-<launch version="0.1.1">
-  <node pkg="aruco_opencv" exec="aruco_tracker_autostart">
-    <param from="/etc/ros/tracker.yaml" />
-  </node>
-</launch>
-```
-
-Now you can run the tracker with this command:
-
-```bash
-ros2 launch /etc/ros/tracker.launch.xml
-```
-
-or you can include your launch file in the `robot.launch.xml` file so that the
-node will start at boot. To do so, put this line somewhere before the closing
-`</launch>` tag.
-
-```xml title="/etc/ros/robot.launch.xml"
-<include file="/etc/ros/tracker.launch.xml"/>
-```
-
-Now you need to reboot the rover, or restart the ros nodes
-
-```bash
-ros-nodes-restart
-```
-
-## Generate ArUco markers
+### Generate ArUco markers
 
 Now, we need to create some markers, so go back to your computer.
 
