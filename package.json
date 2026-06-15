@@ -18,7 +18,7 @@
     "check:redirects": "node scripts/redirects-check.js",
     "check:frontmatter": "node scripts/docs-frontmatter-check.js && node scripts/community-projects-frontmatter-check.js",
     "check:types": "tsc --noEmit",
-    "check": "yarn check:formatting && yarn check:spelling && yarn check:redirects && yarn check:frontmatter && yarn check:types"
+    "check": "npm run check:formatting && npm run check:spelling && npm run check:redirects && npm run check:frontmatter && npm run check:types"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.1",
@@ -58,6 +58,5 @@
   },
   "engines": {
     "node": ">=20.0"
-  },
-  "packageManager": "yarn@1.22.22"
+  }
 }
