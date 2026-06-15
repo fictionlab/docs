@@ -98,6 +98,8 @@
         "NMEA",
         "occdist",
         "odometry",
+        "OLO",
+        "olorobotics",
         "phantomx",
         "PHTS",
         "picamera",
