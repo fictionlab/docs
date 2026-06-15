@@ -28,23 +28,21 @@ camera images, IMU readings and odometry, and can be driven either by publishing
 velocity commands or with a joystick. You can spawn multiple rovers and choose
 from several worlds.
 
-The following topics are available after running the simulation (namespace
-`robot_ns:=leo_sim1`):
+The following new topics are available after running the simulation (single robot with global namespace):
 
 ```
+/camera/camera_info
+/camera/image_raw
+/camera/image_raw/compressed
+/camera/image_raw/compressedDepth
+/camera/image_raw/theora
+/camera/image_raw/zstd
 /clock
-/leo_sim1/camera/camera_info
-/leo_sim1/camera/image_raw
-/leo_sim1/camera/image_raw/compressed
-/leo_sim1/camera/image_raw/compressedDepth
-/leo_sim1/camera/image_raw/theora
-/leo_sim1/camera/image_raw/zstd
-/leo_sim1/cmd_vel
-/leo_sim1/imu/data_raw
-/leo_sim1/joint_states
-/leo_sim1/odom
-/leo_sim1/robot_description
-/leo_sim1/tf
+/cmd_vel
+/imu/data_raw
+/joint_states
+/odom
+/robot_description
 /tf
 /tf_static
 ```
