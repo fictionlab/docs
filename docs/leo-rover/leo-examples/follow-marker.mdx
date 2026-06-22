@@ -109,7 +109,13 @@ then log in using ssh (both covered in prerequisites).
 
 ### Installing using apt
 
-You can install the package using `apt` by typing **on the rover**:
+Firstly, update the `apt` **on the rover**:
+
+```bash
+sudo apt update
+```
+
+Then you can install the package using `apt` by typing:
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-leo-examples
