@@ -81,7 +81,9 @@ Start by logging in into your rover via SSH:
   terminal using Putty or OpenSSH."
 />
 
-Start aruco tracking by setting the corresponding environment variable to `true` in `etc/ros/setup.bash`:
+Start aruco tracking by setting the corresponding environment variable to `true`
+in `etc/ros/setup.bash`:
+
 ```bash
 # Set to true to enable aruco tracking
 export START_ARUCO_TRACKING=true
@@ -101,18 +103,21 @@ ros2 launch /etc/ros/robot.launch.xml
 
 :::info
 
-File `/etc/ros/aruco_tracker.yaml` describes configuration of ArUco Marker Tracking. Among others, by default it is configured to tract markers from `4X4_50` ArUco dictionary with marker side size of 15cm. If you already have different ArUco markers, `/etc/ros/aruco_tracker.yaml` has to be adjusted appropriately.
+File `/etc/ros/aruco_tracker.yaml` describes configuration of ArUco Marker
+Tracking. Among others, by default it is configured to tract markers from
+`4X4_50` ArUco dictionary with marker side size of 15cm. If you already have
+different ArUco markers, `/etc/ros/aruco_tracker.yaml` has to be adjusted
+appropriately.
 
-The parameters in the `aruco` namespace can be changed at runtime while the
-node is working - either with `ros2 param set` or using the `rqt_reconfigure`
-GUI. You can play with their values and then add the chosen parameters to the
+The parameters in the `aruco` namespace can be changed at runtime while the node
+is working - either with `ros2 param set` or using the `rqt_reconfigure` GUI.
+You can play with their values and then add the chosen parameters to the
 `aruco_tracker.yaml` file.
 
 You can find a detailed description of each parameter in the `aruco` namespace
 [here](https://docs.opencv.org/4.6.0/d5/dae/tutorial_aruco_detection.html).
 
 :::
-
 
 ## Example usage
 
