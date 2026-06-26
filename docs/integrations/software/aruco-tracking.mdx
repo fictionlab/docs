@@ -85,20 +85,13 @@ Start aruco tracking by setting the corresponding environment variable to `true`
 in `/etc/ros/setup.bash`:
 
 ```bash
-# Set to true to enable aruco tracking
 export START_ARUCO_TRACKING=true
 ```
 
-Source the modified setup file:
+And restart the ros nodes using LeoOS alias:
 
 ```bash
-source /etc/ros/setup.bash
-```
-
-And launch the ROS:
-
-```bash
-ros2 launch /etc/ros/robot.launch.xml
+ros-nodes-restart
 ```
 
 :::info
