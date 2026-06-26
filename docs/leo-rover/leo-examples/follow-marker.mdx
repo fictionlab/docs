@@ -253,6 +253,13 @@ marker correctly.<br/> For details on each of those parameters, check the
 
 :::
 
+:::tip
+
+To make tracker parameter changes persist across restarts, edit
+`/etc/ros/aruco_tracker.yaml` directly on the rover.
+
+:::
+
 #### Follower
 
 Each parameter of the `aruco_follower` node includes a built-in description -
@@ -263,6 +270,39 @@ rover's movement.
 
 The remaining parameters control the rover's driving and rotation speeds, as
 well as the distance thresholds that determine when it should move or stop.
+
+#### Using a custom tracker parameters file
+
+To reuse your tracker parameter settings across runs, create a `yaml`
+configuration file in `/etc/ros` on the rover:
+
+```yaml title="/etc/ros/aruco_follower_params.yaml"
+/**:
+  ros__parameters:
+    follow_id: 3
+    marker_timeout: 1.0
+
+    min_ang_vel: 0.1
+    max_ang_vel: 1.0
+    angle_min: 0.1
+    angle_max: 0.7
+
+    min_lin_vel_forward: 0.1
+    max_lin_vel_forward: 0.4
+    distance_min_forward: 0.7
+    distance_max_forward: 1.2
+
+    min_lin_vel_reverse: 0.1
+    max_lin_vel_reverse: 0.2
+    distance_min_reverse: 0.4
+    distance_max_reverse: 0.5
+```
+
+Then pass it to the launch command using the `params_file` argument:
+
+```bash
+ros2 launch leo_example_follow_aruco_marker follow_aruco_marker.launch.xml params_file:=/etc/ros/aruco_follower_params.yaml
+```
 
 ## What next?
 
