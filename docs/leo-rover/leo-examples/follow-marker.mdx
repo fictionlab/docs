@@ -167,14 +167,18 @@ installed required software.
 ## Examples
 
 To run the example, you need to be connected to the rover via ssh. Once you do
-this, you have to start ArUco tracking according to:
+this, you have to start ArUco tracking by setting the corresponding environment
+variable to `true` in `/etc/ros/setup.bash`:
 
-<LinkButton
-  to="/integrations/software/aruco-tracking#generate-aruco-markers"
-  title="ArUco Marker Tracking with ROS"
-  description={`Learn how to use the ros_aruco_opencv ROS package to detect ArUco tags with
-  your Leo Rover and visualize them in RViz.`}
-/>
+```bash
+export START_ARUCO_TRACKING=true
+```
+
+And restart the ROS nodes using LeoOS alias:
+
+```bash
+ros-nodes-restart
+```
 
 After the ArUco tracking is running, you can start the ArUco follower:
 
@@ -182,7 +186,23 @@ After the ArUco tracking is running, you can start the ArUco follower:
 ros2 launch leo_example_follow_aruco_marker follow_aruco_marker.launch.xml
 ```
 
-The rover will start following the marker once it detects it.
+Alternatively, you can start a tracker node by passing the argument to
+`follow_aruco_marker.launch.xml`:
+
+```bash
+ros2 launch leo_example_follow_aruco_marker follow_aruco_marker.launch.xml start_aruco_tracker:=true
+```
+
+:::warning
+
+Do not mix up the ways of starting the ArUco tracker: it should be either
+enabled by setting `START_ARUCO_TRACKING=true` or by passing the argument to
+`follow_aruco_marker.launch.xml`. If you use both ways of starting ArUco tracker
+at once, the follower will not work.
+
+:::
+
+The rover will start following the marker once it detects the ArUco marker.
 
 :::warning
 
@@ -256,7 +276,9 @@ marker correctly.<br/> For details on each of those parameters, check the
 :::tip
 
 To make tracker parameter changes persist across restarts, edit
-`/etc/ros/aruco_tracker.yaml` directly on the rover.
+`/etc/ros/aruco_tracker.yaml` directly on the rover. This is available only if
+you enabled the tracking by setting `START_ARUCO_TRACKING=true` and restarting
+the ROS nodes.
 
 :::
 
