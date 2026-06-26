@@ -149,12 +149,12 @@ rosdep update
 rosdep install --from-paths src -ir
 ```
 
-Then, you need to source the directory and build the packages:
+Then, you need to build the packages and source the workspace:
 
 ```bash
 cd ~/ros_ws
-source install/setup.bash
 colcon build
+source install/setup.bash
 ```
 
 :::info
