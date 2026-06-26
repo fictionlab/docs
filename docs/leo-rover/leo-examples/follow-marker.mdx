@@ -72,7 +72,7 @@ The only physical thing you'll need to do is to print an Aruco marker:
 - System default configuration expects marker with id 0 and 15cm in size, but
   those parameters can be easily changed for your setup.
 
-Here's an example of our aruco marker that we used for this task:
+Here's an example of our ArUco marker that we used for this task:
 
 <ImageZoom
   src="/img/robots/leo/integrations/follow-aruco-marker/follow-aruco-1.webp"
@@ -167,7 +167,16 @@ installed required software.
 ## Examples
 
 To run the example, you need to be connected to the rover via ssh. Once you do
-this, type in the terminal:
+this, you have to start ArUco tracking according to:
+
+<LinkButton
+  to="/integrations/software/aruco-tracking#generate-aruco-markers"
+  title="ArUco Marker Tracking with ROS"
+  description={`Learn how to use the ros_aruco_opencv ROS package to detect ArUco tags with
+  your Leo Rover and visualize them in RViz.`}
+/>
+
+After the ArUco tracking is running, you can start the ArUco follower:
 
 ```bash
 ros2 launch leo_example_follow_aruco_marker follow_aruco_marker.launch.xml
@@ -177,7 +186,7 @@ The rover will start following the marker once it detects it.
 
 :::warning
 
-By default the rover follows only the marker with id 0, and has marker tracker
+By default the rover follows only the marker with ID 0, and has marker tracker
 configured for a marker of size 15cm. If your printed marker doesn't comply with
 the requirements, you need to follow the configuration instructions.
 
