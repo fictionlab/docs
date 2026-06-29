@@ -72,6 +72,9 @@ could use the output in your custom nodes.
 
 ### Starting the ArUco tracking
 
+LeoOS comes with the ArUco tag detection packages preinstalled, so you don't
+need to install anything - they just need to be enabled.
+
 Start by logging in into your rover via SSH:
 
 <LinkButton
@@ -81,10 +84,10 @@ Start by logging in into your rover via SSH:
   terminal using Putty or OpenSSH."
 />
 
-Start aruco tracking by setting the corresponding environment variable to `true`
+Start ArUco tracking by setting the corresponding environment variable to `true`
 in `/etc/ros/setup.bash`:
 
-```bash
+```bash title="/etc/ros/setup.bash"
 export START_ARUCO_TRACKING=true
 ```
 
