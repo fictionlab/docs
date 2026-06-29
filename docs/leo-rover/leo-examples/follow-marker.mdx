@@ -1,6 +1,6 @@
 ---
-title: 'Leo Rover Example: How to Follow an Aruco Marker'
-sidebar_label: Follow Aruco Marker
+title: 'Leo Rover Example: How to Follow an ArUco Marker'
+sidebar_label: Follow ArUco Marker
 sidebar_position: 1
 keywords:
   - aruco
@@ -13,22 +13,22 @@ keywords:
   - rover
   - tutorial
 description: >-
-  Learn how to make a Leo Rover mobile robot follow a printed Aruco Marker.
+  Learn how to make a Leo Rover mobile robot follow a printed ArUco Marker.
   Print the marker and run the example code to get started.
 image: /img/robots/leo/integrations/follow-aruco-marker/follow-aruco-1.webp
 ---
 
-# Example: How to Follow an Aruco Marker
+# Example: How to Follow an ArUco Marker
 
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 In this example, we will show you how to make the Leo Rover mobile robot follow
-an Aruco marker.
+an ArUco marker.
 
 ## What to expect?
 
 After completing this tutorial, your rover should be able to follow a printed
-Aruco Marker.
+ArUco Marker.
 
 <div className="video-container">
   <LiteYouTubeEmbed
@@ -53,9 +53,9 @@ Aruco Marker.
 
 ## Mechanical integration
 
-The only physical thing you'll need to do is to print an Aruco marker:
+The only physical thing you'll need to do is to print an ArUco marker:
 
-- You can generate and download an Aruco marker from
+- You can generate and download an ArUco marker from
   [here](https://chev.me/arucogen) (you'll need to select the 4x4 dictionary),
   or you can follow our instructions on generating markers from the tutorial
   linked below. It gives you more control regarding marker size and other
@@ -167,10 +167,10 @@ installed required software.
 ## Examples
 
 To run the example, you need to be connected to the rover via ssh. Once you do
-this, you have to start ArUco tracking by setting the corresponding environment
+this, you have to start ArUco tracking by changing the corresponding environment
 variable to `true` in `/etc/ros/setup.bash`:
 
-```bash
+```bash title="/etc/ros/setup.bash"
 export START_ARUCO_TRACKING=true
 ```
 
