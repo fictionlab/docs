@@ -195,10 +195,9 @@ ros2 launch leo_example_follow_aruco_marker follow_aruco_marker.launch.xml start
 
 :::warning
 
-Do not mix up the ways of starting the ArUco tracker: it should be either
-enabled by setting `START_ARUCO_TRACKING=true` or by passing the argument to
-`follow_aruco_marker.launch.xml`. If you use both ways of starting ArUco tracker
-at once, the follower will not work.
+Use only one method to start the ArUco tracker — either
+`START_ARUCO_TRACKING=true` or the `start_aruco_tracker:=true` launch argument.
+Running both at the same time will prevent the follower from working.
 
 :::
 
@@ -275,10 +274,9 @@ marker correctly.<br/> For details on each of those parameters, check the
 
 :::tip
 
-To make tracker parameter changes persist across restarts, edit
-`/etc/ros/aruco_tracker.yaml` directly on the rover. This is available only if
-you enabled the tracking by setting `START_ARUCO_TRACKING=true` and restarting
-the ROS nodes.
+If you started ArUco tracking via `START_ARUCO_TRACKING=true` (rather than the
+`start_aruco_tracker:=true` launch argument), tracker parameter changes can be
+made persistent by editing `/etc/ros/aruco_tracker.yaml` on the rover.
 
 :::
 
