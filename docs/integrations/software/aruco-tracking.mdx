@@ -100,16 +100,16 @@ ros-nodes-restart
 
 :::info
 
-ArUco tracker configuration can be found in `/etc/ros/aruco_tracker.yaml`. 
-By default it is configured to track markers from `4X4_50` ArUco dictionary with
-marker side size of 15cm. If you plan to use different sizes or dictionaries
-for your ArUco markers, `/etc/ros/aruco_tracker.yaml` has to be adjusted
+ArUco tracker configuration can be found in `/etc/ros/aruco_tracker.yaml`. By
+default it is configured to track markers from `4X4_50` ArUco dictionary with
+marker side size of 15cm. If you plan to use different sizes or dictionaries for
+your ArUco markers, `/etc/ros/aruco_tracker.yaml` has to be adjusted
 appropriately.
 
 The parameters in the `aruco` namespace can be changed at runtime while the node
-is working - either with `ros2 param set` or using the `rqt_reconfigure` GUI tool.
-Feel free to play around with different configurations and then add the chosen parameters
-to the `/etc/ros/aruco_tracker.yaml` file.
+is working - either with `ros2 param set` or using the `rqt_reconfigure` GUI
+tool. Feel free to play around with different configurations and then add the
+chosen parameters to the `/etc/ros/aruco_tracker.yaml` file.
 
 You can find a detailed description of each parameter in the `aruco` namespace
 [here](https://docs.opencv.org/4.6.0/d5/dae/tutorial_aruco_detection.html).
