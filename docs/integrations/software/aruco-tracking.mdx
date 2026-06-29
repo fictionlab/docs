@@ -95,10 +95,10 @@ ros-nodes-restart
 
 :::info
 
-File `/etc/ros/aruco_tracker.yaml` describes configuration of ArUco Marker
-Tracking. Among others, by default it is configured to track markers from
-`4X4_50` ArUco dictionary with marker side size of 15cm. If you already have
-different ArUco markers, `/etc/ros/aruco_tracker.yaml` has to be adjusted
+ArUco tracker configuration can be found in `/etc/ros/aruco_tracker.yaml`. 
+By default it is configured to track markers from `4X4_50` ArUco dictionary with
+marker side size of 15cm. If you plan to use different sizes or dictionaries
+for your ArUco markers, `/etc/ros/aruco_tracker.yaml` has to be adjusted
 appropriately.
 
 The parameters in the `aruco` namespace can be changed at runtime while the node
