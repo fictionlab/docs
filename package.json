@@ -18,11 +18,11 @@
     "check:redirects": "node scripts/redirects-check.js",
     "check:frontmatter": "node scripts/docs-frontmatter-check.js && node scripts/community-projects-frontmatter-check.js",
     "check:types": "tsc --noEmit",
-    "check": "yarn check:formatting && yarn check:spelling && yarn check:redirects && yarn check:frontmatter && yarn check:types"
+    "check": "npm run check:formatting && npm run check:spelling && npm run check:redirects && npm run check:frontmatter && npm run check:types"
   },
   "dependencies": {
-    "@docusaurus/core": "3.9.1",
-    "@docusaurus/preset-classic": "3.9.1",
+    "@docusaurus/core": "^3.10.1",
+    "@docusaurus/preset-classic": "^3.10.1",
     "@mdx-js/react": "^3.1.1",
     "clsx": "^2.1.0",
     "medium-zoom": "^1.1.0",
@@ -34,9 +34,10 @@
     "remark-math": "6"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.9.1",
-    "@docusaurus/tsconfig": "3.9.1",
-    "@docusaurus/types": "3.9.1",
+    "@docusaurus/module-type-aliases": "^3.10.1",
+    "@docusaurus/tsconfig": "^3.10.1",
+    "@docusaurus/types": "^3.10.1",
+    "baseline-browser-mapping": "^2.10.37",
     "cspell": "^9.2.1",
     "glob": "^11.0.3",
     "gray-matter": "^4.0.3",
@@ -58,6 +59,5 @@
   },
   "engines": {
     "node": ">=20.0"
-  },
-  "packageManager": "yarn@1.22.22"
+  }
 }
