@@ -84,8 +84,8 @@ the setup:
 
 1. Go through the official
    [Jetson Orin Nano setup guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro).
-2. During flashing, install JetPack **6.2.1** with L4T firmware at least
-   **36.4.0**.
+2. During flashing, install JetPack **7.2** with L4T firmware at least
+   **36.0**.
 3. Ensure the Jetson has internet access (either via Ethernet or Wi-Fi) before
    proceeding.
 4. Finish the initial setup and create a user account when prompted.
@@ -99,19 +99,18 @@ You can find all the JetPack images in the
 
 :::
 
-After the initial setup is complete, install the latest packages and the NVIDIA
-Container Toolkit runtime on the Jetson. Run the following commands directly on
-the Jetson (either with an attached display or over SSH):
+After the initial setup is complete, install the latest packages directly on Jetson (either with an attached display or over SSH):
 
 ```bash
 sudo apt update && sudo apt upgrade
-sudo apt install -y nvidia-container-toolkit
-sudo nvidia-ctk runtime configure --runtime=docker
-sudo systemctl restart docker
 ```
 
-Now you can turn off Wi-Fi on Jetson since later on it will be connected to the
-rover's network via ethernet.
+Next step is installing ROS by following instructions in [ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html).
+
+{/* TODO: add information that 'base' ROS2 version can be installed to save the storage, if no GUI is planned to be used */}
+
+{/* Now you can turn off Wi-Fi on Jetson since later on it will be connected to the
+rover's network via ethernet. */}
 
 At this point you can proceed with the hardware integration and mounting the
 Jetson on the rover.
@@ -326,7 +325,7 @@ Now the rover is ready for software integration.
 ## Software integration
 
 In order to use the ZED camera with ROS, we will be using the official ZED ROS
-wrapper in a custom Docker container running on the Jetson.
+wrapper.
 
 Follow the steps below to bring the Vision Pack online and publish ZED data to
 ROS.
@@ -397,9 +396,8 @@ nmap -sP 10.0.0.1/24
 
 ### Creating ZED camera ROS configuration
 
-Before launching the ZED wrapper container, you need to create a configuration
-file for the camera. This file will contain the parameters for the ZED camera
-and will be mounted into the container to configure the ROS node.
+Before launching the ZED wrapper, you need to create a configuration
+file for the camera. This file will contain the parameters for the ZED camera to configure the ROS node.
 
 On Jetson, create folders for configs and logs on the host:
 
@@ -444,25 +442,36 @@ for the full list of options.
 
 :::
 
-### Setting up the ZED wrapper container
+### Setting up the ZED wrapper
 
-Pull the prebuilt image with ROS Jazzy and ZED wrapper from our registry onto
-the Jetson (the process might take a long time depending on your internet
-connection and writing speed of the SD card):
+Firstly, install the ZED SDK for NVIDIA Jetson in version for JetPack 7.2 (L4T 39.2) according to [How to Install ZED SDK on NVIDIA® Jetson][https://www.stereolabs.com/docs/development/zed-sdk/linux/work-with-nvidia-jetson].
+
+Next, install the **zed_ros2_wrapper** on Jetson. To do so, open a bash terminal, clone the package from GitHub, and build it:
 
 ```bash
-sudo docker pull ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
+mkdir -p ~/ros2_ws/src/ # create your workspace if it does not exist
+cd ~/ros2_ws/src/ #use your current ros2 workspace folder
+git clone https://github.com/stereolabs/zed-ros2-wrapper.git
+cd ..
+sudo apt update
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y # install dependencies
+source /opt/ros/jazzy/setup.bash
+export MAKEFLAGS="-j 3" # build the package on 3 cores paralelly
+colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release --executor sequantial # build the workspace
+echo source $(pwd)/install/local_setup.bash >> ~/.bashrc # automatically source the installation in every new bash (optional)
+source ~/.bashrc
 ```
 
-:::note
+{/* :::note
 
 Ensure that your Jetson has internet access to pull the image. Further internet
 access might be required on camera startup if the ZED wrapper needs to download
 additional assets like calibration files or detection models.
 
-:::
+::: */}
 
-Start the ZED wrapper container whenever you need the camera online. This run
+{/* Start the ZED wrapper container whenever you need the camera online. This run
 command exposes the GPU, host networking, and the ZED calibration assets to the
 container:
 
@@ -476,16 +485,16 @@ sudo docker run --rm --runtime nvidia -it --privileged --network=host --ipc=host
   -v /usr/local/zed/settings/:/usr/local/zed/settings/ \
   -v /opt/zed_ros/config:/data:ro \
   ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
-```
+``` */}
 
-Once you see the container shell prompt, source both the ROS installation and
-the workspace overlay, then launch the wrapper for the `zed2i` camera using the
-host configuration mounted at `/data/zed2i.yaml`:
+Once the wrapper is installed and built, you can launch it.
+Source both the ROS installation and
+the workspace, then launch the wrapper for the `zed2i` camera using previously created configuration:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-source /root/ros2_ws/install/setup.bash
-ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/data/zed2i.yaml
+source ~/ros2_ws/install/setup.bash
+ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/opt/zed_ros/config/zed2i.yaml
 ```
 
 At this point the rover computer should see the ZED ROS interfaces.
