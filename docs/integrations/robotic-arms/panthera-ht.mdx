@@ -1,0 +1,435 @@
+---
+title: High Torque Panthera-HT 6-Axis Robotic Arm
+sidebar_label: Panthera HT
+keywords:
+  - robotic arm
+  - payload
+  - servo
+  - high torque
+  - panthera
+  - leo
+  - integration
+  - example
+description: >-
+  Extend Leo Rover's capabilities with the 6-axis, Panthera-HT robotic arm.
+  Tutorial for mechanical and software integration.
+image: /img/robots/leo/leo-rover-1.9.webp
+---
+
+{/* TODO add photo of the integration as an image */}
+{/* TODO Import a Panthera-HT product component */}
+
+import ImageZoom from '@site/src/components/ImageZoom';
+import LinkButton from '@site/src/components/LinkButton';
+import CenterContent from '@site/src/components/CenterContent';
+
+# High Torque Panthera-HT 6-Axis Robotic Arm Integration
+
+In this tutorial we will go through the process of connecting a Panthera-HT
+robotic arm to your Leo Rover and integrating it with the system using ROS.
+
+Panthera-HT is a lightweight 6-DOF robotic arm with an 860 mm reach, up to 3.5
+kg static payload, and 0.1 mm repeatability, designed for precise manipulation
+tasks such as pick-and-place, alignment, and trajectory-following in research,
+education, and automation workflows.
+
+{/* TODO image of the integration */}
+
+## What to expect?
+
+After completing this tutorial, you will have the Panthera-HT robotic arm
+mounted on your Leo Rover, and you will be able to control the arm data through
+ROS interfaces - either via MoveIt or through provided SDK. You can find all
+available topics and configuration options
+[here](https://github.com/fictionlab/panthera_ht_ros#ros-interfaces-by-node).
+
+{/* TODO video of robotic arm operating (maybe view from RViz?) */}
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/connect-to-rover-ap"
+  title="Connect to Leo Rover AP"
+  description="Learn how to connect to your Leo Rover via WiFi."
+/>
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to Network"
+  description="Learn how to connect your Leo Rover to a Wi-Fi network."
+/>
+<LinkButton
+  to="/leo-rover/guides/software-update"
+  title="Software update"
+  description="Detailed guide on updating the software of Leo Rover, covering steps to access
+  the microSD card, download and flash the latest LeoOS image."
+/>
+
+### Referenced products
+
+{/* TODO Add a Panthera-HT product component */} {/* <Product /> */}
+
+## Hardware integration
+
+{/* TODO add entirety of hardware integration */}
+
+### Mounting
+
+### Wiring
+
+{/* TODO remember to inform the user that they need to click the power button to power on the arm's motors */}
+
+## Software integration
+
+We have created a
+[custom ROS2 package for Panthera-HT](https://github.com/fictionlab/panthera_ht_ros)
+that allows you to control the arm through ROS2 interfaces. This package
+provides the most important functionalities of the arm, including:
+
+- Controlling the arm through provided SDK
+- Controlling the arm via MoveIt
+- Controlling the arm with a gamepad
+
+:::note
+
+The custom package is based on the
+[official Panthera-HT ROS2 package](https://github.com/HighTorque-Robotics/Panthera-HT_ROS2).
+The original package contains more functionalities and different methods of
+controlling the arm, but might need some adjustments to work with Leo Rover. The
+custom package is a simplified version that is guaranteed to work with Leo
+Rover.
+
+:::
+
+To install the package, log in to the rover using ssh and make sure that you are
+using the newest version of packages:
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+You need to create a ROS workspace on the rover if you don't have one already.
+You can do it by typing in the terminal:
+
+```bash
+mkdir -p ~/ros_ws/src
+```
+
+Now you can clone the package into your workspace:
+
+```bash
+cd ~/ros_ws/src
+git clone https://github.com/fictionlab/panthera_ht_ros
+```
+
+Go back to the root of your workspace, install dependencies and build the
+workspace:
+
+```bash
+cd ~/ros_ws
+source /opt/ros/${ROS_DISTRO}/setup.bash
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+colcon build --symlink-install
+```
+
+### Veryfing the arm connection
+
+To check if the arm is connected and motor interfaces are available, you can use
+the following command:
+
+```bash
+ls /dev/ttyACM*
+```
+
+You should see devices ranging from `/dev/ttyACM0` to `/dev/ttyACM6`, which
+correspond to the motors of the arm. If you don't see any devices, make sure
+that the arm's power button is pressed and the arm is properly connected.
+
+### Modifying the URDF model
+
+After installing the `panthera_ht_ros` package you will need to modify the URDF
+model of the robot to include the robotic arm. You can do this by opening the
+`/etc/ros/urdf/robot.urdf.xacro` and placing the following lines in between the
+`<robot>` tags:
+
+{/* TODO add proper origin to the URDF joint */}
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+  <xacro:include filename="$(find panthera_moveit)/urdf/panthera_ht_moveit.urdf.xacro" />
+
+  <joint name="panthera_ht_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="panthera_base_link"/>
+  </joint>
+```
+
+:::warning
+
+If you have placed the robotic arm in a different position than the one
+specified in the hardware integration you will have to change the values in
+`origin` property.
+
+:::
+
+### Launching the driver
+
+To launch the driver, you can use the provided launch files. Remember to source
+the workspace before launching the driver:
+
+```bash
+source ~/ros_ws/install/setup.bash
+```
+
+To control the arm with the SDK, you can launch the driver with the following
+command:
+
+```bash
+ros2 launch panthera_arm_control arm_control.launch.py
+```
+
+Optionally if you want to launch the SDK with the option to control the arm with
+a gamepad, you can use the following command:
+
+```bash
+ros2 launch panthera_arm_control arm_control.launch.py launch_joy_teleop:=true
+```
+
+:::info
+
+When using the gamepad, the `arm_joy_teleop_node` will subscribe to the `joy`
+topic. You need to publish the commands on this topic either from the rover or
+from your computer. We recommend using the
+[`joy_linux_node`](https://index.ros.org/p/joy_linux/) to achieve this.
+
+:::
+
+To launch the driver with MoveIt, you can use the following command:
+
+```bash
+ros2 launch panthera_moveit hardware_moveit.launch.py
+```
+
+:::tip
+
+If you want to visualize MoveIt in RViz, you can build the package **on your
+computer** and launch the RViz using a provided launch file:
+
+```bash
+ros2 launch panthera_moveit rviz.launch.py
+```
+
+This will launch RViz with the MoveIt plugin and the robot model loaded.
+
+:::
+
+### (Optional) Launching the robotic arm driver on boot
+
+If you want to have the robotic arm driver started on boot, you can modify the
+`setup.bash` file of the Rover:
+
+```bash
+nano /etc/ros/setup.bash
+```
+
+Edit this file to source the ROS workspace where the driver is installed.
+Remember to comment out the default ROS setup line and source the custom
+workspace.
+
+```bash title="/etc/ros/setup.bash"
+#source /opt/ros/jazzy/setup.bash
+source ~/ros_ws/install/setup.bash
+```
+
+Now you can edit the launch file that is launched at the robot's startup to
+include the arm launch file:
+
+```bash
+nano /etc/ros/robot.launch.xml
+```
+
+And add these lines somewhere in between the `launch` tag:
+
+```xml title="/etc/ros/robot.launch.xml"
+<include file="$(find-pkg-share panthera_moveit)/launch/hardware_moveit.launch.py"/>
+```
+
+:::info
+
+If you want to use the SDK instead of MoveIt, you can replace the `file`
+attribute with the path to the `arm_control.launch.py` file.
+
+:::
+
+To launch the driver, you can reboot the robot or restart the ROS nodes:
+
+```bash
+ros-nodes-restart
+```
+
+:::tip
+
+To view the ROS nodes logs for debugging purposes, you can use the following
+command:
+
+```bash
+ros-nodes-logs -f
+```
+
+:::
+
+Now you should be able to control the robotic arm through ROS interfaces on
+every boot of the robot.
+
+:::warning
+
+The power on button on the robotic arm must be pressed before the driver is
+launched which is now done after the boot. You will need to press the power
+button on the arm before the robot is fully booted. If the driver fails to
+launch, you can try to restart ros nodes with `ros-nodes-restart` after pressing
+the power button.
+
+:::
+
+## Example usage
+
+### Controlling the arm with MoveIt
+
+When using the `hardware_moveit.launch.py` launch file, you can control the arm
+through MoveIt interfaces. To visualize the arm in RViz, build the package on
+your computer and launch the RViz using a provided launch file:
+
+```bash
+ros2 launch panthera_moveit rviz.launch.py
+```
+
+This will open RViz and show the below display:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/panthera-ht/moveit-rviz-launch-view.webp"
+  width="1834"
+  height="914"
+/>
+
+MoveIt can be controlled through the MotionPlanning window and through the
+visualization. In order to execute a trajectory, you can first move the
+end-effector to a desired position and orientation using the interactive markers
+in the visualization and then click the "Plan and Execute" button in the
+MotionPlanning window.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/panthera-ht/moveit-rviz-basic-execution.webp"
+  width="1836"
+  height="915"
+/>
+
+:::info
+
+The orange arm model shows the planned position after trajectory execution,
+while the white arm model shows the current position of the arm.
+
+:::
+
+If you want to control the gripper, you need to change the planning group in the
+MotionPlanning window to `gripper` and then you can choose the goal state from
+the dropdown menu. After clicking the "Plan and Execute" button, the gripper
+will move to the desired state.
+
+<ImageZoom
+  src="/img/robots/leo/integrations/panthera-ht/moveit-rviz-gripper-control.webp"
+  width="1835"
+  height="915"
+/>
+
+Feel free to play around with other functionalities of the `MotionPlanning`
+window, such as changing the planning parameters or setting angle goals for each
+joint separately.
+
+### Controlling the arm with a gamepad
+
+To launch the driver with the option to control the arm with a gamepad, run the
+following command on the robot:
+
+```bash
+ros2 launch panthera_arm_control arm_control.launch.py launch_joy_teleop:=true
+```
+
+You need to publish the commands on the `joy` topic. To do that from your
+computer, run:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-joy-linux
+ros2 run joy_linux joy_linux_node
+```
+
+This will launch the `joy_linux_node` that will publish the gamepad commands on
+the `joy` topic with default configuration. You can change the configuration by
+providing a custom config file to the node:
+
+```yaml title="your_config/joy_linux.yaml"
+/joy_node:
+  ros__parameters:
+    device: /dev/input/js0
+    deadzone: 0.1
+    coalesce_interval: 0.05
+    autorepeat_rate: 10.0
+```
+
+To launch the node with the custom configuration:
+
+```bash
+ros2 run joy_linux joy_linux_node --ros-args --params-file your_config/joy_linux.yaml
+```
+
+Now your controller commands will be sent to the `joy` topic and the
+`arm_joy_teleop_node` will subscribe to it and control the arm accordingly.
+
+These are the default gamepad mappings for controlling the arm (based on Xbox
+controller):
+
+<CenterContent>
+
+| Input                      | Function                                      |
+| -------------------------- | --------------------------------------------- |
+| **RB**                     | Enables motion commands in base/world frame   |
+| **LB**                     | Enables motion commands in end-effector frame |
+| **Left stick vertical**    | Linear X motion                               |
+| **Left stick horizontal**  | Linear Y motion                               |
+| **Right trigger**          | Positive Z motion                             |
+| **Left trigger**           | Negative Z motion                             |
+| **Right stick horizontal** | Roll commands                                 |
+| **Right stick vertical**   | Pitch commands                                |
+| **D-pad horizontal**       | Yaw commands                                  |
+| **Y**                      | Open gripper                                  |
+| **A**                      | Close gripper                                 |
+| **B**                      | Return to home position                       |
+
+</CenterContent>
+
+:::note
+
+- Controllers other than Xbox can be used, the mappings should align to
+  corresponding buttons and axes.
+- If no deadman is held (neither LB nor RB), no motion commands are sent.
+- LB (local deadman): translations are relative to the current end-effector
+  orientation.
+- RB (world deadman): translations are relative to the base/world frame.
+
+:::
+
+## What's next?
+
+Now that Panthera-HT is integrated, you can combine manipulation with improved
+perception for manipulation tasks. Consider adding a depth camera like
+[Intel RealSense](/integrations/cameras/intel-realsense) or using
+[ArUco tracking](/integrations/software/aruco-tracking) for marker-based
+alignment and repeatable grasp positioning.
+
+You can also explore more software and hardware options in other
+[integrations](/integrations) available for Leo Rover.
