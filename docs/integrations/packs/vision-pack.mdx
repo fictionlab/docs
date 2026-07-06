@@ -42,7 +42,7 @@ published on ROS topics.
 
 To see full information about the additional available ROS interfaces and
 configuration options, check the official
-[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/ros/zed-node).
+[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/integrations/ros-2).
 
 ## Prerequisites
 
@@ -107,10 +107,27 @@ sudo apt update && sudo apt upgrade
 
 Next step is installing ROS by following instructions in [ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html).
 
-{/* TODO: add information that 'base' ROS2 version can be installed to save the storage, if no GUI is planned to be used */}
+:::tip
 
-{/* Now you can turn off Wi-Fi on Jetson since later on it will be connected to the
-rover's network via ethernet. */}
+If you don't plan to use GUI tools (like RViz) on the Jetson, you can install
+the `ros-jazzy-ros-base` package instead of the full `ros-jazzy-desktop` one.
+This saves Jetson storage space.
+
+:::
+
+:::tip
+
+To avoid sourcing the ROS 2 environment manually in every new terminal, add it
+to your `~/.bashrc`:
+
+```bash
+echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+```
+
+:::
+
+Now you can turn off Wi-Fi on Jetson since later on it will be connected to the
+rover's network via ethernet.
 
 At this point you can proceed with the hardware integration and mounting the
 Jetson on the rover.
@@ -437,7 +454,7 @@ And add the following content to the file:
 :::note
 
 These are just example parameters - tune them as needed and refer to the
-[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/ros/zed-node)
+[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/integrations/ros-2)
 for the full list of options.
 
 :::
@@ -446,30 +463,15 @@ for the full list of options.
 
 Firstly, install the ZED SDK for NVIDIA Jetson in version for JetPack 7.2 (L4T 39.2) according to [How to Install ZED SDK on NVIDIA® Jetson][https://www.stereolabs.com/docs/development/zed-sdk/linux/work-with-nvidia-jetson].
 
-Next, install the **zed_ros2_wrapper** on Jetson. To do so, open a bash terminal, clone the package from GitHub, and build it:
+Next, build the **zed_ros2_wrapper**  package on Jetson according to [building guide][https://www.stereolabs.com/docs/integrations/ros-2#build-the-package].
 
-```bash
-mkdir -p ~/ros2_ws/src/ # create your workspace if it does not exist
-cd ~/ros2_ws/src/ #use your current ros2 workspace folder
-git clone https://github.com/stereolabs/zed-ros2-wrapper.git
-cd ..
-sudo apt update
-rosdep update
-rosdep install --from-paths src --ignore-src -r -y # install dependencies
-source /opt/ros/jazzy/setup.bash
-export MAKEFLAGS="-j 3" # build the package on 3 cores paralelly
-colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release --executor sequantial # build the workspace
-echo source $(pwd)/install/local_setup.bash >> ~/.bashrc # automatically source the installation in every new bash (optional)
-source ~/.bashrc
-```
+:::note
 
-{/* :::note
-
-Ensure that your Jetson has internet access to pull the image. Further internet
+Ensure that your Jetson has internet access to pull the wrapper. Further internet
 access might be required on camera startup if the ZED wrapper needs to download
 additional assets like calibration files or detection models.
 
-::: */}
+:::
 
 {/* Start the ZED wrapper container whenever you need the camera online. This run
 command exposes the GPU, host networking, and the ZED calibration assets to the
@@ -488,11 +490,10 @@ sudo docker run --rm --runtime nvidia -it --privileged --network=host --ipc=host
 ``` */}
 
 Once the wrapper is installed and built, you can launch it.
-Source both the ROS installation and
+Source
 the workspace, then launch the wrapper for the `zed2i` camera using previously created configuration:
 
 ```bash
-source /opt/ros/jazzy/setup.bash
 source ~/ros2_ws/install/setup.bash
 ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/opt/zed_ros/config/zed2i.yaml
 ```
@@ -670,4 +671,4 @@ ZED camera can be used in projects involving
 might be interested in a tutorial about it.
 
 You can also use the ZED camera for object detection using the
-[ZED ROS wrapper's built-in detection capabilities](https://www.stereolabs.com/docs/ros/zed-node#object-detection).
+[ZED ROS wrapper's built-in detection capabilities](https://www.stereolabs.com/docs/integrations/ros-2/object-detection-and-tracking).
