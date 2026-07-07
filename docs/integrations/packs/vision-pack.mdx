@@ -83,7 +83,7 @@ the setup:
 
 1. Go through the official
    [Jetson Orin Nano setup guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro).
-2. During flashing, install JetPack **7.2** with L4T firmware at least **36.0**.
+2. During flashing, install JetPack **7.2** with L4T firmware at least **39.2**.
 3. Ensure the Jetson has internet access (either via Ethernet or Wi-Fi) before
    proceeding.
 4. Finish the initial setup and create a user account when prompted.
@@ -469,9 +469,13 @@ Next, build the **zed_ros2_wrapper** package on the Jetson according to the
 
 :::note
 
-Ensure that your Jetson has internet access to pull the wrapper. Further
-internet access might be required on camera startup if the ZED wrapper needs to
-download additional assets like calibration files or detection models.
+Ensure that your Jetson has internet access to pull the wrapper. Since the
+Jetson is now connected to the rover, it can only reach the internet through the
+rover's network - connect the rover to a Wi-Fi network with internet access
+first (see the [Connect to network](/leo-rover/guides/connect-to-network)
+guide). Further internet access might be required on camera startup if the ZED
+wrapper needs to download additional assets like calibration files or detection
+models.
 
 :::
 
@@ -483,7 +487,13 @@ source ~/ros2_ws/install/setup.bash
 ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/etc/ros/zed2i.yaml
 ```
 
-At this point the rover computer should see the ZED ROS interfaces.
+At this point the rover computer should see the ZED ROS interfaces. You can
+verify this by listing the available topics from the Raspberry Pi (or any other
+computer on the rover's network with ROS 2 installed):
+
+```bash
+ros2 topic list | grep zed
+```
 
 :::info
 
