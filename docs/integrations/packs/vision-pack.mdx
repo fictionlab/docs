@@ -36,9 +36,8 @@ perception capabilities.
 
 ## What to expect?
 
-After completing this tutorial, you will be able to run a Docker container with
-ROS Jazzy and ZED wrapper on your Jetson Orin Nano, and have the camera data
-published on ROS topics.
+After completing this tutorial, you will be able to run the ZED ROS 2 wrapper
+on your Jetson Orin Nano, and have the camera data published on ROS topics.
 
 To see full information about the additional available ROS interfaces and
 configuration options, check the official
@@ -416,23 +415,22 @@ nmap -sP 10.0.0.1/24
 Before launching the ZED wrapper, you need to create a configuration
 file for the camera. This file will contain the parameters for the ZED camera to configure the ROS node.
 
-On Jetson, create folders for configs and logs on the host:
+On Jetson, create the `/etc/ros` directory which will store the configuration:
 
 ```bash
-sudo mkdir -p /opt/zed_ros/{config,logs}
-sudo chown -R $USER /opt/zed_ros
+sudo mkdir -p /etc/ros
 ```
 
-Add a parameter file under `/opt/zed_ros/config`:
+Add a parameter file under `/etc/ros`:
 
 ```bash
 sudo apt install -y nano
-nano /opt/zed_ros/config/zed2i.yaml
+sudo nano /etc/ros/zed2i.yaml
 ```
 
 And add the following content to the file:
 
-```yaml title="/opt/zed_ros/config/zed2i.yaml"
+```yaml title="/etc/ros/zed2i.yaml"
 /**:
   ros__parameters:
     general:
@@ -473,29 +471,13 @@ additional assets like calibration files or detection models.
 
 :::
 
-{/* Start the ZED wrapper container whenever you need the camera online. This run
-command exposes the GPU, host networking, and the ZED calibration assets to the
-container:
-
-```bash
-sudo docker run --rm --runtime nvidia -it --privileged --network=host --ipc=host --pid=host \
-  -e NVIDIA_DRIVER_CAPABILITIES=all -e DISPLAY=$DISPLAY \
-  -v /tmp/.X11-unix/:/tmp/.X11-unix \
-  -v /dev:/dev \
-  -v /dev/shm:/dev/shm \
-  -v /usr/local/zed/resources/:/usr/local/zed/resources/ \
-  -v /usr/local/zed/settings/:/usr/local/zed/settings/ \
-  -v /opt/zed_ros/config:/data:ro \
-  ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
-``` */}
-
 Once the wrapper is installed and built, you can launch it.
 Source
 the workspace, then launch the wrapper for the `zed2i` camera using previously created configuration:
 
 ```bash
 source ~/ros2_ws/install/setup.bash
-ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/opt/zed_ros/config/zed2i.yaml
+ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/etc/ros/zed2i.yaml
 ```
 
 At this point the rover computer should see the ZED ROS interfaces.
@@ -576,49 +558,11 @@ ros-nodes-restart
 
 You should now be able to see the ZED camera frames in the robot's TF tree.
 
-### (Optional) Launching the container on boot
+### (Optional) Launching the ZED nodes on boot
 
 If you want the ZED camera to be available immediately after the Jetson boots
 up, you can follow the steps below to set up a `systemd` service to run the
-container and mount a host directory for configs and logs.
-
-:::note
-
-Perform these steps on the Jetson outside of the container.
-
-:::
-
-Create a new Docker Compose file for the ZED wrapper container in previously
-created directory `/opt/zed_ros`:
-
-```bash
-nano /opt/zed_ros/docker-compose.yml
-```
-
-Save the following content to the file (adjust environment overrides as needed):
-
-```yaml title="/opt/zed_ros/docker-compose.yml"
-services:
-  zed-wrapper:
-    image: ghcr.io/fictionlab/jetson_ros_jazzy_zed:latest
-    container_name: zed-ros-wrapper
-    restart: unless-stopped
-    network_mode: host
-    ipc: host
-    privileged: true
-    runtime: nvidia
-    environment:
-      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-      - ROS_DOMAIN_ID=0
-    volumes:
-      - /opt/zed_ros/config:/data:ro
-      - /opt/zed_ros/logs:/root/.ros/log
-      - /dev/bus/usb:/dev/bus/usb
-      - /etc/localtime:/etc/localtime:ro
-    command: >
-      ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i
-      ros_params_override_path:=/data/zed2i.yaml
-```
+ROS2 ZED nodes.
 
 Add the `systemd` unit `/etc/systemd/system/zed-ros-wrapper.service`:
 
@@ -630,21 +574,31 @@ And add the following content to the file:
 
 ```ini title="/etc/systemd/system/zed-ros-wrapper.service"
 [Unit]
-Description=ZED ROS 2 Wrapper container
-After=network-online.target docker.service
-Requires=docker.service
+Description=ZED ROS 2 Wrapper
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=exec
-WorkingDirectory=/opt/zed_ros
-ExecStart=/usr/bin/docker compose up --remove-orphans
-ExecStop=/usr/bin/docker compose down
+User=<your_username>
+ExecStart=/bin/bash -c 'source ~/ros2_ws/install/setup.bash && exec ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/etc/ros/zed2i.yaml'
+KillSignal=SIGINT
+KillMode=mixed
+TimeoutStopSec=30
 Restart=always
-TimeoutStartSec=0
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
 ```
+
+:::note
+
+Replace `<your_username>` in the `User=` directive with the name of the user
+account created during the Jetson setup. The `~` in the `ExecStart=` command
+resolves to that user's home directory, so it doesn't need to be changed.
+
+:::
 
 Enable and start the service:
 
@@ -655,14 +609,13 @@ sudo systemctl enable --now zed-ros-wrapper
 :::info
 
 You can use `journalctl -u zed-ros-wrapper -f` to follow the logs and ensure the
-container starts correctly.
+nodes starts correctly.
 
-To restart the container manually, use `sudo systemctl restart zed-ros-wrapper`.
+To restart the nodes manually, use `sudo systemctl restart zed-ros-wrapper`.
 
 :::
 
-Now the ZED wrapper container will start automatically on boot, and you can
-manage your configurations and logs easily from the host filesystem.
+Now the ZED wrapper nodes will start automatically on boot.
 
 ## What's next?
 
