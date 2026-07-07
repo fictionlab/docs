@@ -49,7 +49,7 @@ configuration options, check the official
 <LinkButton
   to="/leo-rover/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
-  description="Learn how to connect to your Leo Rover via WiFi."
+  description="Learn how to connect to your Leo Rover via Wi-Fi."
 />
 
 <LinkButton
@@ -392,7 +392,7 @@ sudo reboot
 
 :::note
 
-This will disconnect you from the rover's WiFi network, so make sure to
+This will disconnect you from the rover's Wi-Fi network, so make sure to
 reconnect after the reboot.
 
 :::
@@ -510,7 +510,7 @@ be available immediately.
 To ensure proper TF frames and integration with the rest of the rover system,
 you will need to add the ZED camera to the URDF model of the rover.
 
-To do that log in to the Raspberry Pi and install the `zed_description` package
+To do that, log in to the Raspberry Pi and install the `zed_description` package
 that contains the URDF macros for ZED cameras:
 
 ```bash
@@ -518,7 +518,8 @@ sudo apt update
 sudo apt install ros-${ROS_DISTRO}-zed-description
 ```
 
-Then create new `xacro` macro for the vision pack in `/etc/ros/urdf` directory:
+Then create a new `xacro` macro for the vision pack in `/etc/ros/urdf`
+directory:
 
 ```bash
 nano /etc/ros/urdf/zed2i.urdf.xacro
@@ -576,26 +577,24 @@ You should now be able to see the ZED camera frames in the robot's TF tree.
 ### (Optional) Launching the ZED nodes on boot
 
 If you want the ZED camera to be available immediately after the Jetson boots
-up, you can follow the steps below to set up a `systemd` service to run the ROS
-2 ZED nodes.
+up, you can follow the steps below to set up a `systemd` user service to run the
+ROS 2 ZED nodes.
 
-Add the `systemd` unit `/etc/systemd/system/zed-ros-wrapper.service`:
+Add the `systemd` unit `/etc/systemd/user/zed-ros-wrapper.service`:
 
 ```bash
-sudo nano /etc/systemd/system/zed-ros-wrapper.service
+sudo nano /etc/systemd/user/zed-ros-wrapper.service
 ```
 
 And add the following content to the file:
 
-```ini title="/etc/systemd/system/zed-ros-wrapper.service"
+```ini title="/etc/systemd/user/zed-ros-wrapper.service"
 [Unit]
 Description=ZED ROS 2 Wrapper
-Wants=network-online.target
-After=network-online.target
 
 [Service]
 Type=exec
-User=<your_username>
+ExecStartPre=/usr/bin/nm-online -q
 ExecStart=/bin/bash -c 'source ~/ros2_ws/install/setup.bash && exec ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/etc/ros/zed2i.yaml'
 KillSignal=SIGINT
 KillMode=mixed
@@ -604,29 +603,36 @@ Restart=always
 RestartSec=5
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
 ```
 
 :::note
 
-Replace `<your_username>` in the `User=` directive with the name of the user
-account created during the Jetson setup. The `~` in the `ExecStart=` command
-resolves to that user's home directory, so it doesn't need to be changed.
+The `nm-online` command delays the launch until the network is up, so that the
+ROS nodes bind to the correct network interfaces.
 
 :::
 
-Enable and start the service:
+Enable and start the service (as your regular user, without sudo):
 
 ```bash
-sudo systemctl enable --now zed-ros-wrapper
+systemctl --user enable --now zed-ros-wrapper
+```
+
+By default, `systemd` starts user services on login and stops them on logout. To
+keep the service running from boot, independent of login sessions, enable
+lingering for your user:
+
+```bash
+sudo loginctl enable-linger $USER
 ```
 
 :::info
 
-You can use `journalctl -u zed-ros-wrapper -f` to follow the logs and ensure the
-nodes start correctly.
+You can use `journalctl --user -u zed-ros-wrapper -f` to follow the logs and
+ensure the nodes start correctly.
 
-To restart the nodes manually, use `sudo systemctl restart zed-ros-wrapper`.
+To restart the nodes manually, use `systemctl --user restart zed-ros-wrapper`.
 
 :::
 
@@ -634,7 +640,7 @@ Now the ZED wrapper nodes will start automatically on boot.
 
 ## What's next?
 
-ZED camera can be used in projects involving
+The ZED camera can be used in projects involving
 [autonomous navigation](/leo-rover/advanced-guides/autonomous-navigation). You
 might be interested in a tutorial about it.
 
