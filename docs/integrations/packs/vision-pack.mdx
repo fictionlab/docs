@@ -36,12 +36,12 @@ perception capabilities.
 
 ## What to expect?
 
-After completing this tutorial, you will be able to run the ZED ROS 2 wrapper
-on your Jetson Orin Nano, and have the camera data published on ROS topics.
+After completing this tutorial, you will be able to run the ZED ROS 2 wrapper on
+your Jetson Orin Nano, and have the camera data published on ROS topics.
 
 To see full information about the additional available ROS interfaces and
 configuration options, check the official
-[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/integrations/ros-2).
+[ZED ROS 2 wrapper documentation](https://www.stereolabs.com/docs/integrations/ros-2).
 
 ## Prerequisites
 
@@ -83,8 +83,7 @@ the setup:
 
 1. Go through the official
    [Jetson Orin Nano setup guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro).
-2. During flashing, install JetPack **7.2** with L4T firmware at least
-   **36.0**.
+2. During flashing, install JetPack **7.2** with L4T firmware at least **36.0**.
 3. Ensure the Jetson has internet access (either via Ethernet or Wi-Fi) before
    proceeding.
 4. Finish the initial setup and create a user account when prompted.
@@ -98,13 +97,15 @@ You can find all the JetPack images in the
 
 :::
 
-After the initial setup is complete, install the latest packages directly on Jetson (either with an attached display or over SSH):
+After the initial setup is complete, install the latest packages directly on the
+Jetson (either with an attached display or over SSH):
 
 ```bash
 sudo apt update && sudo apt upgrade
 ```
 
-Next step is installing ROS by following instructions in [ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html).
+The next step is to install ROS 2 by following the instructions in the
+[ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html).
 
 :::tip
 
@@ -125,8 +126,8 @@ echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 
 :::
 
-Now you can turn off Wi-Fi on Jetson since later on it will be connected to the
-rover's network via ethernet.
+Now you can turn off Wi-Fi on the Jetson since later on it will be connected to
+the rover's network via Ethernet.
 
 At this point you can proceed with the hardware integration and mounting the
 Jetson on the rover.
@@ -340,7 +341,7 @@ Now the rover is ready for software integration.
 
 ## Software integration
 
-In order to use the ZED camera with ROS, we will be using the official ZED ROS
+In order to use the ZED camera with ROS, we will be using the official ZED ROS 2
 wrapper.
 
 Follow the steps below to bring the Vision Pack online and publish ZED data to
@@ -348,13 +349,13 @@ ROS.
 
 ### Sharing Leo Rover network with the Jetson
 
-Since Jetson ethernet port is connected to the rover via a USB-to-Ethernet
-adapter, a new ethernet interface is created and it needs to be configured to
+Since the Jetson's Ethernet port is connected to the rover via a USB-to-Ethernet
+adapter, a new Ethernet interface is created and it needs to be configured to
 bridge the rover's network to the connected device.
 
-To do that, log in to the Raspberry Pi via ssh (either from Jetson or from your
-local machine) and open the Netplan configuration file that manages the ethernet
-bridge:
+To do that, log in to the Raspberry Pi via ssh (either from the Jetson or from
+your local machine) and open the Netplan configuration file that manages the
+Ethernet bridge:
 
 ```bash
 sudo nano /etc/netplan/10-eth-bridge.yaml
@@ -385,7 +386,7 @@ network:
 Restart the Raspberry Pi to apply changes:
 
 ```bash
-sudo reboot now
+sudo reboot
 ```
 
 :::note
@@ -405,17 +406,18 @@ machine connected to the Leo Rover network:
 
 ```bash
 sudo apt install -y nmap
-nmap -sP 10.0.0.1/24
+nmap -sn 10.0.0.1/24
 ```
 
 :::
 
 ### Creating ZED camera ROS configuration
 
-Before launching the ZED wrapper, you need to create a configuration
-file for the camera. This file will contain the parameters for the ZED camera to configure the ROS node.
+Before launching the ZED wrapper, you need to create a file containing the ROS
+parameters for the camera node.
 
-On Jetson, create the `/etc/ros` directory which will store the configuration:
+On the Jetson, create the `/etc/ros` directory which will store the
+configuration:
 
 ```bash
 sudo mkdir -p /etc/ros
@@ -424,7 +426,6 @@ sudo mkdir -p /etc/ros
 Add a parameter file under `/etc/ros`:
 
 ```bash
-sudo apt install -y nano
 sudo nano /etc/ros/zed2i.yaml
 ```
 
@@ -452,28 +453,30 @@ And add the following content to the file:
 :::note
 
 These are just example parameters - tune them as needed and refer to the
-[ZED ROS wrapper documentation](https://www.stereolabs.com/docs/integrations/ros-2)
+[ZED ROS 2 wrapper documentation](https://www.stereolabs.com/docs/integrations/ros-2)
 for the full list of options.
 
 :::
 
 ### Setting up the ZED wrapper
 
-Firstly, install the ZED SDK for NVIDIA Jetson in version for JetPack 7.2 (L4T 39.2) according to [How to Install ZED SDK on NVIDIA® Jetson][https://www.stereolabs.com/docs/development/zed-sdk/linux/work-with-nvidia-jetson].
+First, install the ZED SDK for NVIDIA Jetson in the version for JetPack 7.2 (L4T
+39.2) according to
+[How to Install ZED SDK on NVIDIA® Jetson](https://www.stereolabs.com/docs/development/zed-sdk/linux/work-with-nvidia-jetson).
 
-Next, build the **zed_ros2_wrapper**  package on Jetson according to [building guide][https://www.stereolabs.com/docs/integrations/ros-2#build-the-package].
+Next, build the **zed_ros2_wrapper** package on the Jetson according to the
+[building guide](https://www.stereolabs.com/docs/integrations/ros-2#build-the-package).
 
 :::note
 
-Ensure that your Jetson has internet access to pull the wrapper. Further internet
-access might be required on camera startup if the ZED wrapper needs to download
-additional assets like calibration files or detection models.
+Ensure that your Jetson has internet access to pull the wrapper. Further
+internet access might be required on camera startup if the ZED wrapper needs to
+download additional assets like calibration files or detection models.
 
 :::
 
-Once the wrapper is installed and built, you can launch it.
-Source
-the workspace, then launch the wrapper for the `zed2i` camera using previously created configuration:
+Once the wrapper is installed and built, source the workspace and launch the
+wrapper for the `zed2i` camera using the previously created configuration:
 
 ```bash
 source ~/ros2_ws/install/setup.bash
@@ -561,8 +564,8 @@ You should now be able to see the ZED camera frames in the robot's TF tree.
 ### (Optional) Launching the ZED nodes on boot
 
 If you want the ZED camera to be available immediately after the Jetson boots
-up, you can follow the steps below to set up a `systemd` service to run the
-ROS2 ZED nodes.
+up, you can follow the steps below to set up a `systemd` service to run the ROS
+2 ZED nodes.
 
 Add the `systemd` unit `/etc/systemd/system/zed-ros-wrapper.service`:
 
@@ -609,7 +612,7 @@ sudo systemctl enable --now zed-ros-wrapper
 :::info
 
 You can use `journalctl -u zed-ros-wrapper -f` to follow the logs and ensure the
-nodes starts correctly.
+nodes start correctly.
 
 To restart the nodes manually, use `sudo systemctl restart zed-ros-wrapper`.
 
@@ -624,4 +627,4 @@ ZED camera can be used in projects involving
 might be interested in a tutorial about it.
 
 You can also use the ZED camera for object detection using the
-[ZED ROS wrapper's built-in detection capabilities](https://www.stereolabs.com/docs/integrations/ros-2/object-detection-and-tracking).
+[ZED ROS 2 wrapper's built-in detection capabilities](https://www.stereolabs.com/docs/integrations/ros-2/object-detection-and-tracking).
