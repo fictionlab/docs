@@ -36,8 +36,9 @@ perception capabilities.
 
 ## What to expect?
 
-After completing this tutorial, you will be able to run the ZED ROS 2 wrapper on
-your Jetson Orin Nano, and have the camera data published on ROS topics.
+After completing this tutorial, you will have ROS 2 installed, be able to run
+the ZED ROS 2 wrapper on your Jetson Orin Nano, and have the camera data
+published on ROS topics.
 
 To see full information about the additional available ROS interfaces and
 configuration options, check the official
@@ -109,9 +110,9 @@ The next step is to install ROS 2 by following the instructions in the
 
 :::tip
 
-If you don't plan to use GUI tools (like RViz) on the Jetson, you can install
-the `ros-jazzy-ros-base` package instead of the full `ros-jazzy-desktop` one.
-This saves Jetson storage space.
+If you don't plan to use ROS GUI tools (like RViz or rqt) on the Jetson, you can
+install the `ros-jazzy-ros-base` package instead of the full `ros-jazzy-desktop`
+one. This saves Jetson storage space.
 
 :::
 
@@ -421,12 +422,13 @@ configuration:
 
 ```bash
 sudo mkdir -p /etc/ros
+sudo chown -R $USER /etc/ros
 ```
 
 Add a parameter file under `/etc/ros`:
 
 ```bash
-sudo nano /etc/ros/zed2i.yaml
+nano /etc/ros/zed2i.yaml
 ```
 
 And add the following content to the file:
