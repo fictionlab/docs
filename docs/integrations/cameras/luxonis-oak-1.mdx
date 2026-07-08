@@ -1,0 +1,173 @@
+---
+title: Luxonis OAK-1 Camera Integration Guide for ROS Robots
+sidebar_label: Luxonis OAK-1
+keywords:
+  - luxonis
+  - oak-1
+  - rgb
+  - camera
+  - integration
+  - autonomy
+  - leo
+  - example
+description: >-
+  Learn how to connect an Luxonis OAK-1 camera to your Leo Rover and integrate
+  it with the system using ROS.
+# TODO: add an OAK-1 image
+image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
+---
+
+import ImageZoom from '@site/src/components/ImageZoom';
+import LinkButton from '@site/src/components/LinkButton';
+import Product from '@site/src/products/intel-realsense-d435i.mdx';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+# Luxonis OAK-1 Camera Integration
+
+In this tutorial we will go through the process of connecting a Luxonis OAK-1
+camera to your Leo Rover and integrating it with the system using ROS.
+
+{/* TODO: add a few sentence description of OAK-1 camera capabilities */}
+
+{/* TODO: add an OAK-1 image (or robot with OAK-1) */}
+
+## What to expect?
+
+After completing this tutorial, you will have a Luxonis OAK-1 camera mounted on
+your Leo Rover, and you will be able to access the camera's data through ROS
+topics.
+
+{/* TODO: add a link to the OAK-1 documentation -- with the list of the available topics */}
+{/* TODO: maybe add a photo/video of the final result? */}
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/connect-to-rover-ap"
+  title="Connect to Leo Rover AP"
+  description="Learn how to connect to your Leo Rover via WiFi."
+/>
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to Network"
+  description="Learn how to connect your Leo Rover to a Wi-Fi network."
+/>
+<LinkButton
+  to="/leo-rover/guides/software-update"
+  title="Software update"
+  description="Detailed guide on updating the software of Leo Rover, covering steps to access
+  the microSD card, download and flash the latest LeoOS image."
+/>
+<LinkButton
+  to="/leo-rover/advanced-guides/ros-development"
+  title="ROS Development"
+  description="Detailed guide on ROS development for Leo Rover, covering topics like adding
+  additional functionalities, building ROS packages and more."
+/>
+
+### Referenced products
+
+{/* TODO: switch to luxonis OAK-1 product */}
+
+## Hardware integration
+
+{/* TODO: add hardware integration */}
+
+## Software integration
+
+The first thing you can do is to make sure your device has the correct
+permissions. To do this, you can add the following rule to the udev service:
+
+```xml title="/etc/udev/rules.d/luxonis.rules"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
+```
+
+Paste these lines to `/etc/udev/rules.d/luxonis.rules` file and reload udev
+rules by typing:
+
+```bash
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
+We want the sensor functionality to be available in the ROS ecosystem, so you
+should install a ROS package that provides a node for the camera.
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-depthai-ros
+```
+
+### Modifying the URDF model
+
+As we want to have the camera model visible with the rover model, we need to
+create an URDF file with the Oak included. Package `depthai_descriptions` is
+installed alongside `depthai-ros` and it contains Oak camera models and xacro
+macros that we can easily add (list of available models
+[here](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_descriptions/urdf/models)).
+We need to include the correct macro to make the camera visible with the robot's
+model. To do that create a new file in `/etc/ros/urdf` directory, and name it
+`oak-1.urdf.xacro`. In this file, include the following content:
+
+```xml title="/etc/ros/urdf/oak-1.urdf.xacro"
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find depthai_descriptions)/urdf/include/depthai_macro.urdf.xacro"/>
+
+  <xacro:depthai_camera camera_name="oak"
+                      camera_model="OAK-1"
+                      base_frame="oak-1-base_frame"
+                      parent="base_link"
+                      cam_pos_x="0.0"
+                      cam_pos_y="0.0"
+                      cam_pos_z="0.0"
+                      cam_roll="0.0"
+                      cam_pitch="0.0"
+                      cam_yaw="0.0"/>
+</robot>
+```
+
+You can specify `name` property to anything you want. We just need to change it,
+so we don't have conflicts on `camera_link` tf frame. `origin` property is for
+specifying the position of the camera regarding the link specified in parent
+property. So if the `parent` property is set to "base_link", the position in
+`origin` property is regarding the origin of the Rover.
+
+:::warning
+
+If you are not using our mounting adapter you might have to change the values in
+`origin` property.
+
+:::
+
+Now we have to include our camera model in `robot.urdf.xacro` file - the
+description that is uploaded at boot. Add this line somewhere before the closing
+`</robot>` tag.
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+<xacro:include filename="/etc/ros/urdf/oak-1.urdf.xacro"/>
+```
+
+### Launching camera nodes
+
+To get the image from camera, you need to launch the camera nodes. You can do it
+by typing below commands in terminal:
+
+{/* TODO: add launching */}
+
+### (Optional) Launching camera nodes on system startup
+
+{/* TODO: add launching camera nodes */}
+
+## Example usage
+
+{/* TODO: add example usage */}
+
+## What's next?
+
+{/* TODO: add What's next */}
