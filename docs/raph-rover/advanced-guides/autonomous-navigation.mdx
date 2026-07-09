@@ -294,14 +294,21 @@ prevents unstable micro-maneuvers on Ackermann vehicles.
 
 Nav2 configuration can be found in `config/navigation.yaml`.
 
-Below are the newly added parameters for the custom controller plugin: |
-Parameter | Value | Description | |---|---|---| | `wheelbase` | 0.382 m |
-Front-to-rear axle distance | | `track_width` | 0.385 m | Steering track width |
-| `max_steering_angle` | 1.08 rad | Physical steering limit | |
-`max_steering_angle_velocity` | 4.0 rad/s | Max steering rate | |
-`steering_angle_tolerance` | 0.8 rad | Gate engagement threshold | |
-`steering_angle_release_tolerance` | 0.05 rad | Gate release threshold
-(hysteresis) | | `min_segment_length` | 0.1 m | Minimum cusp-segment length |
+Below are the newly added parameters for the custom controller plugin:
+
+<CenterContent>
+
+| Parameter                          | Value     | Description                         |
+| ---------------------------------- | --------- | ----------------------------------- |
+| `wheelbase`                        | 0.382 m   | Front-to-rear axle distance         |
+| `track_width`                      | 0.385 m   | Steering track width                |
+| `max_steering_angle`               | 1.08 rad  | Physical steering limit             |
+| `max_steering_angle_velocity`      | 4.0 rad/s | Max steering rate                   |
+| `steering_angle_tolerance`         | 0.8 rad   | Gate engagement threshold           |
+| `steering_angle_release_tolerance` | 0.05 rad  | Gate release threshold (hysteresis) |
+| `min_segment_length`               | 0.1 m     | Minimum cusp-segment length         |
+
+</CenterContent>
 
 Nav2 provides an extensive
 [configuration guide](https://docs.nav2.org/configuration/index.html). You can
