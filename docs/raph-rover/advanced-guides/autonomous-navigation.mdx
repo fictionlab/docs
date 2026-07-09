@@ -463,3 +463,55 @@ Congratulations! You can now control your Raph Rover autonomously and send
 navigation goals to it.
 
 :::
+
+## Exploration
+
+If you want to explore an unknown environment and build a map, you can use the
+[`explore_lite`](https://github.com/robo-friends/m-explore-ros2) package. It
+provides a simple exploration behavior that drives the robot to unexplored areas
+of the map while avoiding obstacles.
+
+To launch the exploration behavior, first clone the repository:
+
+```bash
+cd ~/ros_ws/src
+git clone https://github.com/robo-friends/m-explore-ros2
+```
+
+Then build the workspace again:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+cd ~/ros_ws
+colcon build --symlink-install
+```
+
+To launch the exploration behavior with a config from the `raph_nav` package,
+run:
+
+```bash
+source ~/ros_ws/install/setup.bash
+ros2 run explore_lite explore --ros-args --params-file ~/ros_ws/src/raph_nav/raph_nav/config/explore.yaml
+```
+
+:::warning
+
+After launching the exploration behavior, the rover will start navigating right
+away. Make sure the starting area is safe and free of obstacles before starting
+exploration.
+
+Remember to adjust the parameters in `raph_nav/config/explore.yaml` to suit your
+environment.
+
+:::
+
+:::note
+
+If exploration stops prematurely, you can manually send a new goal to the rover
+and then resume exploration with:
+
+```bash
+ros2 topic pub /explore/resume std_msgs/msg/Bool "{data: True}" --once
+```
+
+:::
