@@ -105,8 +105,8 @@ sudo apt install ros-${ROS_DISTRO}-depthai-ros
 ### Modifying the URDF model
 
 As we want to have the camera model visible with the rover model, we need to
-create an URDF file with the Oak included. Package `depthai_descriptions` is
-installed alongside `depthai-ros` and it contains Oak camera models and xacro
+create an URDF file with the OAK included. Package `depthai_descriptions` is
+installed alongside `depthai-ros` and it contains OAK camera models and xacro
 macros that we can easily add (list of available models
 [here](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_descriptions/urdf/models)).
 We need to include the correct macro to make the camera visible with the robot's
@@ -156,9 +156,71 @@ description that is uploaded at boot. Add this line somewhere before the closing
 ### Launching camera nodes
 
 To get the image from camera, you need to launch the camera nodes. You can do it
-by typing below commands in terminal:
+by using default DepthAI launcher:
 
-{/* TODO: add launching */}
+```bash
+ros2 launch depthai_ros_driver camera.launch.py
+```
+
+If you want to change the default parameters, you can do it while the node runs
+with the usage of _RQt_:
+
+```bash
+  rqt
+```
+
+If you want the changes of parameters to persist accross the runs, create a
+`.yaml` configuration file in `/etc/ros`. This example contains configuration
+for OAK-1 camera:
+
+```yaml title="/etc/ros/oak.yaml"
+/oak:
+  ros__parameters:
+    oak.rgb.image_raw.enable_pub_plugins:
+      ['image_transport/raw', 'image_transport/compressed']
+    camera:
+      i_pipeline_type: RGB
+      i_nn_type: none
+    rgb:
+      i_publish_topic: true
+      i_fps: 30.0
+      i_resolution: 1080P
+      i_isp_num: 2
+      i_isp_den: 3
+      i_output_isp: true
+      i_width: 1280
+      i_height: 720
+```
+
+You can modify the parameters in the file according to your needs and then
+launch:
+
+```bash
+ros2 launch depthai_ros_driver camera.launch.py params_file:=/etc/ros/oak.yaml
+```
+
+:::note
+
+If your OAK-1 unit doesn't have an IMU, you will see this warning:
+
+```
+[WARN] [oak]: IMU enabled but not available!
+```
+
+It is harmless - the driver simply skips creating the IMU node and the camera
+works normally. You can silence it by adding the following to the configuration
+file:
+
+```yaml
+pipeline_gen:
+  i_enable_imu: false
+```
+
+:::
+
+For more information about oak configuration and usage examples you can check
+out the
+[depthai-ros github repository](https://github.com/luxonis/depthai-ros/tree/jazzy).
 
 ### (Optional) Launching camera nodes on system startup
 
