@@ -13,7 +13,14 @@ export interface ProductPreviewProps {
 }
 
 export default function ProductPreview(props: ProductPreviewProps) {
-  const required: (keyof ProductPreviewProps)[] = ['shopUrl', 'imageSrc', 'width', 'height', 'alt', 'title'];
+  const required: (keyof ProductPreviewProps)[] = [
+    'shopUrl',
+    'imageSrc',
+    'width',
+    'height',
+    'alt',
+    'title',
+  ];
   for (const key of required) {
     if (props[key] === undefined || props[key] === null || props[key] === '') {
       throw new Error(`ProductPreview: missing required prop "${key}"`);
