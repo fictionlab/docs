@@ -218,13 +218,49 @@ pipeline_gen:
 
 :::
 
+:::info
+
 For more information about oak configuration and usage examples you can check
 out the
 [depthai-ros github repository](https://github.com/luxonis/depthai-ros/tree/jazzy).
 
+:::
+
 ### (Optional) Launching camera nodes on system startup
 
-{/* TODO: add launching camera nodes */}
+To launch camera nodes with the created parameters file on system startup,
+create a launch file in `/etc/ros`:
+
+```xml title="/etc/ros/oak.launch.xml"
+<launch version="0.1.1">
+  <node name="oak" namespace="" pkg="depthai_ros_driver" exec="camera_node">
+    <param from="/etc/ros/oak.yaml" />
+  </node>
+
+</launch>
+```
+
+:::info
+
+You can set the `namespace` property of the `node` tag to whatever you want, but
+the `name` has to be set to the same value as the `camera_name` in urdf file.
+It's required for the camera data to be placed in correct TF frame.
+
+:::
+
+Then in `/etc/ros/robot.launch.xml` add this line somewhere before the closing
+`</launch>` tag:
+
+```xml title="/etc/ros/robot.launch.xml"
+<include file="/etc/ros/oak.launch.xml"/>
+```
+
+Now your OAK-1 camera ROS node will start at launch. You can also start them now
+by typing
+
+```bash
+ros-nodes-restart
+```
 
 ## Example usage
 
