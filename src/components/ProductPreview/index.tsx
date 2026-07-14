@@ -7,12 +7,26 @@ export interface ProductPreviewProps {
   width: number;
   height: number;
   alt: string;
-  title?: string;
+  title: string;
   price?: number;
   description?: string;
 }
 
 export default function ProductPreview(props: ProductPreviewProps) {
+  const required: (keyof ProductPreviewProps)[] = [
+    'shopUrl',
+    'imageSrc',
+    'width',
+    'height',
+    'alt',
+    'title',
+  ];
+  for (const key of required) {
+    if (props[key] === undefined || props[key] === null || props[key] === '') {
+      throw new Error(`ProductPreview: missing required prop "${key}"`);
+    }
+  }
+
   const link = props.shopUrl;
   const title = props.title;
   const description = props.description;
@@ -26,9 +40,9 @@ export default function ProductPreview(props: ProductPreviewProps) {
           loading="eager"
           className={styles.Image}
           src={image}
-          alt="00188 MEB cover for Leo Rover"
-          width="1000"
-          height="750"
+          alt={props.alt}
+          width={props.width}
+          height={props.height}
         />
       </div>
       <div className={styles.TextContainer}>
