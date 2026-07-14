@@ -22,8 +22,21 @@ image: /img/robots/leo/leo-rover-1.9.webp
 import ImageZoom from '@site/src/components/ImageZoom';
 import LinkButton from '@site/src/components/LinkButton';
 import CenterContent from '@site/src/components/CenterContent';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import FlexTable from '@site/src/components/FlexTable';
+import FlexTableItem from '@site/src/components/FlexTableItem';
 
 # High Torque Panthera-HT 6-Axis Robotic Arm Integration
+
+<ImageZoom
+  src="/img/robots/leo/integrations/panthera-ht/panthera_leo_assembly.webp"
+  width="4000"
+  height="3000"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
 In this tutorial we will go through the process of connecting a Panthera-HT
 robotic arm to your Leo Rover and integrating it with the system using ROS.
@@ -76,11 +89,160 @@ available topics and configuration options
 
 ## Hardware integration
 
-{/* TODO add entirety of hardware integration */}
+- Attach Arm base to the rover using 4 M5 x 12 screws.
 
-### Mounting
+<ThemedImageZoom
+  loading="eager"
+  alt="Needed tools"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_1_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_1_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
 
-### Wiring
+- Connect the CAN/power ribbon cable to the base and route it through the side
+  opening.
+- Connect the angled end of the USB-C cable to the base board’s internal USB-C
+  port. Route the cable through the side opening, and connect the other end to
+  the rover’s USB port.
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Needed tools"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_2_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_2_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+- Attach USB cable and run it through the hole on the side
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Needed tools"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_3_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_3_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+- Attach the Arm to the base while making sure you do not squeeze the cables.
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Needed tools"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_5_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_5_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+- Connect the other end of the CAN/power ribbon cable to the connector on the
+  first motor of the arm.
+
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '45%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
+  loading="eager"
+  alt="Arm with power adapter connected"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_6_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_6_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+  </FlexTableItem>
+
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '45%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    loading="eager"
+    alt="Arm with battery connected"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/integrations/panthera-ht/Step_4_black.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/integrations/panthera-ht/Step_4_white.webp',
+      ),
+    }}
+    width="3000"
+    height="2121"
+    figStyle={{
+      width: 600,
+    }}
+  />
+</FlexTableItem>
+
+</FlexTable>
+
+- Insert the battery into the slot on the back.
+- Alternatively, power the arm from an external 24 V, 15 A supply using the XT60
+  connector inside the battery compartment.
+
+:::info
+
+This power supply cannot be used to charge either the arm's battery or the
+rover's battery due to voltage incompatibility. That's why it's not possible to
+connect the battery and power supply at the same time.
+
+:::
+
+{/* TODO Add brief battery charging section */}
 
 {/* TODO remember to inform the user that they need to click the power button to power on the arm's motors */}
 
