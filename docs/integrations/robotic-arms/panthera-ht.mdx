@@ -89,8 +89,6 @@ available topics and configuration options
 
 ## Hardware integration
 
-- Attach Arm base to the rover using 4 M5 x 12 screws.
-
 <ThemedImageZoom
   loading="eager"
   alt="Needed tools"
@@ -100,6 +98,26 @@ available topics and configuration options
     ),
     dark: useBaseUrl(
       '/img/robots/leo/integrations/panthera-ht/Step_1_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+- Attach Arm base to the rover using 4 M5 x 12 screws.
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Needed tools"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_2_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_2_white.webp',
     ),
   }}
   width="3000"
@@ -120,26 +138,6 @@ available topics and configuration options
   alt="Needed tools"
   sources={{
     light: useBaseUrl(
-      '/img/robots/leo/integrations/panthera-ht/Step_2_black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/leo/integrations/panthera-ht/Step_2_white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-- Attach USB cable and run it through the hole on the side
-
-<ThemedImageZoom
-  loading="eager"
-  alt="Needed tools"
-  sources={{
-    light: useBaseUrl(
       '/img/robots/leo/integrations/panthera-ht/Step_3_black.webp',
     ),
     dark: useBaseUrl(
@@ -153,7 +151,9 @@ available topics and configuration options
   }}
 />
 
-- Attach the Arm to the base while making sure you do not squeeze the cables.
+- Attach the arm to the base. Route the ribbon and USB cables through the side
+  cutout. Ensure no cables are trapped between the arm base and the plastic
+  cover.
 
 <ThemedImageZoom
   loading="eager"
@@ -236,9 +236,9 @@ available topics and configuration options
 
 :::info
 
-This power supply cannot be used to charge either the arm's battery or the
-rover's battery due to voltage incompatibility. That's why it's not possible to
-connect the battery and power supply at the same time.
+This power supply cannot be used to charge the arm or rover batteries due to
+incompatible voltages. Do not connect the battery and the external power supply
+at the same time.
 
 :::
 
