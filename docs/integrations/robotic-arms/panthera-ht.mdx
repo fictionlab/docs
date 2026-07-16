@@ -109,7 +109,14 @@ available topics and configuration options
 
 - Attach Arm base to the rover using 4 M5 x 12 screws.
 
-<ThemedImageZoom
+<FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
+  
+  <FlexTableItem
+    style={{
+      width: '45%'
+    }}
+    mobileColumns={2}>
+      <ThemedImageZoom
   loading="eager"
   alt="Needed tools"
   sources={{
@@ -126,8 +133,36 @@ available topics and configuration options
     width: 600,
   }}
 />
+  </FlexTableItem>
 
-- Connect the CAN/power ribbon cable to the base and route it through the side
+<FlexTableItem
+  style={{
+    textAlign: 'center',
+    width: '45%',
+  }}
+  mobileColumns={2}
+>
+  <ThemedImageZoom
+    loading="eager"
+    alt="Arm with battery connected"
+    sources={{
+      light: useBaseUrl(
+        '/img/robots/leo/integrations/panthera-ht/Step_2_Extra.webp',
+      ),
+      dark: useBaseUrl(
+        '/img/robots/leo/integrations/panthera-ht/Step_2_Extra.webp',
+      ),
+    }}
+    width="3000"
+    height="2121"
+    figStyle={{
+      width: 600,
+    }}
+  />
+</FlexTableItem>
+</FlexTable>
+
+- Connect the CAN/power ribbon cable to the last port on the arm PCB, and route the ribbon through the side
   opening.
 - Connect the angled end of the USB-C cable to the base board’s internal USB-C
   port. Route the cable through the side opening, and connect the other end to
