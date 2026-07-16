@@ -11,8 +11,8 @@ keywords:
   - leo
   - example
 description: >-
-  Learn how to connect an Luxonis OAK-1 camera to your Leo Rover and integrate
-  it with the system using ROS.
+  Learn how to connect a Luxonis OAK-1 camera to your Leo Rover and integrate it
+  with the system using ROS.
 # TODO: add an OAK-1 image (render?)
 image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
 ---
@@ -20,7 +20,6 @@ image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
 import ImageZoom from '@site/src/components/ImageZoom';
 import LinkButton from '@site/src/components/LinkButton';
 import Product from '@site/src/products/luxonis-oak-1-w-imx378.mdx';
-import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 # Luxonis OAK-1 Camera Integration
 
@@ -47,10 +46,9 @@ topics, such as:
 - `/oak/rgb/image_raw/compressed` - the compressed RGB image stream,
 - `/oak/rgb/camera_info` - the camera calibration data.
 
-You will also learn how to use the camera's on-device AI capabilities by
-running an object detection example. The image below shows its final result -
-the camera stream with the detected objects marked with bounding boxes,
-visualized in RViz:
+You will also learn how to use the camera's on-device AI capabilities by running
+an object detection example. The image below shows its final result - the camera
+stream with the detected objects marked with bounding boxes, visualized in RViz:
 
 <ImageZoom
   src="/img/robots/leo/integrations/oak-1/oak-1-detection-example.webp"
@@ -107,8 +105,8 @@ permissions. To do this, you can add the following rule to the udev service:
 SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
 ```
 
-Paste these lines to `/etc/udev/rules.d/luxonis.rules` file and reload udev
-rules by typing:
+Paste this line to `/etc/udev/rules.d/luxonis.rules` file and reload udev rules
+by typing:
 
 ```bash
 sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -151,16 +149,17 @@ model. To do that create a new file in `/etc/ros/urdf` directory, and name it
 </robot>
 ```
 
-You can specify `name` property to anything you want. We just need to change it,
-so we don't have conflicts on `camera_link` tf frame. `origin` property is for
-specifying the position of the camera regarding the link specified in parent
-property. So if the `parent` property is set to "base_link", the position in
-`origin` property is regarding the origin of the Rover.
+The `camera_name` property determines the names of the camera's TF frames and
+topics. It has to be set to the same value as the `name` of the camera node that
+we will launch later in this tutorial. The `cam_<>` properties specify the
+camera's position and orientation in reference to the link set in the `parent`
+property. As the `parent` property is set to "base_link", the position of the
+camera is provided in reference to the origin of the Rover.
 
 :::warning
 
-If you are not using our mounting adapter you might have to change the values in
-`origin` property.
+In the file above, the `cam_<>` properties are set to the default values. You
+will have to adjust them to your mounting solution.
 
 :::
 
@@ -185,10 +184,10 @@ If you want to change the default parameters, you can do it while the node runs
 with the usage of _RQt_:
 
 ```bash
-  rqt
+rqt
 ```
 
-If you want the changes of parameters to persist accross the runs, create a
+If you want the changes of parameters to persist across the runs, create a
 `.yaml` configuration file in `/etc/ros`. This example contains configuration
 for OAK-1 camera:
 
@@ -227,12 +226,14 @@ If your OAK-1 unit doesn't have an IMU, you will see this warning:
 ```
 
 It is harmless - the driver simply skips creating the IMU node and the camera
-works normally. You can silence it by adding the following to the configuration
-file:
+works normally. You can silence it by adding the `pipeline_gen` section to the
+configuration file:
 
 ```yaml
-pipeline_gen:
-  i_enable_imu: false
+/oak:
+  ros__parameters:
+    pipeline_gen:
+      i_enable_imu: false
 ```
 
 :::
@@ -310,7 +311,7 @@ on the camera and pass through the image the network runs on:
       ['image_transport/raw', 'image_transport/compressed']
     camera:
       i_pipeline_type: RGB
-      i_nn_type: RGB
+      i_nn_type: rgb
     rgb:
       i_publish_topic: true
       i_fps: 30.0
@@ -331,7 +332,7 @@ Then run the example, passing the modified parameters file:
 ros2 launch depthai_filters example_det2d_overlay.launch.py params_file:=/etc/ros/oak.yaml
 ```
 
-Now you can switch to the PC connected to rover's access point and run the RViz:
+Now you can switch to the PC connected to rover's access point and run RViz:
 
 ```bash
 rviz2
@@ -342,6 +343,7 @@ topic and clicking OK:
 
 <ImageZoom
   src="/img/robots/leo/integrations/oak-1/rviz-oak-1-overlay-topic-selection.webp"
+  alt="RViz topic selection window with the Image display selected on the /overlay topic"
   width="1848"
   height="1009"
 />
@@ -351,6 +353,7 @@ bounding boxes and names of the detected objects:
 
 <ImageZoom
   src="/img/robots/leo/integrations/oak-1/oak-1-detection-example.webp"
+  alt="Image from the OAK-1 camera with bounding boxes around detected objects"
   width="648"
   height="567"
 />
