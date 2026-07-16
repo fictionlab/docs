@@ -13,7 +13,7 @@ keywords:
 description: >-
   Learn how to connect an Luxonis OAK-1 camera to your Leo Rover and integrate
   it with the system using ROS.
-# TODO: add an OAK-1 image
+# TODO: add an OAK-1 image (render?)
 image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
 ---
 
@@ -47,7 +47,17 @@ topics, such as:
 - `/oak/rgb/image_raw/compressed` - the compressed RGB image stream,
 - `/oak/rgb/camera_info` - the camera calibration data.
 
-{/* TODO: maybe add a photo/video of the final result? */}
+You will also learn how to use the camera's on-device AI capabilities by
+running an object detection example. The image below shows its final result -
+the camera stream with the detected objects marked with bounding boxes,
+visualized in RViz:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example.webp"
+  alt="Image from the OAK-1 camera with bounding boxes around detected objects"
+  width="648"
+  height="567"
+/>
 
 ## Prerequisites
 
@@ -273,7 +283,86 @@ ros-nodes-restart
 
 ## Example usage
 
-{/* TODO: add example usage */}
+One of the capabilities of Luxonis OAK-1 Camera is running object detection
+directly on the camera. To test it, we will run one of the `depthai_filters`
+examples.
+
+:::note
+
+If you enabled launching the camera nodes on system startup, disable them now,
+as the example starts its own camera node and two nodes can't connect to the
+same device. To do so, remove the `<include file="/etc/ros/oak.launch.xml"/>`
+line from `/etc/ros/robot.launch.xml` and restart ROS2 nodes:
+
+```bash
+ros-nodes-restart
+```
+
+:::
+
+Firstly, we need to modify the OAK parameters file to enable the neural network
+on the camera and pass through the image the network runs on:
+
+```yaml title="/etc/ros/oak.yaml"
+/oak:
+  ros__parameters:
+    oak.rgb.image_raw.enable_pub_plugins:
+      ['image_transport/raw', 'image_transport/compressed']
+    camera:
+      i_pipeline_type: RGB
+      i_nn_type: RGB
+    rgb:
+      i_publish_topic: true
+      i_fps: 30.0
+      i_resolution: 1080P
+      i_isp_num: 2
+      i_isp_den: 3
+      i_output_isp: true
+      i_width: 1280
+      i_height: 720
+    nn:
+      i_enable_passthrough: true
+      i_disable_resize: false
+```
+
+Then run the example, passing the modified parameters file:
+
+```bash
+ros2 launch depthai_filters example_det2d_overlay.launch.py params_file:=/etc/ros/oak.yaml
+```
+
+Now you can switch to the PC connected to rover's access point and run the RViz:
+
+```bash
+rviz2
+```
+
+In the RViz window add the visualization by selecting Image from `/overlay`
+topic and clicking OK:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-1/rviz-oak-1-overlay-topic-selection.webp"
+  width="1848"
+  height="1009"
+/>
+
+After doing so, you should be able to see the image from the camera with the
+bounding boxes and names of the detected objects:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example.webp"
+  width="648"
+  height="567"
+/>
+
+The example uses the default detection network - a MobileNet-SSD model trained
+on the PASCAL VOC dataset. It can detect 20 classes of objects, such as person,
+car, bicycle, dog or bottle. You can find the full list of the detected classes
+in the
+[label map](https://github.com/luxonis/depthai-ros/blob/jazzy/depthai_filters/include/depthai_filters/detection2d_overlay.hpp)
+of the overlay node. To learn more about this and other examples from the
+`depthai_filters` package, check out its
+[documentation](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_filters).
 
 ## What's next?
 
