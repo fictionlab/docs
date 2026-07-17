@@ -89,6 +89,9 @@ available topics and configuration options
 
 ## Hardware integration
 
+Attach <span style={{color : "#609ebe",}} > **arm base** </span> to the rover
+using <span style={{color : "#bf7b2c",}} > **4 M5 x 12 screws** </span>.
+
 <ThemedImageZoom
   loading="eager"
   alt="Needed tools"
@@ -107,7 +110,13 @@ available topics and configuration options
   }}
 />
 
-- Attach Arm base to the rover using 4 M5 x 12 screws.
+Connect the <span style={{color : "#bf7b2c",}} > **CAN/power ribbon cable**
+</span> to the last port on the arm PCB, and route the ribbon through the side
+opening.
+
+Connect the angled end of the <span style={{color : "#609ebe",}} > **USB-C
+cable** </span> to the base board’s internal USB-C port. Route the cable through
+the side opening, and connect the other end to the rover’s USB port.
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
   
@@ -162,15 +171,14 @@ available topics and configuration options
 </FlexTableItem>
 </FlexTable>
 
-- Connect the CAN/power ribbon cable to the last port on the arm PCB, and route
-  the ribbon through the side opening.
-- Connect the angled end of the USB-C cable to the base board’s internal USB-C
-  port. Route the cable through the side opening, and connect the other end to
-  the rover’s USB port.
+Attach the <span style={{color : "#609ebe",}} > **Panther HT arm** </span> to
+the base using <span style={{color : "#bf7b2c",}} > **4 M5 x 12 screws**
+</span>. Route the ribbon and USB cables through the side cutout. Ensure no
+cables are trapped between the arm base and the plastic cover.
 
 <ThemedImageZoom
   loading="eager"
-  alt="Needed tools"
+  alt="Arm attached to the base"
   sources={{
     light: useBaseUrl(
       '/img/robots/leo/integrations/panthera-ht/Step_3_black.webp',
@@ -186,13 +194,12 @@ available topics and configuration options
   }}
 />
 
-- Attach the arm to the base. Route the ribbon and USB cables through the side
-  cutout. Ensure no cables are trapped between the arm base and the plastic
-  cover.
+Connect the other end of the <span style={{color : "#bf7b2c",}} > **CAN/power
+ribbon cable** </span> to the connector on the first motor of the arm.
 
 <ThemedImageZoom
   loading="eager"
-  alt="Needed tools"
+  alt="Connecting the ribbon cable to the first motor"
   sources={{
     light: useBaseUrl(
       '/img/robots/leo/integrations/panthera-ht/Step_5_black.webp',
@@ -208,8 +215,10 @@ available topics and configuration options
   }}
 />
 
-- Connect the other end of the CAN/power ribbon cable to the connector on the
-  first motor of the arm.
+Insert the <span style={{color : "#bf7b2c",}} > **battery** </span> into the
+slot on the back. Alternatively, power the arm from an external <span
+style={{color : "#bf7b2c",}} > **24 V, 15 A power supply** </span> using the
+XT60 connector inside the battery compartment.
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
   
@@ -220,13 +229,13 @@ available topics and configuration options
     mobileColumns={2}>
       <ThemedImageZoom
   loading="eager"
-  alt="Arm with power adapter connected"
+  alt="Arm with battery connected"
   sources={{
     light: useBaseUrl(
-      '/img/robots/leo/integrations/panthera-ht/Step_6_black.webp',
+      '/img/robots/leo/integrations/panthera-ht/Step_4_black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/leo/integrations/panthera-ht/Step_6_white.webp',
+      '/img/robots/leo/integrations/panthera-ht/Step_4_white.webp',
     ),
   }}
   width="3000"
@@ -246,13 +255,13 @@ available topics and configuration options
 >
   <ThemedImageZoom
     loading="eager"
-    alt="Arm with battery connected"
+    alt="Arm with power adapter connected"
     sources={{
       light: useBaseUrl(
-        '/img/robots/leo/integrations/panthera-ht/Step_4_black.webp',
+        '/img/robots/leo/integrations/panthera-ht/Step_6_black.webp',
       ),
       dark: useBaseUrl(
-        '/img/robots/leo/integrations/panthera-ht/Step_4_white.webp',
+        '/img/robots/leo/integrations/panthera-ht/Step_6_white.webp',
       ),
     }}
     width="3000"
@@ -265,10 +274,6 @@ available topics and configuration options
 
 </FlexTable>
 
-- Insert the battery into the slot on the back.
-- Alternatively, power the arm from an external 24 V, 15 A supply using the XT60
-  connector inside the battery compartment.
-
 :::info
 
 This power supply cannot be used to charge the arm or rover batteries due to
@@ -277,9 +282,28 @@ at the same time.
 
 :::
 
-{/* TODO Add brief battery charging section */}
+Assembly is finished. You can now power on the arm by pressing the <span
+style={{color : "#bf7b2c",}} > **power button** </span> on the side of the base.
 
-{/* TODO remember to inform the user that they need to click the power button to power on the arm's motors */}
+<ThemedImageZoom
+  loading="eager"
+  alt="Power button placement"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_7_black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/Step_7_white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+{/* TODO Add brief battery charging section */}
 
 ## Software integration
 
