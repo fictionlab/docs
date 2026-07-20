@@ -47,8 +47,8 @@ education, and automation workflows.
 ## What to expect?
 
 After completing this tutorial, you will have the Panthera-HT robotic arm
-mounted on your Leo Rover, and you will be able to control the arm through
-ROS interfaces - either via MoveIt or through a provided SDK. You can find all
+mounted on your Leo Rover, and you will be able to control the arm through ROS
+interfaces - either via MoveIt or through a provided SDK. You can find all
 available topics and configuration options
 [here](https://github.com/fictionlab/panthera_ht_ros#ros-interfaces-by-node).
 
@@ -298,6 +298,14 @@ style={{color : "#bf7b2c",}} > **power button** </font> on the side of the base.
   }}
 />
 
+:::note
+
+The <font style={{color : "#bf7b2c",}} > **power button** </font> has to be
+pressed manually on every startup of the arm. This needs to be done before any
+ROS driver is launched.
+
+:::
+
 {/* TODO Add brief battery charging section */}
 
 ## Software integration
@@ -354,7 +362,7 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install
 ```
 
-### Veryfing the arm connection
+### Verifying the arm connection
 
 To check if the arm is connected and motor interfaces are available, you can use
 the following command:
@@ -365,7 +373,7 @@ ls /dev/ttyACM*
 
 You should see devices ranging from `/dev/ttyACM0` to `/dev/ttyACM6`, which
 correspond to the motors of the arm. If you don't see any devices, make sure
-that the arm's power button is pressed and the arm is properly connected.
+that the arm is properly connected.
 
 ### Modifying the URDF model
 
@@ -393,6 +401,28 @@ specified in the hardware integration you will have to change the values in
 `origin` property.
 
 :::
+
+To ensure the Panthera models referenced in the URDF are available, set the
+Panthera workspace as the default ROS environment on the rover by editing
+`/etc/ros/setup.bash`:
+
+```bash
+nano /etc/ros/setup.bash
+```
+
+In this file, comment out the default ROS setup line and source your custom
+workspace instead:
+
+```bash title="/etc/ros/setup.bash"
+#source /opt/ros/jazzy/setup.bash
+source ~/ros_ws/install/setup.bash
+```
+
+To make sure that the changes are applied, run:
+
+```bash
+ros-nodes-restart
+```
 
 ### Launching the driver
 
@@ -424,6 +454,10 @@ topic. You need to publish the commands on this topic either from the rover or
 from your computer. We recommend using the
 [`joy_linux_node`](https://index.ros.org/p/joy_linux/) to achieve this.
 
+For more information on how to control the arm with a gamepad, see the
+[Controlling the arm with a gamepad](#controlling-the-arm-with-a-gamepad)
+section.
+
 :::
 
 To launch the driver with MoveIt, you can use the following command:
@@ -432,48 +466,26 @@ To launch the driver with MoveIt, you can use the following command:
 ros2 launch panthera_moveit hardware_moveit.launch.py
 ```
 
-:::tip
+:::info
 
-If you want to visualize MoveIt in RViz, you can build the package **on your
-computer** and launch the RViz using a provided launch file:
-
-```bash
-ros2 launch panthera_moveit rviz.launch.py
-```
-
-This will launch RViz with the MoveIt plugin and the robot model loaded.
+For more information on how to control the arm with MoveIt, see the
+[Controlling the arm with MoveIt](#controlling-the-arm-with-moveit) section.
 
 :::
 
 ### (Optional) Launching the robotic arm driver on boot
 
-If you want to have the robotic arm driver started on boot, you can modify the
-`setup.bash` file of the Rover:
-
-```bash
-nano /etc/ros/setup.bash
-```
-
-Edit this file to source the ROS workspace where the driver is installed.
-Remember to comment out the default ROS setup line and source the custom
-workspace.
-
-```bash title="/etc/ros/setup.bash"
-#source /opt/ros/jazzy/setup.bash
-source ~/ros_ws/install/setup.bash
-```
-
-Now you can edit the launch file that is launched at the robot's startup to
-include the arm launch file:
+To start the robotic arm driver automatically on boot, edit the robot startup
+file and include the arm driver launch file:
 
 ```bash
 nano /etc/ros/robot.launch.xml
 ```
 
-And add these lines somewhere in between the `launch` tag:
+Add this line somewhere in between the `launch` tag:
 
 ```xml title="/etc/ros/robot.launch.xml"
-<include file="$(find-pkg-share panthera_moveit)/launch/hardware_moveit.launch.py"/>
+  <include file="$(find-pkg-share panthera_moveit)/launch/hardware_moveit.launch.py"/>
 ```
 
 :::info
@@ -518,12 +530,25 @@ the power button.
 ### Controlling the arm with MoveIt
 
 When using the `hardware_moveit.launch.py` launch file, you can control the arm
-through MoveIt interfaces. To visualize the arm in RViz, build the package on
-your computer and launch the RViz using a provided launch file:
+through MoveIt interfaces. To visualize the arm in RViz, build the package **on
+your computer** and launch the RViz using a provided launch file:
 
 ```bash
 ros2 launch panthera_moveit rviz.launch.py
 ```
+
+:::note
+
+RViz plugin loading will fail if MoveIt packages are not installed. Installing
+the `moveit_ros_visualization` package will fix this issue:
+
+```bash
+sudo apt install ros-$ROS_DISTRO-moveit-ros-visualization
+source <your_workspace>/install/setup.bash
+ros2 launch panthera_moveit rviz.launch.py
+```
+
+:::
 
 This will open RViz and show the below display:
 
