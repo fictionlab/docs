@@ -13,11 +13,8 @@ keywords:
 description: >-
   Extend Leo Rover's capabilities with the 6-axis, Panthera-HT robotic arm.
   Tutorial for mechanical and software integration.
-image: /img/robots/leo/leo-rover-1.9.webp
+image: /img/robots/leo/integrations/panthera-ht/panthera_leo_assembly.webp
 ---
-
-{/* TODO add photo of the integration as an image */}
-{/* TODO Import a Panthera-HT product component */}
 
 import ImageZoom from '@site/src/components/ImageZoom';
 import LinkButton from '@site/src/components/LinkButton';
@@ -26,6 +23,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
+import Product from '@site/src/products/panthera-ht.mdx';
 
 # High Torque Panthera-HT 6-Axis Robotic Arm Integration
 
@@ -46,17 +44,13 @@ kg static payload, and 0.1 mm repeatability, designed for precise manipulation
 tasks such as pick-and-place, alignment, and trajectory-following in research,
 education, and automation workflows.
 
-{/* TODO image of the integration */}
-
 ## What to expect?
 
 After completing this tutorial, you will have the Panthera-HT robotic arm
-mounted on your Leo Rover, and you will be able to control the arm data through
-ROS interfaces - either via MoveIt or through provided SDK. You can find all
+mounted on your Leo Rover, and you will be able to control the arm through
+ROS interfaces - either via MoveIt or through a provided SDK. You can find all
 available topics and configuration options
 [here](https://github.com/fictionlab/panthera_ht_ros#ros-interfaces-by-node).
-
-{/* TODO video of robotic arm operating (maybe view from RViz?) */}
 
 ## Prerequisites
 
@@ -85,7 +79,7 @@ available topics and configuration options
 
 ### Referenced products
 
-{/* TODO Add a Panthera-HT product component */} {/* <Product /> */}
+<Product />
 
 ## Hardware integration
 
