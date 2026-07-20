@@ -17,8 +17,8 @@ image: /img/robots/leo/integrations/rplidar-a2/rplidar-a2.webp
 
 # SLAMTEC RPLIDAR A2 Integration
 
-import Product from '@site/src/products/powerbox.mdx';
-import ProductPreview from '@site/src/components/ProductPreview';
+import PowerboxProduct from '@site/src/products/powerbox.mdx';
+import LidarProduct from '@site/src/products/slamtec-rplidar-a2.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 This tutorial will guide you through the process of connecting a LiDAR sensor to
@@ -69,16 +69,7 @@ and visualize it using RViz. Just like in the image below:
 
 ## Referenced products
 
-<ProductPreview
-  shopUrl="https://www.leorover.tech/shop/rplidar-a2"
-  imageSrc="/img/robots/leo/integrations/rplidar-a2/rplidar-a2.webp"
-  width={536}
-  height={500}
-  title="RPLidar A2 M12"
-  description="Enhance the Leo rover with the RPLIDAR A2, providing smooth,
-    accurate 360-degree scans. High-speed sampling and detailed point cloud data
-    improve mapping, localization, and environmental modeling."
-/>
+<LidarProduct />
 
 ## List of components
 
@@ -127,7 +118,7 @@ means that no external power sources are necessary. Some lidars might need
 external power connections, that's when [Powerbox](/leo-rover/addons/powerbox)
 might come in handy.
 
-<Product />
+<PowerboxProduct />
 
 With everything connected, you are ready to try out your new sensor.
 
