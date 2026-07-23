@@ -382,13 +382,11 @@ model of the robot to include the robotic arm. You can do this by opening the
 `/etc/ros/urdf/robot.urdf.xacro` and placing the following lines in between the
 `<robot>` tags:
 
-{/* TODO add proper origin to the URDF joint */}
-
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
   <xacro:include filename="$(find panthera_moveit)/urdf/panthera_ht_moveit.urdf.xacro" />
 
   <joint name="panthera_ht_joint" type="fixed">
-    <origin xyz="0.0 0.0 0.0"/>
+    <origin xyz="0.0575 0.0 0.07"/>
     <parent link="base_link"/>
     <child link="panthera_base_link"/>
   </joint>
