@@ -14,7 +14,7 @@ description: >-
   Learn how to connect an RPLiDAR S3 sensor to your Leo Rover for 2D mapping and
   more. Detailed tutorial mechanical and software integration.
 # TODO: Replace with a proper image of Leo Rover with mounted RPLIDAR S3
-image: /img/robots/leo/integrations/rplidar-s3/leo_rover_with_rplidar_s3_action_shoot.webp
+image: /img/robots/leo/integrations/rplidar-s3/leo_rover_with_rplidar_s3_action_shot.webp
 ---
 
 import Product from '@site/src/products/slamtec-rplidar-s3.mdx';
@@ -23,7 +23,7 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 <ImageZoom
   loading="eager"
-  src="/img/robots/leo/integrations/rplidar-s3/leo_rover_with_rplidar_s3_action_shoot.webp"
+  src="/img/robots/leo/integrations/rplidar-s3/rplidar_s3_leo_action_shot.webp"
   alt="Leo Rover with mounted SLAMTEC RPLIDAR S3"
   width="1000"
   height="750"
@@ -96,19 +96,39 @@ If you bought the integration kit, you can use the mounting adapter included in
 the kit. It is designed to mount the sensor on top of the rover's mounting
 plate, providing a wide field of view with minimal obstructions.
 
-Required components:
+Required components (included in the integration kit):
 
 - RPLidar S3
-- RPLidar S3 adapter plate (included in the integration kit)
+- RPLidar S3 adapter plate
+- TTL-to-USB adapter
 - M5x10 Allen head screws x4
 - M2.5x6 Allen head screws x4
+
+:::tip
+
+Assembly require using two Allen keys that are not included in the package - sizes 2 mm and 4 mm.
+
+:::
 
 To mount the sensor:
 
 1. Align the RPLIDAR S3 with the adapter plate and secure it using 4 x M2.5x6
    Allen head screws — one in each corner of the sensor base.
-2. Place the assembled sensor on the top of the Leo Rover's mounting plate.
-3. Fasten the adapter plate to the rover using 4 x M5x10 Allen head screws.
+2. Connect the JST connector to the TTL-to-USB adapter and insert the adapter into the plastic mount. Tuck the excess cable into the cavity. The completed assembly should resemble the image below.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/rplidar-s3/rplidar_s3_bottom.webp"
+  alt="Bottom view of subassembly"
+  width="2000"
+  height="1500"
+  figStyle={{
+    width: 500,
+  }}
+/>
+
+3. Place the assembled sensor on the top of the Leo Rover's mounting plate.
+4. Fasten the adapter plate to the rover using 4 x M5x10 Allen head screws.
 
 :::tip
 
@@ -127,45 +147,35 @@ not obstructed by cables, antennas, or other parts of the rover.
 
 ### Wiring
 
-The RPLIDAR S3 uses a TTL interface and comes with a TTL-to-USB adapter. To
-connect it to Leo Rover 1.9, use the following chain:
+To connect RPLIDAR S3 to Leo Rover 1.9 use provided USB micro - USB C cable. 
+1. Connect USB micro end to TTL-to-USB adapter.
+2. Connect USB C end to Leo Rover's external USB interface.
 
-1. Plug the TTL cable from the sensor into the **TTL-to-USB adapter** (included
-   with the lidar).
-2. Connect the **micro USB to USB-A cable** (included with the lidar) to the
-   micro USB port on the adapter.
-3. Use the **USB-A to USB-C adapter** (included with Leo Rover) to connect the
-   cable to the **USB-C port** on top of the rover.
+Correct connection is shown in the photo bellow.
 
-:::tip
-
-To avoid the cable getting in the way of the sensor's field of view, you can use
-a right-angle adapter for the USB-C port or use the
-[easy access cover for the main electronics box](/leo-rover/addons/additional-meb-covers#00188_dev---easy-access-cover)
-and wire the cables without using the USB-C port on top of the rover.
-
-:::
 
 <ImageZoom
-  src="/img/robots/leo/integrations/rplidar-a2/leo-with-rplidar-s3.webp"
+  src="/img/robots/leo/integrations/rplidar-s3/rplidar_s3_leo_top.webp"
   alt="Leo Rover with RPLIDAR S3 wired via USB"
-  width="1200"
-  height="800"
+  width="2000"
+  height="1500"
   figStyle={{
     width: 500,
   }}
 />
 
-If the cable is long, try to tuck it into the empty space inside Leo Rover's
-back frame to keep it away from the lidar's field of view.
+:::info
 
-This connection provides both power and data transfer to the sensor, so no
-external power source is necessary. However, if you want a cleaner and more
-reliable connection, we recommend using the Powerbox addon:
+If other USB devices are connected to Leo Rover it may be required to connect 5V power to TTL-to-USB adapter. 
+
+In this case we recommend using powerbox addon and modified barrel jack cable. Contact us to get details about modifying the cable.
 
 <Powerbox />
 
+:::
+
 With everything connected, you are ready to try out your new sensor.
+
 
 ## Software integration
 
