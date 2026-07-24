@@ -20,7 +20,7 @@ const FEATURES: FeatureItem[] = [
       width: 2000,
       height: 1300,
       hyperlink: 'leo-rover',
-      style: { width: 'auto', height: 260, paddingBottom: 20, marginTop: 40 },
+      style: { width: 'auto', height: 260, marginTop: 40 },
     },
     text: (
       <span>
@@ -36,7 +36,7 @@ const FEATURES: FeatureItem[] = [
       width: 2000,
       height: 1500,
       hyperlink: 'raph-rover',
-      style: { width: 'auto', height: 300, paddingBottom: 20 },
+      style: { width: 'auto', height: 300 },
     },
     text: (
       <span>

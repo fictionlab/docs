@@ -95,6 +95,21 @@ const config: Config = {
             },
           },
         },
+        blog: {
+          id: 'community-projects',
+          path: 'community-projects',
+          blogTitle: 'Fictionlab Community Projects',
+          blogDescription:
+            'Showcase of projects created by the Fictionlab community',
+          routeBasePath: '/community-projects',
+          blogSidebarCount: 0,
+          feedOptions: { type: null },
+          blogListComponent: '@site/src/components/CommunityProjectsPage',
+          blogPostComponent: '@site/src/components/CommunityProjectPage',
+          onInlineTags: 'throw',
+          onInlineAuthors: 'ignore',
+          showReadingTime: false,
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -165,6 +180,11 @@ const config: Config = {
           label: 'Integrations',
           position: 'left',
           to: '/integrations',
+        },
+        {
+          label: 'Community projects',
+          position: 'left',
+          to: '/community-projects',
         },
         {
           type: 'docsVersionDropdown',

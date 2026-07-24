@@ -17,7 +17,6 @@ Ensure the following tools are installed on your local machine:
 - Code editor ([Visual Studio Code](https://code.visualstudio.com/) is
   recommended)
 - [Node.js](https://nodejs.org/en/)
-- [Yarn 1.22.22 (Classic)](https://classic.yarnpkg.com/en/)
 - [Git](https://git-scm.com/)
 - A web browser
 
@@ -56,13 +55,13 @@ By default, `development` branch is selected. To create new branch see
 After cloning the repository, open the folder in VS Code and run:
 
 ```
-yarn install
+npm install
 ```
 
 To start the development environment, use:
 
 ```
-yarn start
+npm start
 ```
 
 A new browser tab will open at http://localhost:3000, reflecting any changes
@@ -73,13 +72,13 @@ made to the files.
 To update Docusaurus correctly, execute the following command:
 
 ```
-yarn upgrade @docusaurus -L
+npm update @docusaurus
 ```
 
-Next, remove the `yarn.lock` file along with the `node_modules` and `build` directories. After deletion, regenerate the necessary files with updated dependency versions by running:
+Next, remove the `package-lock.json` file along with the `node_modules` and `build` directories. After deletion, regenerate the necessary files with updated dependency versions by running:
 
 ```
-yarn install
+npm install
 ```
 
 
@@ -131,14 +130,14 @@ After making changes, test the compiled code in the browser.
 Finally, check the spelling and formatting:
 
 ```
-yarn formatcheck
+npm run check:formatting
 ```
 
 This will list files requiring formatting changes, which you can fix manually.
 To fix formatting automatically, use:
 
 ```
-yarn format
+npm run format
 ```
 
 <!-- prettier-ignore -->
@@ -156,7 +155,7 @@ search bar.
 To check spelling, run:
 
 ```
-yarn spellcheck
+npm run check:spelling
 ```
 
 This will list unrecognized words in markdown files, which you must correct
@@ -203,10 +202,10 @@ reviewers are:
 
 Follow these naming conventions for branches:
 
-- `/feature/description` - for new features, components etc.
-- `/content/description` - for markdown content updates
-- `/fix/description` - for fixes
-- `/chore/description` - for dependency updates
+- `feat/description` - for new features, components etc.
+- `content/description` - for markdown content updates
+- `fix/description` - for fixes
+- `chore/description` - for dependency updates
 
 ## Reporting Issues
 

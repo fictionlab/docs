@@ -9,24 +9,30 @@ on:
 jobs:
   check-redirects:
     name: Check docs redirects
+    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: yarn
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Run redirects check
-        run: |
-          git fetch origin ${{ github.base_ref }}
-          yarn check:redirects -- --base origin/${{ github.base_ref }}
+        run: npm run check:redirects -- --base origin/${{ github.base_ref }}
