@@ -12,31 +12,39 @@ on:
 jobs:
   lint:
     name: Lint
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: yarn
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Check Frontmatter keys
-        run: yarn check:frontmatter
+        run: npm run check:frontmatter
 
       - name: Check Types
         if: success() || failure()
-        run: yarn check:types
+        run: npm run check:types
 
       - name: Check Formatting
         if: success() || failure()
-        run: yarn check:formatting
+        run: npm run check:formatting
 
       - name: Check spelling
         if: success() || failure()
-        run: yarn check:spelling
+        run: npm run check:spelling

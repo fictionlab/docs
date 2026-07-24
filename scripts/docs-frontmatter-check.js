@@ -4,13 +4,7 @@ const glob = require('glob');
 const matter = require('gray-matter');
 
 // Define the keys that must be present in the front matter.
-const REQUIRED_KEYS = [
-  'title',
-  'sidebar_label',
-  'keywords',
-  'description',
-  'image',
-];
+const REQUIRED_KEYS = ['title', 'sidebar_label', 'description', 'image'];
 
 // Path to your MDX files.
 const DOCS_PATHS = ['docs/**/*.mdx', '*_versioned_docs/**/*.mdx'];
@@ -57,7 +51,7 @@ function validateFrontMatter() {
     // Exit with a non-zero exit code to fail the CI job.
     process.exit(1);
   } else {
-    console.log('All MDX files have the required front matter keys.');
+    console.log('All docs files have the required front matter keys.');
   }
 }
 

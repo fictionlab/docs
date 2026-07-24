@@ -9,33 +9,40 @@ on:
       - production
       - development
 
-jobs: 
+jobs:
   build-website:
     name: Build website
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: yarn
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Cache Docusaurus build artifacts
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             .docusaurus
             build
-          key: docusaurus-build-${{ hashFiles('docusaurus.config.js', 'src/**/*', 'docs/**/*') }}
+          key: docusaurus-build-${{ hashFiles('docusaurus.config.ts', 'src/**/*', 'docs/**/*', 'package-lock.json') }}
           restore-keys: |
             docusaurus-build-
 
       - name: Test build website
-        run: yarn build
+        run: npm run build

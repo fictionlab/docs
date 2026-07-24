@@ -1,0 +1,239 @@
+---
+title: How to add a community project
+sidebar_label: Adding a community project
+sidebar_position: 4
+unlisted: true
+description: >-
+  This page provides guidelines on how to add a community project to the
+  Fictionlab documentation.
+---
+
+This page provides guidelines on how to add a community project to the
+Fictionlab documentation. Community projects are third-party projects developed
+by the Fictionlab community that enhance or extend the functionality of
+Fictionlab products like Leo or Raph rover.
+
+Community project list is located in the
+[Community Projects](/community-projects) page.
+
+:::note
+
+Before adding a community project, ensure that it meets the following criteria:
+
+- The project is based on Fictionlab products or integrates with them.
+
+Fictionlab can remove any community project at any time without prior notice if
+it does not meet the guidelines or is deemed inappropriate.
+
+:::
+
+## Before you begin
+
+Before adding a community project, check
+[documentation repository](https://github.com/fictionlab/docs) to check how to
+start adding new content. If you are not familiar with using GitHub and
+Markdown/MDX files, please refer to the following resources:
+
+- [GitHub Docs - Getting started with GitHub](https://docs.github.com/en/get-started/quickstart)
+- [Markdown Guide - Getting started with Markdown](https://www.markdownguide.org/getting-started/)
+- [Docusaurus Docs - Markdown Features](https://docusaurus.io/docs/markdown-features)
+
+### Custom Fictionlab's components
+
+Fictionlab documentation uses custom React components to enhance the content and
+provide additional functionality. To see a list of available components, visit
+the [Components](/guidelines/components) page.
+
+## Creating a community project entry
+
+### Prepare your workspace on a separate fork
+
+All community project pages need be created on the separate forks of the
+Fictionlab documentation repository. Creating a separate fork allows you to work
+on your community project entry without affecting the main repository until you
+are ready to submit a pull request. It also allows for better collaboration and
+version control of your changes.
+
+To create a fork, click the "Fork" button at the top right corner of the
+repository page on GitHub. This will create a copy of the repository under your
+GitHub account where you can make your changes. More information on how to fork
+a repository can be found in the
+[Fork a repository - Github Docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
+
+When you are ready to submit your community project, you can create a pull
+request from your fork to the main repository. After the pull request is
+reviewed and approved by the Fictionlab team, your community project will be
+merged and queued for release in the next documentation update.
+
+:::tip
+
+Check the
+[Getting Started](https://github.com/fictionlab/docs?tab=readme-ov-file#getting-started)
+section in the documentation repository's README for more information on how to
+setup your local workspace from the scratch.
+
+:::
+
+### Create the MDX file
+
+To add a community project to the Fictionlab documentation, create a new MDX
+file in the `community-projects/` directory of this repository. Each community
+project should have its own MDX file named after the project (e.g.,
+`my-community-project.mdx`).
+
+### Front matter
+
+Each community project page should include the front matter data at the top of
+the MDX file. It allows proper indexing and display of the project on the
+Community Projects page.
+
+:::info
+
+Some of the fields requires providing image_url or logo_url. All images should
+be placed in the `/static/img/community-projects` directory of this repository.
+
+:::
+
+Below is the list of required front matter fields:
+
+- `title`
+- `description`
+- `authors`
+- `tags`
+- `image`
+- `company`
+
+:::tip
+
+To see how each of the front matter fields should be structured, refer to the
+documentation of the docusaurus:
+
+- [Docusaurus Docs - Front matter](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#markdown-front-matter)
+- [Docusaurus Docs - Inline authors](https://docusaurus.io/docs/blog#inline-authors)
+  :::
+
+Example front matter:
+
+```yml
+---
+title: Automated Plant Watering System
+description:
+  An IoT-based automated plant watering system using Leo Rover and soil moisture
+  sensors.
+authors:
+  - name: John Doe
+    title: Lead Developer
+    url: https://johndoe-website.com
+    image_url: /img/community-projects/automated-plant-watering/johndoe.jpg
+    socials:
+      x: johnDoe
+      github: johndoe
+      linkedin: johndoe
+      email: johndoe@example.com
+tags: [leo-rover]
+image: /img/community-projects/automated-plant-watering/project-image.jpg
+company:
+  name: GreenTech Solutions
+  url: https://greentech-solutions.com
+  logo_url: /img/community-projects/automated-plant-watering/greentech-logo.jpg
+---
+```
+
+#### Front matter fields description
+
+- `title`: The title of the community project (max 100 characters).
+- `description`: A brief description of the community project (max 160
+  characters).
+- `tags`: A list of tags relevant to the project (e.g., leo-rover). Please note
+  that only tags mentioned in the
+  [Community projects tags](/community-projects/tags) page should be used.
+- `image`: The URL or path of the image representing the community project. It
+  will be displayed on the Community Projects page.
+- `authors`: A list of authors who contributed to the project. It is possible to
+  add multiple authors by adding more entries to the list. Each author entry
+  should include the following fields:
+  - `name`: The author's name.
+  - `title`: The author's title or role.
+  - `url`: The URL to the author's personal or professional website.
+  - `image_url`: The URL or path to the author's image.
+  - `socials`: A list of social media handles for the author (e.g., x, github,
+    linkedin, email).
+- `company`: Information about the company or organization associated with the
+  project, including:
+  - `name`: The company's name.
+  - `url`: The URL to the company's website.
+  - `logo_url`: The URL or path to the company's logo image.
+
+:::tip
+
+Check existing community project pages in the `/community-projects` directory
+for examples of how to structure the front matter and content.
+
+:::
+
+### Content structure
+
+#### Summary
+
+After the front matter, provide a short summary of the community project. This
+section should give an overview of the project's purpose and main features. It
+should have around 300-400 characters.
+
+#### Truncate tag
+
+To control the length of the project preview on the Community Projects page, use
+the `{/* truncate */}` tag after the summary. Content after this tag will not be
+displayed in the preview.
+
+#### Main content
+
+In this section provide detailed information about the community project. You
+can structure this section using headings, subheadings, lists, images, and code
+snippets as needed. We do not enforce a specific structure for this section.
+
+#### Resources
+
+As final step, you can provide links to additional resources related to the
+community project, such as:
+
+- GitHub repository
+- Documentation
+- Tutorials
+- Videos
+- Blog posts
+
+and any other relevant materials.
+
+## Submitting the community project
+
+:::info
+
+Test your MDX file locally using Docusaurus to ensure that it renders correctly
+before submitting it as a pull request. Instructions for setting up a local
+Docusaurus environment can be found in the
+[Testing implemented changes](https://github.com/fictionlab/docs?tab=readme-ov-file#testing-implemented-changes)
+section of the documentation repository's README.
+
+:::
+
+Once you have created the MDX file for your community project, submit it as a
+pull request to the Fictionlab documentation repository. Ensure that your pull
+request includes the new MDX file in the `/community-projects` directory.
+
+:::note
+
+Fictionlab team will review the submitted community project to ensure it meets
+the guidelines and quality standards. They may request changes or additional
+information before approving the pull request.
+
+:::
+
+After the pull request is reviewed and approved, your community project will be
+added to the Fictionlab documentation and will appear on the Community Projects
+page.
+
+## License Information
+
+All committed changes will be licensed under the terms specified in the LICENSE
+file added to the repository. Please ensure that your contributions comply with
+this license.

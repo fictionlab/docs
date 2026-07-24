@@ -74,7 +74,7 @@ function buildTree(dir) {
 }
 
 /**
- * Main process — automatically detects documentation directories
+ * Main process - automatically detects documentation directories
  * and generates a full tree with frontmatter data.
  */
 console.log('🚀 Starting documentation tree generation...');
