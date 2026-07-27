@@ -16,6 +16,9 @@ description: >-
 image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
 ---
 
+import Product from '@site/src/products/oak-d.mdx';
+import Powerbox from '@site/src/products/powerbox.mdx';
+
 # Luxonis OAK-D Camera Integration
 
 This tutorial will guide you through the process of connecting an Oak-D camera
@@ -27,6 +30,17 @@ on-device Neural Network inferencing and Computer Vision capabilities. It uses
 USB-C for both power and USB3 connectivity. In robotics, stereo cameras are
 commonly used for mapping the environment, object recognition, 3D scanning and
 in many other.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/oak-d/OAK-D_leo_action_shot.webp"
+  alt="Leo Rover with mounted Intel RealSense D435i Camera"
+  width="2000"
+  height="1500"
+  figStyle={{
+    width: 400,
+  }}
+/>
 
 ## What to expect?
 
@@ -43,70 +57,65 @@ about the use of stereo cameras.
   additional functionalities, building ROS packages and more."
 />
 
-## List of components
+### Referenced products
 
-- Oak-D Series Stereo Camera
-- Any mounting solution (eg.
-  [Universal Camera Mast](/leo-rover/addons/universal-camera-mast))
-- USB-A to USB-C wire
-- (optional) USB-C to DC power supply
+<Product />
 
-## Mechanical integration
+## Hardware integration
 
-There are multiple use cases for stereo cameras. Since we cannot predict them
-all, we cannot design a perfect mount for all of them. That's why we provide a
-[Universal Camera Mast](/leo-rover/addons/universal-camera-mast) that can fit a
-wide range of projects.
+### Mounting
 
-<ImageZoom
-  src="/img/robots/leo/integrations/oak-d/oak-d-ucm.webp"
-  width="1200"
-  height="668"
-  figStyle={{
-    width: 600,
-  }}
-/>
+If you bought the integration from us, you can use the mounting adapter included
+in the package. It is designed to mount the OAK-D camera on top of
+the rover.
+
+Required components:
+
+- OAK-D camera
+- Camera adapter
+- M4 x 8 Allen head screw (x2)
+- M5 x 10 Allen head screw (x2)
+- USB-C right-angle adapter
+- OAK Y-adapter
+
+To mount the sensor:
+1. Insert the right-angle adapter into the USB-C port so that it faces backwards. Then, connect the OAK Y-adapter to the angle adapter.
+2. Insert the OAK-D camera into the adapter and secure it with the M4 x 8 bolts. Ensure that the camera's USB port faces downwards.
+3. Place the assembly on top of the rover and align the mounting holes with those in the front row of the rover. The camera should be perfectly centered.
+
+Below, you will find a picture of the fully assembled product with wiring.
 
 ## Wiring and electronics connection
 
-Whether you are using our Universal Camera Mast or your own custom solution,
-you'll need to connect the camera to the rover somehow.
-
-The USB port placed on the mounting plate of the rover supports USB 3.0 which
-means you can connect the camera directly to this port without additional
-modifications.
-
 :::warning
 
-That is not true for Leo Rover robot version 1.8 and below. If you have this
-model, you have to follow one of the approaches presented below.
+The OAK-D camera requires a relatively high supply current. Therefore, we strongly recommend using the [Powerbox](/leo-rover/addons/powerbox) to provide an additional 5V power supply.
+<Powerbox />
 
 :::
 
-Alternatively you can connect the USB-C wire straight to the USB ports of the
-rovers built-in Raspberry Pi.
+To connect the camera to the Leo Rover v1.9, simply connect the data port (marked with the USB symbol) of the OAK Y-adapter to the rover's USB-C interface.
 
-Kacper from our team likes to remove the micro-usb port entirely and run the
-wire straight through the newly created hole. This solution, combined with the
-use of a cable gland, keeps the MEB box waterproof.
+Next, connect the 5V power supply using the USB power cable provided in the package. The USB-C end should be connected to the OAK Y-adapter's power port (indicated by the lightning bolt symbol), and the other end should be connected to the Powerbox 5V array.
 
-Second common solution involves printing a new cover for the MEB box. Dev cover
-found [here](/leo-rover/addons/additional-meb-covers), provides a wide opening
-for running wires straight into the MEB. This solution can be extremely useful
-in projects that don't need to be waterproof.
+:::warning
+
+Ensure that the cable is connected to the 5V array (indicated by the "5V" symbol, not "BAT"). Double-check the polarity: the red cable must connect to "+" and the black cable to "-".
+
+:::
+
+After assembly, the rover with the integrated OAK-D camera should look like the picture below.
 
 <ImageZoom
-  src="/img/robots/leo/addons/meb-covers/00188-dev-meb-cover.webp"
-  width="1920"
-  height="1080"
+  loading="eager"
+  src="/img/robots/leo/integrations/oak-d/OAK-D_leo_top.webp"
+  alt="Leo Rover with mounted Intel RealSense D435i Camera"
+  width="2000"
+  height="1500"
   figStyle={{
-    width: 600,
+    width: 400,
   }}
 />
-
-If the camera isn't the only thing connected to the rover you might need to
-provide an external power connection. [Powerbox](/leo-rover/addons/powerbox)
-might come in handy in such situations.
 
 ## Software integration
 
