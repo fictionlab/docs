@@ -1,6 +1,8 @@
 /docs/* /:splat 301
-/leo-rover/integrations /integrations 301
-/leo-rover/integrations/* /integrations/:splat 301
+/integrations /leo-integrations 301
+/integrations/* /leo-integrations/:splat 301
+/leo-rover/integrations /leo-integrations 301
+/leo-rover/integrations/* /leo-integrations/:splat 301
 /leo-rover/getting-started /leo-rover/documentation/getting-started 301
 /leo-rover/getting-started/ /leo-rover/documentation/getting-started 301
 /leo-rover/addons/charging-station/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 301
@@ -25,13 +27,13 @@
 /category/rover-manuals /leo-rover/manuals 301
 /category/leo-examples /leo-rover/leo-examples 301
 /category/addons /leo-rover/addons 301
-/category/integrations /leo-rover/integrations 301
-/category/computing-devices /leo-rover/integrations/computing-devices 301
-/category/lidars /leo-rover/integrations/lidars 301
-/category/positioning-systems /leo-rover/integrations/positioning-systems 301
-/category/robotic-arms /leo-rover/integrations/robotic-arms 301
-/category/software /leo-rover/integrations/software 301
-/category/legacy-pre-leo-18 /leo-rover/integrations/legacy 301
+/category/integrations /leo-integrations 301
+/category/computing-devices /leo-integrations/computing-devices 301
+/category/lidars /leo-integrations/lidars 301
+/category/positioning-systems /leo-integrations/positioning-systems 301
+/category/robotic-arms /leo-integrations/robotic-arms 301
+/category/software /leo-integrations/software 301
+/category/legacy-pre-leo-18 /leo-integrations/legacy 301
 /category/guides /leo-rover/guides 301
 /category/advanced-guides /leo-rover/advanced-guides 301
 /category/archive /leo-rover/archive 301
@@ -56,20 +58,20 @@
 /leo-rover/advanced-guides/autonomous-docking /leo-rover/1.8/advanced-guides/autonomous-docking 302
 
 # integrations redirects REMOVE after adding new integrations
-/integrations/cameras/stereolabs-zed /integrations/noetic/cameras/stereolabs-zed 302
-/integrations/cameras/unispectral-monarch-pro /integrations/noetic/cameras/unispectral-monarch-pro 302
-/integrations/computing-devices /integrations/noetic/computing-devices 302
-/integrations/computing-devices/* /integrations/noetic/computing-devices/:splat 302
-/integrations/legacy /integrations/noetic/legacy 302
-/integrations/legacy/* /integrations/noetic/legacy/:splat 302
-/integrations/lidars/ouster-os0 /integrations/noetic/lidars/ouster-os0 302
-/integrations/lidars/velodyne-puck /integrations/noetic/lidars/velodyne-puck 302
-/integrations/positioning-systems/marvelmind-rtls /integrations/noetic/positioning-systems/marvelmind-rtls 302
-/integrations/robotic-arms /integrations/noetic/robotic-arms 302
-/integrations/robotic-arms/* /integrations/noetic/robotic-arms/:splat 302
-/integrations/software/artag-tracking-with-alvar /integrations/software/aruco-tracking 302
-/integrations/software/freedom-robotics /integrations/noetic/software/freedom-robotics 302
-/integrations/software/scratch /integrations/noetic/software/scratch 302
+/leo-integrations/cameras/stereolabs-zed /leo-integrations/noetic/cameras/stereolabs-zed 302
+/leo-integrations/cameras/unispectral-monarch-pro /leo-integrations/noetic/cameras/unispectral-monarch-pro 302
+/leo-integrations/computing-devices /leo-integrations/noetic/computing-devices 302
+/leo-integrations/computing-devices/* /leo-integrations/noetic/computing-devices/:splat 302
+/leo-integrations/legacy /leo-integrations/noetic/legacy 302
+/leo-integrations/legacy/* /leo-integrations/noetic/legacy/:splat 302
+/leo-integrations/lidars/ouster-os0 /leo-integrations/noetic/lidars/ouster-os0 302
+/leo-integrations/lidars/velodyne-puck /leo-integrations/noetic/lidars/velodyne-puck 302
+/leo-integrations/positioning-systems/marvelmind-rtls /leo-integrations/noetic/positioning-systems/marvelmind-rtls 302
+/leo-integrations/robotic-arms /leo-integrations/noetic/robotic-arms 302
+/leo-integrations/robotic-arms/* /leo-integrations/noetic/robotic-arms/:splat 302
+/leo-integrations/software/artag-tracking-with-alvar /leo-integrations/software/aruco-tracking 302
+/leo-integrations/software/freedom-robotics /leo-integrations/noetic/software/freedom-robotics 302
+/leo-integrations/software/scratch /leo-integrations/noetic/software/scratch 302
 
 # raph rover redirects
 /rapha-rover /raph-rover 301

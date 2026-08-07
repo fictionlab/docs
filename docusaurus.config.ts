@@ -177,11 +177,6 @@ const config: Config = {
           ],
         },
         {
-          label: 'Integrations',
-          position: 'left',
-          to: '/integrations',
-        },
-        {
           label: 'Community projects',
           position: 'left',
           to: '/community-projects',
@@ -323,8 +318,8 @@ const config: Config = {
       'content-docs',
       {
         id: 'integrations',
-        path: 'docs/integrations',
-        routeBasePath: 'integrations',
+        path: 'docs/leo-integrations',
+        routeBasePath: 'leo-integrations',
         sidebarPath: './sidebars/integrationsSidebar.ts',
         editUrl: 'https://github.com/fictionlab/docs/edit/development/',
         remarkPlugins: [remarkMath],
@@ -339,6 +334,19 @@ const config: Config = {
             label: 'ROS 1 Noetic',
           },
         },
+      } satisfies DocsOptions,
+    ],
+    [
+      'content-docs',
+      {
+        id: 'raph-integrations',
+        path: 'docs/raph-integrations',
+        routeBasePath: 'raph-integrations',
+        sidebarPath: './sidebars/RaphIntegrationsSidebars.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
       } satisfies DocsOptions,
     ],
     [
