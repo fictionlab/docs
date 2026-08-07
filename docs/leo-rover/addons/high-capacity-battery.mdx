@@ -10,7 +10,7 @@ keywords:
   - battery pack
 description: >-
   Extend max run time of Leo Rover with high capacity battery.
-image: '/img/robots/leo/addons/high-capacity-battery/high-capacity-battery.webp'
+image: '/img/robots/leo/addons/high-capacity-battery/high-capacity-battery-action-shot.webp'
 ---
 
 import Product from '@site/src/products/high-capacity-battery.mdx';
@@ -18,25 +18,36 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import FusionEmbed from '@site/src/components/FusionEmbed';
 import CenterContent from '@site/src/components/CenterContent';
-
-# High-Capacity Battery Specification
+import Support from '@site/docs/raph-rover/partial/_support.mdx';
 
 <ImageZoom
   loading="eager"
-  src="/img/robots/leo/addons/high-capacity-battery/high-capacity-battery.webp"
-  width={1920}
-  height={1080}
+  src="/img/robots/leo/addons/high-capacity-battery/high-capacity-battery-action-shot.webp"
+  width={2000}
+  height={1500}
   alt="Visualization of high capacity battery for Leo Rover"
+  figStyle={{ width: '500px' }}
 />
 
-High capacity battery for the Leo Rover. It's a high-capacity Li-Ion 3S battery,
-estimated to last up to 10 hours of driving or 20 hours of video streaming, with
-a 3-hour charge time using a 5 A charger.
+# High Capacity Battery Specification
 
-:::warning
+---
 
-Due to restrictions on battery transportation, we are only able to ship High
-capacity batteries within inland Europe.
+High capacity battery is an optional addon for the Leo Rover. It is a
+high-capacity Li-Ion 3S battery, estimated to last up to 10 hours of driving or
+20 hours of video streaming. The battery is compatible with Leo Rover version
+1.6 or newer.
+
+Addon comes with a 5 A charger, which allows for a full charge in approximately
+3 hours. With the standard charger (2 A), the charging time is about 8 hours.
+
+:::note
+
+Due to restrictions on battery transportation, standard shipping is not possible
+outside inland Europe.
+
+If you wish to order one, please contact us at contact@fictionlab.pl to discuss
+shipping options.
 
 :::
 
@@ -44,33 +55,43 @@ capacity batteries within inland Europe.
 
 <Product />
 
+### What's included
+
+- 1 x High capacity battery pack
+- 1 x Fast 5 A charger
+- 1 x Weipu to 5.5 mm barrel connector adapter cable
+
 ## Main parameters
 
 <CenterContent>
 
-| Parameter            |                         Value                         |
-| -------------------- | :---------------------------------------------------: |
-| Battery type         |                        Li-Ion                         |
-| Battery pack type    |                         3S3P                          |
-| Nominal voltage      |                        10.89 V                        |
-| Charge capacity      |                        14.7 Ah                        |
-| Energy capacity      |                  $\approx$ 160.1 Wh                   |
-| Maximum output power |                    $\approx$ 120 W                    |
-| Battery cell         |                 Samsung INR21700-50E                  |
-| Safety systems       | Overcurrent, Undervoltage, Reverse polarity, Overheat |
+| Parameter             |                    Value                    |
+| --------------------- | :-----------------------------------------: |
+| Dimensions (LxWxH)    |                165x83x90 mm                 |
+| Weight                |                   1.2 kg                    |
+| IP protection rating  |      IP 55 (when mounted in Leo Rover)      |
+| Compatibility         |               Leo Rover v1.6+               |
+| Operating temperature |                -10°C to 40°C                |
+| Battery pack type     |                    3S3P                     |
+| Nominal voltage       |                   10.89 V                   |
+| Charge capacity       |                   14.7 Ah                   |
+| Energy capacity       |             $\approx$ 160.1 Wh              |
+| Maximum output power  |               $\approx$ 120 W               |
+| Battery cell          |            Samsung INR21700-50E             |
+| Safety systems        | Overcurrent, Undervoltage, Reverse polarity |
 
 </CenterContent>
 
-## Dimensions
+### Dimensions
 
 <ThemedImageZoom
   alt="Dimensions of High capacity battery addon for Leo Rover"
   sources={{
     light: useBaseUrl(
-      '/img/robots/leo/addons/high-capacity-battery/high-capacity-battery-dimensions-light.webp',
+      '/img/robots/leo/addons/high-capacity-battery/high-capacity-battery-dimensions-black.webp',
     ),
     dark: useBaseUrl(
-      '/img/robots/leo/addons/high-capacity-battery/high-capacity-battery-dimensions-dark.webp',
+      '/img/robots/leo/addons/high-capacity-battery/high-capacity-battery-dimensions-white.webp',
     ),
   }}
   width={2000}
@@ -80,9 +101,9 @@ capacity batteries within inland Europe.
 ### CAD model
 
 <FusionEmbed
-  url="https://kellideas.autodesk360.com/g/shares/SH512d4QTec90decfa6e4d42112c767e9096"
+  url="https://a360.co/4x4ebHT"
   embedTitle="High capacity battery addon for Leo Rover"
-  img="/img/robots/leo/addons/high-capacity-battery/high-capacity-battery.webp"
+  img="/img/robots/leo/addons/high-capacity-battery/high-capacity-battery-cad.webp"
   img_width={1920}
   img_height={1080}
 />
@@ -94,11 +115,65 @@ capacity batteries within inland Europe.
   title="High capacity battery - Google Drive"
 />
 
-## Additional information
+## User manual
 
-The battery is estimated to last for up to 10 hours of nominal driving or up to
-20 hours of video streaming.
+### Charging the battery
 
-The battery comes with a 5 A charger with which it can be fully charged (0-100%)
-in approximately 3 hours with nominal current. With the standard charger (2 A),
-the charging time (0-100%) is about 8 hours.
+To charge the battery use only 12,6V chargers from Fictionlab. It is recommended
+to use the provided 5 A charger, which allows for a full charge in approximately
+3 hours. You can also use the standard Leo Rover 2 A charger, but the charging
+time will be longer (approximately 8 hours).
+
+:::danger
+
+Do not use any other chargers, as it may damage the battery or cause safety
+hazards.
+
+Check the charger specifications before use. The charger must have a 12,6 V
+output voltage and a maximum output current of 5 A. Using a charger with a
+higher output voltage or current may damage the battery or cause safety hazards.
+
+:::
+
+1. Connect the charger to the provided Weipu to 5.5 mm barrel connector adapter
+   cable.
+2. Connect the Weipu connector to the battery pack.
+3. Plug the charger into a power outlet.
+4. Press the button on the battery. The LED indicator will light up red,
+   indicating that the battery is charging.
+5. When the LED indicator turns green, the battery is fully charged. Unplug the
+   charger from the power outlet and disconnect the Weipu connector from the
+   battery pack.
+
+### Mounting the battery
+
+The high capacity battery is designed to be mounted as direct replacement for
+the standard battery pack. It is compatible with Leo Rover version 1.6 or newer.
+The mounting process is the same as for the standard battery pack. Please refer
+to the
+[Leo Rover assembly manual](/leo-rover/manuals/combining-subassemblies#step-3)
+for detailed instructions on how to mount the battery.
+
+### Maintenance and safety
+
+- Do not disassemble the battery pack. It contains high voltage components that
+  can cause electric shock or fire.
+- Do not expose unmounted battery pack to water or moisture. When disconnected
+  from the robot, the battery pack is not waterproof and can be damaged by water
+  and other liquids.
+- Do not expose the battery pack to high temperatures or prolonged direct
+  sunlight. The battery pack can be damaged by heat and may pose a fire hazard.
+- Store the battery pack in a cool, dry place when not in use. Avoid leaving it
+  near heat sources.
+- Do not short-circuit the battery pack. Avoid contact between the positive and
+  negative terminals of the battery pack, as it can cause a short circuit and
+  damage the battery or cause safety hazards.
+- Do not puncture or crush the battery pack. Avoid dropping or applying
+  excessive force to the battery pack, as it can cause internal damage and pose
+  safety hazards.
+- Avoid deep discharge of the battery pack as it will reduce its lifespan. It is
+  recommended to recharge the battery pack when the voltage drops below 10 V.
+
+## Troubleshooting & support
+
+<Support />
