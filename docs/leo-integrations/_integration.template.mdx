@@ -1,0 +1,167 @@
+---
+title: [Meta title of the integration - SEO optimized]
+sidebar_label: [Sidebar label of the integration - concise and descriptive]
+description: >-
+  [Meta description of the integration - SEO optimized]
+keywords:
+  - keyword1
+  - keyword2
+  - keyword3
+image: path/to/image.webp
+# id:
+# sidebar_position:
+# slug:
+---
+
+{/* https://docs.fictionlab.pl/guidelines/formatting */}
+
+{/* Import only components that are NOT globally registered. */}
+{/* ImageZoom and LinkButton are global - do not import them. */}
+
+import Product from '@site/src/products/[product-name].mdx';
+
+{/* Add more imports as needed, for example: */}
+{/* import Powerbox from '@site/src/products/powerbox.mdx'; */}
+
+{/* This is a template for creating a new integration documentation page. */}
+{/* Please fill all of the fields marked with square brackets [] and remove the comments. */}
+{/* For text generation, use the Gemini gem - https://gemini.google.com/gem/1r7lCdS-MWEl3GkkLJvAJis8TdKQbxL-r?usp=sharing */}
+
+{/* Hero image of the integration on the rover - same image as used in the frontmatter */}
+
+<ImageZoom
+  loading="eager"
+  src="/path/to/image.webp"
+  alt="Leo Rover with mounted [Integration name]"
+  width="xxx"
+  height="xxx"
+/>
+
+# [Integration title - concise and descriptive]
+
+[Integration description]
+
+## What to expect?
+
+[Short description of the rover state after completing the integration. For
+example, what sensors are available, what capabilities the rover has, etc.]
+
+[Link or list of new ROS topics, services, and actions that are available after
+the integration.]
+
+[Picture or video of the new data available after the integration, for example,
+a point cloud from a new LiDAR sensor.]
+
+## Prerequisites
+
+Below is the list of all necessary tutorials and hardware components required to
+complete the integration.
+
+[List of prerequisites with links to the guides. Example below:]
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect to Leo Rover via SSH"
+  description="Guide on how to connect to your Leo Rover using SSH for remote access"
+/>
+
+### Referenced products
+
+[List of all products used in the integration. Imported as product cards.
+Example below:]
+
+<Product />
+
+## Hardware integration
+
+### Mounting
+
+[If the integration kit includes a mounting adapter, start with:]
+
+If you bought the integration from us, you can use the mounting adapter included
+in the package. It is designed to mount the [sensor/component] on [location] of
+the rover.
+
+Required components:
+
+- [Component 1]
+- [Component 2 - adapter]
+- [Screw type A] x[n]
+- [Screw type B] x[n]
+
+To mount the sensor:
+
+1. [First mounting step.]
+2. [Second mounting step.]
+3. [Third mounting step - fasten to rover.]
+
+:::tip
+
+If you don't have the integration kit, you can also 3D print the adapter plate
+yourself. Get the files from the
+[Addon Adapters](../addon-adapters#[adapter-anchor]) page.
+
+:::
+
+:::note
+
+The URDF model provided in this guide assumes the sensor is mounted using our
+adapter plate in the default position. If you mount the sensor in a different
+position, you will need to adjust the origin values in the URDF file accordingly
+so that the sensor is correctly positioned in the robot model.
+
+:::
+
+:::info
+
+[Any important notes about positioning, field of view, or clearance.]
+
+:::
+
+### Wiring
+
+[Describe the connection chain with numbered steps. Example:]
+
+1. [First connection step - e.g. connect cable to sensor.]
+2. [Second connection step - e.g. connect to adapter.]
+3. [Third connection step - e.g. connect to rover's port.]
+
+[Picture of the wiring.]
+
+[Notes about cable management, power, and optional addons. Example:]
+
+This connection provides both power and data transfer to the sensor, so no
+external power source is necessary. However, if you want a cleaner and more
+reliable connection, we recommend using the Powerbox addon:
+
+{/* <Powerbox /> */}
+
+## Software integration
+
+[Description of how to set up the software side of the integration, including
+any necessary ROS packages, configuration files, or launch files. Include code
+snippets and terminal commands if necessary.]
+
+### Modifying the URDF model
+
+[Description of how to modify the URDF model of the rover to include the new
+sensor or component, including any necessary XML code snippets and
+explanations.]
+
+## Example usage
+
+[Description of how to use the new integration, including any necessary ROS
+commands, launch files, or example code snippets. For example, show cloud points
+from a new LiDAR sensor in RViz, or show images from a new camera sensor.
+Include pictures or videos of the new capabilities in action if possible.]
+
+## What's next?
+
+[Description of possible next steps after completing the integration, such as:
+
+- Link to our more advanced guides that build on top of this integration
+- Mention how these sensors are used in the real world and what kind of
+  applications they enable
+- Link to the verified materials from our partners that can be used with the new
+  integration
+- Suggestions for additional sensors or components to integrate]
