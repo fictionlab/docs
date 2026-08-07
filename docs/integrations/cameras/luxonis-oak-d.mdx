@@ -1,17 +1,8 @@
 ---
 title: Luxonis OAK-D Camera Integration Guide for ROS Robots
 sidebar_label: Luxonis OAK-D
-keywords:
-  - luxonis
-  - oak-d
-  - stereo
-  - camera
-  - integration
-  - autonomy
-  - leo
-  - example
 description: >-
-  Learn how to connect an Oak-D stereo camera to your Leo Rover for robotic
+  Learn how to connect an OAK-D stereo camera to your Leo Rover for robotic
   vision applications like mapping, object recognition, and 3D scanning.
 image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
 ---
@@ -19,22 +10,10 @@ image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
 import Product from '@site/src/products/oak-d.mdx';
 import Powerbox from '@site/src/products/powerbox.mdx';
 
-# Luxonis OAK-D Camera Integration
-
-This tutorial will guide you through the process of connecting an Oak-D camera
-to your Leo Rover.
-
-OAK-D is the ultimate camera for robotic vision that perceives the world like a
-human by combining stereo depth camera and high-resolution color camera with an
-on-device Neural Network inferencing and Computer Vision capabilities. It uses
-USB-C for both power and USB3 connectivity. In robotics, stereo cameras are
-commonly used for mapping the environment, object recognition, 3D scanning and
-in many other.
-
 <ImageZoom
   loading="eager"
   src="/img/robots/leo/integrations/oak-d/OAK-D_leo_action_shot.webp"
-  alt="Leo Rover with mounted Intel RealSense D435i Camera"
+  alt="Leo Rover with mounted Luxonis OAK-D Camera"
   width="2000"
   height="1500"
   figStyle={{
@@ -42,9 +21,28 @@ in many other.
   }}
 />
 
+# Luxonis OAK-D Camera Integration
+
+This tutorial will guide you through the process of connecting an OAK-D camera
+to your Leo Rover.
+
+The OAK-D is a camera for robotic vision that perceives the world like a human
+by combining a stereo depth camera and a high-resolution color camera with an
+on-device Neural Network inferencing and Computer Vision capabilities. It uses
+USB-C for both power and USB3 connectivity. In robotics, stereo cameras are
+commonly used for mapping the environment, object recognition, 3D scanning and
+in many other applications.
+
+:::info
+
+This tutorial is based on the Luxonis OAK-D Pro W IMX378 camera, but it will
+work with other OAK-D models as well (such as OAK-D S2, OAK-D Lite, OAK-D Pro).
+
+:::
+
 ## What to expect?
 
-After completing this tutorial, you will have successfully connected an Oak-D
+After completing this tutorial, you will have successfully connected an OAK-D
 stereo camera to the Leo Rover in ROS, and you will possess basic knowledge
 about the use of stereo cameras.
 
@@ -88,9 +86,9 @@ To mount the sensor:
 
 Below, you will find a picture of the fully assembled product with wiring.
 
-## Wiring and electronics connection
+### Wiring
 
-:::warning
+:::note
 
 The OAK-D camera requires a relatively high supply current. Therefore, we
 strongly recommend using the [Powerbox](/leo-rover/addons/powerbox) to provide
@@ -123,7 +121,7 @@ picture below.
 <ImageZoom
   loading="eager"
   src="/img/robots/leo/integrations/oak-d/OAK-D_leo_top.webp"
-  alt="Leo Rover with mounted Intel RealSense D435i Camera"
+  alt="Leo Rover with mounted Luxonis OAK-D Camera"
   width="2000"
   height="1500"
   figStyle={{
@@ -159,8 +157,8 @@ sudo apt install ros-${ROS_DISTRO}-depthai-ros
 ### Adding camera model
 
 As we want to have the camera model visible with the rover model, we need to
-create an URDF file with the Oak included. Package `depthai_descriptions` is
-installed alongside `depthai-ros` and it contains Oak camera models and xacro
+create an URDF file with the OAK-D included. Package `depthai_descriptions` is
+installed alongside `depthai-ros` and it contains OAK-D camera models and xacro
 macros that we can easily add (list of available models
 [here](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_descriptions/urdf/models)).
 
@@ -215,7 +213,7 @@ example packages from `depthai-ros` package or you can use the provided launch
 file which provides basic functionalities such as camera image and depth data.
 
 In `/etc/ros` create a `.yaml` configuration file. This example contains
-configuration for Oak-D Pro Wide rbg and depth camera.
+configuration for OAK-D Pro Wide RGB and depth camera.
 
 ```yaml title="/etc/ros/oak.yaml"
 /oak:
@@ -262,7 +260,7 @@ configuration for Oak-D Pro Wide rbg and depth camera.
 ```
 
 Next, also in `/etc/ros` create a launch file that will use the previously added
-configuration for the oak camera node.
+configuration for the OAK-D camera node.
 
 ```xml title="/etc/ros/oak.launch.xml"
 <launch version="0.1.1">
@@ -279,7 +277,7 @@ You can set the `namespace` property of the `node` tag to whatever you want, but
 the `name` has to be set to the same value as the `camera_name` in urdf file.
 It's required for the camera data to be placed in correct TF frame.
 
-For more information about oak configuration and usage examples you can check
+For more information about OAK-D configuration and usage examples you can check
 out the
 [depthai-ros github repository](https://github.com/luxonis/depthai-ros/tree/jazzy).
 
@@ -297,7 +295,7 @@ In `/etc/ros/robot.launch.xml` add this line somewhere before the closing
 <include file="/etc/ros/oak.launch.xml"/>
 ```
 
-Now your Oak-D camera ROS node will start at launch. You can also start them now
+Now your OAK-D camera ROS node will start at launch. You can also start them now
 by typing
 
 ```bash
