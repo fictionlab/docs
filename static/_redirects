@@ -65,8 +65,6 @@
 /integrations/lidars/ouster-os0 /integrations/noetic/lidars/ouster-os0 302
 /integrations/lidars/velodyne-puck /integrations/noetic/lidars/velodyne-puck 302
 /integrations/positioning-systems/marvelmind-rtls /integrations/noetic/positioning-systems/marvelmind-rtls 302
-/integrations/robotic-arms /integrations/noetic/robotic-arms 302
-/integrations/robotic-arms/* /integrations/noetic/robotic-arms/:splat 302
 /integrations/software/artag-tracking-with-alvar /integrations/software/aruco-tracking 302
 /integrations/software/freedom-robotics /integrations/noetic/software/freedom-robotics 302
 /integrations/software/scratch /integrations/noetic/software/scratch 302
