@@ -25,8 +25,8 @@ import CenterContent from '@site/src/components/CenterContent';
 This tutorial walks through setting up indoor autonomous navigation on Raph
 Rover using the `raph_nav` package. The stack uses built-in sensors for obstacle
 detection, and controls the rover through a Nav2 pipeline tailored for Ackermann
-steering. Additionally a specialized RPP controller plugin is provided to handle
-Ackermann kinematics and steering constraints.
+steering. Additionally a specialized Regulated Pure Pursuit (RPP) controller
+plugin is provided to handle Ackermann kinematics and steering constraints.
 
 This will allow your Raph Rover to build a map of an unknown environment or
 navigate on a pre-made map, issuing steering and speed commands via
@@ -174,7 +174,7 @@ SLAM Toolbox takes as input:
 
 - Filtered LiDAR scan data (topic: `/rplidar/scan_filtered`)
 - Laser frame position (`base_footprint -> laser_frame` transform)
-- Current robot odometry (`odom -> base_footprint` transform from `merged_odom`)
+- Current robot odometry (`odom -> base_footprint` transform)
 
 As output it publishes:
 
@@ -317,7 +317,9 @@ refer to it when adjusting the configuration for your environment.
 ### AMCL localization
 
 [AMCL](https://robots.stanford.edu/papers/fox.aaai99.pdf) provides localization
-on a pre-built map, replacing SLAM Toolbox. Its configuration is in
+on a pre-built map, replacing SLAM Toolbox. With AMCL instead of SLAM Toolbox
+the rover no longer builds or updates a map online, and localization is instead
+computed against an existing map file. Its configuration is in
 `config/amcl.yaml`.
 
 :::note
@@ -329,9 +331,20 @@ Ackermann-like motion commands and provides reasonable localization performance.
 :::
 
 For AMCL to start localizing, you must provide an initial pose estimate. In
-RViz2, select the **2D Pose Estimate** tool from the toolbar and click on the
-map at the rover's approximate starting position. Set the fixed frame to `map`
-before doing this.
+RViz2, set the fixed frame to `map`, select the **2D Pose Estimate** tool from
+the toolbar, and click and drag on the map at the rover's approximate starting
+position and orientation.
+
+As an alternative, you can trigger automatic global relocalization. This lets
+AMCL set initial pose automatically, but it may take longer to converge. To do
+this, run:
+
+```bash
+ros2 service call /amcl/reinitialize_global_localization std_srvs/srv/Empty {}
+```
+
+This is useful when the starting pose is unknown, but convergence may take
+longer and works best when the rover can move and observe distinctive geometry.
 
 After setting the initial pose, AMCL will start publishing the
 `map -> base_footprint` transform and any localization errors visible in RViz2
