@@ -82,3 +82,6 @@
 # Renamed network configuration tutorial
 /leo-rover/guides/ap-settings /leo-rover/guides/network-configuration 301
 
+# Addon redirects - we only keep the latest version of the addon documentation, so we redirect all older versions to the latest one
+/leo-rover/1.8/addons/high-capacity-battery /leo-rover/addons/high-capacity-battery 301
+
