@@ -15,11 +15,19 @@ description: >-
 image: /img/robots/leo/integrations/rplidar-a2/rplidar-a2.webp
 ---
 
-# SLAMTEC RPLIDAR A2 Integration
-
 import PowerboxProduct from '@site/src/products/powerbox.mdx';
 import LidarProduct from '@site/src/products/slamtec-rplidar-a2.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/rplidar-a2/RPlidar_A2_integration_leo_iso_shot.webp"
+  alt="Leo Rover with mounted Vision Pack"
+  width="4000"
+  height="3000"
+/>
+
+# SLAMTEC RPLIDAR A2 Integration
 
 This tutorial will guide you through the process of connecting a LiDAR sensor to
 your Leo Rover.
@@ -30,16 +38,6 @@ and in a wide range of other applications. In robotics 2D lidars, like A2M8 /
 A2M12, are used for things such as indoor SLAM
 ([Simultaneous localization and mapping](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping))
 or safety systems.
-
-<ImageZoom
-  loading="eager"
-  src="/img/robots/leo/integrations/rplidar-a2/rplidar-a2.webp"
-  width="536"
-  height="500"
-  figStyle={{
-    width: 400,
-  }}
-/>
 
 ## What to expect?
 
@@ -67,60 +65,72 @@ and visualize it using RViz. Just like in the image below:
   additional functionalities, building ROS packages and more."
 />
 
-## Referenced products
+### Referenced products
 
 <LidarProduct />
 
-## List of components
+## Hardware integration
+
+### Mounting
+
+If you bought the integration from us, you can use the mounting adapter included
+in the package. It is designed to mount the RPLidar A2 on top of
+the rover.
+
+Required components:
 
 - RPLidar A2
 - RPLidar A2 adapter plate (can be found here:
   [Addon adapters](../addon-adapters#rplidar-a2-adapter))
-- M5x10 Allen head screw x4
-- M3x6 Allen head screw x4
+- M5 x 10 Allen head screw x4
+- M3 x 6 Allen head screw x4
 
-## Mechanical integration
+To mount the sensor:
+1. Insert the USB-UART adapter into the dedicated place in the printed mount.
+2. Secure the RPLidar A2 to the 3D-printed mount using M3x6 Allen head screws. Make sure that the sensor is rotated correctly - the lidar cable should point towards the back of the rover. Image of correct mounting is presented in wiring section.
+3. Secure the subassembly to the Leo Rover using M5x10 Allen head screws.
 
-We developed 3D printable models of mechanical interfaces that allow you to
-mount the aforementioned sensor to the mounting plate of the rover. Locating the
-sensor at the top of the robot provides a wide field of view with not many
-obstacles for the laser beam to get caught on. Get the files from here:
-[Addon Adapters](../addon-adapters).
+:::tip
 
-- With 4 x M3x6 Allen screws, connect the sensor to the printed interface plate.
-- Use 4 x M5x10 Allen screws to fasten the sensor to the Leo Rover.
-
-## Wiring and electronics connection
-
-The sensor can be connected to the robot's main computer via the USB socket
-positioned at the top of the rover. If your USB cable is long it might get into
-lidars field of view if it sticks up too much. try to hide it in the empty space
-inside Leo Rovers back frame. Just like on the photo below:
-
-<ImageZoom
-  src="/img/robots/leo/integrations/rplidar-a2/leo-with-rplidar-a2.webp"
-  width="935"
-  height="578"
-  figStyle={{
-    width: 500,
-  }}
-/>
-
-:::info
-
-When mounting the sensor, you should be particularly careful not to obstruct the
-field of view by other parts of the Rover.
+If you don't have the integration kit, you can also 3D print the adapter plate
+yourself. Get the files from the
+[Addon Adapters](../addon-adapters#[adapter-anchor]) page.
 
 :::
 
+:::note
+
+The URDF model provided in this guide assumes the sensor is mounted using our
+adapter plate in the default position. If you mount the sensor in a different
+position, you will need to adjust the origin values in the URDF file accordingly
+so that the sensor is correctly positioned in the robot model.
+
+:::
+
+### Wiring
+
+1. Connect RPLiDAR A2 to USB-UART converter. 
+
+:::info
+
+Make sure that excess cable is wrapper around the sensor so it does not obstruct LiDARs field of view.
+
+:::
+
+2. Connect USB-UART converter to Leo Rover via USB micro - USB C cable.
+
+Correct assembly is presented in the image bellow. 
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/rplidar-a2/RPlidar_A2_integration_leo_top.webp"
+  alt="Leo Rover with mounted Vision Pack"
+  width="4000"
+  height="3000"
+/>
+
 USB connection provides power to the sensor and allows the data transfer. This
-means that no external power sources are necessary. Some lidars might need
-external power connections, that's when [Powerbox](/leo-rover/addons/powerbox)
-might come in handy.
-
-<PowerboxProduct />
-
-With everything connected, you are ready to try out your new sensor.
+means that no external power sources are necessary. With everything connected, you are ready to try out your new sensor.
 
 ## Software integration
 
