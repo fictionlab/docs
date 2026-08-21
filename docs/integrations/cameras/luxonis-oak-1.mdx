@@ -13,13 +13,20 @@ keywords:
 description: >-
   Learn how to connect a Luxonis OAK-1 camera to your Leo Rover and integrate it
   with the system using ROS.
-# TODO: add an OAK-1 image (render?)
-image: /img/robots/leo/integrations/oak-d/oak-d-ucm.webp
+image: /img/robots/leo/integrations/oak-1/OAK-1_integration_iso_shot.webp
 ---
 
 import ImageZoom from '@site/src/components/ImageZoom';
 import LinkButton from '@site/src/components/LinkButton';
 import Product from '@site/src/products/luxonis-oak-1-w-imx378.mdx';
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/oak-1/OAK-1_integration_leo_iso_shot.webp"
+  alt="Leo Rover with OAK-1 integration"
+  width="4000"
+  height="3000"
+/>
 
 # Luxonis OAK-1 Camera Integration
 
@@ -33,8 +40,6 @@ object detection or tracking can run directly on the camera, without putting any
 load on the rover's computer. The camera uses USB-C for both power and USB3
 connectivity. In robotics, cameras like this are commonly used for object
 recognition, visual tracking and many other computer vision applications.
-
-{/* TODO: add an OAK-1 image (or robot with OAK-1) */}
 
 ## What to expect?
 
@@ -51,7 +56,7 @@ an object detection example. The image below shows its final result - the camera
 stream with the detected objects marked with bounding boxes, visualized in RViz:
 
 <ImageZoom
-  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example-chair.webp"
+  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example-chair-monitor.webp"
   alt="Image from the OAK-1 camera with bounding boxes around detected objects"
   width="635"
   height="644"
@@ -94,7 +99,53 @@ stream with the detected objects marked with bounding boxes, visualized in RViz:
 
 ## Hardware integration
 
-{/* TODO: add hardware integration */}
+If you bought the integration from us, you can use the mounting adapter included
+in the package. It is designed to mount the OAK-1 camera on top of
+the rover.
+
+Required components:
+
+- Luxonis OAK-1 camera
+- Mounting adapter
+- Angled USB adapter
+- 20 cm USB-C to USB-C cable
+- M5 x 16 Allen head screw x2
+- M4 x 12 Allen head screw x2
+
+To mount the sensor:
+
+1. Secure the camera using the M4x12 Allen head screws.
+2. Insert the angled USB adapter into the camera's USB port.
+3. Mount the subassembly in the designated place on the Leo Rover - the correct positioning is shown in the image below.
+4. Plug one end of the USB-C cable into the angled USB adapter and the other end into the Rover's external USB port.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/oak-1/OAK-1_integration_leo_top.webp"
+  alt="Leo Rover with OAK-1 integration"
+  width="4000"
+  height="3000"
+/>
+
+:::tip
+
+If you don't have the integration kit, you can also 3D print the adapter plate
+yourself. Get the files from the
+[Addon Adapters](../addon-adapters#[adapter-anchor]) page.
+
+:::
+
+:::note
+
+The URDF model provided in this guide assumes the sensor is mounted using our
+adapter plate in the default position. If you mount the sensor in a different
+position, you will need to adjust the origin values in the URDF file accordingly
+so that the sensor is correctly positioned in the robot model.
+
+:::
+
+With everything connected, you are ready to try out your new sensor.
+
 
 ## Software integration
 
