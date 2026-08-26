@@ -85,3 +85,5 @@
 # Addon redirects - we only keep the latest version of the addon documentation, so we redirect all older versions to the latest one
 /leo-rover/1.8/addons/high-capacity-battery /leo-rover/addons/high-capacity-battery 301
 
+# Generation Robots redirect - they have this link on their website pointing to this URL
+/assembly-manuals/check-the-boxes /leo-rover/manuals 301
