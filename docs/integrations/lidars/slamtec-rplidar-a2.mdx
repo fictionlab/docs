@@ -18,6 +18,9 @@ image: /img/robots/leo/integrations/rplidar-a2/RPlidar_A2_integration_iso_shot.w
 import PowerboxProduct from '@site/src/products/powerbox.mdx';
 import LidarProduct from '@site/src/products/slamtec-rplidar-a2.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
 
 <ImageZoom
   loading="eager"
@@ -91,11 +94,31 @@ To mount the sensor:
 
 :::warning
 
-Some USB-UART adapters allow you to choose the baud rate. If your adapter has
-this option, make sure that the switch is set to 115200 bps. An incorrectly set
-baud rate may cause problems with receiving LiDAR data.
+Some USB-UART adapters allow you to choose the baud rate. 
+If your adapter allows such setting, make sure that the setting is correct for your type of RPlidar.
 
 :::
+
+<Tabs groupId='lidar_version'>
+    <TabItem value='m12' label='RPlidar M12'>
+
+    :::info
+
+    If USB-UART adapter alow setting baud rate, set switch to **256000 bps** to achieve communication with **RPlidar M12**.
+
+    :::
+
+    </TabItem>
+    <TabItem value='m8' label='RPlidar M8'>
+
+    :::info
+
+    If USB-UART adapter alow setting baud rate, set switch to **115200 bps** to achieve communication with **RPlidar M8**.
+
+    :::
+
+    </TabItem>
+</Tabs>
 
 2. Secure the RPLidar A2 to the 3D-printed mount using M3x6 Allen head screws.
    Make sure that the sensor is rotated correctly - the lidar cable should point
@@ -175,17 +198,34 @@ sudo apt install ros-${ROS_DISTRO}-rplidar-ros
 ```
 
 Now, create a launch file that would start the node with a fitting
-configuration.
+configuration. Configuration varies depending on the RPLidar version.
 
-```xml title="/etc/ros/laser.launch.xml"
-<launch>
-  <node pkg="rplidar_ros" exec="rplidar_node">
-    <param name="serial_port" value="/dev/lidar"/>
-    <param name="serial_baudrate" value="115200"/>
-    <param name="frame_id" value="laser_frame"/>
-  </node>
-</launch>
-```
+<Tabs groupId='lidar_version'>
+    <TabItem value='m12' label='RPlidar M12'>
+    ```xml title="/etc/ros/laser.launch.xml"
+    <launch>
+      <node pkg="rplidar_ros" exec="rplidar_node">
+        <param name="serial_port" value="/dev/lidar"/>
+        <param name="serial_baudrate" value="256000"/>
+        <param name="frame_id" value="laser_frame"/>
+      </node>
+    </launch>
+    ```
+
+    </TabItem>
+    <TabItem value='m8' label='RPlidar M8'>
+    ```xml title="/etc/ros/laser.launch.xml"
+    <launch>
+      <node pkg="rplidar_ros" exec="rplidar_node">
+        <param name="serial_port" value="/dev/lidar"/>
+        <param name="serial_baudrate" value="115200"/>
+        <param name="frame_id" value="laser_frame"/>
+      </node>
+    </launch>
+    ```
+
+    </TabItem>
+</Tabs>
 
 Include your launch file in the `robot.launch.xml` file, so that your node will
 start at boot.
