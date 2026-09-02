@@ -185,24 +185,24 @@ Now, create a launch file that would start the node with a fitting
 configuration. Configuration varies depending on the RPLidar version.
 
 <Tabs groupId='lidar_version'>
-    <TabItem value='m12' label='RPlidar M12'>
+    <TabItem value='m8' label='RLidar A2 M8'>
     ```xml title="/etc/ros/laser.launch.xml"
     <launch>
       <node pkg="rplidar_ros" exec="rplidar_node">
         <param name="serial_port" value="/dev/lidar"/>
-        <param name="serial_baudrate" value="256000"/>
+        <param name="serial_baudrate" value="115200"/>
         <param name="frame_id" value="laser_frame"/>
       </node>
     </launch>
     ```
 
     </TabItem>
-    <TabItem value='m8' label='RPlidar M8'>
+    <TabItem value='m12' label='RPLidar A2 M12' default='true'>
     ```xml title="/etc/ros/laser.launch.xml"
     <launch>
       <node pkg="rplidar_ros" exec="rplidar_node">
         <param name="serial_port" value="/dev/lidar"/>
-        <param name="serial_baudrate" value="115200"/>
+        <param name="serial_baudrate" value="256000"/>
         <param name="frame_id" value="laser_frame"/>
       </node>
     </launch>
