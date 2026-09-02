@@ -12,20 +12,18 @@ keywords:
 description: >-
   Learn how to connect an RPLiDAR A2M8/A2M12 sensor to your Leo Rover for 2D
   mapping and more. Detailed tutorial mechanical and software integration.
-image: /img/robots/leo/integrations/rplidar-a2/RPlidar_A2_integration_iso_shot.webp
+image: /img/robots/leo/integrations/rplidar-a2/RPlidar_A2_integration_leo_iso_shot.webp
 ---
 
-import PowerboxProduct from '@site/src/products/powerbox.mdx';
 import LidarProduct from '@site/src/products/slamtec-rplidar-a2.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import Admonition from '@theme/Admonition';
 
 <ImageZoom
   loading="eager"
   src="/img/robots/leo/integrations/rplidar-a2/RPlidar_A2_integration_leo_iso_shot.webp"
-  alt="Leo Rover with mounted Vision Pack"
+  alt="Leo Rover with mounted RPLidar A2"
   width="4000"
   height="3000"
 />
@@ -44,8 +42,8 @@ or safety systems.
 
 ## What to expect?
 
-After finishing the tutorial you should be able to both gather the lidar data
-and visualize it using RViz. Just like in the image below:
+After finishing the tutorial you should be able to gather the lidar data from
+the `/scan` topic and visualize it using RViz. Just like in the image below:
 
 <ImageZoom
   src="/img/robots/leo/integrations/rplidar-a2/rviz-map-lidar.webp"
@@ -114,7 +112,7 @@ for your RPLidar:
 
 If you don't have the integration kit, you can also 3D print the adapter plate
 yourself. Get the files from the
-[Addon Adapters](../addon-adapters#[adapter-anchor]) page.
+[Addon Adapters](../addon-adapters#rplidar-a2-adapter) page.
 
 :::
 
@@ -133,19 +131,19 @@ so that the sensor is correctly positioned in the robot model.
 
 :::info
 
-Make sure that excess cable is wrapper around the sensor so it does not obstruct
+Make sure that excess cable is wrapped around the sensor so it does not obstruct
 LiDARs field of view.
 
 :::
 
 2. Connect USB-UART converter to Leo Rover via USB micro - USB C cable.
 
-Correct assembly is presented in the image bellow.
+Correct assembly is presented in the image below.
 
 <ImageZoom
   loading="eager"
   src="/img/robots/leo/integrations/rplidar-a2/RPlidar_A2_integration_leo_top.webp"
-  alt="Leo Rover with mounted Vision Pack"
+  alt="Leo Rover with mounted RPLidar A2"
   width="4000"
   height="3000"
 />
@@ -185,7 +183,7 @@ Now, create a launch file that would start the node with a fitting
 configuration. Configuration varies depending on the RPLidar version.
 
 <Tabs groupId='lidar_version'>
-    <TabItem value='m8' label='RLidar A2 M8'>
+    <TabItem value='m8' label='RPLidar A2 M8'>
     ```xml title="/etc/ros/laser.launch.xml"
     <launch>
       <node pkg="rplidar_ros" exec="rplidar_node">
@@ -220,6 +218,8 @@ In `/etc/ros/robot.launch.xml`:
 ```xml
 <include file="/etc/ros/laser.launch.xml" />
 ```
+
+### Modifying the URDF model
 
 Your robot should be aware of where the sensor is located and what space it
 occupies. You can ensure it does that by creating an URDF model of the sensor.
@@ -298,7 +298,7 @@ The last step is to either reboot the robot or restart the nodes.
 ros-nodes-restart
 ```
 
-## Examples
+## Example usage
 
 ### Reading and visualizing the data
 
@@ -392,12 +392,12 @@ Here's an example end result:
     id="oD5Sp7T0Ki0"
     params="autoplay=0&autohide=1&showinfo=0&rel=0"
     poster="hqdefault"
-    title="Leo Rover Unboxing and Getting Started"
+    title="Leo Rover with LiDAR"
     webp
   />
 </div>
 
-## What next?
+## What's next?
 
 Lidars are commonly used in projects involving
 [autonomous navigation](/leo-rover/advanced-guides/autonomous-navigation), you
