@@ -95,32 +95,14 @@ To mount the sensor:
 
 :::warning
 
-Some USB-UART adapters allow you to choose the baud rate. If your adapter allows
-such setting, make sure that the setting is correct for your type of RPlidar.
+Some USB-UART adapters allow you to choose the baud rate with a physical switch.
+If your adapter has such a switch, make sure to put it in the correct position
+for your RPLidar:
+
+- For **RPLidar A2 M12**, set the baud rate to **256000 bps**.
+- For **RPLidar A2 M8**, set the baud rate to **115200 bps**.
 
 :::
-
-<Tabs groupId='lidar_version'>
-    <TabItem value='m12' label='RPlidar M12'>
-
-    :::info
-
-    If USB-UART adapter alow setting baud rate, set switch to **256000 bps** to achieve communication with **RPlidar M12**.
-
-    :::
-
-    </TabItem>
-    <TabItem value='m8' label='RPlidar M8'>
-
-    :::info
-
-    If USB-UART adapter alow setting baud rate, set switch to **115200 bps** to achieve communication with **RPlidar M8**.
-
-    :::
-
-    </TabItem>
-
-</Tabs>
 
 2. Secure the RPLidar A2 to the 3D-printed mount using M3x6 Allen head screws.
    Make sure that the sensor is rotated correctly - the lidar cable should point
