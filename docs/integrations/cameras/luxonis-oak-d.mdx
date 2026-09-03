@@ -1,6 +1,15 @@
 ---
 title: Luxonis OAK-D Camera Integration Guide for ROS Robots
 sidebar_label: Luxonis OAK-D
+keywords:
+  - luxonis
+  - oak-d
+  - rgb-d
+  - stereo
+  - camera
+  - integration
+  - depthai
+  - leo
 description: >-
   Learn how to connect an OAK-D stereo camera to your Leo Rover for robotic
   vision applications like mapping, object recognition, and 3D scanning.
@@ -28,10 +37,9 @@ to your Leo Rover.
 
 The OAK-D is a camera for robotic vision that perceives the world like a human
 by combining a stereo depth camera and a high-resolution color camera with an
-on-device Neural Network inferencing and Computer Vision capabilities. It uses
-USB-C for both power and USB3 connectivity. In robotics, stereo cameras are
-commonly used for mapping the environment, object recognition, 3D scanning and
-in many other applications.
+on-device Neural Network inferencing and Computer Vision capabilities. In
+robotics, stereo cameras are commonly used for mapping the environment, object
+recognition, 3D scanning and in many other applications.
 
 :::info
 
@@ -43,8 +51,8 @@ work with other OAK-D models as well (such as OAK-D S2, OAK-D Lite, OAK-D Pro).
 ## What to expect?
 
 After completing this tutorial, you will have successfully connected an OAK-D
-stereo camera to the Leo Rover in ROS, and you will possess basic knowledge
-about the use of stereo cameras.
+stereo camera to the Leo Rover in ROS, and you will be able to visualize and use
+the data from the camera.
 
 You can find all available topics and configuration options
 [here](https://docs.luxonis.com/software/ros/depthai-ros/driver/).
@@ -105,7 +113,10 @@ properly assembled product.
 
 You can also mount the camera elsewhere on the rover, but you will have to
 adjust the camera's position and orientation in the
-[URDF file](#adding-camera-model) accordingly.
+[URDF file](#modifying-the-urdf-model) accordingly.
+
+You can also 3D print the adapter yourself. Get the files from the
+[addon adapters](../addon-adapters#oak-d-adapter) page.
 
 :::
 
@@ -113,17 +124,18 @@ adjust the camera's position and orientation in the
 
 :::info
 
-The OAK-D camera requires a relatively high supply current. Therefore, it is
+The OAK-D camera requires a relatively high supply current, so it can't be
+powered solely via the USB connection to the rover's computer. Therefore, it is
 necessary to provide additional 5V power supply. We strongly recommend using the
-[Powerbox](/leo-rover/addons/powerbox) addon.
+[Powerbox](/leo-rover/addons/powerbox) addon to do that. Without the additional
+power supply, the camera will not operate reliably.
 
 <Powerbox />
 
 :::
 
-To connect the camera to the Leo Rover v1.9, simply connect the data port
-(marked with the USB symbol) of the OAK Y-adapter to the rover's USB-C
-interface.
+To connect the camera to the Leo Rover, simply connect the data port (marked
+with the USB symbol) of the OAK Y-adapter to the rover's USB-C interface.
 
 Next, connect the 5V power supply using the USB power cable provided in the
 package. The USB-C end should be connected to the OAK Y-adapter's power port
@@ -154,36 +166,51 @@ picture below.
 
 ## Software integration
 
+:::note
+
+All the steps in this section are performed on the rover's computer, so start by
+logging in to your rover via SSH:
+
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect to Leo Rover via SSH"
+  description="Guide on how to connect to your Leo Rover using SSH for remote access"
+/>
+
+:::
+
 ### Installing the packages
 
 The first thing you can do is to make sure your device has the correct
-permissions. To do this, you can add the following rule to the udev service:
+permissions. In `/etc/udev/rules.d` create a `luxonis.rules` file and paste the
+following line into this file:
 
 ```xml title="/etc/udev/rules.d/luxonis.rules"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
 ```
 
-Paste these lines to `/etc/udev/rules.d/luxonis.rules` file and reload udev
-rules by typing:
+Then, reload udev rules by typing:
 
 ```bash
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
-We want the sensor functionality to be available in the ROS ecosystem, so you
-should install a ROS package that provides a node for the camera.
+Next, install a ROS package that provides a node for the camera.
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-depthai-ros
 ```
 
-### Adding camera model
+### Modifying the URDF model
 
 As we want to have the camera model visible with the rover model, we need to
 create an URDF file with the OAK-D included. Package `depthai_descriptions` is
 installed alongside `depthai-ros` and it contains OAK-D camera models and xacro
 macros that we can easily add (list of available models
 [here](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_descriptions/urdf/models)).
+
+In `/etc/ros/urdf` create the `oak.urdf.xacro` file that attaches the camera
+model to the rover. This example uses the OAK-D Pro W model.
 
 ```xml title="/etc/ros/urdf/oak.urdf.xacro"
 <?xml version="1.0"?>
@@ -214,8 +241,10 @@ differently, you will have to adjust these values accordingly.
 :::
 
 Now we have to include our camera model in `robot.urdf.xacro` file - the
-description that is uploaded at boot. Add this line somewhere before the closing
-`</robot>` tag.
+description that is uploaded at boot.
+
+In `/etc/ros/urdf/robot.urdf.xacro` add this line somewhere before the closing
+`</robot>` tag:
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
 <xacro:include filename="/etc/ros/urdf/oak.urdf.xacro"/>
@@ -223,9 +252,9 @@ description that is uploaded at boot. Add this line somewhere before the closing
 
 ### Creating launch and configuration files
 
-To launch the camera you can, create your own launch file, use one of the
-example packages from `depthai-ros` package or you can use the provided launch
-file which provides basic functionalities such as camera image and depth data.
+To launch the camera, you can create your own launch file, use one of the
+example packages from `depthai-ros` package, or use the provided launch file
+which provides basic functionalities such as camera image and depth data.
 
 In `/etc/ros` create a `.yaml` configuration file. This example contains
 configuration for OAK-D Pro Wide RGB and depth camera.
@@ -314,26 +343,26 @@ In `/etc/ros/robot.launch.xml` add this line somewhere before the closing
 `</launch>` tag:
 
 ```xml title="/etc/ros/robot.launch.xml"
-<include file="/etc/ros/oak.launch.xml"/>
+  <include file="/etc/ros/oak.launch.xml"/>
 ```
 
-Now your OAK-D camera ROS node will start at launch. You can also start them now
-by typing
+Now your OAK-D camera ROS node will start at launch. You can also start it now
+by typing:
 
 ```bash
 ros-nodes-restart
 ```
 
-## Examples
+## Example usage
 
 ### Reading and visualizing the data
 
-The topics from camera node should be now visible. You can check them with
-`ros2 topic` tool - topics from your node will have prefix specified by you in
-the `name` and `namespace` node tag properties.
+The topics from the camera node should now be visible. You can check them with
+the `ros2 topic` tool - topics from your node will have the prefix specified by
+you in the `name` and `namespace` node tag properties.
 
-If you have ROS installed on your computer, you can get the camera image with
-rqt.
+If you have ROS installed on your computer, you can view the camera image with
+`rqt`.
 
 :::info
 
@@ -348,8 +377,8 @@ If you don't have ROS, you can follow this guide:
 
 :::
 
-Before starting any of the programs, make sure you are connected to the rover's
-network:
+Before starting any of the programs on your computer, make sure you are
+connected to the rover's network:
 
 <LinkButton
   to="/leo-rover/guides/connect-to-rover-ap"
@@ -357,8 +386,8 @@ network:
   description="Learn how to connect to your Leo Rover via WiFi."
 />
 
-Now you can start `rqt`, and from `plugins` -> `visualization` choose
-`image view` and then choose your topic.
+Now you can start `rqt`, and from **Plugins** -> **Visualization** choose
+**Image View**, then select your topic.
 
 :::note
 
@@ -378,13 +407,14 @@ This will start RViz with visualization of the current robot model.
 
 :::info
 
-You can easily install the `leo_viz` package with this command
+You can easily install the `leo_viz` package with this command:
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-leo-desktop
 ```
 
-You will also have to install `depthai-descriptions` package on your computer
+You will also have to install the `depthai-descriptions` package on your
+computer:
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-depthai-descriptions
@@ -405,13 +435,13 @@ correctly (**plugins** -> **visualization** -> **TF Tree**)
   height="430"
 />
 
-## What next?
+## What's next?
 
 Stereo cameras are commonly used in projects involving
 [autonomous navigation](/leo-rover/advanced-guides/autonomous-navigation), you
 might be interested in a tutorial about it.
 
 They are however, not the only way of teaching a Leo Rover how to move on it's
-own. Check out our [line follower](/leo-rover/1.8/leo-examples/line-follower)
-tutorial if you want to learn more. You can also check our
+own. Check out our [line follower](/leo-rover/leo-examples/line-follower)
+tutorial if you want to learn more. You can also check out our
 [Integrations page](/integrations) for more instructions.
