@@ -1,14 +1,6 @@
 ---
 title: SLAMTEC RPLIDAR A2 Integration Guide for ROS Robots
 sidebar_label: SLAMTEC RPLIDAR A2
-keywords:
-  - slamtec
-  - rplidar
-  - lidar
-  - 2d
-  - leo
-  - integration
-  - example
 description: >-
   Learn how to connect an RPLiDAR A2M8/A2M12 sensor to your Leo Rover for 2D
   mapping and more. Detailed tutorial mechanical and software integration.
@@ -155,15 +147,15 @@ you are ready to try out your new sensor.
 ## Software integration
 
 The first thing you can do is to make sure your device has the correct
-permissions and is available at the fixed path on your system. To do this, you
-can add the following rule to the udev service:
+permissions and is available at the fixed path on your system. Do this by
+creating a file named `lidar.rules` in `/etc/udev/rules.d` and pasting the
+following content into it:
 
 ```xml title="/etc/udev/rules.d/lidar.rules"
 KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", GROUP="dialout", SYMLINK+="lidar"
 ```
 
-Paste these lines to `/etc/udev/rules.d/lidar.rules` file and reload udev rules
-by typing:
+Then, reload udev rules by typing:
 
 ```bash
 sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -179,8 +171,9 @@ to integrate.
 sudo apt install ros-${ROS_DISTRO}-rplidar-ros
 ```
 
-Now, create a launch file that would start the node with a fitting
-configuration. Configuration varies depending on the RPLidar version.
+Now, in `/etc/ros` create a `laser.launch.xml` file that will start the node
+with a fitting configuration. Configuration varies depending on the RPLidar
+version.
 
 <Tabs groupId='lidar_version'>
     <TabItem value='m8' label='RPLidar A2 M8'>
@@ -210,19 +203,18 @@ configuration. Configuration varies depending on the RPLidar version.
 
 </Tabs>
 
-Include your launch file in the `robot.launch.xml` file, so that your node will
-start at boot.
+For the node to start at boot, your launch file has to be included in the
+robot's main launch file. Insert the following line between its `<launch>` tags:
 
-In `/etc/ros/robot.launch.xml`:
-
-```xml
-<include file="/etc/ros/laser.launch.xml" />
+```xml title="/etc/ros/robot.launch.xml"
+  <include file="/etc/ros/laser.launch.xml" />
 ```
 
 ### Modifying the URDF model
 
 Your robot should be aware of where the sensor is located and what space it
-occupies. You can ensure it does that by creating an URDF model of the sensor.
+occupies. You can ensure that by creating an URDF model of the sensor. To do so,
+in `/etc/ros/urdf` create a `laser.urdf` file with the following content:
 
 ```xml title="/etc/ros/urdf/laser.urdf"
 <?xml version="1.0"?>
@@ -270,7 +262,7 @@ occupies. You can ensure it does that by creating an URDF model of the sensor.
   <link name="laser_frame"/>
 
   <joint name="laser_joint" type="fixed">
-    <origin xyz="0 0 0.483" rpy="0 0 ${-pi/2}"/>
+    <origin xyz="0 0 0.0483"/>
     <parent link="rplidar_link"/>
     <child link="laser_frame"/>
   </joint>
@@ -278,10 +270,12 @@ occupies. You can ensure it does that by creating an URDF model of the sensor.
 </robot>
 ```
 
-And including it in the description that is uploaded at boot.
+Then, include it in the description that is uploaded at boot. In
+`/etc/ros/urdf/robot.urdf.xacro` insert the following line between the `<robot>`
+tags:
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
-<xacro:include filename="/etc/ros/urdf/laser.urdf"/>
+  <xacro:include filename="/etc/ros/urdf/laser.urdf"/>
 ```
 
 :::tip
@@ -292,7 +286,7 @@ STL or COLLADA format.
 
 :::
 
-The last step is to either reboot the robot or restart the nodes.
+The last step is to either reboot the robot or restart the nodes by typing:
 
 ```bash
 ros-nodes-restart
