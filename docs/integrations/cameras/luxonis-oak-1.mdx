@@ -1,0 +1,410 @@
+---
+title: Luxonis OAK-1 Camera Integration Guide for ROS Robots
+sidebar_label: Luxonis OAK-1
+description: >-
+  Learn how to connect a Luxonis OAK-1 camera to your Leo Rover and integrate it
+  with the system using ROS.
+image: /img/robots/leo/integrations/oak-1/OAK-1_integration_iso_shot.webp
+---
+
+import ImageZoom from '@site/src/components/ImageZoom';
+import LinkButton from '@site/src/components/LinkButton';
+import Product from '@site/src/products/luxonis-oak-1-w-imx378.mdx';
+
+# Luxonis OAK-1 Camera Integration
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/oak-1/OAK-1_integration_leo_iso_shot.webp"
+  alt="Leo Rover with OAK-1 integration"
+  width="4000"
+  height="3000"
+/>
+
+In this tutorial we will go through the process of connecting a Luxonis OAK-1
+camera to your Leo Rover and integrating it with the system using ROS.
+
+OAK-1 is a compact AI camera for robotic vision that combines a high-resolution
+12MP color sensor with on-device Neural Network inferencing and Computer Vision
+capabilities provided by the built-in Myriad X VPU. Thanks to that, tasks like
+object detection or tracking can run directly on the camera, without putting any
+load on the rover's computer. The camera uses USB-C for both power and USB3
+connectivity. In robotics, cameras like this are commonly used for object
+recognition, visual tracking and many other computer vision applications.
+
+## What to expect?
+
+After completing this tutorial, you will have a Luxonis OAK-1 camera mounted on
+your Leo Rover, and you will be able to access the camera's data through ROS
+topics, such as:
+
+- `/oak/rgb/image_raw` - the RGB image stream,
+- `/oak/rgb/image_raw/compressed` - the compressed RGB image stream,
+- `/oak/rgb/camera_info` - the camera calibration data.
+
+You will also learn how to use the camera's on-device AI capabilities by running
+an object detection example. The image below shows its final result - the camera
+stream with the detected objects marked with bounding boxes, visualized in RViz:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example-chair-monitor.webp"
+  alt="Image from the OAK-1 camera with bounding boxes around detected objects"
+  width="635"
+  height="644"
+/>
+
+## Prerequisites
+
+<LinkButton
+  to="/leo-rover/guides/connect-to-rover-ap"
+  title="Connect to Leo Rover AP"
+  description="Learn how to connect to your Leo Rover via WiFi."
+/>
+<LinkButton
+  to="/leo-rover/guides/ssh"
+  title="Connect via SSH"
+  description="Learn how to establish an SSH connection with your Leo Rover and access its
+  terminal using Putty or OpenSSH."
+/>
+<LinkButton
+  to="/leo-rover/guides/connect-to-network"
+  title="Connect to Network"
+  description="Learn how to connect your Leo Rover to a Wi-Fi network."
+/>
+<LinkButton
+  to="/leo-rover/guides/software-update"
+  title="Software update"
+  description="Detailed guide on updating the software of Leo Rover, covering steps to access
+  the microSD card, download and flash the latest LeoOS image."
+/>
+
+### Referenced products
+
+<Product />
+
+## Hardware integration
+
+If you bought the integration from us, you can use the mounting adapter included
+in the package. It is designed to mount the OAK-1 camera on top of the rover.
+
+Required components:
+
+- Luxonis OAK-1 camera
+- Mounting adapter
+- Angled USB adapter
+- 20 cm USB-C to USB-C cable
+- M5 x 16 Allen head screw x2
+- M4 x 12 Allen head screw x2
+
+To mount the sensor:
+
+1. Secure the camera using the M4x12 Allen head screws.
+2. Insert the angled USB adapter into the camera's USB port.
+3. Mount the subassembly in the designated place on the Leo Rover - the correct
+   positioning is shown in the image below.
+4. Plug one end of the USB-C cable into the angled USB adapter and the other end
+   into the Rover's external USB port.
+
+<ImageZoom
+  loading="eager"
+  src="/img/robots/leo/integrations/oak-1/OAK-1_integration_leo_top.webp"
+  alt="Leo Rover with OAK-1 integration"
+  width="4000"
+  height="3000"
+/>
+
+:::tip
+
+If you don't have the integration kit, you can also 3D print the adapter plate
+yourself. Get the files from the
+[addon adapters](../addon-adapters#oak-1-adapter) page.
+
+:::
+
+:::note
+
+The URDF model provided in this guide assumes the sensor is mounted using our
+adapter plate in the default position. If you mount the sensor in a different
+position, you will need to adjust the origin values in the URDF file accordingly
+so that the sensor is correctly positioned in the robot model.
+
+:::
+
+With everything connected, you are ready to try out your new sensor.
+
+## Software integration
+
+The first thing you can do is to make sure your device has the correct
+permissions. Log in to the rover via SSH, and create the `luxonis.rules` file in
+`/etc/udev/rules.d` with the following content:
+
+```xml title="/etc/udev/rules.d/luxonis.rules"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
+```
+
+Then, reload udev rules by typing:
+
+```bash
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
+Next, install a ROS package that provides a node for the camera:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-depthai-ros
+```
+
+### Modifying the URDF model
+
+As we want to have the camera model visible with the rover model, we need to
+create an URDF file with the OAK included. Package `depthai_descriptions` is
+installed alongside `depthai-ros` and it contains OAK camera models and xacro
+macros that we can easily add (list of available models
+[here](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_descriptions/urdf/models)).
+
+We need to include the correct macro to make the camera visible with the robot's
+model. To do that create a new file in `/etc/ros/urdf` directory, and name it
+`oak-1.urdf.xacro`. In this file, include the following content:
+
+```xml title="/etc/ros/urdf/oak-1.urdf.xacro"
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find depthai_descriptions)/urdf/include/depthai_macro.urdf.xacro"/>
+
+  <xacro:depthai_camera camera_name="oak"
+                      camera_model="OAK-1"
+                      base_frame="oak-1-base_frame"
+                      parent="base_link"
+                      cam_pos_x="0.0"
+                      cam_pos_y="0.0"
+                      cam_pos_z="0.0"
+                      cam_roll="0.0"
+                      cam_pitch="0.0"
+                      cam_yaw="0.0"/>
+</robot>
+```
+
+:::warning
+
+The parameters named `cam_<>` determine camera's position and orientation in the
+robot model. In the file above they are set to the values that correspond to the
+default mounting position of the camera on the rover. If you mounted the camera
+differently, you will have to adjust these values accordingly.
+
+:::
+
+Now we have to include our camera model in `robot.urdf.xacro` file - the
+description that is uploaded at boot. Add this line somewhere before the closing
+`</robot>` tag.
+
+```xml title="/etc/ros/urdf/robot.urdf.xacro"
+  <xacro:include filename="/etc/ros/urdf/oak-1.urdf.xacro"/>
+```
+
+### Launching camera nodes
+
+To get the image from camera, you need to launch the camera nodes. You can do it
+by using default DepthAI launcher:
+
+```bash
+ros2 launch depthai_ros_driver camera.launch.py
+```
+
+If you want to change the default parameters, you can do it while the node runs
+by running _RQt_ on your computer with ROS installed and connected to the rover
+network:
+
+```bash
+ros2 run rqt_reconfigure rqt_reconfigure
+```
+
+If you want the changes of parameters to persist across the runs, create a
+`.yaml` configuration file in `/etc/ros`. This example contains configuration
+for OAK-1 camera:
+
+```yaml title="/etc/ros/oak.yaml"
+/oak:
+  ros__parameters:
+    oak.rgb.image_raw.enable_pub_plugins:
+      ['image_transport/raw', 'image_transport/compressed']
+    camera:
+      i_pipeline_type: RGB
+      i_nn_type: none
+    rgb:
+      i_publish_topic: true
+      i_fps: 30.0
+      i_resolution: 1080P
+      i_isp_num: 2
+      i_isp_den: 3
+      i_output_isp: true
+      i_width: 1280
+      i_height: 720
+```
+
+You can modify the parameters in the file according to your needs and then
+launch:
+
+```bash
+ros2 launch depthai_ros_driver camera.launch.py params_file:=/etc/ros/oak.yaml
+```
+
+:::note
+
+If your OAK-1 unit doesn't have an IMU, you will see this warning:
+
+```
+[WARN] [oak]: IMU enabled but not available!
+```
+
+It is harmless - the driver simply skips creating the IMU node and the camera
+works normally. You can silence it by adding the `pipeline_gen` section to the
+configuration file:
+
+```yaml
+/oak:
+  ros__parameters:
+    pipeline_gen:
+      i_enable_imu: false
+```
+
+:::
+
+:::info
+
+For more information about oak configuration and usage examples you can check
+out the
+[depthai-ros documentation](https://docs.luxonis.com/software/ros/depthai-ros/driver).
+
+:::
+
+### (Optional) Launching camera nodes on system startup
+
+To launch camera nodes with the created parameters file on system startup,
+create a launch file in `/etc/ros`:
+
+```xml title="/etc/ros/oak.launch.xml"
+<launch version="0.1.1">
+  <node name="oak" namespace="" pkg="depthai_ros_driver" exec="camera_node">
+    <param from="/etc/ros/oak.yaml" />
+  </node>
+
+</launch>
+```
+
+:::info
+
+You can set the `namespace` property of the `node` tag to whatever you want, but
+the `name` has to be set to the same value as the `camera_name` in URDF file.
+It's required for the camera data to be placed in correct TF frame.
+
+:::
+
+Then in `/etc/ros/robot.launch.xml` add this line somewhere before the closing
+`</launch>` tag:
+
+```xml title="/etc/ros/robot.launch.xml"
+  <include file="/etc/ros/oak.launch.xml"/>
+```
+
+Now your OAK-1 camera ROS node will start at launch. You can also start it now
+by typing
+
+```bash
+ros-nodes-restart
+```
+
+## Example usage
+
+One of the capabilities of Luxonis OAK-1 Camera is running object detection
+directly on the camera. To test it, we will run one of the `depthai_filters`
+examples.
+
+:::note
+
+If you enabled launching the camera nodes on system startup, disable them now,
+as the example starts its own camera node and two nodes can't connect to the
+same device. To do so, remove the `<include file="/etc/ros/oak.launch.xml"/>`
+line from `/etc/ros/robot.launch.xml` and restart ROS2 nodes:
+
+```bash
+ros-nodes-restart
+```
+
+:::
+
+Firstly, we need to modify the OAK parameters file to enable the neural network
+on the camera and pass through the image the network runs on:
+
+```yaml title="/etc/ros/oak.yaml"
+/oak:
+  ros__parameters:
+    oak.rgb.image_raw.enable_pub_plugins:
+      ['image_transport/raw', 'image_transport/compressed']
+    camera:
+      i_pipeline_type: RGB
+      i_nn_type: rgb
+    rgb:
+      i_publish_topic: true
+      i_fps: 30.0
+      i_resolution: 1080P
+      i_isp_num: 2
+      i_isp_den: 3
+      i_output_isp: true
+      i_width: 1280
+      i_height: 720
+    nn:
+      i_enable_passthrough: true
+      i_disable_resize: false
+```
+
+Then run the example, passing the modified parameters file:
+
+```bash
+ros2 launch depthai_filters example_det2d_overlay.launch.py params_file:=/etc/ros/oak.yaml
+```
+
+Now you can switch to the PC connected to rover's access point and run RViz:
+
+```bash
+rviz2
+```
+
+In the RViz window add the visualization by selecting Image from `/overlay`
+topic and clicking OK:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-1/rviz-oak-1-overlay-topic-selection.webp"
+  alt="RViz topic selection window with the Image display selected on the /overlay topic"
+  width="1848"
+  height="1009"
+/>
+
+After doing so, you should be able to see the image from the camera with the
+bounding boxes and names of the detected objects, along with the confidence of
+each detection shown as a percentage:
+
+<ImageZoom
+  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example-chair-monitor.webp"
+  alt="Image from the OAK-1 camera with bounding boxes around detected objects"
+  width="635"
+  height="644"
+/>
+
+The example uses the default detection network - a MobileNet-SSD model trained
+on the PASCAL VOC dataset. It can detect 20 classes of objects, such as person,
+car, bicycle, dog or bottle. You can find the full list of the detected classes
+in the
+[label map](https://github.com/luxonis/depthai-ros/blob/jazzy/depthai_filters/include/depthai_filters/detection2d_overlay.hpp)
+of the overlay node.
+
+## What's next?
+
+With the camera image available on ROS topics, you can use it in projects
+involving computer vision.
+
+The OAK-1 can run neural network inference directly on the camera. To learn more
+about the camera's capabilities, check out the
+[Luxonis documentation](https://docs.luxonis.com/hardware/products/OAK-1%20W),
+and for more advanced configuration of the ROS driver, see the
+[DepthAI ROS documentation](https://docs.luxonis.com/software/ros/depthai-ros/).
