@@ -135,21 +135,20 @@ With everything connected, you are ready to try out your new sensor.
 ## Software integration
 
 The first thing you can do is to make sure your device has the correct
-permissions. To do this, you can add the following rule to the udev service:
+permissions. Log in to the rover via SSH, and create the `luxonis.rules` file in
+`/etc/udev/rules.d` with the following content:
 
 ```xml title="/etc/udev/rules.d/luxonis.rules"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
 ```
 
-Paste this line to `/etc/udev/rules.d/luxonis.rules` file and reload udev rules
-by typing:
+Then, reload udev rules by typing:
 
 ```bash
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
-We want the sensor functionality to be available in the ROS ecosystem, so you
-should install a ROS package that provides a node for the camera.
+Next, install a ROS package that provides a node for the camera:
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-depthai-ros
@@ -162,6 +161,7 @@ create an URDF file with the OAK included. Package `depthai_descriptions` is
 installed alongside `depthai-ros` and it contains OAK camera models and xacro
 macros that we can easily add (list of available models
 [here](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_descriptions/urdf/models)).
+
 We need to include the correct macro to make the camera visible with the robot's
 model. To do that create a new file in `/etc/ros/urdf` directory, and name it
 `oak-1.urdf.xacro`. In this file, include the following content:
@@ -185,17 +185,12 @@ model. To do that create a new file in `/etc/ros/urdf` directory, and name it
 </robot>
 ```
 
-The `camera_name` property determines the names of the camera's TF frames and
-topics. It has to be set to the same value as the `name` of the camera node that
-we will launch later in this tutorial. The `cam_<>` properties specify the
-camera's position and orientation in reference to the link set in the `parent`
-property. As the `parent` property is set to "base_link", the position of the
-camera is provided in reference to the origin of the Rover.
-
 :::warning
 
-In the file above, the `cam_<>` properties are set to the default values. You
-will have to adjust them to your mounting solution.
+The parameters named `cam_<>` determine camera's position and orientation in the
+robot model. In the file above they are set to the values that correspond to the
+default mounting position of the camera on the rover. If you mounted the camera
+differently, you will have to adjust these values accordingly.
 
 :::
 
@@ -204,7 +199,7 @@ description that is uploaded at boot. Add this line somewhere before the closing
 `</robot>` tag.
 
 ```xml title="/etc/ros/urdf/robot.urdf.xacro"
-<xacro:include filename="/etc/ros/urdf/oak-1.urdf.xacro"/>
+  <xacro:include filename="/etc/ros/urdf/oak-1.urdf.xacro"/>
 ```
 
 ### Launching camera nodes
@@ -217,10 +212,11 @@ ros2 launch depthai_ros_driver camera.launch.py
 ```
 
 If you want to change the default parameters, you can do it while the node runs
-with the usage of _RQt_:
+by running _RQt_ on your computer with ROS installed and connected to the rover
+network:
 
 ```bash
-rqt
+ros2 run rqt_reconfigure rqt_reconfigure
 ```
 
 If you want the changes of parameters to persist across the runs, create a
@@ -278,7 +274,7 @@ configuration file:
 
 For more information about oak configuration and usage examples you can check
 out the
-[depthai-ros github repository](https://github.com/luxonis/depthai-ros/tree/jazzy).
+[depthai-ros documentation](https://docs.luxonis.com/software/ros/depthai-ros/driver).
 
 :::
 
@@ -299,7 +295,7 @@ create a launch file in `/etc/ros`:
 :::info
 
 You can set the `namespace` property of the `node` tag to whatever you want, but
-the `name` has to be set to the same value as the `camera_name` in urdf file.
+the `name` has to be set to the same value as the `camera_name` in URDF file.
 It's required for the camera data to be placed in correct TF frame.
 
 :::
@@ -308,10 +304,10 @@ Then in `/etc/ros/robot.launch.xml` add this line somewhere before the closing
 `</launch>` tag:
 
 ```xml title="/etc/ros/robot.launch.xml"
-<include file="/etc/ros/oak.launch.xml"/>
+  <include file="/etc/ros/oak.launch.xml"/>
 ```
 
-Now your OAK-1 camera ROS node will start at launch. You can also start them now
+Now your OAK-1 camera ROS node will start at launch. You can also start it now
 by typing
 
 ```bash
@@ -389,7 +385,7 @@ bounding boxes and names of the detected objects, along with the confidence of
 each detection shown as a percentage:
 
 <ImageZoom
-  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example-chair.webp"
+  src="/img/robots/leo/integrations/oak-1/oak-1-detection-example-chair-monitor.webp"
   alt="Image from the OAK-1 camera with bounding boxes around detected objects"
   width="635"
   height="644"
@@ -400,9 +396,7 @@ on the PASCAL VOC dataset. It can detect 20 classes of objects, such as person,
 car, bicycle, dog or bottle. You can find the full list of the detected classes
 in the
 [label map](https://github.com/luxonis/depthai-ros/blob/jazzy/depthai_filters/include/depthai_filters/detection2d_overlay.hpp)
-of the overlay node. To learn more about this and other examples from the
-`depthai_filters` package, check out its
-[documentation](https://github.com/luxonis/depthai-ros/tree/jazzy/depthai_filters).
+of the overlay node.
 
 ## What's next?
 
