@@ -458,9 +458,18 @@ for the full list of options.
 
 :::warning
 
-Some parameters might be later overridden by launch file arguments. For example,
-`camera_model`, `camera_name`, and `publish_tf` will not take effect if config
-file is passed via the `ros_params_override_path` argument.
+The following parameters cannot be set via the config file: `use_sim_time`,
+`simulation.sim_enabled`, `simulation.sim_address`, `simulation.sim_port`,
+`stream.stream_address`, `stream.stream_port`, `general.camera_name`,
+`general.camera_model`, `svo.svo_path`, `svo.publish_svo_clock`,
+`general.serial_number`, `general.camera_id`, `pos_tracking.publish_tf`,
+`pos_tracking.publish_map_tf`, `sensors.publish_imu_tf`,
+`gnss_fusion.gnss_fusion_enabled`, `general.virtual_serial_numbers`,
+`general.virtual_camera_ids`
+
+If you want to modify any of these parameters, you will need to do so through
+appropriate launch file arguments or through `param_overrides` launch
+argument of the `zed_camera.launch.py` file.
 
 :::
 
