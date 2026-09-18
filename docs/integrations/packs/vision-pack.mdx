@@ -460,6 +460,14 @@ for the full list of options.
 
 :::
 
+:::warning
+
+Some parameters might be later overridden by launch file arguments. For example,
+`camera_model`, `camera_name`, and `publish_tf` will not take effect if config
+file is passed via the `ros_params_override_path` argument.
+
+:::
+
 ### Setting up the ZED wrapper
 
 First, install the ZED SDK for NVIDIA Jetson in the version for JetPack 7.2 (L4T
