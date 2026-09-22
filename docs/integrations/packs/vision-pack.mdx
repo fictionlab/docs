@@ -437,8 +437,6 @@ And add the following content to the file:
 /**:
   ros__parameters:
     general:
-      camera_model: 'zed2i'
-      camera_name: 'zed2i'
       grab_resolution: 'HD1080'
       grab_frame_rate: 15
     video:
@@ -448,8 +446,6 @@ And add the following content to the file:
     depth:
       min_depth: 0.01
       max_depth: 15.0
-    pos_tracking:
-      publish_tf: false
 ```
 
 :::note
@@ -457,6 +453,23 @@ And add the following content to the file:
 These are just example parameters - tune them as needed and refer to the
 [ZED ROS 2 wrapper documentation](https://www.stereolabs.com/docs/integrations/ros-2)
 for the full list of options.
+
+:::
+
+:::warning
+
+The following parameters cannot be set via the config file: `use_sim_time`,
+`simulation.sim_enabled`, `simulation.sim_address`, `simulation.sim_port`,
+`stream.stream_address`, `stream.stream_port`, `general.camera_name`,
+`general.camera_model`, `svo.svo_path`, `svo.publish_svo_clock`,
+`general.serial_number`, `general.camera_id`, `pos_tracking.publish_tf`,
+`pos_tracking.publish_map_tf`, `sensors.publish_imu_tf`,
+`gnss_fusion.gnss_fusion_enabled`, `general.virtual_serial_numbers`,
+`general.virtual_camera_ids`
+
+If you want to modify any of these parameters, you will need to do so through
+appropriate launch file arguments or through `param_overrides` launch argument
+of the `zed_camera.launch.py` file.
 
 :::
 
@@ -486,7 +499,7 @@ wrapper for the `zed2i` camera using the previously created configuration:
 
 ```bash
 source ~/ros2_ws/install/setup.bash
-ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/etc/ros/zed2i.yaml
+ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i camera_name:=zed2i publish_tf:=false publish_urdf:=false ros_params_override_path:=/etc/ros/zed2i.yaml
 ```
 
 At this point the rover computer should see the ZED ROS interfaces. You can
@@ -595,7 +608,7 @@ Description=ZED ROS 2 Wrapper
 [Service]
 Type=exec
 ExecStartPre=/usr/bin/nm-online -q
-ExecStart=/bin/bash -c 'source ~/ros2_ws/install/setup.bash && exec ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i ros_params_override_path:=/etc/ros/zed2i.yaml'
+ExecStart=/bin/bash -c 'source ~/ros2_ws/install/setup.bash && exec ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i camera_name:=zed2i publish_tf:=false publish_urdf:=false ros_params_override_path:=/etc/ros/zed2i.yaml'
 KillSignal=SIGINT
 KillMode=mixed
 TimeoutStopSec=30
