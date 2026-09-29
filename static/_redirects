@@ -65,8 +65,6 @@
 /integrations/lidars/ouster-os0 /integrations/noetic/lidars/ouster-os0 302
 /integrations/lidars/velodyne-puck /integrations/noetic/lidars/velodyne-puck 302
 /integrations/positioning-systems/marvelmind-rtls /integrations/noetic/positioning-systems/marvelmind-rtls 302
-/integrations/robotic-arms /integrations/noetic/robotic-arms 302
-/integrations/robotic-arms/* /integrations/noetic/robotic-arms/:splat 302
 /integrations/software/artag-tracking-with-alvar /integrations/software/aruco-tracking 302
 /integrations/software/freedom-robotics /integrations/noetic/software/freedom-robotics 302
 /integrations/software/scratch /integrations/noetic/software/scratch 302
@@ -84,3 +82,8 @@
 # Renamed network configuration tutorial
 /leo-rover/guides/ap-settings /leo-rover/guides/network-configuration 301
 
+# Addon redirects - we only keep the latest version of the addon documentation, so we redirect all older versions to the latest one
+/leo-rover/1.8/addons/high-capacity-battery /leo-rover/addons/high-capacity-battery 301
+
+# Generation Robots redirect - they have this link on their website pointing to this URL
+/assembly-manuals/check-the-boxes /leo-rover/manuals 301

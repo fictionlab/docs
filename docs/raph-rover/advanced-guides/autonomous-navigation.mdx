@@ -1,0 +1,530 @@
+---
+title: How to Set Up Autonomous Navigation on Raph Rover with ROS 2 & Nav2
+sidebar_label: Autonomous Navigation
+sidebar_position: 6
+keywords:
+  - raph rover
+  - ros 2
+  - autonomous navigation
+  - slam toolbox
+  - nav2 stack
+  - ackermann
+description: >-
+  Detailed guide for setting up autonomous navigation on a Raph Rover using ROS
+  2 Jazzy, SLAM Toolbox, and the Nav2 Stack with RPLiDAR and OAK-D stereo
+  camera.
+image: /img/robots/raph/raph-rover.webp
+---
+
+# How to Set Up Autonomous Navigation
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
+import CenterContent from '@site/src/components/CenterContent';
+
+This tutorial walks through setting up indoor autonomous navigation on Raph
+Rover using the `raph_nav` package. The stack uses built-in sensors for obstacle
+detection, and controls the rover through a Nav2 pipeline tailored for Ackermann
+steering. Additionally a specialized Regulated Pure Pursuit (RPP) controller
+plugin is provided to handle Ackermann kinematics and steering constraints.
+
+This will allow your Raph Rover to build a map of an unknown environment or
+navigate on a pre-made map, issuing steering and speed commands via
+[`ackermann_msgs/AckermannDrive`](https://docs.ros.org/en/noetic/api/ackermann_msgs/html/msg/AckermannDrive.html).
+
+## Prerequisites
+
+Firstly, you will have to connect to the Rover via SSH:
+
+<LinkButton docId="guides/ssh" />
+
+Also make sure that your Rover is connected to a local network with Internet
+access:
+
+<LinkButton docId="guides/connect-to-network" />
+
+For the purpose of autonomous navigation, we've prepared the `raph_nav` package
+which makes use of other packages available in ROS to provide autonomous
+capabilities. You won't have to write a single line of code, but some
+configuration may need to be tweaked to work best in your environment.
+
+If you want to visualize the navigation process, you will need a computer with
+ROS 2 installed. You can follow the official
+[ROS 2 installation guide](https://docs.ros.org/en/jazzy/Installation.html) for
+your operating system.
+
+The Raph Rover sensor setup is:
+
+- **RPLiDAR** - publishing filtered scans on `/rplidar/scan_filtered`
+- **OAK-D stereo camera** - publishing depth images on `/oak/stereo/image_raw`
+  and camera info on `/oak/stereo/camera_info`
+
+Both sensors must be running and publishing before launching the navigation
+stack. This should be the case if you are using the default RaphOS
+configuration. Different sensors can also be used, if you want to equip the
+robot differently.
+
+## Preparing the environment
+
+### On Raph Rover
+
+Clone and build the `raph_nav` workspace. Create a ROS workspace if you haven't
+done so already:
+
+```bash
+mkdir -p ~/ros_ws/src
+cd ~/ros_ws/src
+```
+
+Clone the `raph_nav` repository:
+
+```bash
+git clone https://github.com/RaphRover/raph_nav
+```
+
+Use `rosdep` to install dependencies:
+
+```bash
+sudo apt update
+cd ~/ros_ws
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+Build the workspace (both `raph_nav` and the custom controller plugin):
+
+```bash
+colcon build --symlink-install
+```
+
+Source the workspace:
+
+```bash
+source ~/ros_ws/install/setup.bash
+```
+
+:::info
+
+You will have to source the workspace on every terminal session you want to use
+the package on. If you want to do it automatically upon logging into a session,
+you need to modify the `/etc/ros/setup.bash`:
+
+Replace the line:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+```
+
+With:
+
+```bash
+source ~/ros_ws/install/setup.bash
+```
+
+:::
+
+### On your computer
+
+Your computer is used for visualizing data in RViz2 and sending navigation
+goals. Install the ROS 2 visualization tools if you haven't already:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-rviz2
+```
+
+In order to see the robot model in RViz2, you will need to have the
+`raph_description` package installed:
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-raph-description
+```
+
+## Navigation stack overview
+
+Navigation stack consists of two main parts: SLAM Toolbox (or AMCL) and the
+Nav2. All Nav2 nodes run inside a single composable container for low-latency
+intra-process communication.
+
+Here's the simplified diagram of the Nav2 architecture:
+
+<ThemedImageZoom
+  loading="eager"
+  alt="Simplified system architecture"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/raph/advanced-guides/autonomous-navigation/nav2-architecture-light.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/raph/advanced-guides/autonomous-navigation/nav2-architecture-dark.webp',
+    ),
+  }}
+  width="678"
+  height="480"
+/>
+
+### SLAM Toolbox
+
+In the `raph_nav` package, SLAM Toolbox provides
+[Simultaneous Localization and Mapping](https://www.mathworks.com/discovery/slam.html)
+capabilities. It reads the filtered LiDAR scan to build an occupancy grid map
+and publishes the `map -> odom` transform used by the Nav2 Stack for
+localization.
+
+SLAM Toolbox takes as input:
+
+- Filtered LiDAR scan data (topic: `/rplidar/scan_filtered`)
+- Laser frame position (`base_footprint -> laser_frame` transform)
+- Current robot odometry (`odom -> base_footprint` transform)
+
+As output it publishes:
+
+- Occupancy grid map on `/map` and `/map_metadata`
+- Odometry correction (`map -> odom` transform)
+
+:::note
+
+SLAM Toolbox does not broadcast `map -> base_footprint` directly, because that
+would introduce two root coordinate frames (`map` and `odom`). Instead it
+publishes `map -> odom`, which captures the drift between the odometry estimate
+and the true position within the map.
+
+:::
+
+#### Configuration tips
+
+SLAM Toolbox parameters can be found in `config/slam_toolbox.yaml`.
+
+Key things to look out for when tuning SLAM Toolbox parameters:
+
+- **Check frame and topic wiring**: `scan_topic`, `base_frame`, `odom_frame`,
+  `map_frame`. If these are wrong, you will not receive a map.
+- **Map quality vs compute**: `resolution`. Lower values increase detail but CPU
+  and memory usage. It's best to keep the resolution consistent with the Nav2
+  costmaps.
+- **Scan integration cadence**: `minimum_travel_distance`,
+  `minimum_travel_heading`, `minimum_time_interval`, `throttle_scans`. Lower
+  thresholds create denser mapping updates but increase compute load.
+- **Global consistency**: `do_loop_closing`, `loop_search_maximum_distance`,
+  `loop_match_minimum_response_coarse`, `loop_match_minimum_response_fine`.
+  These strongly affect long-run drift vs false loop closures.
+- **Matcher behavior under odom drift**: `correlation_search_space_dimension`,
+  `correlation_search_space_resolution`, `distance_variance_penalty`,
+  `angle_variance_penalty`.
+
+For a full description of each parameter visit the
+[SLAM Toolbox GitHub repository](https://github.com/SteveMacenski/slam_toolbox).
+
+### Nav2
+
+Nav2 is the ROS 2 navigation framework responsible for global path planning,
+local trajectory tracking, recovery behaviors, and goal execution. Full Nav2
+documentation is available at [docs.nav2.org](https://docs.nav2.org/).
+
+The `raph_nav` Nav2 stack runs inside a single composable container which
+consists of:
+
+- [Planner Server](https://docs.nav2.org/configuration/packages/configuring-planner-server.html):
+  Uses `nav2_smac_planner::SmacPlannerHybrid` which supports Reeds-Shepp curves
+  and reverse maneuvers - well suited for Ackermann vehicles.
+- [Controller Server](https://docs.nav2.org/configuration/packages/configuring-controller-server.html):
+  Uses `nav2_ackermann_rpp_controller` which is a custom fork of
+  `nav2_regulated_pure_pursuit_controller` with Ackermann-specific extensions
+  (see [custom controller](#custom-controller) below).
+- [Behavior Tree Navigator](https://docs.nav2.org/configuration/packages/configuring-bt-navigator.html):
+  Manages navigation execution using the provided behavior trees.
+- [Waypoint Follower](https://docs.nav2.org/configuration/packages/configuring-waypoint-follower.html):
+  Handles sequential waypoint navigation.
+- [Lifecycle Manager](https://docs.nav2.org/configuration/packages/configuring-lifecycle.html):
+  Manages the lifecycle of all navigation nodes.
+- [PointCloudXyzNode](https://docs.ros.org/en/jazzy/p/depth_image_proc/doc/components.html#depth-image-proc-pointcloudxyznode):
+  Converts the OAK-D depth image into a point cloud on `nav2/points` topic used
+  by the costmap layers.
+- [Behavior Server](https://docs.nav2.org/configuration/packages/configuring-behavior-server.html):
+  Runs recovery and utility behaviors (for example spin, backup, and
+  drive-on-heading) when normal path execution cannot continue.
+
+:::note
+
+The controller server's `cmd_vel` output is intentionally remapped to
+`dummy/cmd_vel`. Raph Rover uses an Ackermann drivetrain, so the actual actuator
+commands are published on `controller/cmd_ackermann`
+(`ackermann_msgs/AckermannDrive`). The Twist remap prevents other nodes from
+accidentally consuming the unconfigured Twist output.
+
+:::
+
+#### Custom controller
+
+The `nav2_ackermann_rpp_controller` plugin is a custom fork of
+`nav2_regulated_pure_pursuit_controller` with the following Ackermann-specific
+extensions:
+
+**1. Native Ackermann output** - In addition to the standard
+`geometry_msgs/TwistStamped` required by Nav2, the controller simultaneously
+publishes `ackermann_msgs/AckermannDrive` on `controller/cmd_ackermann` with
+explicit speed, steering angle, steering angle rate, acceleration, and jerk
+fields. The `cmd_vel` output is remapped to `dummy/cmd_vel` to prevent
+accidental consumption.
+
+**2. Ackermann-aware dynamic windowing** - The dynamic window sampling operates
+in $(v, \delta)$ (speed, steering-angle) space rather than $(v, \omega)$ space.
+Feasible steering targets are bounded by the physical steering rate and angle
+limits. The selected steering angle $\delta$ is then converted to $\omega$ to
+maintain Nav2 compatibility:
+
+<CenterContent>
+$$\omega = \frac{v \cdot \tan(\delta)}{L}$$
+</CenterContent>
+
+where $L$ is the wheelbase.
+
+**3. Steering feedback gate** - The controller reads actual servo positions
+(`servo_l_joint`, `servo_r_joint`) from `/joint_states` and gates forward motion
+until the measured steering angle is within `steering_angle_tolerance` of the
+commanded angle. A hysteresis latch (`steering_angle_release_tolerance`)
+prevents rapid chattering near the threshold.
+
+**4. Cusp-aware path truncation** - Reeds-Shepp paths often contain direction
+reversals (cusps) separated by short micro-segments. The controller splits the
+path at cusps and tracks only the first viable segment (length ≥
+`min_segment_length`), discarding the rest until that segment is complete. This
+prevents unstable micro-maneuvers on Ackermann vehicles.
+
+#### Configuration tips
+
+Nav2 configuration can be found in `config/navigation.yaml`.
+
+Below are the newly added parameters for the custom controller plugin:
+
+<CenterContent>
+
+| Parameter                          | Value     | Description                         |
+| ---------------------------------- | --------- | ----------------------------------- |
+| `wheelbase`                        | 0.382 m   | Front-to-rear axle distance         |
+| `track_width`                      | 0.385 m   | Steering track width                |
+| `max_steering_angle`               | 1.08 rad  | Physical steering limit             |
+| `max_steering_angle_velocity`      | 4.0 rad/s | Max steering rate                   |
+| `steering_angle_tolerance`         | 0.8 rad   | Gate engagement threshold           |
+| `steering_angle_release_tolerance` | 0.05 rad  | Gate release threshold (hysteresis) |
+| `min_segment_length`               | 0.1 m     | Minimum cusp-segment length         |
+
+</CenterContent>
+
+Nav2 provides an extensive
+[configuration guide](https://docs.nav2.org/configuration/index.html). You can
+refer to it when adjusting the configuration for your environment.
+
+### AMCL localization
+
+[AMCL](https://robots.stanford.edu/papers/fox.aaai99.pdf) provides localization
+on a pre-built map, replacing SLAM Toolbox. With AMCL instead of SLAM Toolbox
+the rover no longer builds or updates a map online, and localization is instead
+computed against an existing map file. Its configuration is in
+`config/amcl.yaml`.
+
+:::note
+
+No dedicated Ackermann motion model is available in Nav2's AMCL implementation.
+The `nav2_amcl::OmniMotionModel` is used instead, which still accepts
+Ackermann-like motion commands and provides reasonable localization performance.
+
+:::
+
+For AMCL to start localizing, you must provide an initial pose estimate. In
+RViz2, set the fixed frame to `map`, select the **2D Pose Estimate** tool from
+the toolbar, and click and drag on the map at the rover's approximate starting
+position and orientation.
+
+As an alternative, you can trigger automatic global relocalization. This lets
+AMCL set initial pose automatically, but it may take longer to converge. To do
+this, run:
+
+```bash
+ros2 service call /amcl/reinitialize_global_localization std_srvs/srv/Empty {}
+```
+
+This is useful when the starting pose is unknown, but convergence may take
+longer and works best when the rover can move and observe distinctive geometry.
+
+After setting the initial pose, AMCL will start publishing the
+`map -> base_footprint` transform and any localization errors visible in RViz2
+should disappear. After that, the Nav2 stack can start navigating on the map.
+
+:::info
+
+The initial pose can also be set programmatically by publishing a
+`geometry_msgs/PoseWithCovarianceStamped` message on `/initialpose`, or by
+setting `set_initial_pose: true` and `initial_pose` in `config/amcl.yaml`. AMCL
+updates its estimate every time a new initial pose is received.
+
+:::
+
+:::note
+
+Minor inaccuracies in the initial pose are acceptable. AMCL will correct them
+over time as the rover moves and receives more sensor data. However, a better
+initial estimate leads to more accurate localization from the start.
+
+:::
+
+#### Configuration tips
+
+Key things to look out for when tuning AMCL parameters:
+
+- **Localization update cadence**: `update_min_d`, `update_min_a`. Lower values
+  update more often but cost more CPU.
+- **Particle filter robustness vs compute**: `min_particles`, `max_particles`,
+  `pf_err`, `pf_z`. Increase particles for difficult or repetitive environments,
+  reduce for lower CPU load.
+- **Laser model tuning**: `laser_model_type`, `max_beams`, `sigma_hit`,
+  `laser_likelihood_max_dist`, and the weight set (`z_hit`, `z_rand`, `z_short`,
+  `z_max`). These are key when AMCL drifts or converges slowly.
+- **Motion model noise sensitivity**: `alpha1` to `alpha5`. Increase if odom is
+  noisy; decrease if odom is stable and AMCL appears jittery.
+
+Full parameter documentation can be found in the
+[Nav2 AMCL docs](https://docs.nav2.org/configuration/packages/configuring-amcl.html).
+
+## Launching the navigation stack
+
+### Launch full navigation
+
+To launch Nav2 with SLAM Toolbox and default configuration, run:
+
+```bash
+ros2 launch raph_nav navigation.launch.xml
+```
+
+The launch file accepts the following arguments:
+
+- `localization`: Use SLAM Toolbox mapping mode (`false`, default) or AMCL
+  localization-only mode (`true`).
+- `slam_params_file`: Path to SLAM parameters file (used when `localization` is
+  false; default: `raph_nav/config/slam_toolbox.yaml`).
+- `amcl_params_file`: Path to AMCL parameters file (used when `localization` is
+  true; default: `raph_nav/config/amcl.yaml`).
+- `map_file`: Path to the map YAML file (required when `localization` is true;
+  default: `raph_nav/maps/empty_map.yaml`).
+- `navigation_params_file`: Path to the Nav2 parameters file (default:
+  `raph_nav/config/navigation.yaml`).
+
+For example to launch autonomous navigation on a pre-built map with AMCL
+localization:
+
+```bash
+ros2 launch raph_nav navigation.launch.xml localization:=true map_file:=/path/to/your/map.yaml
+```
+
+### Launch only SLAM Toolbox
+
+Run this if you want to use or tune SLAM independently from Nav2, for example to
+build a map before starting navigation:
+
+```bash
+ros2 launch raph_nav slam_toolbox.launch.py
+```
+
+To use a custom SLAM parameter file:
+
+```bash
+ros2 launch raph_nav slam_toolbox.launch.py params_file:=/path/to/slam_toolbox.yaml
+```
+
+In order to save a map to file, you can use the built-in `map_saver` wrapper:
+
+```bash
+ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'map_name'}}"
+```
+
+This creates `map_name.yaml` and `map_name.pgm` in the current directory.
+
+### Visualizing navigation in RViz2 on your computer
+
+Launch RViz2 and add the following displays:
+
+- **Map** on topic `/global_costmap/costmap`: Global costmap. Set color scheme
+  to `costmap` for better clarity.
+- **LaserScan** on `/rplidar/scan_filtered`: Filtered LiDAR scans.
+- **RobotModel**: Rover model.
+- **Path** on `/received_global_plan`: Planned path to the goal.
+
+After setting the fixed frame to `map`, you should see the rover's position on
+the map and planned path to the goal.
+
+### Sending a navigation goal
+
+In RViz2, select the **2D Goal Pose** tool from the toolbar, then click and drag
+to set both position and orientation.
+
+Provided the target is in a reachable position on the map, the rover will plan a
+path and begin driving. Because the planner uses Reeds-Shepp curves, the path
+may include reverse segments - this is expected behavior for Ackermann vehicles.
+
+You can also send navigation goals programmatically by publishing a
+`geometry_msgs/PoseStamped` message on `/goal_pose`:
+
+```bash
+ros2 topic pub /goal_pose geometry_msgs/PoseStamped "{header: {frame_id: 'map'}, pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}"
+```
+
+The rover will begin navigating to the goal as long as it is reachable and
+within the map boundaries.
+
+:::success
+
+Congratulations! You can now control your Raph Rover autonomously and send
+navigation goals to it.
+
+:::
+
+## Exploration
+
+If you want to explore an unknown environment and build a map, you can use the
+[`explore_lite`](https://github.com/robo-friends/m-explore-ros2) package. It
+provides a simple exploration behavior that drives the robot to unexplored areas
+of the map while avoiding obstacles.
+
+To launch the exploration behavior, first clone the repository:
+
+```bash
+cd ~/ros_ws/src
+git clone https://github.com/robo-friends/m-explore-ros2
+```
+
+Then build the workspace again:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+cd ~/ros_ws
+colcon build --symlink-install
+```
+
+To launch the exploration behavior with a config from the `raph_nav` package,
+run:
+
+```bash
+source ~/ros_ws/install/setup.bash
+ros2 run explore_lite explore --ros-args --params-file ~/ros_ws/src/raph_nav/raph_nav/config/explore.yaml
+```
+
+:::warning
+
+After launching the exploration behavior, the rover will start navigating right
+away. Make sure the starting area is safe and free of obstacles before starting
+exploration.
+
+Remember to adjust the parameters in `raph_nav/config/explore.yaml` to suit your
+environment.
+
+:::
+
+:::note
+
+If exploration stops prematurely, you can manually send a new goal to the rover
+and then resume exploration with:
+
+```bash
+ros2 topic pub /explore/resume std_msgs/msg/Bool "{data: True}" --once
+```
+
+:::
