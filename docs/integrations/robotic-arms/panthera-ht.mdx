@@ -1,6 +1,6 @@
 ---
 title: High Torque Panthera-HT 6-Axis Robotic Arm
-sidebar_label: Panthera HT
+sidebar_label: Panthera-HT
 keywords:
   - robotic arm
   - payload
@@ -58,7 +58,7 @@ available topics and configuration options
 <LinkButton
   to="/leo-rover/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
-  description="Learn how to connect to your Leo Rover via WiFi."
+  description="Learn how to connect to your Leo Rover via Wi-Fi."
 />
 <LinkButton
   to="/leo-rover/guides/ssh"
@@ -304,8 +304,8 @@ ROS driver is launched.
 ## Software integration
 
 We have created a
-[custom ROS2 package for Panthera-HT](https://github.com/fictionlab/panthera_ht_ros)
-that allows you to control the arm through ROS2 interfaces. This package
+[custom ROS 2 package for Panthera-HT](https://github.com/fictionlab/panthera_ht_ros)
+that allows you to control the arm through ROS 2 interfaces. This package
 provides the most important functionalities of the arm, including:
 
 - Controlling the arm through provided SDK
@@ -315,7 +315,7 @@ provides the most important functionalities of the arm, including:
 :::note
 
 The custom package is based on the
-[official Panthera-HT ROS2 package](https://github.com/HighTorque-Robotics/Panthera-HT_ROS2).
+[official Panthera-HT ROS 2 package](https://github.com/HighTorque-Robotics/Panthera-HT_ROS2).
 The original package contains more functionalities and different methods of
 controlling the arm, but might need some adjustments to work with Leo Rover. The
 custom package is a simplified version that is guaranteed to work with Leo
@@ -323,7 +323,7 @@ Rover.
 
 :::
 
-To install the package, log in to the rover using ssh and make sure that you are
+To install the package, log in to the rover using SSH and make sure that you are
 using the newest version of packages:
 
 ```bash
@@ -511,7 +511,7 @@ every boot of the robot.
 The power on button on the robotic arm must be pressed before the driver is
 launched which is now done after the boot. You will need to press the power
 button on the arm before the robot is fully booted. If the driver fails to
-launch, you can try to restart ros nodes with `ros-nodes-restart` after pressing
+launch, you can try to restart ROS nodes with `ros-nodes-restart` after pressing
 the power button.
 
 :::
