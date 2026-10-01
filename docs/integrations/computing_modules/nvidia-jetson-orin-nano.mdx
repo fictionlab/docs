@@ -15,13 +15,6 @@ import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Product from '@site/src/products/nvidia-jetson-orin-nano.mdx';
 
-{/* Add more imports as needed, for example: */}
-{/* import Powerbox from '@site/src/products/powerbox.mdx'; */}
-
-{/* This is a template for creating a new integration documentation page. */}
-{/* Please fill all of the fields marked with square brackets [] and remove the comments. */}
-{/* For text generation, use the Gemini gem - https://gemini.google.com/gem/1r7lCdS-MWEl3GkkLJvAJis8TdKQbxL-r?usp=sharing */}
-
 <ImageZoom
   loading="eager"
   src="/img/robots/leo/integrations/jetson-orin-nano/Jetson_Orin_Nano_integration_leo_iso_shot.webp"
@@ -34,16 +27,16 @@ import Product from '@site/src/products/nvidia-jetson-orin-nano.mdx';
 
 This tutorial will guide you through the process of connecting a Jetson Orin
 Nano to your Leo Rover. The Jetson Orin Nano is a powerful edge AI computing
-module designed to drastically enhance the processing capabilities of your Leo
-Rover. By following this tutorial, you will learn how to integrate this
-component with your rover system, enabling advanced computing, machine learning,
-and autonomous capabilities.
+module that significantly extends the processing capabilities of your Leo Rover.
+By following this tutorial, you will learn how to integrate this component with
+your rover system, enabling advanced computing, machine learning, and autonomous
+capabilities.
 
 ## What to expect?
 
 After completing this tutorial, you will have ROS 2 installed, be able to run
-custom ROS 2 nodes directly on your Jetson Orin Nano, and have it successfully
-communicating with the Leo Rover's main system over ROS topics.
+custom ROS 2 nodes directly on your Jetson Orin Nano, and have it communicating
+with the Leo Rover's main system over ROS topics.
 
 ## Prerequisites
 
@@ -72,12 +65,19 @@ complete the integration.
 
 <Product />
 
+:::info
+
+Three Allen keys (sizes: **2.5, 3, and 4 mm**) are required for the mechanical
+installation. Please note that these tools are **not included** in the kit.
+
+:::
+
 ## Setting up the Jetson Orin Nano
 
 :::info
 
-It is recommended to set up the Jetson before mounting it on the rover. In that
-case you can use the Jetson with a regular monitor, keyboard and mouse, which
+It is recommended to set up the Jetson before mounting it on the rover. That
+way, you can use the Jetson with a regular monitor, keyboard and mouse, which
 makes the setup process easier.
 
 :::
@@ -131,29 +131,26 @@ echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 
 :::
 
-Now you can turn off Wi-Fi on the Jetson since later on it will be connected to
-the rover's network via Ethernet.
+Now you can turn off Wi-Fi on the Jetson, since later on it will be connected to
+the rover's network via Ethernet. Keeping both connections active could cause
+network routing conflicts. Once the Jetson is connected to the rover, it will
+access the internet through the rover, so make sure the rover is
+[connected to a network](/leo-rover/guides/connect-to-network) whenever the
+Jetson needs internet access.
 
 At this point you can proceed with the hardware integration and mounting the
 Jetson on the rover.
 
 ## Hardware integration
 
-The Jetson Orin Nano Integration includes all necessary mounts, screws, and
+The Jetson Orin Nano Integration kit includes all necessary mounts, screws, and
 cables required to install the **NVIDIA Jetson Orin Nano** on your Leo Rover.
-The pack has been designed to ensure a straightforward and robust assembly
+The kit has been designed to ensure a straightforward and robust assembly
 process.
 
 ### Mounting
 
-:::info
-
-Three Allen keys (sizes: **2.5, 3, and 4 mm**) are required for the mechanical
-installation. Please note that these tools are **not included** in the kit.
-
-:::
-
-To assemble the pack, first insert the Jetson Orin Nano into the base mounts,
+To assemble the kit, first insert the Jetson Orin Nano into the base mounts,
 then secure the Jetson with the 3D-printed bracket using M3 x 8 bolts as shown
 below.
 
@@ -194,11 +191,10 @@ and M3 x 8 bolts.
   }}
 />
 
-The assembled Jetson Orin Nano Integration can be mounted on the Leo Rover using
-M5 x 10 bolts:
+The assembled kit can be mounted on the Leo Rover using M5 x 10 bolts:
 
 <ThemedImageZoom
-  alt="Mounting the fully assembled Jetson Orin Nano Integration onto the Leo Rover"
+  alt="Mounting the fully assembled Jetson Orin Nano Integration kit onto the Leo Rover"
   sources={{
     light: useBaseUrl(
       '/img/robots/leo/integrations/jetson-orin-nano/jetson_step5_black.webp',
@@ -214,13 +210,11 @@ M5 x 10 bolts:
   }}
 />
 
----
-
 ### Wiring
 
 Proper cable management is essential to ensure reliable operation and prevent
-hardware damage. Follow these steps to connect the Jetson Orin Nano Integration
-electronics to the Leo Rover:
+hardware damage. Follow these steps to connect the kit's electronics to the Leo
+Rover:
 
 1. Connect the USB-C cable from the USB-Ethernet adapter to the rover's external
    interface. Route the cable neatly, ensuring it is properly folded and safely
@@ -250,7 +244,7 @@ electronics to the Leo Rover:
    patch cable.
 
 <ThemedImageZoom
-  alt="Connecting the Ethernet patch cable and the ZED2i camera USB-A cable"
+  alt="Connecting the Ethernet adapter to the Jetson Orin Nano with the Ethernet patch cable"
   sources={{
     light: useBaseUrl(
       '/img/robots/leo/integrations/jetson-orin-nano/jetson_step7_black.webp',
@@ -266,8 +260,8 @@ electronics to the Leo Rover:
   }}
 />
 
-Once all connections are secured and verified, enclose the setup by installing
-the protective cover using M4 x 12 bolts.
+Once all connections are secured and verified, enclose the assembly by
+installing the protective cover using M4 x 12 bolts.
 
 :::warning
 
@@ -278,7 +272,7 @@ mechanical components.
 :::
 
 <ThemedImageZoom
-  alt="Installing the protective cover over the assembled Jetson Orin Nano Integration"
+  alt="Installing the protective cover over the assembled Jetson Orin Nano Integration kit"
   sources={{
     light: useBaseUrl(
       '/img/robots/leo/integrations/jetson-orin-nano/jetson_step8_black.webp',
@@ -304,7 +298,7 @@ Since the Jetson's Ethernet port is connected to the rover via a USB-to-Ethernet
 adapter, a new Ethernet interface is created and it needs to be configured to
 bridge the rover's network to the connected device.
 
-To do that, log in to the Raspberry Pi via ssh (either from the Jetson or from
+To do that, log in to the Raspberry Pi via SSH (either from the Jetson or from
 your local machine) and open the Netplan configuration file that manages the
 Ethernet bridge:
 
@@ -316,7 +310,7 @@ Add the `eth1` interface configuration to the `/etc/netplan/10-eth-bridge.yaml`
 file. The final file should look like this:
 
 ```yaml title="/etc/netplan/10-eth-bridge.yaml"
-# Creates a bridge interface and adds ethernet interface to it.
+# Creates a bridge interface and adds Ethernet interfaces to it.
 network:
   version: 2
   ethernets:
