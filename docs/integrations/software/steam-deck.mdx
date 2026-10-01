@@ -1,6 +1,6 @@
 ---
 title: How to Control a ROS Robot with a Steam Deck Controller
-sidebar_label: Steam deck
+sidebar_label: Steam Deck
 keywords:
   - steam deck
   - handheld
@@ -48,7 +48,7 @@ applied it to our use case as an example.
 <LinkButton
   to="/leo-rover/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
-  description="Learn how to connect to your Leo Rover via WiFi."
+  description="Learn how to connect to your Leo Rover via Wi-Fi."
 />
 <LinkButton
   to="/leo-rover/guides/connect-to-network"
@@ -61,7 +61,7 @@ applied it to our use case as an example.
 
 - Steam Deck,
 - Keyboard and (eventually) mouse,
-- USB C - USB adapter.
+- USB-C - USB adapter.
 
 ## Software integration
 
@@ -100,7 +100,7 @@ sudo pacman-key --populate holo
 :::info
 
 The commands above used `sudo` privilege - if you don't have `sudo` password on
-your steam Steam Deck, you can easily set it up with
+your Steam Deck, you can easily set it up with
 
 ```bash
 passwd
@@ -111,7 +111,7 @@ You will be asked to type in and repeat new password.
 :::
 
 As we will use Docker Hub for installing the ROS container, first we will
-configure the default docker image source so we won't have to use fully
+configure the default Docker image source so we won't have to use fully
 qualified names of the images. First, open Podman configuration file for
 editing:
 
@@ -142,7 +142,7 @@ your desired name for the container.
 :::
 
 With this command we at once create a container named `ros-jazzy` and try to
-pull a docker image for ROS jazzy with desktop software from OSRF (Open Source
+pull a Docker image for ROS Jazzy with desktop software from OSRF (Open Source
 Robotics Foundation). As the image is surely not installed, you will be asked if
 you want to download it now. Just press enter to start the download and
 container setup. When the process finishes you can enter the container with this
@@ -163,7 +163,7 @@ therefore don't worry if you have to wait a bit.
 
 :::
 
-Inside the container you will have Ubuntu 24.04 with ROS jazzy installed, which
+Inside the container you will have Ubuntu 24.04 with ROS Jazzy installed, which
 you can use as normal system.
 
 Having completed the installation, you are ready to try our examples!
@@ -173,7 +173,7 @@ Having completed the installation, you are ready to try our examples!
 :::info
 
 The examples described in this section were done for a rover configuration which
-has integrated lidar and realsense camera. You can follow those guides to get
+has integrated lidar and RealSense camera. You can follow those guides to get
 the same rover setup (you can omit those steps, but some of the applications
 will not work propperly):
 
@@ -223,12 +223,12 @@ When the script finishes the setup, you will see three new icons on the desktop:
   :::info
 
   This is the simplest application and doesn't require any additional camera or
-  LiDAR connected to the rover.
+  lidar connected to the rover.
 
   :::
 
 - `Leo Lidar` - example which allows you to operate the rover from the Steam
-  Deck and display LiDAR scan data in RViz
+  Deck and display lidar scan data in RViz
 - `Leo Depth Camera` - example which allows you to operate the rover from the
   SteamDeck and display depth data in RViz
 

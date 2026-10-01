@@ -354,7 +354,7 @@ Since the Jetson's Ethernet port is connected to the rover via a USB-to-Ethernet
 adapter, a new Ethernet interface is created and it needs to be configured to
 bridge the rover's network to the connected device.
 
-To do that, log in to the Raspberry Pi via ssh (either from the Jetson or from
+To do that, log in to the Raspberry Pi via SSH (either from the Jetson or from
 your local machine) and open the Netplan configuration file that manages the
 Ethernet bridge:
 
@@ -366,7 +366,7 @@ Add the `eth1` interface configuration to the `/etc/netplan/10-eth-bridge.yaml`
 file. The final file should look like this:
 
 ```yaml title="/etc/netplan/10-eth-bridge.yaml"
-# Creates a bridge interface and adds ethernet interface to it.
+# Creates a bridge interface and adds Ethernet interface to it.
 network:
   version: 2
   ethernets:
@@ -531,7 +531,7 @@ sudo apt update
 sudo apt install ros-${ROS_DISTRO}-zed-description
 ```
 
-Then create a new `xacro` macro for the vision pack in `/etc/ros/urdf`
+Then create a new `xacro` macro for the Vision Pack in `/etc/ros/urdf`
 directory:
 
 ```bash
