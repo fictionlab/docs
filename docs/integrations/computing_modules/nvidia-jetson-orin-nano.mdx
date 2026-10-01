@@ -298,9 +298,69 @@ Now the rover is ready for software integration.
 
 ## Software integration
 
-[Description of how to set up the software side of the integration, including
-any necessary ROS packages, configuration files, or launch files. Include code
-snippets and terminal commands if necessary.]
+### Sharing Leo Rover network with the Jetson
+
+Since the Jetson's Ethernet port is connected to the rover via a USB-to-Ethernet
+adapter, a new Ethernet interface is created and it needs to be configured to
+bridge the rover's network to the connected device.
+
+To do that, log in to the Raspberry Pi via ssh (either from the Jetson or from
+your local machine) and open the Netplan configuration file that manages the
+Ethernet bridge:
+
+```bash
+sudo nano /etc/netplan/10-eth-bridge.yaml
+```
+
+Add the `eth1` interface configuration to the `/etc/netplan/10-eth-bridge.yaml`
+file. The final file should look like this:
+
+```yaml title="/etc/netplan/10-eth-bridge.yaml"
+# Creates a bridge interface and adds ethernet interface to it.
+network:
+  version: 2
+  ethernets:
+    eth0:
+      renderer: networkd
+      optional: true
+    eth1:
+      renderer: networkd
+      optional: true
+  bridges:
+    br0:
+      renderer: networkd
+      interfaces: [eth0, eth1]
+      addresses: [10.0.0.1/24]
+      link-local: []
+```
+
+Restart the Raspberry Pi to apply changes:
+
+```bash
+sudo reboot
+```
+
+:::note
+
+This will disconnect you from the rover's Wi-Fi network, so make sure to
+reconnect after the reboot.
+
+:::
+
+Now your Jetson should receive an IP address in the `10.0.0.x` range and be
+accessible from the rover network.
+
+:::tip
+
+In order to find the Jetson's IP address, you can use `nmap` from your local
+machine connected to the Leo Rover network:
+
+```bash
+sudo apt install -y nmap
+nmap -sn 10.0.0.1/24
+```
+
+:::
 
 ### Modifying the URDF model
 
