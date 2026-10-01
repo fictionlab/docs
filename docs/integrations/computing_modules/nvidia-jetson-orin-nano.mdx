@@ -356,6 +356,37 @@ nmap -sn 10.0.0.1/24
 
 :::
 
+Now you can connect to the Jetson Orin Nano via SSH, using the username you
+created during the setup and the IP address you found above:
+
+```bash
+ssh <username>@<jetson_ip_address>
+```
+
+To verify that the Jetson can communicate with the rover, list the available ROS
+topics. You should see the rover's topics, such as `/firmware/battery`:
+
+```bash
+ros2 topic list
+```
+
+You can also check that the data is coming through by printing the battery
+messages:
+
+```bash
+ros2 topic echo /firmware/battery
+```
+
+:::tip
+
+If the rover's topics are not visible, make sure that both the Jetson and the
+rover use the same `ROS_DOMAIN_ID`. You can find more information in the
+[ROS Development](/leo-rover/advanced-guides/ros-development) guide.
+
+:::
+
+:::
+
 ## What's next?
 
 With the Jetson Orin Nano connected to the rover's network, you can move
