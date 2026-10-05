@@ -67,7 +67,7 @@ topics. You can find all available topics and configuration options
 <LinkButton
   to="/leo-rover/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
-  description="Learn how to connect to your Leo Rover via WiFi."
+  description="Learn how to connect to your Leo Rover via Wi-Fi."
 />
 <LinkButton
   to="/leo-rover/guides/ssh"
@@ -158,7 +158,7 @@ plug it into the rover's USB-C port.
 ## Software integration
 
 As ROS `realsense2_camera` package is available as a debian package, we will
-install it using `apt`. To do so, connect to the rover via ssh, and type:
+install it using `apt`. To do so, connect to the rover via SSH, and type:
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-realsense2-camera
@@ -185,7 +185,7 @@ want to install the newest version, you can follow
 As we would like to have the robot aware of where the camera is, we need to
 create an URDF file with the RealSense included. On
 [this](https://github.com/IntelRealSense/realsense-ros/tree/ros2-master/realsense2_description/urdf)
-site you can see which urdf camera models are available in the
+site you can see which URDF camera models are available in the
 `realsense2_description` package. Each of the files there has a `xacro macro`
 with properties. We need to include the correct macro to make the camera visible
 with the robot's model. To do that create a new file in `/etc/ros/urdf`
@@ -209,7 +209,7 @@ You can specify `name` property to anything you want. We just need to change it,
 so we don't have conflicts on `camera_link` tf frame. `origin` property is for
 specifying the position of the camera regarding the link specified in parent
 property. So if the `parent` property is set to "base_link", the position in
-`origin` property is regarding the origin of the Rover.
+`origin` property is regarding the origin of the rover.
 
 :::warning
 
@@ -281,7 +281,7 @@ closing `</launch>` tag, so that the node starts at boot.
 <include file="/etc/ros/realsense.launch.xml"/>
 ```
 
-Now, the realsense camera node will be launched with every system startup. You
+Now, the RealSense camera node will be launched with every system startup. You
 can also force this start right now with
 
 ```bash
@@ -333,7 +333,7 @@ correctly (**plugins** -> **visualization** -> **TF Tree**)
   height="532"
 />
 
-## What next?
+## What's next?
 
 Stereo cameras are commonly used in projects involving
 [autonomous navigation](/leo-rover/advanced-guides/autonomous-navigation), you

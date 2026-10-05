@@ -22,7 +22,7 @@ import Powerbox from '@site/src/products/powerbox.mdx';
 import Fixposition from '@site/src/products/fixposition-vision-rtk2.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
-# Fixposition Vision-RTK 2 GPS integration
+# Fixposition Vision-RTK 2 GPS Integration
 
 This tutorial will guide you through the process of connecting Fixposition
 Vision-RTK 2 to Leo Rover.
@@ -64,7 +64,7 @@ enabling you to use it for navigation and other purposes in your projects.
 <LinkButton
   to="/leo-rover/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
-  description="Learn how to connect to your Leo Rover via WiFi."
+  description="Learn how to connect to your Leo Rover via Wi-Fi."
 />
 <LinkButton
   to="/leo-rover/guides/ssh"
@@ -104,7 +104,7 @@ uninterrupted view of the terrain. We provide an adapter plate that allows you
 to mount the module on top of the rover easily. The adapter plate will come
 included with the module if you purchase it from our shop. You can also 3D print
 it yourself using the files available
-[here](../addon-adapters#fixposition-vision-rtk2-adapter).
+[here](../addon-adapters#fixposition-vision-rtk-2-adapter).
 
 The accuracy of the system depends on how far apart the GNSS antennas are
 spaced. Since Leo Rover is rather small it might be hard to place them more than
@@ -169,10 +169,10 @@ Few key points that can be helpful during the configuration process:
 ### Installing the driver
 
 Having configured the sensor, you can now proceed with installing the
-fixposition driver.
+Fixposition driver.
 
-For this task you need to install the fixposition ROS driver into a ROS
-workspace, therefore log in using ssh to the rover, and create a ROS workspace
+For this task you need to install the Fixposition ROS driver into a ROS
+workspace, therefore log in using SSH to the rover, and create a ROS workspace
 if you don't have one already:
 
 ```bash
@@ -269,7 +269,7 @@ topic name is in the global namespace - starting with `/`, e.g.
 The last part of the setup is to add the driver to autostart and make sure that
 the frames published by the driver are connected to Leo Rover's `tf tree`.
 
-Enter the `setup.bash` file of the Rover:
+Enter the `setup.bash` file of the rover:
 
 ```bash
 nano /etc/ros/setup.bash
@@ -285,7 +285,7 @@ source ~/ros_ws/install/setup.bash
 ```
 
 Now you can edit the launch file that is launched at the robot's startup to
-include the fixposition driver launch file and the static transform publisher
+include the Fixposition driver launch file and the static transform publisher
 that will connect the frames published by the driver to the robot:
 
 ```bash
