@@ -1,14 +1,9 @@
 ---
 title: NVIDIA Jetson Orin Nano Integration
 sidebar_label: NVIDIA Jetson Orin Nano
-keywords:
-  - Jetson
-  - Orin
-  - leo
-  - integration
 description: >-
   Explore the steps to integrate Jetson Orin Nano with your Leo Rover system.
-image: /img/robots/leo/integrations/jetson-orin-nano/Jetson_Orin_Nano_integration_iso_shot.webp
+image: /img/robots/leo/integrations/jetson-orin-nano/Jetson_Orin_Nano_integration_leo_iso_shot.webp
 ---
 
 import ThemedImageZoom from '@site/src/components/ThemedImageZoom';
@@ -21,6 +16,9 @@ import Product from '@site/src/products/nvidia-jetson-orin-nano.mdx';
   alt="Leo Rover with mounted Jetson Orin Nano Integration"
   width="4000"
   height="3000"
+  figStyle={{
+    width: 500,
+  }}
 />
 
 # NVIDIA Jetson Orin Nano Integration
@@ -36,7 +34,7 @@ capabilities.
 
 After completing this tutorial, you will have ROS 2 installed, be able to run
 custom ROS 2 nodes directly on your Jetson Orin Nano, and have it communicating
-with the Leo Rover's main system over ROS topics.
+with the Leo Rover's main system over ROS interfaces.
 
 ## Prerequisites
 
@@ -132,9 +130,16 @@ echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 :::
 
 Now you can turn off Wi-Fi on the Jetson, since later on it will be connected to
-the rover's network via Ethernet. Keeping both connections active could cause
-network routing conflicts. Once the Jetson is connected to the rover, it will
-access the internet through the rover, so make sure the rover is
+the rover's network via Ethernet. You can do this either with the OS GUI or with
+the following command:
+
+```bash
+nmcli radio wifi off
+```
+
+Keeping both connections active could cause network routing conflicts. Once the
+Jetson is connected to the rover, it will access the internet through the rover,
+so make sure the rover is
 [connected to a network](/leo-rover/guides/connect-to-network) whenever the
 Jetson needs internet access.
 
@@ -382,8 +387,6 @@ ros2 topic echo /firmware/battery
 If the rover's topics are not visible, make sure that both the Jetson and the
 rover use the same `ROS_DOMAIN_ID`. You can find more information in the
 [ROS Development](/leo-rover/advanced-guides/ros-development) guide.
-
-:::
 
 :::
 
