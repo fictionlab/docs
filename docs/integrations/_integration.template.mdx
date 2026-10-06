@@ -3,7 +3,7 @@ title: [Meta title of the integration - SEO optimized]
 sidebar_label: [Sidebar label of the integration - concise and descriptive]
 description: >-
   [Meta description of the integration - SEO optimized]
-image: path/to/image.webp
+image: path/to/action-shot-image.webp
 # id:
 # sidebar_position:
 # slug:
@@ -24,12 +24,17 @@ import Product from '@site/src/products/[product-name].mdx';
 
 {/* Hero image of the integration on the rover - same image as used in the frontmatter */}
 
+{/* If you need help determining the properties of the ImageZoom component, use intelisense in your code editor (hover over the component to see its props) */}
+
 <ImageZoom
   loading="eager"
-  src="/path/to/image.webp"
+  src="/path/to/action-shot-image.webp"
   alt="Leo Rover with mounted [Integration name]"
   width="xxx"
   height="xxx"
+  figStyle={{
+    width: 500,
+  }}
 />
 
 # [Integration title - concise and descriptive]
