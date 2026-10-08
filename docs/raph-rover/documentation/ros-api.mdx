@@ -173,8 +173,8 @@ image: /img/robots/raph/raph-rover.webp
 
 - `rplidar/scan_filtered` ([sensor_msgs/msg/LaserScan])
 
-  Laser scans from the onboard 2D LIDAR with points lying on the robot's
-  footprint filtered out.
+  Laser scans from the onboard 2D LIDAR with points from the rover contour,
+  antennas, and left and right motor covers filtered out.
 
 - `joint_states` ([sensor_msgs/msg/JointState])
 
@@ -254,6 +254,14 @@ image: /img/robots/raph/raph-rover.webp
 
   Capture a full resolution still image using the OAK camera and publish it to
   the `oak/rgb_still/image_still` topic.
+
+- `rplidar/start_motor` ([std_srvs/srv/Trigger])
+
+  Start the RPLIDAR motor. Works only if the standby mode is disabled.
+
+- `rplidar/stop_motor` ([std_srvs/srv/Trigger])
+
+  Stop the RPLIDAR motor. Works only if the standby mode is disabled.
 
 ## Parameters
 
@@ -497,6 +505,38 @@ image: /img/robots/raph/raph-rover.webp
 
   JPEG quality for RGB compressed images (0-100, higher is better quality and
   bigger size).
+
+### rplidar
+
+The driver runs as the autostarted lifecycle node `rplidar/rplidar_driver`.
+
+- `serial_port` (type: `string`, default: `/dev/ttyS5`)
+
+  Serial port used to connect to the LIDAR.
+
+- `serial_baudrate` (type: `int`, default: `1000000`)
+
+  Serial connection baud rate.
+
+- `angle_compensate` (type: `bool`, default: `true`)
+
+  Whether to compensate scan angles.
+
+- `scan_mode` (type: `string`, default: `Standard`)
+
+  LIDAR scan mode.
+
+- `rpm` (type: `int`, default: `1200`)
+
+  LIDAR motor speed in revolutions per minute.
+
+- `auto_standby` (type: `bool`, default: `true`)
+
+  Whether the driver automatically places the LIDAR in standby when appropriate.
+
+- `publish_tf` (type: `bool`, default: `false`)
+
+  Whether the driver publishes a transform for the LIDAR frame.
 
 {/* TODO: Other nodes parameters */}
 
