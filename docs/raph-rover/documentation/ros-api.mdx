@@ -129,6 +129,14 @@ image: /img/robots/raph/raph-rover.webp
 
   Rectified images from the center (RGB) Oak-D camera.
 
+- `oak/rgb_still/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the still images from the center (RGB) Oak-D camera.
+
+- `oak/rgb_still/image_still` ([sensor_msgs/msg/Image])
+
+  Full resolution still images captured by the center (RGB) Oak-D camera.
+
 - `oak/right/camera_info` ([sensor_msgs/msg/CameraInfo])
 
   Calibration data for the raw images from the right Oak-D camera.
@@ -156,7 +164,8 @@ image: /img/robots/raph/raph-rover.webp
 
 - `oak/points` ([sensor_msgs/msg/PointCloud2])
 
-  Point cloud data converted from the depth images.
+  Point cloud generated from the stereo depth images, expressed in meters in the
+  `oak_stereo_camera_optical_frame` frame.
 
 - `rplidar/scan` ([sensor_msgs/msg/LaserScan])
 
@@ -240,6 +249,11 @@ image: /img/robots/raph/raph-rover.webp
 - `raph_system/reboot` ([std_srvs/srv/Trigger])
 
   Perform onboard computer's system reboot.
+
+- `oak/capture_still` ([std_srvs/srv/Trigger])
+
+  Capture a full resolution still image using the OAK camera and publish it to
+  the `oak/rgb_still/image_still` topic.
 
 ## Parameters
 
@@ -395,9 +409,9 @@ image: /img/robots/raph/raph-rover.webp
 
 ### oak
 
-- `device.mx_id` (type: `string`, read-only, default: `""`)
+- `device.id` (type: `string`, read-only, default: `""`)
 
-  Device MX ID to connect to.
+  Device ID to connect to.
 
 - `device.usb_port_id` (type: `string`, read-only, default: `""`)
 
@@ -416,7 +430,7 @@ image: /img/robots/raph/raph-rover.webp
 
   IR flood light intensity (0.0-1.0, higher is stronger intensity).
 
-- `depth.confidence_threshold` (type: `int`, default: `110`)
+- `depth.confidence_threshold` (type: `int`, default: `15`)
 
   Depth images will only contain pixels where depth confidence is below the
   confidence threshold (lower the confidence value means better depth accuracy).
@@ -425,7 +439,7 @@ image: /img/robots/raph/raph-rover.webp
 
   Computes and combines disparities in both L-R and R-L directions.
 
-- `depth.lr_check_threshold` (type: `int`, default: `5`)
+- `depth.lr_check_threshold` (type: `int`, default: `10`)
 
   Disparity is considered for the output when the difference between LR and RL
   disparities is smaller than the LR check threshold.
@@ -437,6 +451,10 @@ image: /img/robots/raph/raph-rover.webp
 - `depth.subpixel_fractional_bits` (type: `int`, default: `3`)
 
   Number of fractional bits for subpixel mode.
+
+- `depth.extended_disparity_enabled` (type: `bool`, default: `false`)
+
+  Extends the disparity range to detect closer objects.
 
 - `depth.min_distance` (type: `float`, default: `0.0`)
 
@@ -454,14 +472,6 @@ image: /img/robots/raph/raph-rover.webp
 
   Mono camera image height.
 
-- `mono.isp_scale_num` (type: `int`, read-only, default: `1`)
-
-  ISP scale numerator for mono cameras.
-
-- `mono.isp_scale_den` (type: `int`, read-only, default: `1`)
-
-  ISP scale denominator for mono cameras.
-
 - `mono.fps` (type: `float`, read-only, default: `10.0`)
 
   Mono camera frames per second.
@@ -478,14 +488,6 @@ image: /img/robots/raph/raph-rover.webp
 - `rgb.height` (type: `int`, read-only, default: `1008`)
 
   RGB camera image height.
-
-- `rgb.isp_scale_num` (type: `int`, read-only, default: `1`)
-
-  ISP scale numerator for RGB camera.
-
-- `rgb.isp_scale_den` (type: `int`, read-only, default: `3`)
-
-  ISP scale denominator for RGB camera.
 
 - `rgb.fps` (type: `float`, read-only, default: `15.0`)
 
