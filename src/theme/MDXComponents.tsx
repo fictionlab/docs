@@ -1,4 +1,3 @@
-import React from 'react';
 // Import the original mapper
 import MDXComponents from '@theme-original/MDXComponents';
 
@@ -11,3 +10,10 @@ export default {
   LinkButton,
   ImageZoom,
 };
+
+declare global {
+  type MDXProvidedComponents = {
+    LinkButton: typeof LinkButton;
+    ImageZoom: typeof ImageZoom;
+  };
+}
