@@ -1,11 +1,25 @@
-import { useRef, ComponentProps, RefCallback, JSX } from 'react';
+import { useRef, ComponentProps, RefCallback, JSX, CSSProperties } from 'react';
 import mediumZoom, { Zoom } from 'medium-zoom';
 import styles from './styles.module.css';
 
+/** An image with an optional caption and zoom. Standard image props are also available. */
 export interface ImageZoomProps extends ComponentProps<'img'> {
+  /**
+   * Set to `eager` only if the image is visible as soon as the page opens.
+   * Otherwise, leave blank.
+   * @default 'lazy'
+   */
+  loading?: ComponentProps<'img'>['loading'];
+  /** Enter the original image width in pixels (e.g. `1920`). */
+  width: NonNullable<ComponentProps<'img'>['width']>;
+  /** Enter the original image height in pixels (e.g. `1080`). */
+  height: NonNullable<ComponentProps<'img'>['height']>;
+  /** Text shown below the image. Leave blank if no caption is needed. */
   caption?: string;
+  /** Leave blank to allow zoom. Set to `false` to turn it off. */
   allowZoom?: boolean;
-  figStyle?: object;
+  /** Usually leave blank. Advanced: custom CSS styles for the image frame. */
+  figStyle?: CSSProperties;
 }
 
 export default function ImageZoom(props: ImageZoomProps): JSX.Element {
