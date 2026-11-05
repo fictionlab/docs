@@ -1,6 +1,6 @@
 ---
-title: UBlox EVK-M8N GPS Integration Guide for ROS Robots
-sidebar_label: UBlox EVK-M8N GPS
+title: u-blox EVK-M8N GPS Integration Guide for ROS Robots
+sidebar_label: u-blox EVK-M8N GPS
 keywords:
   - ublox
   - gps
@@ -8,14 +8,14 @@ keywords:
   - integration
   - example
 description: >-
-  Explore the steps to gather GPS data from a UBlox GPS module and integrate it
-  with your Leo Rover system using the UBlox EVK-M8N GPS module example.
+  Explore the steps to gather GPS data from a u-blox GPS module and integrate it
+  with your Leo Rover system using the u-blox EVK-M8N GPS module example.
 image: /img/robots/leo/integrations/ublox-gps/ublox-evk-m8n-shop.webp
 ---
 
-# UBlox EVK-M8N GPS Integration
+# u-blox EVK-M8N GPS Integration
 
-This tutorial will guide you through the process of connecting a UBlox GPS
+This tutorial will guide you through the process of connecting a u-blox GPS
 module to your Leo Rover.
 
 EVK-7 / EVK-8 / EVK-M8 evaluation kits make evaluating the high performance
@@ -25,11 +25,11 @@ eliminates the need for an external power supply. The u-blox evaluation kits are
 compact, and their user-friendly interface and power supply make them ideally
 suited for use in laboratories, vehicles and outdoor locations.
 
-In this tutorial we will present the process of connecting a UBlox GPS module to
-your Leo Rover and integrating it with the system on the **UBlox EVK-M8N GPS
+In this tutorial we will present the process of connecting a u-blox GPS module
+to your Leo Rover and integrating it with the system on the **u-blox EVK-M8N GPS
 module** example.
 
-The steps might slightly differ for other UBlox models, but should be
+The steps might slightly differ for other u-blox models, but should be
 essentially similar.
 
 ## What to expect?
@@ -49,7 +49,7 @@ get it published on ROS topics.
 
 ## Prerequisites
 
-{/* TODO update links once the advanced guides are ported to ROS2 */}
+{/* TODO update links once the advanced guides are ported to ROS 2 */}
 
 <LinkButton
   to="/leo-rover/1.8/advanced-guides/ros-development"
@@ -60,8 +60,8 @@ get it published on ROS topics.
 
 ## List of components
 
-- UBlox GPS module (we have used the **UBlox EVK-M8N GPS module**)
-- Any computer which you can connect to the rover via ssh.
+- u-blox GPS module (we have used the **u-blox EVK-M8N GPS module**)
+- Any computer which you can connect to the rover via SSH.
 
 ## Mechanical integration
 
@@ -82,7 +82,7 @@ permissions and is available at the fixed path on your system.
 
 We will need USB Vendor and Product IDs to make the rules for the correct
 device. To get that information, you need to connect to the rover via `ssh`, and
-then, you can use the `lsusb` command. It will list all connected usb devices.
+then, you can use the `lsusb` command. It will list all connected USB devices.
 In the output, you should look for something named like **U-Blox AG [u-blox
 8]**:
 
@@ -222,7 +222,7 @@ module thinks it is.
   height="570"
 />
 
-## What next?
+## What's next?
 
 GPS modules are commonly used in projects involving outside autonomous
 navigation. As of right now, we have no tutorials on such a thing, however, our

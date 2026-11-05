@@ -3,11 +3,7 @@ title: [Meta title of the integration - SEO optimized]
 sidebar_label: [Sidebar label of the integration - concise and descriptive]
 description: >-
   [Meta description of the integration - SEO optimized]
-keywords:
-  - keyword1
-  - keyword2
-  - keyword3
-image: path/to/image.webp
+image: path/to/rover-with-integration-action-shot-image.webp
 # id:
 # sidebar_position:
 # slug:
@@ -25,16 +21,20 @@ import Product from '@site/src/products/[product-name].mdx';
 
 {/* This is a template for creating a new integration documentation page. */}
 {/* Please fill all of the fields marked with square brackets [] and remove the comments. */}
-{/* For text generation, use the Gemini gem - https://gemini.google.com/gem/1r7lCdS-MWEl3GkkLJvAJis8TdKQbxL-r?usp=sharing */}
 
 {/* Hero image of the integration on the rover - same image as used in the frontmatter */}
 
+{/* If you need help determining the properties of the ImageZoom component, use intelisense in your code editor (hover over the component to see its props) */}
+
 <ImageZoom
   loading="eager"
-  src="/path/to/image.webp"
+  src="/path/to/rover-with-integration-action-shot-image.webp"
   alt="Leo Rover with mounted [Integration name]"
   width="xxx"
   height="xxx"
+  figStyle={{
+    width: 500,
+  }}
 />
 
 # [Integration title - concise and descriptive]
@@ -72,6 +72,8 @@ Example below:]
 
 <Product />
 
+{/* Use action shot (integration alone) as product image */}
+
 ## Hardware integration
 
 ### Mounting
@@ -99,7 +101,7 @@ To mount the sensor:
 
 If you don't have the integration kit, you can also 3D print the adapter plate
 yourself. Get the files from the
-[Addon Adapters](../addon-adapters#[adapter-anchor]) page.
+[addon adapters](../addon-adapters#[adapter-anchor]) page.
 
 :::
 

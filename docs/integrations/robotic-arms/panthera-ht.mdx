@@ -1,6 +1,6 @@
 ---
 title: High Torque Panthera-HT 6-Axis Robotic Arm
-sidebar_label: Panthera HT
+sidebar_label: Panthera-HT
 keywords:
   - robotic arm
   - payload
@@ -13,7 +13,7 @@ keywords:
 description: >-
   Extend Leo Rover's capabilities with the 6-axis, Panthera-HT robotic arm.
   Tutorial for mechanical and software integration.
-image: /img/robots/leo/integrations/panthera-ht/panthera_leo_assembly.webp
+image: /img/robots/leo/integrations/panthera-ht/Panthera-HT-with-rover-leo-action-shot.webp
 ---
 
 import ImageZoom from '@site/src/components/ImageZoom';
@@ -25,17 +25,17 @@ import FlexTable from '@site/src/components/FlexTable';
 import FlexTableItem from '@site/src/components/FlexTableItem';
 import Product from '@site/src/products/panthera-ht.mdx';
 
-# High Torque Panthera-HT 6-Axis Robotic Arm Integration
-
 <ImageZoom
   loading="eager"
-  src="/img/robots/leo/integrations/panthera-ht/panthera-leo-assembly.webp"
-  width="4000"
-  height="3000"
+  src="/img/robots/leo/integrations/panthera-ht/Panthera-HT-with-rover-leo-action-shot.webp"
+  width="2000"
+  height="1500"
   figStyle={{
-    width: 600,
+    width: 500,
   }}
 />
+
+# High Torque Panthera-HT 6-Axis Robotic Arm Integration
 
 In this tutorial we will go through the process of connecting a Panthera-HT
 robotic arm to your Leo Rover and integrating it with the system using ROS.
@@ -58,7 +58,7 @@ available topics and configuration options
 <LinkButton
   to="/leo-rover/guides/connect-to-rover-ap"
   title="Connect to Leo Rover AP"
-  description="Learn how to connect to your Leo Rover via WiFi."
+  description="Learn how to connect to your Leo Rover via Wi-Fi."
 />
 <LinkButton
   to="/leo-rover/guides/ssh"
@@ -104,18 +104,41 @@ using <font style={{color : "#bf7b2c",}} > **4 M5 x 12 screws** </font>.
   }}
 />
 
-Connect <font style={{color : "#bf7b2c",}} > **CAN/power ribbon cable** </font>
-to the last port on the arm PCB, and route the ribbon through the side opening.
+Slide <font style={{color : "#609ebe",}} > **arm controller** </font> through
+the opening in the base and secure it to the base using <font
+style={{color : "#bf7b2c",}} > **two M3 x 20 screws** </font>.
 
-Connect the angled end of the <font style={{color : "#609ebe",}} > **USB-C
-cable** </font> to the base board's internal USB-C port. Route the cable through
-the side opening, and connect the other end to the rover's USB port.
+<ThemedImageZoom
+  alt="Needed tools"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/step-1b-black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/step-1b-white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+Connect yelllow **XT60 power connector** found in the arm base to the XT60
+socket found on the arm controller.
+
+Connect <font style={{color : "#bf7b2c",}} > **CAN/power ribbon cable** </font>
+to the last port on the arm controller.
+
+Connect the <font style={{color : "#609ebe",}} > **USB-C cable** </font> to the
+base board's internal USB-C port.
 
 <FlexTable style={{ alignContent: 'center', justifyContent: 'space-evenly'}}>
   
   <FlexTableItem
     style={{
-      width: '45%'
+      width: '50%'
     }}
     mobileColumns={2}>
       <ThemedImageZoom
@@ -139,7 +162,7 @@ the side opening, and connect the other end to the rover's USB port.
 <FlexTableItem
   style={{
     textAlign: 'center',
-    width: '45%',
+    width: '40%',
   }}
   mobileColumns={2}
 >
@@ -162,32 +185,11 @@ the side opening, and connect the other end to the rover's USB port.
 </FlexTableItem>
 </FlexTable>
 
-Attach the <font style={{ color: '#609ebe' }}> **Panther HT arm** </font> to the
-base using
+Plug the other end of the <font style={{color : "#bf7b2c",}} > **CAN/power
+ribbon cable** </font> into the socket on on the arm base.
 
-<font style={{ color: '#bf7b2c' }}> **4 M5 x 12 screws**</font>. Route the
-ribbon and USB cables through the side cutout. Ensure no cables are trapped
-between the arm base and the plastic cover.
-
-<ThemedImageZoom
-  alt="Arm attached to the base"
-  sources={{
-    light: useBaseUrl(
-      '/img/robots/leo/integrations/panthera-ht/step-3-black.webp',
-    ),
-    dark: useBaseUrl(
-      '/img/robots/leo/integrations/panthera-ht/step-3-white.webp',
-    ),
-  }}
-  width="3000"
-  height="2121"
-  figStyle={{
-    width: 600,
-  }}
-/>
-
-Connect the other end of the <font style={{color : "#bf7b2c",}} > **CAN/power
-ribbon cable** </font> to the connector on the first motor of the arm.
+Route the <font style={{color : "#609ebe",}} > **USB-C cable** </font> through
+the opening in the arm base.
 
 <ThemedImageZoom
   alt="Connecting the ribbon cable to the first motor"
@@ -197,6 +199,28 @@ ribbon cable** </font> to the connector on the first motor of the arm.
     ),
     dark: useBaseUrl(
       '/img/robots/leo/integrations/panthera-ht/step-5-white.webp',
+    ),
+  }}
+  width="3000"
+  height="2121"
+  figStyle={{
+    width: 600,
+  }}
+/>
+
+Attach the <font style={{ color: '#609ebe' }}> **Panther HT arm** </font> to the
+base using <font style={{ color: '#bf7b2c' }}> **4 M5 x 12 screws**</font>.
+Route the ribbon and USB cables through the side cutout. Ensure no cables are
+trapped between the arm base and the plastic cover.
+
+<ThemedImageZoom
+  alt="Arm attached to the base"
+  sources={{
+    light: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/step-3-black.webp',
+    ),
+    dark: useBaseUrl(
+      '/img/robots/leo/integrations/panthera-ht/step-3-white.webp',
     ),
   }}
   width="3000"
@@ -272,7 +296,8 @@ at the same time.
 :::
 
 Assembly is finished. You can now power on the arm by pressing the <font
-style={{color : "#bf7b2c",}} > **power button** </font> on the side of the base.
+style={{color : "#bf7b2c",}} > **power button** </font> on the front of the
+base.
 
 <ThemedImageZoom
   alt="Power button placement"
@@ -304,8 +329,8 @@ ROS driver is launched.
 ## Software integration
 
 We have created a
-[custom ROS2 package for Panthera-HT](https://github.com/fictionlab/panthera_ht_ros)
-that allows you to control the arm through ROS2 interfaces. This package
+[custom ROS 2 package for Panthera-HT](https://github.com/fictionlab/panthera_ht_ros)
+that allows you to control the arm through ROS 2 interfaces. This package
 provides the most important functionalities of the arm, including:
 
 - Controlling the arm through provided SDK
@@ -315,7 +340,7 @@ provides the most important functionalities of the arm, including:
 :::note
 
 The custom package is based on the
-[official Panthera-HT ROS2 package](https://github.com/HighTorque-Robotics/Panthera-HT_ROS2).
+[official Panthera-HT ROS 2 package](https://github.com/HighTorque-Robotics/Panthera-HT_ROS2).
 The original package contains more functionalities and different methods of
 controlling the arm, but might need some adjustments to work with Leo Rover. The
 custom package is a simplified version that is guaranteed to work with Leo
@@ -323,7 +348,7 @@ Rover.
 
 :::
 
-To install the package, log in to the rover using ssh and make sure that you are
+To install the package, log in to the rover using SSH and make sure that you are
 using the newest version of packages:
 
 ```bash
@@ -511,7 +536,7 @@ every boot of the robot.
 The power on button on the robotic arm must be pressed before the driver is
 launched which is now done after the boot. You will need to press the power
 button on the arm before the robot is fully booted. If the driver fails to
-launch, you can try to restart ros nodes with `ros-nodes-restart` after pressing
+launch, you can try to restart ROS nodes with `ros-nodes-restart` after pressing
 the power button.
 
 :::
