@@ -127,9 +127,8 @@ html[data-theme='dark'] {
   display: none;
 }
 
-.menu__link.sidebar-integrations-link,
-.menu__list-item.sidebar-integrations-link > .menu__link {
-  background: color-mix(in srgb, var(--ifm-color-primary) 14%, transparent);
+.menu__link.sidebar-featured-link,
+.menu__list-item.sidebar-featured-link > .menu__link {
   border-left: 3px solid var(--ifm-color-primary);
   border-radius: 0.375rem;
   font-weight: 700;

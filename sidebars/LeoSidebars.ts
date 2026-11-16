@@ -6,7 +6,7 @@ const sidebars: SidebarsConfig = {
       type: 'link',
       label: 'Integrations',
       href: '/leo-integrations',
-      className: 'sidebar-integrations-link',
+      className: 'sidebar-featured-link',
     },
   ],
 };
