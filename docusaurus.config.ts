@@ -252,7 +252,7 @@ const config: Config = {
             },
             {
               label: 'Youtube',
-              href: 'https://www.youtube.com/@leorover6230',
+              href: 'https://www.youtube.com/@fictionlab-rovers',
               className: 'footer-youtube-link',
             },
             {
