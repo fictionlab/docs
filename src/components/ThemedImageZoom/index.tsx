@@ -2,11 +2,8 @@ import { Props as ThemedImageProps } from '@theme/ThemedImage';
 import { ThemedComponent } from '@docusaurus/theme-common';
 import ImageZoom, { ImageZoomProps } from '@site/src/components/ImageZoom';
 
-export interface ThemedImageZoomProps extends ThemedImageProps, ImageZoomProps {
-  caption?: string;
-  allowZoom?: boolean;
-  figStyle?: object;
-}
+export type ThemedImageZoomProps = Omit<ThemedImageProps, 'width' | 'height'> &
+  ImageZoomProps;
 
 export default function ThemedImageZoom(props: ThemedImageZoomProps) {
   const { sources, className: parentClassName, ...propsRest } = props;

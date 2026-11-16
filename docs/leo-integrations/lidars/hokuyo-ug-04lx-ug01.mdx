@@ -1,5 +1,5 @@
 ---
-title: Hokuyo URG-04LX-UG01 LiDAR Integration Guide for ROS Robots
+title: Hokuyo URG-04LX-UG01 Lidar Integration Guide for ROS Robots
 sidebar_label: Hokuyo URG-04LX-UG01
 keywords:
   - hokuyo
@@ -9,22 +9,22 @@ keywords:
   - integration
   - example
 description: >-
-  Learn how to connect a Hokuyo LiDAR sensor to your Leo Rover for mapping,
+  Learn how to connect a Hokuyo lidar sensor to your Leo Rover for mapping,
   object detection, and SLAM applications.
 image: /img/robots/leo/integrations/hokuyo-lidar/hokuyo-lidar.webp
 ---
 
-# Hokuyo URG-04LX-UG01 LiDAR Integration
+# Hokuyo URG-04LX-UG01 Lidar Integration
 
 import Product from '@site/src/products/powerbox.mdx';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
-This tutorial will guide you through the process of connecting a LiDAR sensor to
+This tutorial will guide you through the process of connecting a lidar sensor to
 your Leo Rover.
 
 Light Detection and Ranging devices, or lidars for short, are mechanisms used
 for mapping the environment, object detection, tracking the speed of vehicles
-and in a wide range of other applications. In robotics 2D lidars, like RPLidar
+and in a wide range of other applications. In robotics 2D lidars, like RPLIDAR
 A2M8, are used for things such as indoor SLAM
 ([Simultaneous localization and mapping](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping))
 or safety systems.
@@ -39,7 +39,7 @@ or safety systems.
   }}
 />
 
-The steps might slightly differ for other LiDAR sensors but should be
+The steps might slightly differ for other lidar sensors but should be
 essentially similar.
 
 ## What to expect?
@@ -86,7 +86,7 @@ data from the sensor like in the video below.
 :::info
 
 When mounting the sensor, you should be particularly careful not to obstruct the
-field of view by other parts of the Rover.
+field of view by other parts of the rover.
 
 :::
 
@@ -94,7 +94,7 @@ We developed 3D printable models of mechanical interfaces that allow you to
 mount the aforementioned sensor to the mounting plate of the rover. Locating the
 sensor at the top of the robot provides a wide field of view with not many
 obstacles for the laser beam to get caught on. Get the files from here:
-[Addon Adapters](../addon-adapters).
+[addon adapters](../addon-adapters).
 
 - With 2x M3x6 Allen screws, connect the sensor to the printed interface plate.
 - Use 4x M5x10 Allen screws to fasten the sensor to the Leo Rover.
@@ -331,7 +331,7 @@ Be sure to select `/camera/image_color` as the Image Topic.
   height="729"
 />
 
-## What next?
+## What's next?
 
 Lidars are commonly used in projects involving
 [autonomous navigation](/leo-rover/advanced-guides/autonomous-navigation), you
