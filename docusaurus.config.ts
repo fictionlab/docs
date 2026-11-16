@@ -189,7 +189,7 @@ const config: Config = {
         {
           type: 'docsVersionDropdown',
           position: 'right',
-          docsPluginId: 'integrations',
+          docsPluginId: 'leo-integrations',
         },
         {
           href: 'https://www.leorover.tech/shop',
@@ -311,10 +311,10 @@ const config: Config = {
     [
       'content-docs',
       {
-        id: 'integrations',
+        id: 'leo-integrations',
         path: 'docs/leo-integrations',
         routeBasePath: 'leo-integrations',
-        sidebarPath: './sidebars/integrationsSidebar.ts',
+        sidebarPath: './sidebars/LeoIntegrationsSidebar.ts',
         editUrl: 'https://github.com/fictionlab/docs/edit/development/',
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
