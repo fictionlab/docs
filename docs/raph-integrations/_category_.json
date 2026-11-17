@@ -1,0 +1,11 @@
+{
+  "label": "Integrations",
+  "position": 7,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "Raph Rover integrations",
+    "slug": "integrations"
+  }
+}
