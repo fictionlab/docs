@@ -24,9 +24,3 @@ const sidebars: SidebarsConfig = {
 };
 
 export default sidebars;
-
-/* 
-- Move integrations below addons
-- Display that integrations is a link (like home arrow)
-- Move go back to documentation button to the top
-*/
