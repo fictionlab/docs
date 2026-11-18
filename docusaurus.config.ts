@@ -31,7 +31,6 @@ const createRoverSidebarItemsGenerator =
         type: 'link',
         label: 'Integrations',
         href: integrationsHref,
-        className: 'sidebar-featured-link',
       },
       ...items.slice(addonsIndex + 1),
     ];

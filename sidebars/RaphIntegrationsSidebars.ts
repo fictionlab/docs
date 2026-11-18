@@ -6,7 +6,6 @@ const sidebars: SidebarsConfig = {
       type: 'link',
       label: 'Raph Rover Documentation',
       href: '/raph-rover',
-      className: 'sidebar-featured-link',
     },
     {
       type: 'category',

@@ -5,7 +5,6 @@ const sidebars: SidebarsConfig = {
       type: 'link',
       label: 'Leo Rover Documentation',
       href: '/leo-rover',
-      className: 'sidebar-featured-link',
     },
     {
       type: 'category',
