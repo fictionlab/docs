@@ -5,6 +5,46 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import type { Options as DocsOptions } from '@docusaurus/plugin-content-docs';
 
+const createRoverSidebarItemsGenerator =
+  (
+    integrationsHref: string,
+    roverName: string,
+  ): NonNullable<DocsOptions['sidebarItemsGenerator']> =>
+  async ({ defaultSidebarItemsGenerator, ...args }) => {
+    const items = await defaultSidebarItemsGenerator(args);
+    if (args.version.versionName !== 'current' || args.item.dirName !== '.') {
+      return items;
+    }
+
+    const addonsIndex = items.findIndex(
+      (item) => item.type === 'category' && item.label === 'Addons',
+    );
+    if (addonsIndex === -1) {
+      throw new Error(
+        `Could not place the ${roverName} integrations link: the Addons category was not generated.`,
+      );
+    }
+
+    return [
+      ...items.slice(0, addonsIndex + 1),
+      {
+        type: 'link',
+        label: 'Integrations',
+        href: integrationsHref,
+      },
+      ...items.slice(addonsIndex + 1),
+    ];
+  };
+
+const leoRoverSidebarItemsGenerator = createRoverSidebarItemsGenerator(
+  '/leo-integrations',
+  'Leo Rover',
+);
+const raphRoverSidebarItemsGenerator = createRoverSidebarItemsGenerator(
+  '/raph-integrations',
+  'Raph Rover',
+);
+
 const config: Config = {
   title: 'Fictionlab Documentation',
   tagline: 'Documentation, tutorials & manuals for robots',
@@ -81,6 +121,7 @@ const config: Config = {
           path: 'docs/leo-rover',
           routeBasePath: '/leo-rover',
           sidebarPath: './sidebars/LeoSidebars.ts',
+          sidebarItemsGenerator: leoRoverSidebarItemsGenerator,
           editUrl: 'https://github.com/fictionlab/docs/edit/development/',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
@@ -177,11 +218,6 @@ const config: Config = {
           ],
         },
         {
-          label: 'Integrations',
-          position: 'left',
-          to: '/integrations',
-        },
-        {
           label: 'Community projects',
           position: 'left',
           to: '/community-projects',
@@ -194,7 +230,7 @@ const config: Config = {
         {
           type: 'docsVersionDropdown',
           position: 'right',
-          docsPluginId: 'integrations',
+          docsPluginId: 'leo-integrations',
         },
         {
           href: 'https://www.leorover.tech/shop',
@@ -307,6 +343,7 @@ const config: Config = {
         path: 'docs/raph-rover',
         routeBasePath: 'raph-rover',
         sidebarPath: './sidebars/RaphSidebars.ts',
+        sidebarItemsGenerator: raphRoverSidebarItemsGenerator,
         editUrl: 'https://github.com/fictionlab/docs/edit/development/',
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
@@ -316,10 +353,10 @@ const config: Config = {
     [
       'content-docs',
       {
-        id: 'integrations',
-        path: 'docs/integrations',
-        routeBasePath: 'integrations',
-        sidebarPath: './sidebars/integrationsSidebar.ts',
+        id: 'leo-integrations',
+        path: 'docs/leo-integrations',
+        routeBasePath: 'leo-integrations',
+        sidebarPath: './sidebars/LeoIntegrationsSidebar.ts',
         editUrl: 'https://github.com/fictionlab/docs/edit/development/',
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
@@ -333,6 +370,19 @@ const config: Config = {
             label: 'ROS 1 Noetic',
           },
         },
+      } satisfies DocsOptions,
+    ],
+    [
+      'content-docs',
+      {
+        id: 'raph-integrations',
+        path: 'docs/raph-integrations',
+        routeBasePath: 'raph-integrations',
+        sidebarPath: './sidebars/RaphIntegrationsSidebars.ts',
+        editUrl: 'https://github.com/fictionlab/docs/edit/development/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        showLastUpdateTime: true,
       } satisfies DocsOptions,
     ],
     [

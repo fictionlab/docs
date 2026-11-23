@@ -49,7 +49,7 @@ function pathToUrl(path) {
   let p = path.replace(/\\/g, '/');
 
   // Handle versioned docs like:
-  // integrations_versioned_docs/version-noetic/[rest]  -> /integrations/noetic/[rest]
+  // leo-integrations_versioned_docs/version-noetic/[rest] -> /leo-integrations/noetic/[rest]
   const versionedMatch = p.match(
     /^([^\/]+)_versioned_docs\/version-([^\/]+)\/(.*)$/,
   );
