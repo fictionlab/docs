@@ -58,6 +58,10 @@
   background: red;
 }
 
+#recoveryMode {
+  animation: recoveryModeAnimation 3s ease-in-out infinite;
+}
+
 #chargeCycle {
   animation: chargeCycleAnimation 4s ease-in-out infinite;
 }
@@ -146,6 +150,18 @@
   }
   50% {
     background: none;
+  }
+  100% {
+    background: red;
+  }
+}
+
+@keyframes recoveryModeAnimation {
+  0% {
+    background: red;
+  }
+  50% {
+    background: white;
   }
   100% {
     background: red;
