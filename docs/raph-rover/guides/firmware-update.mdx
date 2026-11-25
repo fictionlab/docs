@@ -14,9 +14,10 @@ keywords:
   - tutorial
 image: /img/robots/raph/raph-rover.webp
 ---
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-import HiddenTabs from "@site/src/components/HiddenTabs";
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import HiddenTabs from '@site/src/components/HiddenTabs';
 
 # How to Update the RaphCore Firmware
 
@@ -34,7 +35,8 @@ guide below:
 :::info
 
 Updating the firmware or bootloader from version `1.1.0` onward does not require
-recovery mode. Updating from earlier versions, or downgrading still requires recovery mode.
+recovery mode. Updating from earlier versions, or downgrading still requires
+recovery mode.
 
 To check the installed firmware and bootloader versions, use either method:
 
@@ -79,6 +81,7 @@ ros2 service call /controller/get_controller_info raph_interfaces/srv/GetControl
     so you can log in to your Raph Rover as usual:
 
     <LinkButton docId="guides/ssh" />
+
   </TabItem>
   <TabItem value="normal-mode" label="Flashing Without Recovery Mode">
     :::warning
@@ -89,7 +92,7 @@ ros2 service call /controller/get_controller_info raph_interfaces/srv/GetControl
 
     To flash the firmware, first power on the rover and log in to it via SSH:
 
-    <LinkButton docId="guides/ssh" />    
+    <LinkButton docId="guides/ssh" />
 
     :::tip
 
@@ -98,9 +101,9 @@ ros2 service call /controller/get_controller_info raph_interfaces/srv/GetControl
     your computer.
 
     :::
+
   </TabItem>
 </Tabs>
-
 
 After opening a terminal session via SSH, you can proceed to flash the firmware.
 The firmware consists of two parts: the bootloader and the main firmware.
