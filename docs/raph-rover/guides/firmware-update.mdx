@@ -14,6 +14,9 @@ keywords:
   - tutorial
 image: /img/robots/raph/raph-rover.webp
 ---
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import HiddenTabs from "@site/src/components/HiddenTabs";
 
 # How to Update the RaphCore Firmware
 
@@ -28,34 +31,76 @@ guide below:
 
 <LinkButton docId="guides/software-update" />
 
-To flash the firmware, you need to boot the rover into recovery mode.
+:::info
 
-In order to enter recovery mode follow the steps below:
+Updating the firmware or bootloader from version `1.1.0` onward does not require
+recovery mode. Updating from earlier versions, or downgrading still requires recovery mode.
 
-1. Make sure the rover is powered off.
-2. Make sure that no charger is connected to the rover.
-3. Press and hold the maintenance button.
-4. While holding the maintenance button, press and hold the power button for 3
-   seconds.
+To check the installed firmware and bootloader versions, use either method:
 
-The usually green animation of robot powering on is replaced with a white color.
-You can use that as an indication that the rover is booting into recovery mode.
-When the rover's LEDs start pulsing white and red, you have successfully booted
-the rover into recovery mode.
+- Connect to the rover via SSH and run:
 
-:::tip
+```bash
+ros2 service call /controller/get_controller_info raph_interfaces/srv/GetControllerInfo
+```
 
-If you have ROS 2 installed on your computer, you can install the `raph_fw`
-package, connect to the rover's Wi-Fi network, and run the update script from
-your computer. Remember that the rover needs to be in recovery mode even if you
-are running the update script from your computer.
+- In the rover's web UI, check the firmware and bootloader versions in the
+  `menu` tab.
 
 :::
 
-In recovery mode, the rover will power on the router and the onboard computer,
-so you can log in to your Raph Rover as usual:
+<Tabs>
+  <TabItem value="recovery-mode" label="Flashing With Recovery Mode">
+    To flash the firmware, you need to boot the rover into recovery mode.
 
-<LinkButton docId="guides/ssh" />
+    In order to enter recovery mode follow the steps below:
+
+    1. Make sure the rover is powered off.
+    2. Make sure that no charger is connected to the rover.
+    3. Press and hold the maintenance button.
+    4. While holding the maintenance button, press and hold the power button for 3
+      seconds.
+
+    The usually green animation of robot powering on is replaced with a white color.
+    You can use that as an indication that the rover is booting into recovery mode.
+    When the rover's LEDs start pulsing white and red, you have successfully booted
+    the rover into recovery mode.
+
+    :::tip
+
+    If you have ROS 2 installed on your computer, you can install the `raph_fw`
+    package, connect to the rover's Wi-Fi network, and run the update script from
+    your computer. Remember that the rover needs to be in recovery mode even if you
+    are running the update script from your computer.
+
+    :::
+
+    In recovery mode, the rover will power on the router and the onboard computer,
+    so you can log in to your Raph Rover as usual:
+
+    <LinkButton docId="guides/ssh" />
+  </TabItem>
+  <TabItem value="normal-mode" label="Flashing Without Recovery Mode">
+    :::warning
+
+    To flash without recovery mode, the rover must be running firmware and bootloader version `1.1.0` or later.
+
+    :::
+
+    To flash the firmware, first power on the rover and log in to it via SSH:
+
+    <LinkButton docId="guides/ssh" />    
+
+    :::tip
+
+    If you have ROS 2 installed on your computer, you can install the `raph_fw`
+    package, connect to the rover's Wi-Fi network, and run the update script from
+    your computer.
+
+    :::
+  </TabItem>
+</Tabs>
+
 
 After opening a terminal session via SSH, you can proceed to flash the firmware.
 The firmware consists of two parts: the bootloader and the main firmware.
