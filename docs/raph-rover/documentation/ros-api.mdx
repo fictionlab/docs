@@ -107,6 +107,10 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw images from the left Oak-D camera.
 
+- `oak/left/image_raw/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed raw images from the left Oak-D camera.
+
 - `oak/left_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
 
   Calibration data for the rectified images from the left Oak-D camera.
@@ -114,6 +118,10 @@ image: /img/robots/raph/raph-rover.webp
 - `oak/left_rect/image_rect` ([sensor_msgs/msg/Image])
 
   Rectified images from the left Oak-D camera.
+
+- `oak/left_rect/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed rectified images from the left Oak-D camera.
 
 - `oak/rgb/camera_info` ([sensor_msgs/msg/CameraInfo])
 
@@ -123,6 +131,10 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw images from the center (RGB) Oak-D camera.
 
+- `oak/rgb/image_raw/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed raw images from the center (RGB) Oak-D camera.
+
 - `oak/rgb_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
 
   Calibration data for the rectified images from the center (RGB) Oak-D camera.
@@ -130,6 +142,10 @@ image: /img/robots/raph/raph-rover.webp
 - `oak/rgb_rect/image_rect` ([sensor_msgs/msg/Image])
 
   Rectified images from the center (RGB) Oak-D camera.
+
+- `oak/rgb_rect/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed rectified images from the center (RGB) Oak-D camera.
 
 - `oak/rgb_still/camera_info` ([sensor_msgs/msg/CameraInfo])
 
@@ -147,6 +163,10 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw images from the right Oak-D camera.
 
+- `oak/right/image_raw/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed raw images from the right Oak-D camera.
+
 - `oak/right_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
 
   Calibration data for the rectified images from the right Oak-D camera.
@@ -154,6 +174,10 @@ image: /img/robots/raph/raph-rover.webp
 - `oak/right_rect/image_rect` ([sensor_msgs/msg/Image])
 
   Rectified images from the right Oak-D camera.
+
+- `oak/right_rect/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed rectified images from the right Oak-D camera.
 
 - `oak/stereo/camera_info` ([sensor_msgs/msg/CameraInfo])
 
@@ -164,10 +188,51 @@ image: /img/robots/raph/raph-rover.webp
 
   Depth images calculated from the stereo pair (left and right Oak-D cameras).
 
+- `oak/stereo/image_raw/compressedDepth` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed depth images calculated from the stereo pair (left and right Oak-D
+  cameras).
+
 - `oak/points` ([sensor_msgs/msg/PointCloud2])
 
   Point cloud generated from the stereo depth images, expressed in meters in the
   `oak_stereo_camera_optical_frame` frame.
+
+- `oak/nn/passthrough` ([sensor_msgs/msg/Image]),
+  `oak/nn/passthrough/compressed` ([sensor_msgs/msg/CompressedImage]),
+  `oak/nn/passthrough/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  The frames from the center (RGB) Oak-D camera the neural network ran on, and
+  their calibration data. Only published when `nn.enabled` is set.
+
+- `oak/nn/overlay` ([sensor_msgs/msg/Image])
+
+  The neural network results (bounding boxes, best classes or the segmentation
+  mask) drawn on the `oak/nn/passthrough` frames. Only published when
+  `nn.enabled` is set.
+
+- `oak/nn/detections` ([vision_msgs/msg/Detection2DArray])
+
+  Objects detected by the neural network, in pixels of the `oak/nn/passthrough`
+  frames. Only published when a detection model is used.
+
+- `oak/nn/classification` ([vision_msgs/msg/Classification])
+
+  The 5 best classes with their scores, best first. Only published when a
+  classification model is used.
+
+- `oak/nn/segmentation` ([sensor_msgs/msg/Image])
+
+  Segmentation mask covering the same area as the `oak/nn/passthrough` frames.
+  For a segmentation model, each pixel holds the class index (255 is the
+  background). For a detection model with masks, each pixel holds the index of
+  the detection in `oak/nn/detections` of the same frame. Only published when a
+  segmentation model or a detection model with masks is used.
+
+- `oak/nn/segmentation/label_info` ([vision_msgs/msg/LabelInfo])
+
+  Names of the classes indexed by the `oak/nn/segmentation` mask. Only published
+  when a segmentation model is used.
 
 - `rplidar/scan` ([sensor_msgs/msg/LaserScan])
 
@@ -465,6 +530,11 @@ image: /img/robots/raph/raph-rover.webp
 
 ### oak
 
+- `tf_frame_prefix` (type: `string`, read-only, default: `""`)
+
+  Prefix of the TF frame IDs of all published messages (e.g. `robot1/`), for
+  when the robot description is loaded with a prefix.
+
 - `device.id` (type: `string`, read-only, default: `""`)
 
   Device ID to connect to.
@@ -520,6 +590,38 @@ image: /img/robots/raph/raph-rover.webp
 
   Maximal distance in meters.
 
+- `pointcloud.max_rate` (type: `int`, default: `5`)
+
+  Maximum point cloud rate in frames per second. Values above the depth image
+  rate have no effect.
+
+- `nn.enabled` (type: `bool`, read-only, default: `false`)
+
+  Whether to run a neural network on the images from the center (RGB) Oak-D
+  camera and publish its results. The kind of the model (detection,
+  classification or segmentation) is taken from its NNArchive.
+
+- `nn.model` (type: `string`, read-only, default:
+  `luxonis/yolov6-nano:r2-coco-512x384`)
+
+  Path to a local NNArchive file (`.tar.xz`) or, if no such file exists, a
+  Luxonis Model Zoo slug. A Model Zoo slug requires internet access on the first
+  run.
+
+- `nn.fps` (type: `float`, read-only, default: `5.0`)
+
+  Neural network inference rate in frames per second.
+
+- `nn.confidence_threshold` (type: `float`, read-only, default: `0.5`)
+
+  Detections with a lower confidence are discarded. Only used by detection
+  models (0.0-1.0).
+
+- `nn.num_shaves` (type: `int`, read-only, default: `3`)
+
+  Number of SHAVE cores the neural network is compiled for. If the rest of the
+  pipeline leaves fewer cores available, the pipeline fails to start.
+
 - `mono.width` (type: `int`, read-only, default: `1280`)
 
   Mono camera image width.
@@ -548,6 +650,11 @@ image: /img/robots/raph/raph-rover.webp
 - `rgb.fps` (type: `float`, read-only, default: `15.0`)
 
   RGB camera frames per second.
+
+- `rgb.rect_alpha_scaling` (type: `float`, read-only, default: `-1.0`)
+
+  Free scaling parameter of the rectified RGB images (0 keeps only valid pixels,
+  1 keeps all source pixels, -1 uses the DepthAI default).
 
 - `rgb_compressed.jpeg_quality` (type: `int`, read-only, default: `80`)
 
@@ -600,6 +707,8 @@ The driver runs as the autostarted lifecycle node `rplidar/rplidar_driver`.
   https://docs.ros2.org/latest/api/rcl_interfaces/msg/Log.html
 [rcl_interfaces/msg/ParameterEvent]:
   https://docs.ros2.org/latest/api/rcl_interfaces/msg/ParameterEvent.html
+[sensor_msgs/msg/CompressedImage]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/CompressedImage.html
 [sensor_msgs/msg/CameraInfo]:
   https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html
 [sensor_msgs/msg/Image]:
@@ -616,6 +725,12 @@ The driver runs as the autostarted lifecycle node `rplidar/rplidar_driver`.
   https://docs.ros2.org/latest/api/std_srvs/srv/Trigger.html
 [tf2_msgs/msg/TFMessage]:
   https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
+[vision_msgs/msg/Classification]:
+  https://docs.ros.org/en/jazzy/p/vision_msgs/msg/Classification.html
+[vision_msgs/msg/Detection2DArray]:
+  https://docs.ros.org/en/jazzy/p/vision_msgs/msg/Detection2DArray.html
+[vision_msgs/msg/LabelInfo]:
+  https://docs.ros.org/en/jazzy/p/vision_msgs/msg/LabelInfo.html
 [raph_interfaces/msg/BatteryMode]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/BatteryMode.html
 [raph_interfaces/msg/BatteryState]:
