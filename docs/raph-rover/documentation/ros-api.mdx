@@ -69,7 +69,8 @@ image: /img/robots/raph/raph-rover.webp
 
 - `controller/odom` ([nav_msgs/msg/Odometry])
 
-  Odometry calculated from wheel encoders and the onboard IMU.
+  Odometry calculated from wheel encoders and the onboard IMU. Includes the
+  robot pose and velocity together with their covariances.
 
 - `controller/diagnostics/imu` ([raph_interfaces/msg/ImuDiagnostics])
 
@@ -79,7 +80,8 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/diagnostics/motors` ([raph_interfaces/msg/MotorDiagnostics])
 
   Diagnostic information about the motors. \
-  Includes motor temperatures, power consumption and fault data.
+  Includes motor temperatures, power consumption, fault data and communication
+  faults.
 
 - `controller/drivetrain_state` ([raph_interfaces/msg/DrivetrainState])
 
@@ -208,7 +210,17 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/get_controller_info` ([raph_interfaces/srv/GetControllerInfo])
 
   Get information about the controller, including bootloader and firmware
-  versions and other optional information.
+  versions and other optional information. The `extra_information` field
+  contains the firmware versions of all motors.
+
+- `controller/apply_tf_frame_prefix` ([raph_interfaces/srv/ApplyTfFramePrefix])
+
+  Apply a prefix to the frame IDs used in the IMU, odometry and TF messages
+  published by the controller (maximum 50 characters).
+
+- `controller/soft_reboot` ([std_srvs/srv/Trigger])
+
+  Restart the controller firmware without powering off the robot.
 
 - `controller/clear_leds` ([std_srvs/srv/Trigger])
 
@@ -306,6 +318,11 @@ image: /img/robots/raph/raph-rover.webp
   Acceleration to use when sending cmd_vel commands.
   $[\frac{m}{s^2}, \frac{rad}{s^2}]$
 
+- `drivetrain.cmd_vel_jerk` (type: `float`, default: `0.0`)
+
+  Jerk to use when sending cmd_vel commands. Set to 0 to use a trapezoidal
+  velocity ramp instead of an S-curve. $[\frac{m}{s^3}]$
+
 - `drivetrain.cmd_vel_steering_angle_velocity` (type: `float`, default: `4.0`)
 
   Steering angle velocity to use when sending cmd_vel commands.
@@ -369,6 +386,23 @@ image: /img/robots/raph/raph-rover.webp
   Whether the drivetrain should calculate 3D odometry. By default, 2D odometry
   is calculated and published.
 
+- `drivetrain.linear_velocity_variance` (type: `float`, default: `3e-4`)
+
+  Value of the linear velocity variance in the published odometry.
+  $[\frac{m^2}{s^2}]$
+
+- `drivetrain.position_variance_scale_factor` (type: `float`, default: `5e-5`)
+
+  Scale factor $k$ of the position variance in the published odometry,
+  calculated as $k \cdot s^2$, where $s$ is the distance traveled since the last
+  odometry reset.
+
+- `drivetrain.yaw_variance_scale_factor` (type: `float`, default: `1e-4`)
+
+  Scale factor $k$ of the yaw variance in the published odometry, calculated as
+  $k \cdot \theta^2$, where $\theta$ is the cumulative rotation performed since
+  the last odometry reset.
+
 - `power_manager.output_12v_enabled` (type: `bool`, default: `true`)
 
   Whether the 12V output is enabled.
@@ -418,6 +452,16 @@ image: /img/robots/raph/raph-rover.webp
 
   Values on the diagonal of the orientation covariance matrix in the published
   IMU data.
+
+- `imu_filter.angular_velocity_variance` (type: `float`, default: `2e-6`)
+
+  Values on the diagonal of the angular velocity covariance matrix in the
+  published IMU data.
+
+- `imu_filter.linear_acceleration_variance` (type: `float`, default: `2e-4`)
+
+  Values on the diagonal of the linear acceleration covariance matrix in the
+  published IMU data.
 
 ### oak
 
@@ -602,6 +646,8 @@ The driver runs as the autostarted lifecycle node `rplidar/rplidar_driver`.
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/ServoCommand.html
 [raph_interfaces/msg/WheelCommand]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/WheelCommand.html
+[raph_interfaces/srv/ApplyTfFramePrefix]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/ApplyTfFramePrefix.html
 [raph_interfaces/srv/GetControllerInfo]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/GetControllerInfo.html
 [raph_interfaces/srv/GetOsVersion]:
