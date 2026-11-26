@@ -35,7 +35,7 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/cmd_turn_in_place` ([raph_interfaces/msg/TurnInPlaceDrive])
 
   Sets the target angular velocity when operating in the turn-in-place steering
-  mode. $[rad]$
+  mode. $[\frac{rad}{s}]$
 
 - `controller/cmd_vel` ([geometry_msgs/msg/Twist])
 
@@ -283,7 +283,7 @@ image: /img/robots/raph/raph-rover.webp
 
   Distance between left and right wheels. $[m]$
 
-- `drivetrain.wheel_radius` (type: `float`, default: `0.08`)
+- `drivetrain.wheel_radius` (type: `float`, default: `0.083`)
 
   Radius of the wheel. $[m]$
 
@@ -333,11 +333,11 @@ image: /img/robots/raph/raph-rover.webp
 
   Offset added to the right servo position. $[rad]$
 
-- `drivetrain.servo_calibration_speed` (type: `float`, default: `2.0`)
+- `drivetrain.servo_calibration_speed` (type: `float`, default: `2.5`)
 
   Speed of servos during calibration. $[\frac{rad}{s}]$
 
-- `drivetrain.servo_calibration_timeout` (type: `float`, default: `6.0`)
+- `drivetrain.servo_calibration_timeout` (type: `float`, default: `8.0`)
 
   Timeout for servo calibration procedure. $[s]$
 
@@ -347,7 +347,7 @@ image: /img/robots/raph/raph-rover.webp
   calibration.
 
 - `drivetrain.servo_calibration_torque_threshold` (type: `float`, default:
-  `1.0`)
+  `1.1`)
 
   Minimal motor torque that indicates the servo presses against the bumper
   during calibration. $[Nm]$
@@ -391,20 +391,19 @@ image: /img/robots/raph/raph-rover.webp
   The factor at which the gyroscope bias is updated when the IMU is determined
   to be in steady state (>=0.0, higher is faster bias compensation).
 
-- `imu_filter.steady_state_angular_velocity_threshold` (type: `float`, default:
-  `0.05`)
+- `imu_filter.steady_state_ang_vel_threshold` (type: `float`, default: `0.05`)
 
   Threshold for the angular velocity to determine whether the IMU is in steady
   state. $[\frac{rad}{s}]$
 
 - `imu_filter.steady_state_acceleration_threshold` (type: `float`, default:
-  `0.1`)
+  `0.14`)
 
   Threshold for the magnitude of the linear acceleration (after subtracting
   gravity) to determine whether the IMU is in steady state. $[\frac{m}{s^2}]$
 
-- `imu_filter.steady_state_delta_angular_velocity_threshold` (type: `float`,
-  default: `0.01`)
+- `imu_filter.steady_state_delta_ang_vel_threshold` (type: `float`, default:
+  `0.01`)
 
   Threshold for the change in angular velocity, between two consecutive
   measurements, to determine whether the IMU is in steady state.
@@ -443,7 +442,7 @@ image: /img/robots/raph/raph-rover.webp
 
   IR flood light intensity (0.0-1.0, higher is stronger intensity).
 
-- `depth.confidence_threshold` (type: `int`, default: `15`)
+- `depth.confidence_threshold` (type: `int`, default: `110`)
 
   Depth images will only contain pixels where depth confidence is below the
   confidence threshold (lower the confidence value means better depth accuracy).
@@ -452,7 +451,7 @@ image: /img/robots/raph/raph-rover.webp
 
   Computes and combines disparities in both L-R and R-L directions.
 
-- `depth.lr_check_threshold` (type: `int`, default: `10`)
+- `depth.lr_check_threshold` (type: `int`, default: `5`)
 
   Disparity is considered for the output when the difference between LR and RL
   disparities is smaller than the LR check threshold.
