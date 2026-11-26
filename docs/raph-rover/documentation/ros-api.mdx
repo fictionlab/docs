@@ -35,7 +35,7 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/cmd_turn_in_place` ([raph_interfaces/msg/TurnInPlaceDrive])
 
   Sets the target angular velocity when operating in the turn-in-place steering
-  mode. $[rad]$
+  mode. $[\frac{rad}{s}]$
 
 - `controller/cmd_vel` ([geometry_msgs/msg/Twist])
 
@@ -69,7 +69,8 @@ image: /img/robots/raph/raph-rover.webp
 
 - `controller/odom` ([nav_msgs/msg/Odometry])
 
-  Odometry calculated from wheel encoders and the onboard IMU.
+  Odometry calculated from wheel encoders and the onboard IMU. Includes the
+  robot pose and velocity together with their covariances.
 
 - `controller/diagnostics/imu` ([raph_interfaces/msg/ImuDiagnostics])
 
@@ -79,7 +80,8 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/diagnostics/motors` ([raph_interfaces/msg/MotorDiagnostics])
 
   Diagnostic information about the motors. \
-  Includes motor temperatures, power consumption and fault data.
+  Includes motor temperatures, power consumption, fault data and communication
+  faults.
 
 - `controller/drivetrain_state` ([raph_interfaces/msg/DrivetrainState])
 
@@ -105,6 +107,10 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw images from the left Oak-D camera.
 
+- `oak/left/image_raw/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed raw images from the left Oak-D camera.
+
 - `oak/left_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
 
   Calibration data for the rectified images from the left Oak-D camera.
@@ -112,6 +118,10 @@ image: /img/robots/raph/raph-rover.webp
 - `oak/left_rect/image_rect` ([sensor_msgs/msg/Image])
 
   Rectified images from the left Oak-D camera.
+
+- `oak/left_rect/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed rectified images from the left Oak-D camera.
 
 - `oak/rgb/camera_info` ([sensor_msgs/msg/CameraInfo])
 
@@ -121,6 +131,10 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw images from the center (RGB) Oak-D camera.
 
+- `oak/rgb/image_raw/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed raw images from the center (RGB) Oak-D camera.
+
 - `oak/rgb_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
 
   Calibration data for the rectified images from the center (RGB) Oak-D camera.
@@ -128,6 +142,18 @@ image: /img/robots/raph/raph-rover.webp
 - `oak/rgb_rect/image_rect` ([sensor_msgs/msg/Image])
 
   Rectified images from the center (RGB) Oak-D camera.
+
+- `oak/rgb_rect/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed rectified images from the center (RGB) Oak-D camera.
+
+- `oak/rgb_still/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  Calibration data for the still images from the center (RGB) Oak-D camera.
+
+- `oak/rgb_still/image_still` ([sensor_msgs/msg/Image])
+
+  Full resolution still images captured by the center (RGB) Oak-D camera.
 
 - `oak/right/camera_info` ([sensor_msgs/msg/CameraInfo])
 
@@ -137,6 +163,10 @@ image: /img/robots/raph/raph-rover.webp
 
   Raw images from the right Oak-D camera.
 
+- `oak/right/image_raw/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed raw images from the right Oak-D camera.
+
 - `oak/right_rect/camera_info` ([sensor_msgs/msg/CameraInfo])
 
   Calibration data for the rectified images from the right Oak-D camera.
@@ -144,6 +174,10 @@ image: /img/robots/raph/raph-rover.webp
 - `oak/right_rect/image_rect` ([sensor_msgs/msg/Image])
 
   Rectified images from the right Oak-D camera.
+
+- `oak/right_rect/image_rect/compressed` ([sensor_msgs/msg/CompressedImage])
+
+  JPEG compressed rectified images from the right Oak-D camera.
 
 - `oak/stereo/camera_info` ([sensor_msgs/msg/CameraInfo])
 
@@ -154,9 +188,51 @@ image: /img/robots/raph/raph-rover.webp
 
   Depth images calculated from the stereo pair (left and right Oak-D cameras).
 
+- `oak/stereo/image_raw/compressedDepth` ([sensor_msgs/msg/CompressedImage])
+
+  Compressed depth images calculated from the stereo pair (left and right Oak-D
+  cameras).
+
 - `oak/points` ([sensor_msgs/msg/PointCloud2])
 
-  Point cloud data converted from the depth images.
+  Point cloud generated from the stereo depth images, expressed in meters in the
+  `oak_stereo_camera_optical_frame` frame.
+
+- `oak/nn/passthrough` ([sensor_msgs/msg/Image]),
+  `oak/nn/passthrough/compressed` ([sensor_msgs/msg/CompressedImage]),
+  `oak/nn/passthrough/camera_info` ([sensor_msgs/msg/CameraInfo])
+
+  The frames from the center (RGB) Oak-D camera the neural network ran on, and
+  their calibration data. Only published when `nn.enabled` is set.
+
+- `oak/nn/overlay` ([sensor_msgs/msg/Image])
+
+  The neural network results (bounding boxes, best classes or the segmentation
+  mask) drawn on the `oak/nn/passthrough` frames. Only published when
+  `nn.enabled` is set.
+
+- `oak/nn/detections` ([vision_msgs/msg/Detection2DArray])
+
+  Objects detected by the neural network, in pixels of the `oak/nn/passthrough`
+  frames. Only published when a detection model is used.
+
+- `oak/nn/classification` ([vision_msgs/msg/Classification])
+
+  The 5 best classes with their scores, best first. Only published when a
+  classification model is used.
+
+- `oak/nn/segmentation` ([sensor_msgs/msg/Image])
+
+  Segmentation mask covering the same area as the `oak/nn/passthrough` frames.
+  For a segmentation model, each pixel holds the class index (255 is the
+  background). For a detection model with masks, each pixel holds the index of
+  the detection in `oak/nn/detections` of the same frame. Only published when a
+  segmentation model or a detection model with masks is used.
+
+- `oak/nn/segmentation/label_info` ([vision_msgs/msg/LabelInfo])
+
+  Names of the classes indexed by the `oak/nn/segmentation` mask. Only published
+  when a segmentation model is used.
 
 - `rplidar/scan` ([sensor_msgs/msg/LaserScan])
 
@@ -164,8 +240,8 @@ image: /img/robots/raph/raph-rover.webp
 
 - `rplidar/scan_filtered` ([sensor_msgs/msg/LaserScan])
 
-  Laser scans from the onboard 2D LIDAR with points lying on the robot's
-  footprint filtered out.
+  Laser scans from the onboard 2D LIDAR with points from the rover contour,
+  antennas, and left and right motor covers filtered out.
 
 - `joint_states` ([sensor_msgs/msg/JointState])
 
@@ -186,7 +262,7 @@ image: /img/robots/raph/raph-rover.webp
 
 - `/rosout` ([rcl_interfaces/msg/Log])
 
-  Logs from all the running ROS nodes.
+  Logs from all running ROS nodes, including the firmware controller node.
 
 - `/tf`, `/tf_static` ([tf2_msgs/msg/TFMessage])
 
@@ -199,7 +275,17 @@ image: /img/robots/raph/raph-rover.webp
 - `controller/get_controller_info` ([raph_interfaces/srv/GetControllerInfo])
 
   Get information about the controller, including bootloader and firmware
-  versions and other optional information.
+  versions and other optional information. The `extra_information` field
+  contains the firmware versions of all motors.
+
+- `controller/apply_tf_frame_prefix` ([raph_interfaces/srv/ApplyTfFramePrefix])
+
+  Apply a prefix to the frame IDs used in the IMU, odometry and TF messages
+  published by the controller (maximum 50 characters).
+
+- `controller/soft_reboot` ([std_srvs/srv/Trigger])
+
+  Restart the controller firmware without powering off the robot.
 
 - `controller/clear_leds` ([std_srvs/srv/Trigger])
 
@@ -241,6 +327,19 @@ image: /img/robots/raph/raph-rover.webp
 
   Perform onboard computer's system reboot.
 
+- `oak/capture_still` ([std_srvs/srv/Trigger])
+
+  Capture a full resolution still image using the OAK camera and publish it to
+  the `oak/rgb_still/image_still` topic.
+
+- `rplidar/start_motor` ([std_srvs/srv/Trigger])
+
+  Start the RPLIDAR motor. Works only if the standby mode is disabled.
+
+- `rplidar/stop_motor` ([std_srvs/srv/Trigger])
+
+  Stop the RPLIDAR motor. Works only if the standby mode is disabled.
+
 ## Parameters
 
 ### controller
@@ -261,7 +360,7 @@ image: /img/robots/raph/raph-rover.webp
 
   Distance between left and right wheels. $[m]$
 
-- `drivetrain.wheel_radius` (type: `float`, default: `0.08`)
+- `drivetrain.wheel_radius` (type: `float`, default: `0.083`)
 
   Radius of the wheel. $[m]$
 
@@ -283,6 +382,11 @@ image: /img/robots/raph/raph-rover.webp
 
   Acceleration to use when sending cmd_vel commands.
   $[\frac{m}{s^2}, \frac{rad}{s^2}]$
+
+- `drivetrain.cmd_vel_jerk` (type: `float`, default: `0.0`)
+
+  Jerk to use when sending cmd_vel commands. Set to 0 to use a trapezoidal
+  velocity ramp instead of an S-curve. $[\frac{m}{s^3}]$
 
 - `drivetrain.cmd_vel_steering_angle_velocity` (type: `float`, default: `4.0`)
 
@@ -311,11 +415,11 @@ image: /img/robots/raph/raph-rover.webp
 
   Offset added to the right servo position. $[rad]$
 
-- `drivetrain.servo_calibration_speed` (type: `float`, default: `2.0`)
+- `drivetrain.servo_calibration_speed` (type: `float`, default: `2.5`)
 
   Speed of servos during calibration. $[\frac{rad}{s}]$
 
-- `drivetrain.servo_calibration_timeout` (type: `float`, default: `6.0`)
+- `drivetrain.servo_calibration_timeout` (type: `float`, default: `8.0`)
 
   Timeout for servo calibration procedure. $[s]$
 
@@ -325,7 +429,7 @@ image: /img/robots/raph/raph-rover.webp
   calibration.
 
 - `drivetrain.servo_calibration_torque_threshold` (type: `float`, default:
-  `1.0`)
+  `1.1`)
 
   Minimal motor torque that indicates the servo presses against the bumper
   during calibration. $[Nm]$
@@ -341,6 +445,28 @@ image: /img/robots/raph/raph-rover.webp
 - `drivetrain.wheel.acceleration_divider` (type: `int`, default: `2`)
 
   Raw acceleration divider value passed to wheel motors.
+
+- `drivetrain.enable_3d_odometry` (type: `bool`, default: `false`)
+
+  Whether the drivetrain should calculate 3D odometry. By default, 2D odometry
+  is calculated and published.
+
+- `drivetrain.linear_velocity_variance` (type: `float`, default: `3e-4`)
+
+  Value of the linear velocity variance in the published odometry.
+  $[\frac{m^2}{s^2}]$
+
+- `drivetrain.position_variance_scale_factor` (type: `float`, default: `5e-5`)
+
+  Scale factor $k$ of the position variance in the published odometry,
+  calculated as $k \cdot s^2$, where $s$ is the distance traveled since the last
+  odometry reset.
+
+- `drivetrain.yaw_variance_scale_factor` (type: `float`, default: `1e-4`)
+
+  Scale factor $k$ of the yaw variance in the published odometry, calculated as
+  $k \cdot \theta^2$, where $\theta$ is the cumulative rotation performed since
+  the last odometry reset.
 
 - `power_manager.output_12v_enabled` (type: `bool`, default: `true`)
 
@@ -364,20 +490,19 @@ image: /img/robots/raph/raph-rover.webp
   The factor at which the gyroscope bias is updated when the IMU is determined
   to be in steady state (>=0.0, higher is faster bias compensation).
 
-- `imu_filter.steady_state_angular_velocity_threshold` (type: `float`, default:
-  `0.05`)
+- `imu_filter.steady_state_ang_vel_threshold` (type: `float`, default: `0.05`)
 
   Threshold for the angular velocity to determine whether the IMU is in steady
   state. $[\frac{rad}{s}]$
 
 - `imu_filter.steady_state_acceleration_threshold` (type: `float`, default:
-  `0.1`)
+  `0.14`)
 
   Threshold for the magnitude of the linear acceleration (after subtracting
   gravity) to determine whether the IMU is in steady state. $[\frac{m}{s^2}]$
 
-- `imu_filter.steady_state_delta_angular_velocity_threshold` (type: `float`,
-  default: `0.01`)
+- `imu_filter.steady_state_delta_ang_vel_threshold` (type: `float`, default:
+  `0.01`)
 
   Threshold for the change in angular velocity, between two consecutive
   measurements, to determine whether the IMU is in steady state.
@@ -393,11 +518,26 @@ image: /img/robots/raph/raph-rover.webp
   Values on the diagonal of the orientation covariance matrix in the published
   IMU data.
 
+- `imu_filter.angular_velocity_variance` (type: `float`, default: `2e-6`)
+
+  Values on the diagonal of the angular velocity covariance matrix in the
+  published IMU data.
+
+- `imu_filter.linear_acceleration_variance` (type: `float`, default: `2e-4`)
+
+  Values on the diagonal of the linear acceleration covariance matrix in the
+  published IMU data.
+
 ### oak
 
-- `device.mx_id` (type: `string`, read-only, default: `""`)
+- `tf_frame_prefix` (type: `string`, read-only, default: `""`)
 
-  Device MX ID to connect to.
+  Prefix of the TF frame IDs of all published messages (e.g. `robot1/`), for
+  when the robot description is loaded with a prefix.
+
+- `device.id` (type: `string`, read-only, default: `""`)
+
+  Device ID to connect to.
 
 - `device.usb_port_id` (type: `string`, read-only, default: `""`)
 
@@ -438,6 +578,10 @@ image: /img/robots/raph/raph-rover.webp
 
   Number of fractional bits for subpixel mode.
 
+- `depth.extended_disparity_enabled` (type: `bool`, default: `false`)
+
+  Extends the disparity range to detect closer objects.
+
 - `depth.min_distance` (type: `float`, default: `0.0`)
 
   Minimal distance in meters.
@@ -446,6 +590,38 @@ image: /img/robots/raph/raph-rover.webp
 
   Maximal distance in meters.
 
+- `pointcloud.max_rate` (type: `int`, default: `5`)
+
+  Maximum point cloud rate in frames per second. Values above the depth image
+  rate have no effect.
+
+- `nn.enabled` (type: `bool`, read-only, default: `false`)
+
+  Whether to run a neural network on the images from the center (RGB) Oak-D
+  camera and publish its results. The kind of the model (detection,
+  classification or segmentation) is taken from its NNArchive.
+
+- `nn.model` (type: `string`, read-only, default:
+  `luxonis/yolov6-nano:r2-coco-512x384`)
+
+  Path to a local NNArchive file (`.tar.xz`) or, if no such file exists, a
+  Luxonis Model Zoo slug. A Model Zoo slug requires internet access on the first
+  run.
+
+- `nn.fps` (type: `float`, read-only, default: `5.0`)
+
+  Neural network inference rate in frames per second.
+
+- `nn.confidence_threshold` (type: `float`, read-only, default: `0.5`)
+
+  Detections with a lower confidence are discarded. Only used by detection
+  models (0.0-1.0).
+
+- `nn.num_shaves` (type: `int`, read-only, default: `3`)
+
+  Number of SHAVE cores the neural network is compiled for. If the rest of the
+  pipeline leaves fewer cores available, the pipeline fails to start.
+
 - `mono.width` (type: `int`, read-only, default: `1280`)
 
   Mono camera image width.
@@ -453,14 +629,6 @@ image: /img/robots/raph/raph-rover.webp
 - `mono.height` (type: `int`, read-only, default: `800`)
 
   Mono camera image height.
-
-- `mono.isp_scale_num` (type: `int`, read-only, default: `1`)
-
-  ISP scale numerator for mono cameras.
-
-- `mono.isp_scale_den` (type: `int`, read-only, default: `1`)
-
-  ISP scale denominator for mono cameras.
 
 - `mono.fps` (type: `float`, read-only, default: `10.0`)
 
@@ -479,22 +647,51 @@ image: /img/robots/raph/raph-rover.webp
 
   RGB camera image height.
 
-- `rgb.isp_scale_num` (type: `int`, read-only, default: `1`)
-
-  ISP scale numerator for RGB camera.
-
-- `rgb.isp_scale_den` (type: `int`, read-only, default: `3`)
-
-  ISP scale denominator for RGB camera.
-
 - `rgb.fps` (type: `float`, read-only, default: `15.0`)
 
   RGB camera frames per second.
+
+- `rgb.rect_alpha_scaling` (type: `float`, read-only, default: `-1.0`)
+
+  Free scaling parameter of the rectified RGB images (0 keeps only valid pixels,
+  1 keeps all source pixels, -1 uses the DepthAI default).
 
 - `rgb_compressed.jpeg_quality` (type: `int`, read-only, default: `80`)
 
   JPEG quality for RGB compressed images (0-100, higher is better quality and
   bigger size).
+
+### rplidar
+
+The driver runs as the autostarted lifecycle node `rplidar/rplidar_driver`.
+
+- `serial_port` (type: `string`, default: `/dev/ttyS5`)
+
+  Serial port used to connect to the LIDAR.
+
+- `serial_baudrate` (type: `int`, default: `1000000`)
+
+  Serial connection baud rate.
+
+- `angle_compensate` (type: `bool`, default: `true`)
+
+  Whether to compensate scan angles.
+
+- `scan_mode` (type: `string`, default: `Standard`)
+
+  LIDAR scan mode.
+
+- `rpm` (type: `int`, default: `1200`)
+
+  LIDAR motor speed in revolutions per minute.
+
+- `auto_standby` (type: `bool`, default: `true`)
+
+  Whether the driver automatically places the LIDAR in standby when appropriate.
+
+- `publish_tf` (type: `bool`, default: `false`)
+
+  Whether the driver publishes a transform for the LIDAR frame.
 
 {/* TODO: Other nodes parameters */}
 
@@ -510,6 +707,8 @@ image: /img/robots/raph/raph-rover.webp
   https://docs.ros2.org/latest/api/rcl_interfaces/msg/Log.html
 [rcl_interfaces/msg/ParameterEvent]:
   https://docs.ros2.org/latest/api/rcl_interfaces/msg/ParameterEvent.html
+[sensor_msgs/msg/CompressedImage]:
+  https://docs.ros2.org/latest/api/sensor_msgs/msg/CompressedImage.html
 [sensor_msgs/msg/CameraInfo]:
   https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html
 [sensor_msgs/msg/Image]:
@@ -526,6 +725,12 @@ image: /img/robots/raph/raph-rover.webp
   https://docs.ros2.org/latest/api/std_srvs/srv/Trigger.html
 [tf2_msgs/msg/TFMessage]:
   https://docs.ros2.org/latest/api/tf2_msgs/msg/TFMessage.html
+[vision_msgs/msg/Classification]:
+  https://docs.ros.org/en/jazzy/p/vision_msgs/msg/Classification.html
+[vision_msgs/msg/Detection2DArray]:
+  https://docs.ros.org/en/jazzy/p/vision_msgs/msg/Detection2DArray.html
+[vision_msgs/msg/LabelInfo]:
+  https://docs.ros.org/en/jazzy/p/vision_msgs/msg/LabelInfo.html
 [raph_interfaces/msg/BatteryMode]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/BatteryMode.html
 [raph_interfaces/msg/BatteryState]:
@@ -556,6 +761,8 @@ image: /img/robots/raph/raph-rover.webp
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/ServoCommand.html
 [raph_interfaces/msg/WheelCommand]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/msg/WheelCommand.html
+[raph_interfaces/srv/ApplyTfFramePrefix]:
+  https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/ApplyTfFramePrefix.html
 [raph_interfaces/srv/GetControllerInfo]:
   https://docs.ros.org/en/jazzy/p/raph_interfaces/srv/GetControllerInfo.html
 [raph_interfaces/srv/GetOsVersion]:

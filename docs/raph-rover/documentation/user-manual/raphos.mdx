@@ -83,6 +83,12 @@ and many more.
   model from the [raph_description] package and can be extended by the user to
   add additional links or joints to the model.
 
+- **/etc/ros/parameter_overrides.yaml** - a YAML file that contains parameter
+  overrides for the ROS nodes launched on boot. It is used to override default
+  parameters defined in the ROS API:
+
+  <LinkButton docId="documentation/ros-api" />
+
 Additionally, [systemd user units][systemd-user-units] are used to start the ROS
 nodes at boot. The following units are defined:
 

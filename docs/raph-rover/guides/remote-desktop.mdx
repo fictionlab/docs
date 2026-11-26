@@ -1,0 +1,41 @@
+---
+title: How to Access the Raph Rover's Desktop via VNC
+sidebar_label: Connect via remote desktop
+sidebar_position: 3
+description: >-
+  Connect to your Raph Rover's desktop remotely using a VNC client such as
+  TigerVNC Viewer.
+image: /img/robots/raph/guides/remote-desktop/tigervnc.webp
+---
+
+# How to Access the Raph Rover's Desktop via VNC
+
+The `full` version of RaphOS includes a desktop environment and a Virtual
+Network Computing (VNC) server, so you can access your Raph Rover's desktop from
+your computer.
+
+:::warning
+
+The `lite` version of RaphOS does not include a desktop environment or a VNC
+server, so remote desktop access is unavailable.
+
+:::
+
+To access the desktop remotely, first connect your computer to the Rover's Wi-Fi
+network:
+
+<LinkButton docId="guides/connect-to-rover-ap" />
+
+On your computer, install and open [TigerVNC Viewer](https://tigervnc.org/).
+
+Enter `10.10.0.2` in the `VNC server` field, then click **Connect**.
+
+<ImageZoom
+  src="/img/robots/raph/guides/remote-desktop/tigervnc.webp"
+  alt="TigerVNC Viewer connection window"
+  width="448"
+  height="180"
+  figStyle={{
+    width: 400,
+  }}
+/>
